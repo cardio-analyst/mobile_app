@@ -1,0 +1,61 @@
+package `is`.ulstu.cardioanalyst.ui.navigation
+
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentNavigationBinding
+import `is`.ulstu.cardioanalyst.ui.enums.TabItem
+import `is`.ulstu.foundation.views.BaseFragment
+import `is`.ulstu.foundation.views.BaseScreen
+import `is`.ulstu.foundation.views.screenViewModel
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import com.google.android.material.tabs.TabLayout
+
+class NavigationFragment : BaseFragment() {
+
+    // no arguments for this screen
+    class Screen : BaseScreen
+
+    override val viewModel by screenViewModel<NavigationViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentNavigationBinding.inflate(inflater, container, false)
+        viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
+        /*val tabItemsList = listOf(
+            R.drawable.ic_tab_item_general_info,
+            R.drawable.ic_tab_item_heart_indicators,
+            R.drawable.ic_tab_item_lifestyle,
+            R.drawable.ic_tab_item_extra,
+            R.drawable.ic_tab_item_recommendation,
+        )
+
+        with(binding) {
+            for (item in tabItemsList) {
+                val imageView = ImageView(context)
+                imageView.setImageResource(item)
+                tabLayout.addTab(tabLayout.newTab().setCustomView(imageView))
+            }
+        }*/
+
+        binding.tabLayout.addOnTabSelectedListener(tabSelectedListener)
+        return binding.root
+    }
+
+    private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            when (tab.position) {
+                TabItem.GENERAL_INFO.position -> viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
+            }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) {}
+        override fun onTabReselected(tab: TabLayout.Tab) {}
+    }
+}
