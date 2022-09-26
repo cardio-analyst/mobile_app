@@ -9,6 +9,10 @@ class UserDBRepository : IUserRepository {
         TODO("Not yet implemented")
     }
 
+    override fun getAllAvailableRegions(): List<String> {
+        TODO("Not yet implemented")
+    }
+
     override fun enterUser(login: String, password: String) {
         TODO("Not yet implemented")
     }

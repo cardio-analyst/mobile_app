@@ -10,4 +10,7 @@
     <string name="password_text">Пароль</string>
     <string name="email_text">Почта</string>
     <string name="welcome_text">Добро пожаловать!</string>
+    <string name="name_text">ФИО</string>
+    <string name="region_text">Регион проживания</string>
+    <string name="register_text_button">Зарегистрироваться</string>
 </resources>

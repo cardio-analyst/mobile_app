@@ -1,6 +1,7 @@
 package `is`.ulstu.cardioanalyst.models.users
 
 class UserRAMRepository : IUserRepository {
+    private val regionsList: List<String> = listOf("Ульяновск", "Москва", "Питер")
     private val loginPasswordMap: MutableMap<String, Pair<String, String>> =
         mutableMapOf("admin" to ("admin" to "token"))
     private val userList: MutableList<User> =
@@ -28,12 +29,14 @@ class UserRAMRepository : IUserRepository {
 
     override fun getCurrentUserToken(): String = currentUser.token ?: "no_token"
 
+    override fun getAllAvailableRegions(): List<String> = regionsList
+
     override fun enterUser(login: String, password: String) {
         if (loginPasswordMap[login]?.first == password) {
             currentUser = userList.find { it.token == loginPasswordMap[login]?.second }
-                ?: throw Exception("Something wrong, try later")
+                ?: throw Exception("Что-то пошло не так")
         } else {
-            throw Exception("Incorrect user password")
+            throw Exception("Неверно введен пароль")
         }
     }
 
@@ -45,6 +48,8 @@ class UserRAMRepository : IUserRepository {
         middleName: String,
         region: String
     ) {
+        if (loginPasswordMap.containsKey(login))
+            throw Exception("Пользователь с таким именем уже существует")
         loginPasswordMap[login] = password to getToken()
         userList.add(User(loginPasswordMap[login]?.second, firstName, lastName, middleName, region))
     }

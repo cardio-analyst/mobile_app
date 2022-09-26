@@ -29,6 +29,7 @@ class AuthorizationFragment : BaseFragment() {
                     passwordTextEdit.text.toString()
                 )
             }
+            registrationButton.setOnClickListener { viewModel.onRegister() }
         }
         return binding.root
     }

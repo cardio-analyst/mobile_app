@@ -14,6 +14,11 @@ interface IUserRepository : Repository {
     fun getCurrentUserToken(): String
 
     /**
+     * Get all available regions
+     */
+    fun getAllAvailableRegions(): List<String>
+
+    /**
      * Enter user by [login] and [password]
      */
     fun enterUser(login: String, password: String)
