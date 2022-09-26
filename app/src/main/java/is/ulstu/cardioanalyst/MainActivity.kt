@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst
 
+import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
 import `is`.ulstu.cardioanalyst.ui.navigation.NavigationFragment
 import `is`.ulstu.foundation.ActivityScopeViewModel
 import `is`.ulstu.foundation.navigator.FragmentNavigator
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
                 R.anim.pop_enter,
                 R.anim.pop_exit
             ),
-            initialScreenCreator = { NavigationFragment.Screen() }
+            initialScreenCreator = { AuthorizationFragment.Screen() }
         )
         navigator.onCreate(savedInstanceState)
     }

@@ -4,4 +4,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="tab_name_example">TabNameExample</string>
+    <string name="logo_name_first">Карди</string>
+    <string name="logo_name_second">Аналитик</string>
+    <string name="enter_text_button">Войти</string>
+    <string name="password_text">Пароль</string>
+    <string name="email_text">Почта</string>
+    <string name="welcome_text">Добро пожаловать!</string>
 </resources>

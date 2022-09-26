@@ -12,4 +12,21 @@ interface IUserRepository : Repository {
      * Get user token for access database
      */
     fun getCurrentUserToken(): String
+
+    /**
+     * Enter user by [login] and [password]
+     */
+    fun enterUser(login: String, password: String)
+
+    /**
+     * Register new user
+     */
+    fun registerNewUser(
+        login: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        middleName: String,
+        region: String
+    )
 }
