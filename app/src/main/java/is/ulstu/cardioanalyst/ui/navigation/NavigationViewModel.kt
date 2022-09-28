@@ -3,6 +3,7 @@ package `is`.ulstu.cardioanalyst.ui.navigation
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.ui.enums.TabItem
 import `is`.ulstu.cardioanalyst.ui.diseases.DiseasesFragment
+import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.views.BaseViewModel
 
@@ -15,6 +16,9 @@ class NavigationViewModel(
             TabItem.GENERAL_INFO -> {
                 DiseasesFragment.Screen()
             }
+            TabItem.PROFILE -> {
+                ProfileFragment.Screen()
+            }
             /*TabItem.HEART_INDICATORS -> {
                 DesignSettingsFragment.Screen()
             }
@@ -25,9 +29,6 @@ class NavigationViewModel(
                 PhotoSampleSettingsFragment.Screen()
             }
             TabItem.RECOMMENDATION -> {
-                PhotoSampleSettingsFragment.Screen()
-            }
-            TabItem.PROFILE -> {
                 PhotoSampleSettingsFragment.Screen()
             }*/
             else -> {

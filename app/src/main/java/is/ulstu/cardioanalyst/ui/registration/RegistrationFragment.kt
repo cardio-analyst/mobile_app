@@ -4,6 +4,7 @@ import `is`.ulstu.cardioanalyst.databinding.FragmentRegistrationBinding
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
 import `is`.ulstu.foundation.views.screenViewModel
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,28 +25,24 @@ class RegistrationFragment : BaseFragment() {
     ): View {
         val binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         val allAvailableRegions = viewModel.getAllAvailableRegions()
-        val regionAdapter = this.context?.let {
-            ArrayAdapter(
-                it,
-                android.R.layout.simple_spinner_dropdown_item,
-                allAvailableRegions
-            )
-        }
         with(binding) {
-            regionSpinner.adapter = regionAdapter
-            /*regionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
+            regionTextViewAlert.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Выберите регион")
+                builder.setItems(allAvailableRegions.toTypedArray()) {dialog, which ->
+                    regionTextViewAlert.text = allAvailableRegions[which]
                 }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
-            }*/
+                val dialog = builder.create()
+                dialog.show()
+            }
             registrationButton.setOnClickListener {
                 viewModel.onRegisterNewUser(
+                    emailTextEdit.text.toString(),
                     loginTextEdit.text.toString(),
                     passwordTextEdit.text.toString(),
                     nameTextEdit.text.toString(),
-                    allAvailableRegions[regionSpinner.selectedItemPosition]
+                    birthDateTextEdit.text.toString(),
+                    regionTextViewAlert.text.toString()
                 )
             }
         }

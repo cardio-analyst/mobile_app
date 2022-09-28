@@ -7,10 +7,13 @@ class UserRAMRepository : IUserRepository {
     private val userList: MutableList<User> =
         mutableListOf(
             User(
+                "admin",
+                "admin",
                 "token",
                 "Иван",
                 "Иванов",
                 "Иванович",
+                "01.01.1970",
                 "Ульяновск"
             ),
         )
@@ -42,15 +45,17 @@ class UserRAMRepository : IUserRepository {
 
     override fun registerNewUser(
         login: String,
+        email: String,
         password: String,
         firstName: String,
         lastName: String,
         middleName: String,
+        birthDate: String,
         region: String
     ) {
         if (loginPasswordMap.containsKey(login))
             throw Exception("Пользователь с таким именем уже существует")
         loginPasswordMap[login] = password to getToken()
-        userList.add(User(loginPasswordMap[login]?.second, firstName, lastName, middleName, region))
+        userList.add(User(email, login, loginPasswordMap[login]?.second, firstName, lastName, middleName, birthDate, region))
     }
 }

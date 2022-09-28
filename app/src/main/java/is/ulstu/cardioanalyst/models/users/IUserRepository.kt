@@ -28,10 +28,12 @@ interface IUserRepository : Repository {
      */
     fun registerNewUser(
         login: String,
+        email: String,
         password: String,
         firstName: String,
         lastName: String,
         middleName: String,
+        birthDate: String,
         region: String
     )
 }

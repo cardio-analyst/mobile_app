@@ -21,12 +21,14 @@ class NavigationFragment : BaseFragment() {
 
     override val viewModel by screenViewModel<NavigationViewModel>()
 
+    private lateinit var binding: FragmentNavigationBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNavigationBinding.inflate(inflater, container, false)
+        binding = FragmentNavigationBinding.inflate(inflater, container, false)
         viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
         /*val tabItemsList = listOf(
             R.drawable.ic_tab_item_general_info,
@@ -44,18 +46,34 @@ class NavigationFragment : BaseFragment() {
             }
         }*/
 
-        binding.tabLayout.addOnTabSelectedListener(tabSelectedListener)
+        with(binding) {
+            profileButton.setOnClickListener {
+                viewModel.onChooseSettingsMode(TabItem.PROFILE)
+                tabNameTextView.text = TabItem.PROFILE.tabName
+            }
+            tabLayout.addOnTabSelectedListener(tabSelectedListener)
+        }
+
         return binding.root
+    }
+
+    private fun onTabSelected(position: Int) {
+        when (position) {
+            TabItem.GENERAL_INFO.position -> {
+                viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
+                binding.tabNameTextView.text = TabItem.GENERAL_INFO.tabName
+            }
+        }
     }
 
     private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
-            when (tab.position) {
-                TabItem.GENERAL_INFO.position -> viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
-            }
+            this@NavigationFragment.onTabSelected(tab.position)
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab) {}
-        override fun onTabReselected(tab: TabLayout.Tab) {}
+        override fun onTabReselected(tab: TabLayout.Tab) {
+            this@NavigationFragment.onTabSelected(tab.position)
+        }
     }
 }

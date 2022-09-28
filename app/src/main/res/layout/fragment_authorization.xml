@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/emailTextView"
-        android:text="@string/email_text"
+        android:text="@string/email_or_login_text"
         app:layout_constraintBottom_toTopOf="@id/loginTextEdit"
         app:layout_constraintStart_toStartOf="@id/passwordTextEdit"
         style="@style/textViewHint" />
