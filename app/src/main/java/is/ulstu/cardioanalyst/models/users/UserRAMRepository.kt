@@ -56,6 +56,17 @@ class UserRAMRepository : IUserRepository {
         if (loginPasswordMap.containsKey(login))
             throw Exception("Пользователь с таким именем уже существует")
         loginPasswordMap[login] = password to getToken()
-        userList.add(User(email, login, loginPasswordMap[login]?.second, firstName, lastName, middleName, birthDate, region))
+        userList.add(
+            User(
+                email,
+                login,
+                loginPasswordMap[login]?.second,
+                firstName,
+                lastName,
+                middleName,
+                birthDate,
+                region
+            )
+        )
     }
 }
