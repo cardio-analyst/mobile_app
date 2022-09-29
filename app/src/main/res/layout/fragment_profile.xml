@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="80dp"
-    android:layout_marginBottom="60dp"
+    android:layout_marginBottom="40dp"
     android:background="@drawable/top_round_background"
     android:backgroundTint="@color/white">
 
@@ -76,7 +76,7 @@
         android:text="example@email.com"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailTextView"
+        app:layout_constraintTop_toTopOf="@id/emailTextView"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -90,7 +90,7 @@
         android:text="Login123"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/emailTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/loginTextView"
+        app:layout_constraintTop_toTopOf="@+id/loginTextView"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -104,7 +104,7 @@
         android:text="Иванов Иван Иванович"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/loginTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toTopOf="@+id/nameTextView"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -118,7 +118,7 @@
         android:text="01.01.2000"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/nameTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/birthDateTextView"
+        app:layout_constraintTop_toTopOf="@+id/birthDateTextView"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -128,7 +128,7 @@
         android:text="Регион"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/birthDateTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/regionTextView" />
+        app:layout_constraintTop_toTopOf="@+id/regionTextView" />
 
     <EditText
         android:id="@+id/passwordTextEdit"
@@ -142,7 +142,7 @@
         android:text="password"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/nameTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
+        app:layout_constraintTop_toTopOf="@+id/passwordTextView"
         tools:ignore="HardcodedText" />
 
     <Button
