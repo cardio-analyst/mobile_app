@@ -4,4 +4,25 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="tab_name_example">TabNameExample</string>
+    <string name="logo_name_first">Карди</string>
+    <string name="logo_name_second">Аналитик</string>
+    <string name="enter_text_button">Войти</string>
+    <string name="password_text">Пароль</string>
+    <string name="email_or_login_text">Почта или логин</string>
+    <string name="welcome_text">Добро пожаловать!</string>
+    <string name="name_text">ФИО</string>
+    <string name="region_text">Регион проживания</string>
+    <string name="register_text_button">Зарегистрироваться</string>
+    <string name="email_text">Почта</string>
+    <string name="login_text">Логин</string>
+    <string name="birth_date_text">Дата рождения</string>
+    <string name="change_button_text">Изменить</string>
+
+    <string name="tab_item_profile">Профиль</string>
+    <string name="tab_item_diseases">Заболевания</string>
+    <string name="tab_item_heart_indicators">Сердечно-сосудистые показатели</string>
+    <string name="tab_item_lifestyle">Образ жизни</string>
+    <string name="tab_item_extra">Дополнительно</string>
+    <string name="tab_item_recommendation">Рекомендации</string>
+
 </resources>
