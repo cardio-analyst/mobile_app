@@ -17,6 +17,13 @@
     <string name="login_text">Логин</string>
     <string name="birth_date_text">Дата рождения</string>
     <string name="change_button_text">Изменить</string>
+    <string name="save_button_text">Сохранить</string>
+    <string name="choose_region_text">Выберите регион</string>
+    <string name="user_info_save">Изменения успешно сохранены</string>
+
+    <string name="exit_account_alert_dialog_title">Выход из профиля</string>
+    <string name="exit_account_alert_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
+
 
     <string name="tab_item_profile">Профиль</string>
     <string name="tab_item_diseases">Заболевания</string>
@@ -24,5 +31,8 @@
     <string name="tab_item_lifestyle">Образ жизни</string>
     <string name="tab_item_extra">Дополнительно</string>
     <string name="tab_item_recommendation">Рекомендации</string>
+    <string name="cancel_button_text">Отмена</string>
+    <string name="exit_button_text">Выйти</string>
+
 
 </resources>

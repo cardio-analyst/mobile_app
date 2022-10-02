@@ -36,4 +36,12 @@ interface IUserRepository : Repository {
         birthDate: String,
         region: String
     )
+
+    /**
+     * Register new user
+     */
+    fun changeUserParams(
+        user: User,
+        password: String?
+    )
 }

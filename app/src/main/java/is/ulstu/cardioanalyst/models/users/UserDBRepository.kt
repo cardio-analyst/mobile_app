@@ -29,4 +29,8 @@ class UserDBRepository : IUserRepository {
     ) {
         TODO("Not yet implemented")
     }
+
+    override fun changeUserParams(user: User, password: String?) {
+        TODO("Not yet implemented")
+    }
 }

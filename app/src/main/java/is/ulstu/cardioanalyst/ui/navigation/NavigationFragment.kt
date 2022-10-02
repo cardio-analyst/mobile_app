@@ -47,6 +47,7 @@ class NavigationFragment : BaseFragment() {
         }*/
 
         with(binding) {
+            tabNameTextView.text = TabItem.GENERAL_INFO.tabName
             profileButton.setOnClickListener {
                 viewModel.onChooseSettingsMode(TabItem.PROFILE)
                 tabNameTextView.text = TabItem.PROFILE.tabName
