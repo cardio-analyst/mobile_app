@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.ui.registration
 
+import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentRegistrationBinding
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
@@ -28,7 +29,7 @@ class RegistrationFragment : BaseFragment() {
         with(binding) {
             regionTextViewAlert.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
-                builder.setTitle("Выберите регион")
+                builder.setTitle(resources.getString(R.string.choose_region_text))
                 builder.setItems(allAvailableRegions.toTypedArray()) {dialog, which ->
                     regionTextViewAlert.text = allAvailableRegions[which]
                 }
