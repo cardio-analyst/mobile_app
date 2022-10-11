@@ -24,7 +24,6 @@
     <string name="exit_account_alert_dialog_title">Выход из профиля</string>
     <string name="exit_account_alert_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
 
-
     <string name="tab_item_profile">Профиль</string>
     <string name="tab_item_diseases">Заболевания</string>
     <string name="tab_item_heart_indicators">Сердечно-сосудистые показатели</string>
@@ -33,6 +32,6 @@
     <string name="tab_item_recommendation">Рекомендации</string>
     <string name="cancel_button_text">Отмена</string>
     <string name="exit_button_text">Выйти</string>
-
+    <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
 
 </resources>
