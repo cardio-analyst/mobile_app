@@ -28,6 +28,7 @@ class RegistrationFragment : BaseFragment() {
         val allAvailableRegions = viewModel.getAllAvailableRegions()
         with(binding) {
             regionTextViewAlert.setOnClickListener {
+                val regions = allAvailableRegions?.toTypedArray() ?: return@setOnClickListener
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(resources.getString(R.string.choose_region_text))
                 builder.setItems(allAvailableRegions.toTypedArray()) {dialog, which ->

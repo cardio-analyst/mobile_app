@@ -30,23 +30,31 @@ class ProfileFragment : BaseFragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val allAvailableRegions = viewModel.getAllAvailableRegions()
         with(binding) {
+
+            // init region selector
             regionTextViewAlert.setOnClickListener {
+                val regions = allAvailableRegions?.toTypedArray() ?: return@setOnClickListener
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(resources.getString(R.string.choose_region_text))
-                builder.setItems(allAvailableRegions.toTypedArray()) { dialog, which ->
+                builder.setItems(regions) { dialog, which ->
                     regionTextViewAlert.text = allAvailableRegions[which]
                 }
                 val dialog = builder.create()
                 dialog.show()
             }
 
+            // init user information fields
             val currentUserInfo = viewModel.getCurrentUser()
-            emailTextEdit.setText(currentUserInfo.email)
-            loginTextEdit.setText(currentUserInfo.login)
-            nameTextEdit.setText("${currentUserInfo.lastName} ${currentUserInfo.firstName} ${currentUserInfo.middleName}")
-            birthDateTextEdit.setText(currentUserInfo.birthDate)
-            regionTextViewAlert.text = currentUserInfo.region
+            if (currentUserInfo != null) {
+                emailTextEdit.setText(currentUserInfo.email)
+                loginTextEdit.setText(currentUserInfo.login)
+                nameTextEdit.setText("${currentUserInfo.lastName} " +
+                        "${currentUserInfo.firstName} ${currentUserInfo.middleName}")
+                birthDateTextEdit.setText(currentUserInfo.birthDate)
+                regionTextViewAlert.text = currentUserInfo.region
+            }
 
+            // init buttons logic
             exitButton.setOnClickListener {
                 AlertDialog.Builder(this@ProfileFragment.context)
                     .setTitle(R.string.exit_account_alert_dialog_title)
@@ -77,18 +85,6 @@ class ProfileFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun setUserInfo() {
-        with(binding) {
-            val currentUserInfo = viewModel.getCurrentUser()
-            emailTextEdit.setText(currentUserInfo.email)
-            loginTextEdit.setText(currentUserInfo.login)
-            nameTextEdit.setText("${currentUserInfo.lastName} ${currentUserInfo.firstName} ${currentUserInfo.middleName}")
-            birthDateTextEdit.setText(currentUserInfo.birthDate)
-            regionTextViewAlert.text = currentUserInfo.region
-            passwordTextEdit.text = null
-        }
-    }
-
     private fun changeMode(isChangingMode: Boolean = true) {
         with(binding) {
             if (isChangingMode) {
@@ -115,8 +111,6 @@ class ProfileFragment : BaseFragment() {
                     regionTextViewAlert.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
             } else {
-                setUserInfo()
-
                 exitButton.visibility = View.VISIBLE
                 changeButton.visibility = View.VISIBLE
                 saveButton.visibility = View.INVISIBLE

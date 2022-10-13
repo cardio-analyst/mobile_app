@@ -22,14 +22,16 @@ class AuthorizationFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
-        with(binding) {
-            enterButton.setOnClickListener {
-                viewModel.onEnter(
-                    loginTextEdit.text.toString(),
-                    passwordTextEdit.text.toString()
-                )
+        if (!viewModel.checkCurrentAuthToken()) {
+            with(binding) {
+                enterButton.setOnClickListener {
+                    viewModel.onEnter(
+                        loginTextEdit.text.toString(),
+                        passwordTextEdit.text.toString()
+                    )
+                }
+                registrationButton.setOnClickListener { viewModel.onRegister() }
             }
-            registrationButton.setOnClickListener { viewModel.onRegister() }
         }
         return binding.root
     }
