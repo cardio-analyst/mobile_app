@@ -30,22 +30,6 @@ class NavigationFragment : BaseFragment() {
     ): View {
         binding = FragmentNavigationBinding.inflate(inflater, container, false)
         viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
-        /*val tabItemsList = listOf(
-            R.drawable.ic_tab_item_general_info,
-            R.drawable.ic_tab_item_heart_indicators,
-            R.drawable.ic_tab_item_lifestyle,
-            R.drawable.ic_tab_item_extra,
-            R.drawable.ic_tab_item_recommendation,
-        )
-
-        with(binding) {
-            for (item in tabItemsList) {
-                val imageView = ImageView(context)
-                imageView.setImageResource(item)
-                tabLayout.addTab(tabLayout.newTab().setCustomView(imageView))
-            }
-        }*/
-
         with(binding) {
             tabNameTextView.text = TabItem.GENERAL_INFO.tabName
             profileButton.setOnClickListener {
@@ -54,7 +38,6 @@ class NavigationFragment : BaseFragment() {
             }
             tabLayout.addOnTabSelectedListener(tabSelectedListener)
         }
-
         return binding.root
     }
 

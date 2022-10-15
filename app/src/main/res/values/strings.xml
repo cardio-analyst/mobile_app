@@ -6,24 +6,31 @@
     <string name="tab_name_example">TabNameExample</string>
     <string name="logo_name_first">Карди</string>
     <string name="logo_name_second">Аналитик</string>
-    <string name="enter_text_button">Войти</string>
     <string name="password_text">Пароль</string>
     <string name="email_or_login_text">Почта или логин</string>
     <string name="welcome_text">Добро пожаловать!</string>
     <string name="name_text">ФИО</string>
     <string name="region_text">Регион проживания</string>
-    <string name="register_text_button">Зарегистрироваться</string>
     <string name="email_text">Почта</string>
     <string name="login_text">Логин</string>
     <string name="birth_date_text">Дата рождения</string>
+    <string name="choose_region_text">Выберите регион</string>
+
+    <!-- Buttons -->
+    <string name="enter_text_button">Войти</string>
+    <string name="register_text_button">Зарегистрироваться</string>
     <string name="change_button_text">Изменить</string>
     <string name="save_button_text">Сохранить</string>
-    <string name="choose_region_text">Выберите регион</string>
-    <string name="user_info_save">Изменения успешно сохранены</string>
 
+    <!-- Toasts -->
+    <string name="user_info_save">Изменения успешно сохранены</string>
+    <string name="user_sign_up_successful">Регистрация прошла успешно!</string>
+
+    <!-- Alert dialogs -->
     <string name="exit_account_alert_dialog_title">Выход из профиля</string>
     <string name="exit_account_alert_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
 
+    <!-- Tab names -->
     <string name="tab_item_profile">Профиль</string>
     <string name="tab_item_diseases">Заболевания</string>
     <string name="tab_item_heart_indicators">Сердечно-сосудистые показатели</string>
@@ -32,6 +39,15 @@
     <string name="tab_item_recommendation">Рекомендации</string>
     <string name="cancel_button_text">Отмена</string>
     <string name="exit_button_text">Выйти</string>
+
+    <!-- Tooltips -->
     <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
+
+    <!-- Input Exceptions -->
+    <string name="in_ex_incorrect_email">Некорректно введена электронная почта</string>
+    <string name="in_ex_incorrect_full_name">Некорректное ФИО</string>
+    <string name="in_ex_incorrect_birth_date">Неверно введена дата рождения</string>
+    <string name="in_ex_incorrect_region">Пожалуйста, заполните регион</string>
+    <string name="in_ex_incorrect_password">Пароль должен содержать как минимум 7 символов</string>
 
 </resources>

@@ -1,32 +1,34 @@
 package `is`.ulstu.cardioanalyst.models.users
 
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
 import `is`.ulstu.foundation.model.Repository
 
 interface IUserRepository : Repository {
     /**
      * Get user information
      */
-    fun getCurrentUserInfo(): User
-
-    /**
-     * Get user token for access database
-     */
-    fun getCurrentUserToken(): String
+    suspend fun getCurrentUserInfo(): UserInfoResponseEntity
 
     /**
      * Get all available regions
      */
-    fun getAllAvailableRegions(): List<String>
+    suspend fun getAllAvailableRegions(): List<String>
 
     /**
-     * Enter user by [login] and [password]
+     * Enter user by [loginOrEmail] and [password]
      */
-    fun enterUser(login: String, password: String)
+    suspend fun singInUser(loginOrEmail: String, password: String)
+
+    /**
+     * Logout current user
+     */
+    suspend fun logoutUser()
 
     /**
      * Register new user
      */
-    fun registerNewUser(
+    suspend fun signUpUser(
         login: String,
         email: String,
         password: String,
@@ -35,13 +37,19 @@ interface IUserRepository : Repository {
         middleName: String,
         birthDate: String,
         region: String
-    )
+    ): UserSignUpResponseEntity
 
     /**
-     * Register new user
+     * Change user params
      */
-    fun changeUserParams(
-        user: User,
-        password: String?
-    )
+    suspend fun changeUserParams(
+        login: String,
+        email: String,
+        firstName: String,
+        lastName: String,
+        middleName: String,
+        birthDate: String,
+        region: String,
+        password: String
+    ): UserInfoResponseEntity
 }
