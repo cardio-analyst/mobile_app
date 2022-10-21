@@ -10,4 +10,5 @@
     <color name="background_color">#3F3DA9</color>
     <color name="active_color">#DA1010</color>
     <color name="inactive_color">#888888</color>
+    <color name="enter_color">#4961DF</color>
 </resources>
