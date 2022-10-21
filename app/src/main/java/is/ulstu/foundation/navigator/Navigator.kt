@@ -8,7 +8,6 @@ import `is`.ulstu.foundation.views.BaseScreen
 interface Navigator {
 
     /**
-     *
      * Launch a new screen at the top of back stack.
      */
     fun launch(screen: BaseScreen)
@@ -22,4 +21,9 @@ interface Navigator {
      * Go back to the previous screen and optionally send some results.
      */
     fun goBack(result: Any? = null)
+
+    /**
+     * Get backstack fragments count
+     */
+    fun getBackstackFragmentCount(): Int
 }

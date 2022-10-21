@@ -2,13 +2,14 @@ package `is`.ulstu.cardioanalyst.ui.profile
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentProfileBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
 import `is`.ulstu.foundation.views.screenViewModel
 import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
-import android.preference.DialogPreference
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class ProfileFragment : BaseFragment() {
     override val viewModel by screenViewModel<ProfileViewModel>()
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var actionButtonsBinding: PairActionButtonsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +30,10 @@ class ProfileFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val allAvailableRegions = viewModel.getAllAvailableRegions()
+        actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
         with(binding) {
-
             // init region selector
+            val allAvailableRegions = viewModel.getAllAvailableRegions()
             regionTextViewAlert.setOnClickListener {
                 val regions = allAvailableRegions?.toTypedArray() ?: return@setOnClickListener
                 val builder = AlertDialog.Builder(context)
@@ -43,55 +45,67 @@ class ProfileFragment : BaseFragment() {
                 dialog.show()
             }
 
-            // init user information fields
-            val currentUserInfo = viewModel.getCurrentUser()
-            if (currentUserInfo != null) {
-                emailTextEdit.setText(currentUserInfo.email)
-                loginTextEdit.setText(currentUserInfo.login)
-                nameTextEdit.setText("${currentUserInfo.lastName} " +
-                        "${currentUserInfo.firstName} ${currentUserInfo.middleName}")
-                birthDateTextEdit.setText(currentUserInfo.birthDate)
-                regionTextViewAlert.text = currentUserInfo.region
-            }
 
-            // init buttons logic
-            exitButton.setOnClickListener {
-                AlertDialog.Builder(this@ProfileFragment.context)
-                    .setTitle(R.string.exit_account_alert_dialog_title)
-                    .setMessage(R.string.exit_account_alert_dialog_message)
-                    .setPositiveButton(android.R.string.yes) { dialog, _ ->
-                        viewModel.onExitClick()
-                    }
-                    .setNegativeButton(android.R.string.no) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
+            with(actionButtonsBinding) {
+                negativeButton.visibility = View.VISIBLE
+                positiveButton.visibility = View.VISIBLE
             }
-            changeButton.setOnClickListener { changeMode(isChangingMode = true) }
-            saveButton.setOnClickListener {
-                viewModel.saveNewUserInfo(
-                    email = emailTextEdit.text.toString(),
-                    login = loginTextEdit.text.toString(),
-                    password = passwordTextEdit.text.toString(),
-                    name = nameTextEdit.text.toString(),
-                    birthDate = birthDateTextEdit.text.toString(),
-                    region = regionTextViewAlert.text.toString()
-                )
-                changeMode(isChangingMode = false)
-            }
-            cancelButton.setOnClickListener { changeMode(isChangingMode = false) }
+            /* exitButton.setOnClickListener { exitButtonOnClickListener }
+             changeButton.setOnClickListener { changeButtonOnClickListener }
+             actionButtonsBinding.negativeButton.setOnClickListener { cancelButtonOnClickListener }
+             actionButtonsBinding.positiveButton.setOnClickListener { saveButtonOnClickListener }*/
+
+            // init user information fields
+            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_info))
+            resultView.setTryAgainAction { viewModel.reload() }
+            observeUserDetails()
         }
         return binding.root
+    }
+
+    private fun observeUserDetails() {
+        viewModel.user.observeResults(this, binding.root, binding.resultView, { currentUserInfo ->
+            with(binding) {
+                emailTextEdit.setText(currentUserInfo.email)
+                loginTextEdit.setText(currentUserInfo.login)
+                nameTextEdit.setText(
+                    "${currentUserInfo.lastName} " +
+                            "${currentUserInfo.firstName} ${currentUserInfo.middleName}"
+                )
+                birthDateTextEdit.setText(currentUserInfo.birthDate)
+                regionTextViewAlert.text = currentUserInfo.region
+                changeMode(true)
+                changeMode(false)
+            }
+        })
     }
 
     private fun changeMode(isChangingMode: Boolean = true) {
         with(binding) {
             if (isChangingMode) {
-                exitButton.visibility = View.INVISIBLE
-                changeButton.visibility = View.INVISIBLE
-                saveButton.visibility = View.VISIBLE
-                cancelButton.visibility = View.VISIBLE
+                // init buttons logic
+                with(actionButtonsBinding) {
+                    negativeButton.text = "Отмена"
+                    positiveButton.text = "Сохранить"
+                    negativeButton.setOnClickListener {
+                        changeMode(isChangingMode = false)
+                        viewModel.reload()
+                    }
+                    positiveButton.setOnClickListener {
+                        with(binding) {
+                            viewModel.saveNewUserInfo(
+                                email = emailTextEdit.text.toString(),
+                                login = loginTextEdit.text.toString(),
+                                password = passwordTextEdit.text.toString(),
+                                name = nameTextEdit.text.toString(),
+                                birthDate = birthDateTextEdit.text.toString(),
+                                region = regionTextViewAlert.text.toString()
+                            )
+                            changeMode(isChangingMode = false)
+                        }
+                    }
+                }
+
                 passwordTextView.visibility = View.VISIBLE
                 passwordTextEdit.visibility = View.VISIBLE
 
@@ -111,10 +125,26 @@ class ProfileFragment : BaseFragment() {
                     regionTextViewAlert.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
             } else {
-                exitButton.visibility = View.VISIBLE
-                changeButton.visibility = View.VISIBLE
-                saveButton.visibility = View.INVISIBLE
-                cancelButton.visibility = View.INVISIBLE
+                // init buttons logic
+                with(actionButtonsBinding) {
+                    negativeButton.text = "Выйти"
+                    positiveButton.text = "Изменить"
+                    negativeButton.setOnClickListener {
+                        AlertDialog.Builder(this@ProfileFragment.context)
+                            .setTitle(R.string.exit_account_alert_dialog_title)
+                            .setMessage(R.string.exit_account_alert_dialog_message)
+                            .setPositiveButton(android.R.string.yes) { dialog, _ ->
+                                viewModel.onExitClick()
+                            }
+                            .setNegativeButton(android.R.string.no) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .create()
+                            .show()
+                    }
+                    positiveButton.setOnClickListener { changeMode(isChangingMode = true) }
+                }
+
                 passwordTextView.visibility = View.INVISIBLE
                 passwordTextEdit.visibility = View.INVISIBLE
 
@@ -125,8 +155,10 @@ class ProfileFragment : BaseFragment() {
                 regionTextViewAlert.isEnabled = false
                 passwordTextEdit.isEnabled = false
 
-                emailTextEdit.paintFlags = emailTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                loginTextEdit.paintFlags = loginTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                emailTextEdit.paintFlags =
+                    emailTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                loginTextEdit.paintFlags =
+                    loginTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
                 nameTextEdit.paintFlags = nameTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
                 birthDateTextEdit.paintFlags =
                     birthDateTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG

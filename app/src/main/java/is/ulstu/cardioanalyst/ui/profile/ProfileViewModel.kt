@@ -3,25 +3,42 @@ package `is`.ulstu.cardioanalyst.ui.profile
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.*
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
 import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
+import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
+import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import `is`.ulstu.foundation.model.Result
+import androidx.lifecycle.LiveData
+
 
 class ProfileViewModel(
     private val navigator: Navigator,
     private val uiActions: UiActions,
-) : BaseViewModel() {
+) : BaseViewModel(navigator) {
 
     private val userRepository: IUserRepository = Singletons.userRepository
 
-    fun getAllAvailableRegions() = viewModelScope.safeLaunchData {
-        userRepository.getAllAvailableRegions()
+    private val _user = MutableLiveData<Result<UserInfoResponseEntity>>()
+    val user = _user.share()
+
+    fun getAllAvailableRegions() = userRepository.getAllAvailableRegions()
+
+    private fun getCurrentUser() = viewModelScope.safeLaunch {
+        userRepository.getCurrentUserInfo().collect {
+            if (it is Error && it.error is RefreshTokenExpired)
+                throw it.error
+            _user.value = it
+        }
     }
 
-    fun getCurrentUser() = viewModelScope.safeLaunchData {
-        userRepository.getCurrentUserInfo()
+    fun reload() {
+        userRepository.reloadCurrentUserInfo()
     }
 
     fun saveNewUserInfo(
@@ -62,5 +79,9 @@ class ProfileViewModel(
     fun onExitClick() = viewModelScope.safeLaunch {
         userRepository.logoutUser()
         navigator.addFragmentToScreen(R.id.fragmentContainer, AuthorizationFragment.Screen())
+    }
+
+    init {
+        getCurrentUser()
     }
 }

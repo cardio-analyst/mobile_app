@@ -19,6 +19,9 @@ class IntermediateNavigator : Navigator {
         it.goBack(result)
     }
 
+    override fun getBackstackFragmentCount(): Int =
+        targetNavigator.resource?.getBackstackFragmentCount() ?: 0
+
     fun setTarget(navigator: Navigator?) {
         targetNavigator.resource = navigator
     }

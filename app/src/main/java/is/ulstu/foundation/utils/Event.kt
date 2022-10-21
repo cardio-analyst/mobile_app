@@ -1,6 +1,7 @@
 package `is`.ulstu.foundation.utils
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 /**
  * Represents "side effect".
@@ -18,3 +19,8 @@ class Event<T>(
     }
 
 }
+
+/**
+ * Convert mutable live-data into non-mutable live-data.
+ */
+fun <T> MutableLiveData<T>.share(): LiveData<T> = this

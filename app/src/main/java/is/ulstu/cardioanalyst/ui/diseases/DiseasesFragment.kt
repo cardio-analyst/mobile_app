@@ -1,7 +1,9 @@
 package `is`.ulstu.cardioanalyst.ui.diseases
 
 import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
 import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
 import `is`.ulstu.foundation.views.screenViewModel
@@ -20,12 +22,15 @@ class DiseasesFragment : BaseFragment() {
 
     override val viewModel by screenViewModel<DiseasesViewModel>()
 
+    private lateinit var binding: FragmentDiseasesBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentDiseasesBinding.inflate(inflater, container, false)
+        binding = FragmentDiseasesBinding.inflate(inflater, container, false)
+        val actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
         val diseaseNames = viewModel.getUserDiseases().keys.toList()
         var diseaseChecked = viewModel.getUserDiseases().values.toList()
 
@@ -39,8 +44,8 @@ class DiseasesFragment : BaseFragment() {
             }
         with(binding) {
             val buttonVisibility: (visibility: Int) -> Unit = {
-                cancelButton.visibility = it
-                saveButton.visibility = it
+                actionButtonsBinding.negativeButton.visibility = it
+                actionButtonsBinding.positiveButton.visibility = it
             }
 
             diseasesListView.adapter = adapter
@@ -61,14 +66,14 @@ class DiseasesFragment : BaseFragment() {
                         buttonVisibility(View.INVISIBLE)
                     }
                 }
-            cancelButton.setOnClickListener {
+
+            actionButtonsBinding.negativeButton.setOnClickListener {
                 diseaseChecked.forEachIndexed { position, isSelected ->
                     diseasesListView.setItemChecked(position, isSelected)
                 }
                 buttonVisibility(View.INVISIBLE)
-
             }
-            saveButton.setOnClickListener {
+            actionButtonsBinding.positiveButton.setOnClickListener {
                 val newDiseaseChecked = mutableListOf<Boolean>()
                 for (position in 0 until diseasesListView.count) {
                     newDiseaseChecked.add(diseasesListView.isItemChecked(position))

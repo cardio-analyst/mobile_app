@@ -9,7 +9,7 @@ import `is`.ulstu.foundation.views.BaseViewModel
 
 class NavigationViewModel(
     private val navigator: Navigator,
-) : BaseViewModel() {
+) : BaseViewModel(navigator) {
 
     fun onChooseSettingsMode(tabItem: TabItem) {
         val screen = when (tabItem) {

@@ -10,8 +10,8 @@ class RetrofitUsersSource(
 
     private val usersApi = retrofit.create(UsersApi::class.java)
 
-    override suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): String =
-        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestEntity).token }
+    override suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity =
+        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestEntity) }
 
 
     override suspend fun signUp(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity =
@@ -23,4 +23,7 @@ class RetrofitUsersSource(
 
     override suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity =
         wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestEntity) }
+
+    override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity =
+        wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestEntity) }
 }

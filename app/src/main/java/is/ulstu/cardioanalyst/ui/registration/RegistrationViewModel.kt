@@ -3,19 +3,28 @@ package `is`.ulstu.cardioanalyst.ui.registration
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.*
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
 import `is`.ulstu.cardioanalyst.ui.navigation.NavigationFragment
+import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
+import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 
 class RegistrationViewModel(
     private val navigator: Navigator,
-    private val uiActions: UiActions,
-) : BaseViewModel(uiActions) {
+    val uiActions: UiActions,
+) : BaseViewModel(navigator, uiActions) {
 
     private val userRepository: IUserRepository = Singletons.userRepository
+
+    private val _userSignUp = MutableLiveData<Result<UserSignUpResponseEntity>>()
+    val userSignUp = _userSignUp.share()
+
+    private val _userSignIn = MutableLiveData<Result<Unit>>()
+    val userSignIn = _userSignIn.share()
 
     fun getAllAvailableRegions() = viewModelScope.safeLaunchData {
         userRepository.getAllAvailableRegions()
@@ -53,14 +62,45 @@ class RegistrationViewModel(
             fullName[2],
             birthDate,
             region
-        )
-        delay(500)
-        userRepository.singInUser(login, password)
+        ).collect {
+            _userSignUp.value = it
+        }
+    }
 
-        // on Success
-        uiActions.toast(Singletons.getString(R.string.user_sign_up_successful))
+    fun reloadSignInUserRequest(loginOrEmail: String, password: String) =
+        userRepository.reloadSignInUserRequest(loginOrEmail, password)
+
+    fun reloadSignUpUserRequest(
+        email: String,
+        login: String,
+        password: String,
+        name: String,
+        birthDate: String,
+        region: String
+    ) {
+        val fullName = name.split(' ').toList()
+        userRepository.reloadSignUpUserRequest(
+            login,
+            email,
+            password,
+            fullName[1],
+            fullName[0],
+            fullName[2],
+            birthDate,
+            region
+        )
+    }
+
+    fun onEnterNewUser(login: String, password: String) = viewModelScope.safeLaunch {
+        userRepository.signInUser(login, password).collect {
+            _userSignIn.value = it
+        }
+    }
+
+    fun onSuccessSignIn() {
+        // clear stack?
         navigator.goBack()
-        if (Singletons.appSettings.getCurrentToken() != null)
+        if (Singletons.appSettings.getCurrentRefreshToken() != null)
             navigator.addFragmentToScreen(R.id.fragmentContainer, NavigationFragment.Screen())
     }
 }

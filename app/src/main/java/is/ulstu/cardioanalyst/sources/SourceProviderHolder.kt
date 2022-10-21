@@ -2,7 +2,6 @@ package `is`.ulstu.cardioanalyst.sources
 
 import `is`.ulstu.cardioanalyst.app.Const
 import `is`.ulstu.cardioanalyst.app.Singletons
-import `is`.ulstu.cardioanalyst.models.settings.AppSettings
 import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
 import `is`.ulstu.cardioanalyst.sources.base.RetrofitSourcesProvider
 import com.squareup.moshi.Moshi
@@ -39,17 +38,19 @@ object SourceProviderHolder {
      */
     private fun createOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(createAuthorizationInterceptor(Singletons.appSettings))
+            .addInterceptor(
+                createAuthorizationInterceptor()
+            )
             .build()
     }
 
     /**
      * Add Authorization header to each request if JWT-token exists.
      */
-    private fun createAuthorizationInterceptor(settings: AppSettings): Interceptor {
+    private fun createAuthorizationInterceptor(): Interceptor {
         return Interceptor { chain ->
             val newBuilder = chain.request().newBuilder()
-            val token = settings.getCurrentToken()
+            val token = Singletons.appSettings.getUserAccountAccessToken()
             if (token != null) {
                 newBuilder.addHeader("Authorization", Const.BEARER_AUTH + token)
             }

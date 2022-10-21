@@ -10,22 +10,28 @@ class SharedPreferencesAppSettings(
     appContext: Context
 ) : AppSettings {
 
+    private var userAccessToken: String? = null
     private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
-    override fun setCurrentToken(token: String?) {
+    override fun getUserAccountAccessToken(): String? = userAccessToken
+
+    override fun setUserAccountAccessToken(userAccessToken: String?) {
+        this.userAccessToken = userAccessToken
+    }
+
+    override fun setCurrentRefreshToken(token: String?) {
         val editor = sharedPreferences.edit()
         if (token == null)
-            editor.remove(PREF_CURRENT_ACCOUNT_TOKEN)
+            editor.remove(USER_CURRENT_REFRESH_TOKEN)
         else
-            editor.putString(PREF_CURRENT_ACCOUNT_TOKEN, token)
+            editor.putString(USER_CURRENT_REFRESH_TOKEN, token)
         editor.apply()
     }
 
-    override fun getCurrentToken(): String? =
-        sharedPreferences.getString(PREF_CURRENT_ACCOUNT_TOKEN, null)
+    override fun getCurrentRefreshToken(): String? =
+        sharedPreferences.getString(USER_CURRENT_REFRESH_TOKEN, null)
 
     companion object {
-        private const val PREF_CURRENT_ACCOUNT_TOKEN = "currentToken"
+        private const val USER_CURRENT_REFRESH_TOKEN = "currentRefreshToken"
     }
-
 }

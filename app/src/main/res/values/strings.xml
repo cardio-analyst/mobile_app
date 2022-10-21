@@ -50,4 +50,16 @@
     <string name="in_ex_incorrect_region">Пожалуйста, заполните регион</string>
     <string name="in_ex_incorrect_password">Пароль должен содержать как минимум 7 символов</string>
 
+    <!-- App Logic Exceptions -->
+    <string name="app_logic_ex_user_session_expired">
+        Ваша сессия завершена, чтобы продолжить войдите заново</string>
+    <string name="app_logic_ex_connection_ex">Ошибка соединения, пожалуйста, проверьте подключение к Интернету</string>
+    <string name="action_try_again">Попробуйте снова</string>
+    <string name="unknown_exception">Неизвестная ошибка</string>
+
+    <!-- Flow Pending Descriptions -->
+    <string name="flow_pending_auth">Авторизация…</string>
+    <string name="flow_pending_reg">Регистрация…</string>
+    <string name="flow_pending_user_info">Загрузка персональных данных</string>
+
 </resources>

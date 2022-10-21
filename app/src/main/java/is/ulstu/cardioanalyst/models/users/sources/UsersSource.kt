@@ -14,7 +14,7 @@ interface UsersSource {
      * @throws ParseBackendResponseException
      * @return JWT-token
      */
-    suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): String
+    suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity
 
     /**
      * Create a new user account.
@@ -42,5 +42,14 @@ interface UsersSource {
      * @return [UserInfoResponseEntity]
      */
     suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity
+
+    /**
+     * Refresh the user's tokens
+     * @throws ConnectionException
+     * @throws BackendExceptions
+     * @throws ParseBackendResponseException
+     * @return [UserInfoResponseEntity]
+     */
+    suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity
 
 }

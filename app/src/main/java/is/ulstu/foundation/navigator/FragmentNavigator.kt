@@ -52,6 +52,9 @@ class FragmentNavigator(
         activity.onBackPressed()
     }
 
+    override fun getBackstackFragmentCount(): Int =
+        activity.supportFragmentManager.backStackEntryCount
+
     fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true) {
         // as screen classes are inside fragments -> we can create fragment directly from screen
         val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
