@@ -35,7 +35,7 @@ class ProfileFragment : BaseFragment() {
             // init region selector
             val allAvailableRegions = viewModel.getAllAvailableRegions()
             regionTextViewAlert.setOnClickListener {
-                val regions = allAvailableRegions?.toTypedArray() ?: return@setOnClickListener
+                val regions = allAvailableRegions.toTypedArray()
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(resources.getString(R.string.choose_region_text))
                 builder.setItems(regions) { dialog, which ->
@@ -44,16 +44,6 @@ class ProfileFragment : BaseFragment() {
                 val dialog = builder.create()
                 dialog.show()
             }
-
-
-            with(actionButtonsBinding) {
-                negativeButton.visibility = View.VISIBLE
-                positiveButton.visibility = View.VISIBLE
-            }
-            /* exitButton.setOnClickListener { exitButtonOnClickListener }
-             changeButton.setOnClickListener { changeButtonOnClickListener }
-             actionButtonsBinding.negativeButton.setOnClickListener { cancelButtonOnClickListener }
-             actionButtonsBinding.positiveButton.setOnClickListener { saveButtonOnClickListener }*/
 
             // init user information fields
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_info))
@@ -85,8 +75,8 @@ class ProfileFragment : BaseFragment() {
             if (isChangingMode) {
                 // init buttons logic
                 with(actionButtonsBinding) {
-                    negativeButton.text = "Отмена"
-                    positiveButton.text = "Сохранить"
+                    negativeButton.text = resources.getString(R.string.button_text_cancel)
+                    positiveButton.text = resources.getString(R.string.button_text_save)
                     negativeButton.setOnClickListener {
                         changeMode(isChangingMode = false)
                         viewModel.reload()
@@ -127,8 +117,8 @@ class ProfileFragment : BaseFragment() {
             } else {
                 // init buttons logic
                 with(actionButtonsBinding) {
-                    negativeButton.text = "Выйти"
-                    positiveButton.text = "Изменить"
+                    negativeButton.text = resources.getString(R.string.button_text_exit)
+                    positiveButton.text = resources.getString(R.string.button_text_change)
                     negativeButton.setOnClickListener {
                         AlertDialog.Builder(this@ProfileFragment.context)
                             .setTitle(R.string.exit_account_alert_dialog_title)

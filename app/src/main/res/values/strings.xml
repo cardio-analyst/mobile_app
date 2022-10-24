@@ -16,11 +16,13 @@
     <string name="birth_date_text">Дата рождения</string>
     <string name="choose_region_text">Выберите регион</string>
 
-    <!-- Buttons -->
-    <string name="enter_text_button">Войти</string>
-    <string name="register_text_button">Зарегистрироваться</string>
-    <string name="change_button_text">Изменить</string>
-    <string name="save_button_text">Сохранить</string>
+    <!-- Button's texts -->
+    <string name="button_text_sign_in">Войти</string>
+    <string name="button_text_sign_up">Зарегистрироваться</string>
+    <string name="button_text_exit">Выйти</string>
+    <string name="button_text_save">Сохранить</string>
+    <string name="button_text_cancel">Отмена</string>
+    <string name="button_text_change">Изменить</string>
 
     <!-- Toasts -->
     <string name="user_info_save">Изменения успешно сохранены</string>

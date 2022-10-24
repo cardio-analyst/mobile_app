@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.app
 
 object Const {
-    const val BASE_URL = "https://cardio-analyst-backend.herokuapp.com/api/v1/"
+    const val BASE_URL = "https://cardio-analyst-backend-2.herokuapp.com/api/v1/"
     const val BEARER_AUTH = "Bearer "
 
     const val REGEX_EMAIL =

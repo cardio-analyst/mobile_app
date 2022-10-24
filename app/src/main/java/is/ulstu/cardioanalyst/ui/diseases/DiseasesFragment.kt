@@ -33,6 +33,8 @@ class DiseasesFragment : BaseFragment() {
         val actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
         val diseaseNames = viewModel.getUserDiseases().keys.toList()
         var diseaseChecked = viewModel.getUserDiseases().values.toList()
+        actionButtonsBinding.negativeButton.visibility = View.INVISIBLE
+        actionButtonsBinding.positiveButton.visibility = View.INVISIBLE
 
         val adapter =
             this.context?.let {

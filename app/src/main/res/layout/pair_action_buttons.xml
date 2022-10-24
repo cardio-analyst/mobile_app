@@ -8,13 +8,8 @@
 
     <Button
         android:id="@+id/negativeButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/active_color"
-        android:text="@string/cancel_button_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_medium"
-        android:visibility="invisible"
+        android:text="@string/button_text_cancel"
+        style="@style/button_negative"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/positiveButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,13 +17,8 @@
 
     <Button
         android:id="@+id/positiveButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/enter_color"
-        android:text="@string/save_button_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_medium"
-        android:visibility="invisible"
+        android:text="@string/button_text_save"
+        style="@style/button_positive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/negativeButton"
