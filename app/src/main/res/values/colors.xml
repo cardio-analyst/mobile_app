@@ -11,5 +11,4 @@
     <color name="active_color">#DA1010</color>
     <color name="inactive_color">#888888</color>
     <color name="enter_color">#4961DF</color>
-    <color name="black_shadow">#FC000000</color>
 </resources>
