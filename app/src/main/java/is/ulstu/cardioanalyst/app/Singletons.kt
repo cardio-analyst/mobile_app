@@ -1,7 +1,8 @@
 package `is`.ulstu.cardioanalyst.app
 
-import `is`.ulstu.cardioanalyst.models.diseases.DiseasesRAMRepository
+import `is`.ulstu.cardioanalyst.models.diseases.DiseasesDBRepository
 import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
+import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.settings.AppSettings
 import `is`.ulstu.cardioanalyst.models.settings.SharedPreferencesAppSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
@@ -23,6 +24,10 @@ object Singletons {
         sourcesProvider.getUsersSource()
     }
 
+    val diseasesSource: DiseasesSource by lazy {
+        sourcesProvider.getDiseasesSource()
+    }
+
     // --- repositories
 
     val userRepository: IUserRepository by lazy {
@@ -30,7 +35,7 @@ object Singletons {
     }
 
     val diseasesRepository: IDiseasesRepository by lazy {
-        DiseasesRAMRepository()
+        DiseasesDBRepository()
     }
 
     // --- context methods

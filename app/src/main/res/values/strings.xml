@@ -16,6 +16,17 @@
     <string name="birth_date_text">Дата рождения</string>
     <string name="choose_region_text">Выберите регион</string>
 
+    <!-- Diseases -->
+    <string name="cvdPredisposed">Наличие сердечно сосудистых заболеваний у ближайших родственников в возрасте до 70 лет</string>
+    <string name="takesStatins">Прием статинов</string>
+    <string name="hasChronicKidneyDisease">Хроническая болезнь почек</string>
+    <string name="hasArterialHypertension">Артериальная гипертония</string>
+    <string name="hasIschemicHeartDisease">Ишемическая болезнь сердца</string>
+    <string name="hasTypeTwoDiabetes">Сахарный диабет 2 типа</string>
+    <string name="hadInfarctionOrStroke">Инфаркт миокарда</string>
+    <string name="hasAtherosclerosis">Инсульт</string>
+    <string name="hasOtherCVD">Атеросклероз</string>
+
     <!-- Button's texts -->
     <string name="button_text_sign_in">Войти</string>
     <string name="button_text_sign_up">Зарегистрироваться</string>
@@ -63,5 +74,7 @@
     <string name="flow_pending_auth">Авторизация…</string>
     <string name="flow_pending_reg">Регистрация…</string>
     <string name="flow_pending_user_info">Загрузка персональных данных</string>
+    <string name="flow_pending_user_diseases_load">Загрузка персональных данных о заболеваниях</string>
+    <string name="flow_pending_user_diseases_save">Сохранение данных о заболеваниях</string>
 
 </resources>

@@ -1,9 +1,10 @@
 package `is`.ulstu.cardioanalyst.ui.diseases
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
 import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
+import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
 import `is`.ulstu.foundation.views.screenViewModel
@@ -23,6 +24,8 @@ class DiseasesFragment : BaseFragment() {
     override val viewModel by screenViewModel<DiseasesViewModel>()
 
     private lateinit var binding: FragmentDiseasesBinding
+    private lateinit var actionButtonsBinding: PairActionButtonsBinding
+    private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,62 +33,113 @@ class DiseasesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiseasesBinding.inflate(inflater, container, false)
-        val actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
-        val diseaseNames = viewModel.getUserDiseases().keys.toList()
-        var diseaseChecked = viewModel.getUserDiseases().values.toList()
-        actionButtonsBinding.negativeButton.visibility = View.INVISIBLE
-        actionButtonsBinding.positiveButton.visibility = View.INVISIBLE
+        actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
 
-        val adapter =
-            this.context?.let {
-                ArrayAdapter(
-                    it,
-                    R.layout.simple_list_item_multiple_choice,
-                    diseaseNames
-                )
-            }
-        with(binding) {
-            val buttonVisibility: (visibility: Int) -> Unit = {
-                actionButtonsBinding.negativeButton.visibility = it
-                actionButtonsBinding.positiveButton.visibility = it
-            }
+        with(actionButtonsBinding) {
+            negativeButton.visibility = View.INVISIBLE
+            positiveButton.visibility = View.INVISIBLE
 
-            diseasesListView.adapter = adapter
-            diseasesListView.choiceMode = ListView.CHOICE_MODE_MULTIPLE
-            diseaseChecked.forEachIndexed { position, isSelected ->
-                if (isSelected) diseasesListView.setItemChecked(
-                    position,
-                    isSelected
-                )
-            }
-            diseasesListView.onItemClickListener =
-                AdapterView.OnItemClickListener { _, _, _, _ ->
-                    for (position in 0 until diseasesListView.count) {
-                        if (diseasesListView.isItemChecked(position) != diseaseChecked[position]) {
-                            buttonVisibility(View.VISIBLE)
-                            break
-                        }
-                        buttonVisibility(View.INVISIBLE)
-                    }
-                }
-
-            actionButtonsBinding.negativeButton.setOnClickListener {
-                diseaseChecked.forEachIndexed { position, isSelected ->
-                    diseasesListView.setItemChecked(position, isSelected)
-                }
-                buttonVisibility(View.INVISIBLE)
-            }
-            actionButtonsBinding.positiveButton.setOnClickListener {
-                val newDiseaseChecked = mutableListOf<Boolean>()
-                for (position in 0 until diseasesListView.count) {
-                    newDiseaseChecked.add(diseasesListView.isItemChecked(position))
-                }
-                val map = diseaseNames.zip(newDiseaseChecked).toMap()
-                viewModel.setUserDiseases(map)
-                diseaseChecked = viewModel.getUserDiseases().values.toList()
-                buttonVisibility(View.INVISIBLE)
+            buttonVisibility = {
+                negativeButton.visibility = it
+                positiveButton.visibility = it
             }
         }
+
+        with(binding) {
+            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_diseases_load))
+            resultView.setTryAgainAction { viewModel.reloadDiseases() }
+        }
+
+        observeDiseases()
+        observeDiseasesSave()
         return binding.root
+    }
+
+    private fun observeDiseases() {
+        viewModel.diseases.observeResults(this, binding.root, binding.resultView, { data ->
+            with(binding) {
+                val diseases = mapOf(
+                    resources.getString(R.string.cvdPredisposed) to data.cvdPredisposed,
+                    resources.getString(R.string.takesStatins) to data.takesStatins,
+                    resources.getString(R.string.hasChronicKidneyDisease) to data.hasChronicKidneyDisease,
+                    resources.getString(R.string.hasArterialHypertension) to data.hasArterialHypertension,
+                    resources.getString(R.string.hasIschemicHeartDisease) to data.hasIschemicHeartDisease,
+                    resources.getString(R.string.hasTypeTwoDiabetes) to data.hasTypeTwoDiabetes,
+                    resources.getString(R.string.hadInfarctionOrStroke) to data.hadInfarctionOrStroke,
+                    resources.getString(R.string.hasAtherosclerosis) to data.hasAtherosclerosis,
+                    resources.getString(R.string.hasOtherCVD) to data.hasOtherCVD,
+                )
+                val adapter =
+                    this@DiseasesFragment.context?.let {
+                        ArrayAdapter(
+                            it,
+                            R.layout.simple_list_item_multiple_choice,
+                            diseases.keys.toList()
+                        )
+                    }
+
+                diseasesListView.adapter = adapter
+                diseasesListView.choiceMode = ListView.CHOICE_MODE_MULTIPLE
+                val diseasesValues = diseases.values.toList()
+                diseasesValues.forEachIndexed { position, isSelected ->
+                    if (isSelected) diseasesListView.setItemChecked(
+                        position,
+                        isSelected
+                    )
+                }
+
+                diseasesListView.onItemClickListener =
+                    AdapterView.OnItemClickListener { _, _, _, _ ->
+                        for (position in 0 until diseasesListView.count) {
+                            if (diseasesListView.isItemChecked(position) != diseasesValues[position]) {
+                                buttonVisibility(View.VISIBLE)
+                                break
+                            }
+                            buttonVisibility(View.INVISIBLE)
+                        }
+                    }
+
+                actionButtonsBinding.negativeButton.setOnClickListener {
+                    diseasesValues.forEachIndexed { position, isSelected ->
+                        diseasesListView.setItemChecked(position, isSelected)
+                    }
+                    buttonVisibility(View.INVISIBLE)
+                }
+
+                actionButtonsBinding.positiveButton.setOnClickListener {
+                    val newDiseasesMainEntity = DiseasesMainEntity(
+                        cvdPredisposed = diseasesListView.isItemChecked(0),
+                        takesStatins = diseasesListView.isItemChecked(1),
+                        hasChronicKidneyDisease = diseasesListView.isItemChecked(2),
+                        hasArterialHypertension = diseasesListView.isItemChecked(3),
+                        hasIschemicHeartDisease = diseasesListView.isItemChecked(4),
+                        hasTypeTwoDiabetes = diseasesListView.isItemChecked(5),
+                        hadInfarctionOrStroke = diseasesListView.isItemChecked(6),
+                        hasAtherosclerosis = diseasesListView.isItemChecked(7),
+                        hasOtherCVD = diseasesListView.isItemChecked(8)
+                    )
+                    with(binding) {
+                        resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_diseases_save))
+                        resultView.setTryAgainAction {
+                            viewModel.reloadDiseasesSave(
+                                newDiseasesMainEntity
+                            )
+                        }
+                    }
+                    viewModel.setUserDiseases(newDiseasesMainEntity)
+                    buttonVisibility(View.INVISIBLE)
+                }
+            }
+        })
+    }
+
+    private fun observeDiseasesSave() {
+        viewModel.diseasesSave.observeResults(this, binding.root, binding.resultView, { data ->
+            viewModel.onSuccessSaveToast()
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_diseases_load))
+                resultView.setTryAgainAction { viewModel.reloadDiseases() }
+            }
+        })
     }
 }
