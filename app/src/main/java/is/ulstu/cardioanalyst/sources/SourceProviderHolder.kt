@@ -34,7 +34,7 @@ object SourceProviderHolder {
 
     /**
      * Create an instance of OkHttpClient with interceptors for authorization
-     * and logging (see [createAuthorizationInterceptor]
+     * @see [createAuthorizationInterceptor]
      */
     private fun createOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()

@@ -41,6 +41,11 @@ open class BaseRetrofitSource(retrofitConfig: RetrofitConfig) {
         }
     }
 
+    /**
+     * Regulated exceptions from Backend
+     * @throws ParseBackendResponseException
+     * @return [BackendExceptions]
+     */
     private fun createBackendException(e: HttpException): Exception {
         return try {
             val errorBody: ErrorResponseBody = errorAdapter.fromJson(

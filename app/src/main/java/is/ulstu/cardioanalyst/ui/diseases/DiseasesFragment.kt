@@ -2,6 +2,7 @@ package `is`.ulstu.cardioanalyst.ui.diseases
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
+import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import `is`.ulstu.foundation.model.observeResults
@@ -15,34 +16,27 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import by.kirich1409.viewbindingdelegate.viewBinding
 
-class DiseasesFragment : BaseFragment() {
+class DiseasesFragment : BaseFragment(R.layout.fragment_diseases) {
 
     // no arguments for this screen
     class Screen : BaseScreen
 
     override val viewModel by screenViewModel<DiseasesViewModel>()
 
-    private lateinit var binding: FragmentDiseasesBinding
-    private lateinit var actionButtonsBinding: PairActionButtonsBinding
+    private val binding by viewBinding(FragmentDiseasesBinding::bind)
+    private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDiseasesBinding.inflate(inflater, container, false)
-        actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         with(actionButtonsBinding) {
-            negativeButton.visibility = View.INVISIBLE
-            positiveButton.visibility = View.INVISIBLE
-
             buttonVisibility = {
                 negativeButton.visibility = it
                 positiveButton.visibility = it
             }
+            buttonVisibility(View.INVISIBLE)
         }
 
         with(binding) {
@@ -52,7 +46,6 @@ class DiseasesFragment : BaseFragment() {
 
         observeDiseases()
         observeDiseasesSave()
-        return binding.root
     }
 
     private fun observeDiseases() {

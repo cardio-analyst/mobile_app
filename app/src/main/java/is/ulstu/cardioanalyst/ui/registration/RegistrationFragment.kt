@@ -8,30 +8,26 @@ import `is`.ulstu.foundation.views.BaseScreen
 import `is`.ulstu.foundation.views.screenViewModel
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 
-class RegistrationFragment : BaseFragment() {
+class RegistrationFragment : BaseFragment(R.layout.fragment_registration) {
 
     // no arguments for this screen
     class Screen : BaseScreen
 
     override val viewModel by screenViewModel<RegistrationViewModel>()
 
-    private lateinit var binding: FragmentRegistrationBinding
+    private val binding by viewBinding(FragmentRegistrationBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         with(binding) {
             observeUserSignUp()
             observeUserSignIn()
             regionTextViewAlert.setOnClickListener {
-                val regions = viewModel.getAllAvailableRegions()?.toTypedArray() ?: return@setOnClickListener
+                val regions =
+                    viewModel.getAllAvailableRegions()?.toTypedArray() ?: return@setOnClickListener
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle(resources.getString(R.string.choose_region_text))
                 builder.setItems(regions) { dialog, which ->
@@ -60,7 +56,6 @@ class RegistrationFragment : BaseFragment() {
                 )
             }
         }
-        return binding.root
     }
 
     private fun observeUserSignUp() {

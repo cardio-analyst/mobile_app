@@ -78,17 +78,34 @@ class RegistrationViewModel(
         birthDate: String,
         region: String
     ) {
-        val fullName = name.split(' ').toList()
-        userRepository.reloadSignUpUserRequest(
-            login,
-            email,
-            password,
-            fullName[1],
-            fullName[0],
-            fullName[2],
-            birthDate,
-            region
-        )
+        val regexEmail = Regex(Const.REGEX_EMAIL)
+        val regexDate = Regex(Const.REGEX_DATE)
+
+        try {
+            val fullName = name.split(' ').toList()
+            if (!regexEmail.matches(email))
+                throw IncorrectEmailException()
+            if (fullName.size != 3)
+                throw IncorrectFullNameException()
+            if (!regexDate.matches(birthDate))
+                throw IncorrectBirthDateException()
+            if (region == "")
+                throw IncorrectRegionException()
+            if (password.length < 7)
+                throw IncorrectPasswordException()
+            userRepository.reloadSignUpUserRequest(
+                login,
+                email,
+                password,
+                fullName[1],
+                fullName[0],
+                fullName[2],
+                birthDate,
+                region
+            )
+        } catch (_: Exception) {
+            // nothing to do
+        }
     }
 
     fun onEnterNewUser(login: String, password: String) = viewModelScope.safeLaunch {

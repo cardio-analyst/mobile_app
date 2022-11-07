@@ -7,6 +7,7 @@ import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 
 class DiseasesDBRepository : IDiseasesRepository {
+
     private val diseasesSource = Singletons.diseasesSource
 
     // --- Lazy Repository Flows for observers

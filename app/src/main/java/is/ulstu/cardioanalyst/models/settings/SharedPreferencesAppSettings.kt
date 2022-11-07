@@ -19,12 +19,12 @@ class SharedPreferencesAppSettings(
         this.userAccessToken = userAccessToken
     }
 
-    override fun setCurrentRefreshToken(token: String?) {
+    override fun setCurrentRefreshToken(userRefreshToken: String?) {
         val editor = sharedPreferences.edit()
-        if (token == null)
+        if (userRefreshToken == null)
             editor.remove(USER_CURRENT_REFRESH_TOKEN)
         else
-            editor.putString(USER_CURRENT_REFRESH_TOKEN, token)
+            editor.putString(USER_CURRENT_REFRESH_TOKEN, userRefreshToken)
         editor.apply()
     }
 
@@ -32,6 +32,9 @@ class SharedPreferencesAppSettings(
         sharedPreferences.getString(USER_CURRENT_REFRESH_TOKEN, null)
 
     companion object {
+        /**
+         * Key for refresh token in [SharedPreferences]
+         */
         private const val USER_CURRENT_REFRESH_TOKEN = "currentRefreshToken"
     }
 }

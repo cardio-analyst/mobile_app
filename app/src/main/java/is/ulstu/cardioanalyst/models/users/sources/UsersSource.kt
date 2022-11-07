@@ -12,7 +12,7 @@ interface UsersSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return JWT-token
+     * @return [UserSignInResponseEntity] which contains [accessToken] and [refreshToken] tokens
      */
     suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity
 
@@ -48,7 +48,7 @@ interface UsersSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity]
+     * @return [UserInfoResponseEntity] which contains [accessToken] and [refreshToken] tokens
      */
     suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity
 
