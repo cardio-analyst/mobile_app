@@ -10,27 +10,21 @@ import `is`.ulstu.foundation.views.screenViewModel
 import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
     // no arguments for this screen
     class Screen : BaseScreen
 
     override val viewModel by screenViewModel<ProfileViewModel>()
 
-    private lateinit var binding: FragmentProfileBinding
-    private lateinit var actionButtonsBinding: PairActionButtonsBinding
+    private val binding by viewBinding(FragmentProfileBinding::bind)
+    private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-        actionButtonsBinding = PairActionButtonsBinding.bind(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         with(binding) {
             // init region selector
             val allAvailableRegions = viewModel.getAllAvailableRegions()
@@ -50,7 +44,6 @@ class ProfileFragment : BaseFragment() {
             resultView.setTryAgainAction { viewModel.reload() }
             observeUserDetails()
         }
-        return binding.root
     }
 
     private fun observeUserDetails() {

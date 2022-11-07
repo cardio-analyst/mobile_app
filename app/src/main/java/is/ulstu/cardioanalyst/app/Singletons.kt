@@ -3,6 +3,9 @@ package `is`.ulstu.cardioanalyst.app
 import `is`.ulstu.cardioanalyst.models.diseases.DiseasesDBRepository
 import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
+import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
+import `is`.ulstu.cardioanalyst.models.laboratory_research.LaboratoryResearchDBRepository
+import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.settings.AppSettings
 import `is`.ulstu.cardioanalyst.models.settings.SharedPreferencesAppSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
@@ -28,6 +31,10 @@ object Singletons {
         sourcesProvider.getDiseasesSource()
     }
 
+    val laboratoryResearchSource: LaboratoryResearchSource by lazy {
+        sourcesProvider.getLaboratoryResearchSource()
+    }
+
     // --- repositories
 
     val userRepository: IUserRepository by lazy {
@@ -38,9 +45,16 @@ object Singletons {
         DiseasesDBRepository()
     }
 
+    val laboratoryResearchRepository: ILaboratoryResearchRepository by lazy {
+        LaboratoryResearchDBRepository()
+    }
+
     // --- context methods
 
     fun getString(id: Int) = appContext.resources.getString(id)
+
+    fun getString(id: Int, vararg formatArgs: Any) =
+        appContext.resources.getString(id, *formatArgs)
 
     fun init(appContext: Context) {
         Singletons.appContext = appContext

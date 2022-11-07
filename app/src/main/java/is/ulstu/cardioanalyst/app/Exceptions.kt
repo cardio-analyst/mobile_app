@@ -15,7 +15,8 @@ open class AppException : RuntimeException {
 
 // --- Different Exceptions
 
-class ConnectionException(cause: Throwable) : AppException(Singletons.getString(R.string.app_logic_ex_connection_ex), cause = cause)
+class ConnectionException(cause: Throwable) :
+    AppException(Singletons.getString(R.string.app_logic_ex_connection_ex), cause = cause)
 
 class ParseBackendResponseException(
     cause: Throwable

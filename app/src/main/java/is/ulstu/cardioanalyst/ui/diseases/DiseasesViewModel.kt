@@ -27,7 +27,6 @@ class DiseasesViewModel(
     private val _diseasesSave = MutableLiveData<Result<DiseasesMainEntity>>()
     val diseasesSave = _diseasesSave.share()
 
-    // Change to safeScope
     private fun getUserDiseases() = viewModelScope.safeLaunch {
         diseasesRepository.getUserDiseases().collect {
             if (it is Error && it.error is RefreshTokenExpired)

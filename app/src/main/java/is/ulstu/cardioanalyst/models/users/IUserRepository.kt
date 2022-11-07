@@ -10,6 +10,7 @@ interface IUserRepository : Repository {
 
     /**
      * Get user information
+     * @return [Flow]
      */
     fun getCurrentUserInfo(): Flow<Result<UserInfoResponseEntity>>
 
@@ -20,6 +21,7 @@ interface IUserRepository : Repository {
 
     /**
      * Get all available regions
+     * @return [List]
      */
     fun getAllAvailableRegions(): List<String>
 
@@ -30,11 +32,16 @@ interface IUserRepository : Repository {
 
     /**
      * Enter user by [loginOrEmail] and [password]
+     * @param loginOrEmail [String]
+     * @param password [String]
+     * @return [Flow]
      */
     fun signInUser(loginOrEmail: String, password: String): Flow<Result<Unit>>
 
     /**
      * Reload user sign in request in case error
+     * @param loginOrEmail [String]
+     * @param password [String]
      */
     fun reloadSignInUserRequest(loginOrEmail: String, password: String)
 

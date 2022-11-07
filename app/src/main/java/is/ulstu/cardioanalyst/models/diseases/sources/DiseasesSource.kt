@@ -4,7 +4,6 @@ import `is`.ulstu.cardioanalyst.app.BackendExceptions
 import `is`.ulstu.cardioanalyst.app.ConnectionException
 import `is`.ulstu.cardioanalyst.app.ParseBackendResponseException
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
 
 interface DiseasesSource {
     /**
@@ -12,16 +11,17 @@ interface DiseasesSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity]
+     * @return [DiseasesMainEntity]
      */
     suspend fun getUserDiseases(): DiseasesMainEntity
 
     /**
      * Change the user diseases
+     * @param diseasesMainEntity [DiseasesMainEntity]
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity]
+     * @return [DiseasesMainEntity]
      */
     suspend fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): DiseasesMainEntity
 }

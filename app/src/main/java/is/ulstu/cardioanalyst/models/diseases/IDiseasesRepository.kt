@@ -8,11 +8,14 @@ import kotlinx.coroutines.flow.Flow
 interface IDiseasesRepository : Repository {
     /**
      * Get all available diseases to check
+     * @return [Flow]
      */
     fun getUserDiseases(): Flow<Result<DiseasesMainEntity>>
 
     /**
      * Set user diseases
+     * @param diseasesMainEntity [DiseasesMainEntity]
+     * @return [Flow]
      */
     fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): Flow<Result<DiseasesMainEntity>>
 
@@ -23,6 +26,7 @@ interface IDiseasesRepository : Repository {
 
     /**
      * Reload set user's diseases request in case error
+     * @param diseasesMainEntity [DiseasesMainEntity]
      */
     fun reloadSetDiseasesUserRequest(diseasesMainEntity: DiseasesMainEntity)
 

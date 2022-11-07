@@ -27,6 +27,20 @@
     <string name="hasAtherosclerosis">Инсульт</string>
     <string name="hasOtherCVD">Атеросклероз</string>
 
+    <!-- Laboratory Research -->
+    <string name="lab_res_default_tooltip">Заполните и сохраните текущие результаты анализов</string>
+    <string name="high_density_cholesterol">Холестерин высокой плотности (ЛПВП)</string>
+    <string name="low_density_cholesterol">Холестерин низкой плотности (ЛПНП)</string>
+    <string name="triglycerides">Триглицериды</string>
+    <string name="lipoprotein">Липопротеин</string>
+    <string name="highly_sensitive_C_reactive_protein">Высокочувствительный С-реактивный белок (кардио)</string>
+    <string name="atherogenic_coefficient">Коэффициент атерогенности</string>
+    <string name="creatinine">Креатинин</string>
+    <string name="uzdmag_results">Результаты УЗДМАГ. Наличие атеросклеротических бляшек</string>
+    <string name="unit_mmol_by_l">ммоль/л</string>
+    <string name="unit_g_by_l">г/л</string>
+    <string name="unit_mg_by_l">мг/л</string>
+
     <!-- Button's texts -->
     <string name="button_text_sign_in">Войти</string>
     <string name="button_text_sign_up">Зарегистрироваться</string>
@@ -34,10 +48,14 @@
     <string name="button_text_save">Сохранить</string>
     <string name="button_text_cancel">Отмена</string>
     <string name="button_text_change">Изменить</string>
+    <string name="button_text_reset">Сбросить</string>
+    <string name="button_text_add">Добавить</string>
 
     <!-- Toasts -->
-    <string name="user_info_save">Изменения успешно сохранены</string>
+    <string name="user_info_save">Изменения успешно обновлены</string>
+    <string name="user_info_create">Изменения успешно сохранены</string>
     <string name="user_sign_up_successful">Регистрация прошла успешно!</string>
+    <string name="out_of_range_toast">Показатель: %s, должен быть в диапазоне от %.1f до %.1f</string>
 
     <!-- Alert dialogs -->
     <string name="exit_account_alert_dialog_title">Выход из профиля</string>
@@ -50,11 +68,10 @@
     <string name="tab_item_lifestyle">Образ жизни</string>
     <string name="tab_item_extra">Дополнительно</string>
     <string name="tab_item_recommendation">Рекомендации</string>
-    <string name="cancel_button_text">Отмена</string>
-    <string name="exit_button_text">Выйти</string>
 
     <!-- Tooltips -->
     <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
+    <string name="laboratory_research_tooltip">Пожалуйста, заполните данные лабораторных исследований</string>
 
     <!-- Input Exceptions -->
     <string name="in_ex_incorrect_email">Некорректно введена электронная почта</string>
@@ -76,5 +93,7 @@
     <string name="flow_pending_user_info">Загрузка персональных данных</string>
     <string name="flow_pending_user_diseases_load">Загрузка персональных данных о заболеваниях</string>
     <string name="flow_pending_user_diseases_save">Сохранение данных о заболеваниях</string>
+    <string name="flow_pending_user_laboratory_research_load">Загрузка персональных данных об анализах</string>
+    <string name="flow_pending_user_laboratory_research_save">Сохранение персональных данных об анализах</string>
 
 </resources>

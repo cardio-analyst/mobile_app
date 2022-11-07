@@ -2,6 +2,7 @@ package `is`.ulstu.cardioanalyst.ui.authorization
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
+import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
@@ -10,23 +11,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 
-class AuthorizationFragment : BaseFragment() {
+class AuthorizationFragment : BaseFragment(R.layout.fragment_authorization) {
 
     // no arguments for this screen
     class Screen : BaseScreen
 
     override val viewModel by screenViewModel<AuthorizationViewModel>()
 
-    private lateinit var binding: FragmentAuthorizationBinding
+    private val binding by viewBinding(FragmentAuthorizationBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.checkCurrentAuthToken()
-        binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_auth))
             observeUserSignIn()
@@ -42,7 +40,6 @@ class AuthorizationFragment : BaseFragment() {
             }
             registrationButton.setOnClickListener { viewModel.onRegister() }
         }
-        return binding.root
     }
 
     private fun observeUserSignIn() {

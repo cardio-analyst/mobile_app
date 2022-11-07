@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/laboratoryResearchTooltip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/enter_color"
+        android:text="@string/laboratory_research_tooltip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ScrollView
+        android:id="@+id/laboratoryResearchScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@color/enter_color"
+        android:paddingTop="72dp"
+        android:paddingBottom="52dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/highDensityCholesterol"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/high_density_cholesterol"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/highDensityCholesterolTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 ммоль/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/highDensityCholesterol"
+                app:layout_constraintBottom_toBottomOf="@id/highDensityCholesterol"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/lowDensityCholesterol"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/low_density_cholesterol"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/highDensityCholesterol"/>
+
+            <EditText
+                android:id="@+id/lowDensityCholesterolTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 ммоль/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lowDensityCholesterol"
+                app:layout_constraintBottom_toBottomOf="@id/lowDensityCholesterol"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/triglycerides"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/triglycerides"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lowDensityCholesterol"/>
+
+            <EditText
+                android:id="@+id/triglyceridesTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 ммоль/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/triglycerides"
+                app:layout_constraintBottom_toBottomOf="@id/triglycerides"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/lipoprotein"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/lipoprotein"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/triglycerides"/>
+
+            <EditText
+                android:id="@+id/lipoproteinTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 г/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lipoprotein"
+                app:layout_constraintBottom_toBottomOf="@id/lipoprotein"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/highlySensitiveCReactiveProtein"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/highly_sensitive_C_reactive_protein"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lipoprotein"/>
+
+            <EditText
+                android:id="@+id/highlySensitiveCReactiveProteinTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 мг/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/highlySensitiveCReactiveProtein"
+                app:layout_constraintBottom_toBottomOf="@id/highlySensitiveCReactiveProtein"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/atherogenicCoefficient"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/atherogenic_coefficient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/highlySensitiveCReactiveProtein"/>
+
+            <EditText
+                android:id="@+id/atherogenicCoefficientTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/atherogenicCoefficient"
+                app:layout_constraintBottom_toBottomOf="@id/atherogenicCoefficient"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/creatinine"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/creatinine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/atherogenicCoefficient"/>
+
+            <EditText
+                android:id="@+id/creatinineTextEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_large"
+                android:text="0 ммоль/л"
+                android:textColor="@color/enter_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/creatinine"
+                app:layout_constraintBottom_toBottomOf="@id/creatinine"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/uzdmag_results"
+                android:maxWidth="200dp"
+                style="@style/textViewHintLaboratoryResearch"
+                android:layout_marginStart="24dp"
+                android:text="@string/uzdmag_results"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/creatinine"/>
+
+            <CheckBox
+                android:id="@+id/uzdmag_resultsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/uzdmag_results"
+                app:layout_constraintBottom_toBottomOf="@id/uzdmag_results"
+                android:theme="@style/checkBoxStyle"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,12 @@
 package `is`.ulstu.foundation.views
 
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
 /**
  * Base class for all fragments
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
 
     /**
      * View-model that manages this fragment
