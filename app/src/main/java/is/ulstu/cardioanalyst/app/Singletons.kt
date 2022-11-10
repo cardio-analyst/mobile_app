@@ -6,6 +6,11 @@ import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.models.laboratory_research.LaboratoryResearchDBRepository
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
+import `is`.ulstu.cardioanalyst.models.lifestyle.ILifestyleRepository
+import `is`.ulstu.cardioanalyst.models.lifestyle.LifestyleDBRepository
+import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
+import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
+import `is`.ulstu.cardioanalyst.models.lifestyle.tests.TreatmentAdherenceTestRepository
 import `is`.ulstu.cardioanalyst.models.settings.AppSettings
 import `is`.ulstu.cardioanalyst.models.settings.SharedPreferencesAppSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
@@ -31,6 +36,10 @@ object Singletons {
         sourcesProvider.getDiseasesSource()
     }
 
+    val lifestyleSource: LifestyleSource by lazy {
+        sourcesProvider.getLifestyleSource()
+    }
+
     val laboratoryResearchSource: LaboratoryResearchSource by lazy {
         sourcesProvider.getLaboratoryResearchSource()
     }
@@ -43,6 +52,18 @@ object Singletons {
 
     val diseasesRepository: IDiseasesRepository by lazy {
         DiseasesDBRepository()
+    }
+
+    val lifestyleRepository: ILifestyleRepository by lazy {
+        LifestyleDBRepository()
+    }
+
+    val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository by lazy {
+        StenocardiaSymptomsTestRepository()
+    }
+
+    val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository by lazy {
+        TreatmentAdherenceTestRepository()
     }
 
     val laboratoryResearchRepository: ILaboratoryResearchRepository by lazy {

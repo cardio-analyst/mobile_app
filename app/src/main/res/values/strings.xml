@@ -16,6 +16,7 @@
     <string name="birth_date_text">Дата рождения</string>
     <string name="choose_region_text">Выберите регион</string>
 
+
     <!-- Diseases -->
     <string name="cvdPredisposed">Наличие сердечно сосудистых заболеваний у ближайших родственников в возрасте до 70 лет</string>
     <string name="takesStatins">Прием статинов</string>
@@ -26,6 +27,163 @@
     <string name="hadInfarctionOrStroke">Инфаркт миокарда</string>
     <string name="hasAtherosclerosis">Инсульт</string>
     <string name="hasOtherCVD">Атеросклероз</string>
+
+
+    <!-- Lifestyle -->
+    <string name="family_status_text">Семейное положение</string>
+    <string name="event_participation">Участие в социально-культурных мероприятиях</string>
+    <string name="physical_activity">Физическая активность</string>
+    <string name="job_status">Работа</string>
+    <string name="significant_value_high">Самая значимая ценность для вас</string>
+    <string name="significant_value_medium">Наиболее значимая ценность для вас</string>
+    <string name="significant_value_low">Значимая ценность для вас</string>
+    <string name="angina_symptoms">Симптомы стенокардии</string>
+    <string name="treatment_adherence">Приверженность лечению</string>
+    <string name="test_results">Результаты тестирования</string>
+    <string name="result">Результат</string>
+
+    <string name="choose_family_status_text">Выберите семейное положение</string>
+    <string name="choose_event_participation">Выберите как часто вы участвуете в социально-культурных мероприятиях</string>
+    <string name="choose_physical_activity">Выберите как часто вы занимаетесь физической активностью</string>
+    <string name="choose_job_status">Укажите ваш социальный статус</string>
+    <string name="choose_significant_value_high">Выберите САМУЮ ЗНАЧИМУЮ ценность для вас</string>
+    <string name="choose_significant_value_medium">Выберите НАИБОЛЕЕ ЗНАЧИМУЮ ценность для вас</string>
+    <string name="choose_significant_value_low">Выберите ЗНАЧИМУЮ ценность для вас</string>
+
+    <string name="default_option_not_choosing">Не выбрано</string>
+    <string name="default_option_not_passed">Не пройдено</string>
+    <!-- Lifestyle family status options -->
+    <string name="family_status_married">Замужем / женат</string>
+    <string name="family_status_not_married">Не Замужем / не женат</string>
+    <string name="family_status_divorced">Разведен / разведена</string>
+    <string name="family_status_widower">Вдовец / вдова</string>
+    <!-- Lifestyle participation in social and cultural events options -->
+    <string name="event_participation_one_in_week">1 раз в неделю</string>
+    <string name="event_participation_more_than_one_in_week">Более 1 раза в неделю</string>
+    <!-- Lifestyle physical activity options -->
+    <string name="physical_activity_one_in_week">Тренировка 1 раз в неделю</string>
+    <string name="physical_activity_more_than_one_in_week">Тренировка более 1 раза в неделю</string>
+    <string name="physical_activity_one_in_day">Тренировка раз в день</string>
+    <!-- Lifestyle work status options -->
+    <string name="work_status_worker">Работаю</string>
+    <string name="work_status_unemployed">Безработный</string>
+    <string name="work_status_looking_for_job">В поиске работы</string>
+    <string name="work_status_pensioner">Пенсионер</string>
+    <!-- Lifestyle angina symptoms options -->
+    <string name="angina_symptoms_no_symptoms">Нет симптомов</string>
+    <string name="angina_symptoms_symptoms">Необходимо записаться к кардиологу</string>
+    <!-- Lifestyle treatment adherence options -->
+    <string name="treatment_adherence_low">Низкая</string>
+    <string name="treatment_adherence_medium">Средняя</string>
+    <string name="treatment_adherence_high">Высокая</string>
+    <string name="treatment_adherence_test_result">Приверженность лечению\n%s\n\nПриверженность лекарственной терапии\n%s\n\nПриверженность медицинскому сопровождению\n%s\n\nПриверженность модификации образа жизни\n%s</string>
+    <!-- Lifestyle life values options -->
+    <string name="life_values_active_life">Активная деятельная жизнь</string>
+    <string name="life_values_life_wisdom">Жизненная мудрость</string>
+    <string name="life_values_health">Здоровье</string>
+    <string name="life_values_interesting_job">Интересная работа</string>
+    <string name="life_values_beauty_of_nature_and_art">Красота природы и искусства</string>
+    <string name="life_values_love">Любовь</string>
+    <string name="life_values_financially_secure_life">Материально обеспеченная жизнь</string>
+    <string name="life_values_having_good_and_true_friends">Наличие хороших и верных друзей</string>
+    <string name="life_values_public_vocation">Общественное признание</string>
+    <string name="life_values_knowledge_and_intellectual_development">Познание и интеллектуальное развитие</string>
+    <string name="life_values_productive_life">Продуктивная жизнь</string>
+    <string name="life_values_entertainment">Развлечения</string>
+    <string name="life_values_autonomy">Свобода, самостоятельность, независимость</string>
+    <string name="life_values_happy_family_life">Счастливая семейная жизнь</string>
+    <string name="life_values_creativity">Творчество</string>
+    <string name="life_values_self_confidence">Уверенность в себе</string>
+
+
+
+    <!-- Stenocardia Symptoms Test -->
+    <!-- Questions -->
+    <string name="stenocardia_question_1">1. Бывает ли у Вас боль или неприятное ощущение в грудной клетке?</string>
+    <string name="stenocardia_question_2">2. Возникает ли эта боль, когда Вы идете в гору, поднимаетесь по лестнице или спешите?</string>
+    <string name="stenocardia_question_3">3. Возникает ли эта боль при ходьбе обычным шагом по ровному месту?</string>
+    <string name="stenocardia_question_4">4. Что Вы делаете, если боль (неприятное ощущение) возникает во время ходьбы?</string>
+    <string name="stenocardia_question_5">5. Если Вы останавливаетесь или принимаете нитроглицерин, что происходит с болью?</string>
+    <string name="stenocardia_question_6">6. Как быстро проходит боль?</string>
+    <string name="stenocardia_question_7">7. Можете ли Вы сказать, где её ощущаете?</string>
+    <string name="stenocardia_question_8">8. Вы обращались по поводу этих болей к врачу?</string>
+    <string name="stenocardia_question_9">9. Когда впервые появились эти боли?</string>
+    <string name="stenocardia_question_10">10. Как часто они возникают в течение последнего месяца?</string>
+    <string name="stenocardia_question_11">11. Изменился ли их характер в течение последнего месяца?</string>
+    <!-- Available answers -->
+    <string name="stenocardia_answer_yes">Да</string>
+    <string name="stenocardia_answer_no">Нет</string>
+    <string name="stenocardia_answer_never_walk_fast_and_climb_a_mountain">Никогда не хожу быстро и не поднимаюсь в гору</string>
+    <string name="stenocardia_answer_stop_or_go_slower">Останавливаюсь или иду медленнее.</string>
+    <string name="stenocardia_answer_keep_going">Продолжаю идти, не снижая темпа.</string>
+    <string name="stenocardia_answer_take_nitroglycerin_or_medications">Принимаю нитроглицерин или другие препараты.</string>
+    <string name="stenocardia_answer_pain_disappears_or_decreases">Боль исчезает или уменьшается.</string>
+    <string name="stenocardia_answer_pain_does_not_disappear">Боль не исчезает.</string>
+    <string name="stenocardia_answer_after_10_15_minutes_or_faster">Через 10–15 минут или быстрее.</string>
+    <string name="stenocardia_answer_more_10_minutes_later">Более чем через 10 минут.</string>
+    <string name="stenocardia_answer_sternum_upper_or_middle_third">Грудина (верхняя или средняя треть).</string>
+    <string name="stenocardia_answer_sternum_lower_third">Грудина (нижняя треть).</string>
+    <string name="stenocardia_answer_left_side_chest_front">Левая сторона грудной клетки спереди.</string>
+    <string name="stenocardia_answer_left_hand">Левая рука.</string>
+    <string name="stenocardia_answer_other_areas">Другие области.</string>
+    <string name="stenocardia_answer_less_4_week">Менее 4 недель назад.</string>
+    <string name="stenocardia_answer_less_1_month">Более 1 месяца назад.</string>
+    <string name="stenocardia_answer_less_2_week">Менее 2 раз в неделю.</string>
+    <string name="stenocardia_answer_almost_every_day">Почти каждый день.</string>
+
+
+
+
+    <!-- Treatment Adherence Test -->
+    <!-- Questions -->
+    <string name="treatment_adherence_question_1">1. Врач выявил у вас хроническую болезнь. Важно ли вам знать, какими признаками она проявляется?</string>
+    <string name="treatment_adherence_question_2">2. Врач назначил вам лекарство, которое нужно принимать каждый день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_3">3. Врач назначил вам лекарство, которое нужно принимать несколько раз в день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_4">4. Врач назначил вам несколько лекарств, которые нужно принимать каждый день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_5">5. Врач предложил вам каждый день в течение многих лет отмечать имеющиеся проявления болезни. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_6">6. Хроническая болезнь имеет свои проявления. Насколько важно для вас не ощущать эти проявления?</string>
+    <string name="treatment_adherence_question_7">7. Если у вас есть сексуальная жизнь, насколько важно для вас сохранять ее на привычном уровне?</string>
+    <string name="treatment_adherence_question_8">8. Хроническая болезнь вынуждает изменить привычный образ жизни. Насколько сложно для вас такое изменение?</string>
+    <string name="treatment_adherence_question_9">9. Хроническая болезнь вынуждает изменить привычную диету. Насколько сложно для вас такое изменение?</string>
+    <string name="treatment_adherence_question_10">10. Хроническая болезнь может привести к инвалидности. Насколько важно для вас получить или подтвердить группу инвалидности?</string>
+    <string name="treatment_adherence_question_11">11. Хроническая болезнь может изменить работу внутренних органов и анализы. Насколько важно для вас знать результаты анализов?</string>
+    <string name="treatment_adherence_question_12">12. Все люди верят или не верят в Бога. Насколько важно для вас верить в Бога?</string>
+    <string name="treatment_adherence_question_13">13. Хроническая болезнь приводит к необходимости регулярно посещать врача. Насколько сложно для вас такое врачебное наблюдение?</string>
+    <string name="treatment_adherence_question_14">14. Прием лекарств может вызывать неприятные ощущения. Насколько сложно для вас будет переносить такие ощущения?</string>
+    <string name="treatment_adherence_question_15">15. Хроническая болезнь может ограничить привычную жизнь, активный отдых и развлечения. Насколько сложно для вас пойти на такие ограничения?</string>
+    <string name="treatment_adherence_question_16">16. Врач назначил лекарство, которое нужно принимать каждый день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_17">17. Врач назначил лекарство, которое нужно принимать несколько раз в день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_18">18. Врач назначил несколько лекарств, которые нужно принимать каждый день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_19">19. Врач предложил каждый день в течение многих лет отмечать имеющиеся проявления болезни. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_20">20. Врач сообщил, что назначенные лекарства могут вызывать неприятные ощущения, в том числе и те, что вы у себя уже наблюдаете. Будете ли вы принимать такие лекарства?</string>
+    <string name="treatment_adherence_question_21">21. Врач сообщил, что назначенные лекарства могут ухудшать сексуальную жизнь. Будете ли вы после этого принимать такие лекарства?</string>
+    <string name="treatment_adherence_question_22">22. Врач сообщил, что в связи с болезнью нужно изменить привычный образ жизни. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_23">23. Врач сообщил, что в связи с болезнью нужно изменить привычную диету. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_24">24. Врач сообщил, что в связи с болезнью нужно регулярно приходить на прием. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_25">25. Врач сообщил, что в связи с болезнью нужно регулярно сдавать анализы. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <!-- Available answers -->
+    <string name="treatment_adherence_answer_not_important_not">Совершенно не важно/ее нет</string>
+    <string name="treatment_adherence_answer_not_important_high">Совершенно не важно</string>
+    <string name="treatment_adherence_answer_not_important_medium">Почти не важно</string>
+    <string name="treatment_adherence_answer_not_important_low">Скорее не важно, чем важно</string>
+    <string name="treatment_adherence_answer_important_low">Скорее важно, чем не важно</string>
+    <string name="treatment_adherence_answer_important_medium">Достаточно важно</string>
+    <string name="treatment_adherence_answer_important_high">Очень важно</string>
+    <string name="treatment_adherence_answer_difficult_high">Очень сложно</string>
+    <string name="treatment_adherence_answer_difficult_medium">Достаточно сложно</string>
+    <string name="treatment_adherence_answer_difficult_low">Скорее сложно, чем не сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_high">Скорее не сложно, чем сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_medium">Почти не сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_low">Совершенно не сложно</string>
+    <string name="treatment_adherence_answer_not_will_high">Ни за что не буду</string>
+    <string name="treatment_adherence_answer_not_will_medium">Вероятнее всего не буду</string>
+    <string name="treatment_adherence_answer_not_will_low">Скорее не буду, чем буду</string>
+    <string name="treatment_adherence_answer_will_high">Скорее буду, чем не буду</string>
+    <string name="treatment_adherence_answer_will_medium">Вероятнее всего буду</string>
+    <string name="treatment_adherence_answer_will_low">Обязательно буду</string>
+
+
+
 
     <!-- Laboratory Research -->
     <string name="lab_res_default_tooltip">Заполните и сохраните текущие результаты анализов</string>
@@ -41,6 +199,7 @@
     <string name="unit_g_by_l">г/л</string>
     <string name="unit_mg_by_l">мг/л</string>
 
+
     <!-- Button's texts -->
     <string name="button_text_sign_in">Войти</string>
     <string name="button_text_sign_up">Зарегистрироваться</string>
@@ -50,6 +209,10 @@
     <string name="button_text_change">Изменить</string>
     <string name="button_text_reset">Сбросить</string>
     <string name="button_text_add">Добавить</string>
+    <string name="button_text_start_test">Начать тестирование</string>
+    <string name="button_text_next">Далее</string>
+    <string name="button_text_finish">Завершить</string>
+
 
     <!-- Toasts -->
     <string name="user_info_save">Изменения успешно обновлены</string>
@@ -57,9 +220,11 @@
     <string name="user_sign_up_successful">Регистрация прошла успешно!</string>
     <string name="out_of_range_toast">Показатель: %s, должен быть в диапазоне от %.1f до %.1f</string>
 
+
     <!-- Alert dialogs -->
     <string name="exit_account_alert_dialog_title">Выход из профиля</string>
     <string name="exit_account_alert_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
+
 
     <!-- Tab names -->
     <string name="tab_item_profile">Профиль</string>
@@ -69,9 +234,12 @@
     <string name="tab_item_extra">Дополнительно</string>
     <string name="tab_item_recommendation">Рекомендации</string>
 
+
     <!-- Tooltips -->
     <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
     <string name="laboratory_research_tooltip">Пожалуйста, заполните данные лабораторных исследований</string>
+    <string name="lifestyle_tooltip">Пожалуйста, заполните данные о вашем образе жизни</string>
+
 
     <!-- Input Exceptions -->
     <string name="in_ex_incorrect_email">Некорректно введена электронная почта</string>
@@ -80,12 +248,14 @@
     <string name="in_ex_incorrect_region">Пожалуйста, заполните регион</string>
     <string name="in_ex_incorrect_password">Пароль должен содержать как минимум 7 символов</string>
 
+
     <!-- App Logic Exceptions -->
     <string name="app_logic_ex_user_session_expired">
         Ваша сессия завершена, чтобы продолжить войдите заново</string>
     <string name="app_logic_ex_connection_ex">Ошибка соединения, пожалуйста, проверьте подключение к Интернету</string>
     <string name="action_try_again">Попробуйте снова</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
+
 
     <!-- Flow Pending Descriptions -->
     <string name="flow_pending_auth">Авторизация…</string>
@@ -95,5 +265,7 @@
     <string name="flow_pending_user_diseases_save">Сохранение данных о заболеваниях</string>
     <string name="flow_pending_user_laboratory_research_load">Загрузка персональных данных об анализах</string>
     <string name="flow_pending_user_laboratory_research_save">Сохранение персональных данных об анализах</string>
+    <string name="flow_pending_user_lifestyle_load">Загрузка персональных данных об образе жизни</string>
+    <string name="flow_pending_user_lifestyle_save">Сохранение данных об образе жизни</string>
 
 </resources>

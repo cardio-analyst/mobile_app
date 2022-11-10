@@ -4,6 +4,8 @@ import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.diseases.sources.RetrofitDiseasesSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.RetrofitLaboratoryResearchSource
+import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
+import `is`.ulstu.cardioanalyst.models.lifestyle.sources.RetrofitLifestyleSource
 import `is`.ulstu.cardioanalyst.models.users.sources.RetrofitUsersSource
 import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 import `is`.ulstu.cardioanalyst.sources.SourcesProvider
@@ -21,6 +23,10 @@ class RetrofitSourcesProvider(
 
     override fun getDiseasesSource(): DiseasesSource {
         return RetrofitDiseasesSource(config)
+    }
+
+    override fun getLifestyleSource(): LifestyleSource {
+        return RetrofitLifestyleSource(config)
     }
 
     override fun getLaboratoryResearchSource(): LaboratoryResearchSource {

@@ -2,6 +2,7 @@ package `is`.ulstu.cardioanalyst.sources
 
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
+import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
 import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 
 /**
@@ -20,6 +21,12 @@ interface SourcesProvider {
      * user diseases data.
      */
     fun getDiseasesSource(): DiseasesSource
+
+    /**
+     * Create [LifestyleSource] which is responsible for reading/writing
+     * user lifestyle data.
+     */
+    fun getLifestyleSource(): LifestyleSource
 
     /**
      * Create [LaboratoryResearchSource] which is responsible for reading/writing
