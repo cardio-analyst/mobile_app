@@ -48,6 +48,10 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
                 viewModel.onChooseSettingsMode(TabItem.EXTRA)
                 binding.tabNameTextView.text = TabItem.EXTRA.tabName
             }
+            TabItem.LIFESTYLE.position -> {
+                viewModel.onChooseSettingsMode(TabItem.LIFESTYLE)
+                binding.tabNameTextView.text = TabItem.LIFESTYLE.tabName
+            }
         }
     }
 

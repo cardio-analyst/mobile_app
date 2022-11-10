@@ -7,6 +7,7 @@ import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
+import `is`.ulstu.foundation.model.Success
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.share
@@ -42,6 +43,8 @@ class DiseasesViewModel(
             if (it is Error && it.error is RefreshTokenExpired)
                 throw it.error
             _diseasesSave.value = it
+            if (it is Success)
+                _diseases.value = Success(diseasesMainEntity)
         }
     }
 
@@ -51,6 +54,7 @@ class DiseasesViewModel(
     fun onSuccessSaveToast() = uiActions.toast(Singletons.getString(R.string.user_info_save))
 
     init {
+        diseasesRepository.reloadGetDiseasesUserRequest()
         getUserDiseases()
     }
 }

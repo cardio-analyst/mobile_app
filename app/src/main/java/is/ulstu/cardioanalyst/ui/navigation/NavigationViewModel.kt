@@ -4,6 +4,7 @@ import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.ui.enums.TabItem
 import `is`.ulstu.cardioanalyst.ui.diseases.DiseasesFragment
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.LaboratoryResearchFragment
+import `is`.ulstu.cardioanalyst.ui.lifestyle.LifestyleFragment
 import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.views.BaseViewModel
@@ -22,10 +23,10 @@ class NavigationViewModel(
             }
             /*TabItem.HEART_INDICATORS -> {
                 DesignSettingsFragment.Screen()
-            }
-            TabItem.LIFESTYLE -> {
-                PhotoSampleSettingsFragment.Screen()
             }*/
+            TabItem.LIFESTYLE -> {
+                LifestyleFragment.Screen()
+            }
             TabItem.EXTRA -> {
                 LaboratoryResearchFragment.Screen()
             }
