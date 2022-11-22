@@ -20,7 +20,7 @@ class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
     private val laboratoryResearchCreateLazyFlowSubject =
         LazyFlowSubject<CreateLaboratoryResearchRequestEntity, CreateLaboratoryResearchResponseEntity>
         { createLaboratoryResearchRequestEntity ->
-            doGetLaboratoryResearches(createLaboratoryResearchRequestEntity)
+            doCreateLaboratoryResearches(createLaboratoryResearchRequestEntity)
         }
 
     private val laboratoryResearchUpdateLazyFlowSubject =
@@ -49,7 +49,7 @@ class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
         laboratoryResearchCreateLazyFlowSubject.listen(createLaboratoryResearchRequestEntity)
 
 
-    private suspend fun doGetLaboratoryResearches(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity): CreateLaboratoryResearchResponseEntity =
+    private suspend fun doCreateLaboratoryResearches(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity): CreateLaboratoryResearchResponseEntity =
         wrapBackendExceptions {
             laboratoryResearchSource.createLaboratoryResearch(createLaboratoryResearchRequestEntity)
         }

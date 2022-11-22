@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import kotlin.reflect.typeOf
 
 
 @SuppressLint("SetTextI18n")
@@ -11,13 +12,12 @@ fun <T> EditText.setTextBySample(value: T, text: String) {
     setText("${value.toString()} $text")
 }
 
-fun EditText.smartEditText(
+fun <T : Comparable<T>> EditText.smartEditText(
     imm: InputMethodManager,
-    laboratoryResearchRecordListener: LaboratoryResearchRecordFragment.LaboratoryResearchRecordListener,
-    range: ClosedFloatingPointRange<Double>,
-    toastErrorParamRes: Int,
+    range: ClosedFloatingPointRange<T>,
     sampleId: Int?,
-    block: (Double?) -> Double
+    onError: () -> Unit,
+    block: (T?) -> T
 ) {
 
     setOnFocusChangeListener { view, isFocused ->
@@ -39,19 +39,21 @@ fun EditText.smartEditText(
 
     setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            var value: Double? = null
+            var value: T? = null
             try {
-                value = text.toString().toDouble()
+                val str = text.toString()
+                value = when(range.start) {
+                    is Int -> str.toInt() as T
+                    is Double -> str.toDouble() as T
+                    else -> throw Exception()
+                }
                 if (value !in range) {
                     value = null
                     throw Exception()
                 }
             } catch (e: Exception) {
                 // uiAction
-                laboratoryResearchRecordListener.makeToast(
-                    resources.getString(toastErrorParamRes),
-                    range
-                )
+                onError.invoke()
             }
             val result = block.invoke(value)
             setTextBySample(

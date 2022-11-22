@@ -31,10 +31,24 @@ class SharedPreferencesAppSettings(
     override fun getCurrentRefreshToken(): String? =
         sharedPreferences.getString(USER_CURRENT_REFRESH_TOKEN, null)
 
+    override fun getLastTab(): String? =
+        sharedPreferences.getString(USER_LAST_TAB_USER_VISIT, null)
+
+    override fun setLastTab(tabName: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(USER_LAST_TAB_USER_VISIT, tabName)
+        editor.apply()
+    }
+
     companion object {
         /**
          * Key for refresh token in [SharedPreferences]
          */
         private const val USER_CURRENT_REFRESH_TOKEN = "currentRefreshToken"
+
+        /**
+         * Key for last tab user visit in [SharedPreferences]
+         */
+        private const val USER_LAST_TAB_USER_VISIT = "lastTabUserVisit"
     }
 }

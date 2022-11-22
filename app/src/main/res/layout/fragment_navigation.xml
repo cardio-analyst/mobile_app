@@ -10,22 +10,24 @@
 
     <TextView
         android:id="@+id/tabNameTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textSize="@dimen/text_large"
         android:textColor="@color/white"
         android:text="@string/tab_name_example"
+        android:gravity="start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/profileButton"
+        app:layout_constraintTop_toTopOf="@+id/profileButton"
+        app:layout_constraintBottom_toBottomOf="@+id/profileButton" />
 
     <ImageButton
         android:id="@+id/profileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:minWidth="48dp"
         android:minHeight="48dp"

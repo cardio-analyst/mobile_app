@@ -12,6 +12,7 @@
         android:layout_margin="32dp"
         android:textSize="@dimen/text_small"
         android:textColor="@color/enter_color"
+        android:textAlignment="center"
         android:text="@string/laboratory_research_tooltip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
