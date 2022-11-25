@@ -1,9 +1,9 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
+import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
@@ -13,15 +13,15 @@ import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 
-class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_research),
-    LaboratoryResearchRecordFragment.LaboratoryResearchRecordListener {
+class BasicIndicatorsFragment : BaseFragment(R.layout.fragment_basic_indicators),
+    BasicIndicatorsRecordFragment.BasicIndicatorRecordListener {
 
     // no arguments for this screen
     class Screen : BaseScreen
 
-    override val viewModel by screenViewModel<LaboratoryResearchViewModel>()
+    override val viewModel by screenViewModel<BasicIndicatorsViewModel>()
 
-    private val binding by viewBinding(FragmentLaboratoryResearchBinding::bind)
+    private val binding by viewBinding(FragmentBasicIndicatorsBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
@@ -47,97 +47,97 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
         }
 
         with(binding) {
-            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-            resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
+            resultView.setTryAgainAction { viewModel.reloadBasicIndicators() }
         }
 
 
-        observeLaboratoryResearches()
-        observeCreateLaboratoryResearch()
-        observeUpdateLaboratoryResearch()
+        observeBasicIndicators()
+        observeCreateBasicIndicator()
+        observeUpdateBasicIndicator()
     }
 
 
-    private fun observeLaboratoryResearches() {
-        viewModel.laboratoryResearches.observeResults(
+    private fun observeBasicIndicators() {
+        viewModel.basicIndicators.observeResults(
             this,
             binding.root,
             binding.resultView,
-            { laboratoryResearches ->
-                val adapter = LaboratoryResearchAdapter(childFragmentManager, lifecycle)
-                initAdapter(laboratoryResearches, adapter)
+            { basicIndicators ->
+                val adapter = BasicIndicatorsAdapter(childFragmentManager, lifecycle)
+                initAdapter(basicIndicators, adapter)
                 initViewPager(adapter)
                 initButtonsLogic(adapter)
             })
     }
 
-    private fun observeCreateLaboratoryResearch() {
-        viewModel.createLaboratoryResearch.observeResults(
+    private fun observeCreateBasicIndicator() {
+        viewModel.createBasicIndicators.observeResults(
             this,
             binding.root,
             binding.resultView, {
                 with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
+                    resultView.setTryAgainAction { viewModel.reloadBasicIndicators() }
                     viewPagerCurrentPagePosition = viewPager.currentItem
                 }
-                viewModel.reloadLaboratoryResearches()
+                viewModel.reloadBasicIndicators()
                 viewModel.onSuccessCreateToast()
             })
     }
 
-    private fun observeUpdateLaboratoryResearch() {
-        viewModel.updateLaboratoryResearch.observeResults(
+    private fun observeUpdateBasicIndicator() {
+        viewModel.updateBasicIndicators.observeResults(
             this,
             binding.root,
             binding.resultView, {
                 with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
+                    resultView.setTryAgainAction { viewModel.reloadBasicIndicators() }
                     viewPagerCurrentPagePosition = viewPager.currentItem
                 }
-                viewModel.reloadLaboratoryResearches()
+                viewModel.reloadBasicIndicators()
                 viewModel.onSuccessChangeToast()
             })
     }
 
 
     private fun initAdapter(
-        laboratoryResearches: List<GetLaboratoryResearchResponseEntity>,
-        adapter: LaboratoryResearchAdapter
+        basicIndicators: List<GetBasicIndicatorResponseEntity>,
+        adapter: BasicIndicatorsAdapter
     ) {
-        if (laboratoryResearches.isEmpty()) {
+        if (basicIndicators.isEmpty()) {
             // add default
             adapter.addFragment(
-                LaboratoryResearchRecordFragment(
-                    viewModel.getDefaultLaboratoryResearchRecord(),
-                    this@LaboratoryResearchFragment
+                BasicIndicatorsRecordFragment(
+                    viewModel.getDefaultLBasicIndicatorRecord(),
+                    this@BasicIndicatorsFragment
                 )
             )
         } else {
-            val previousRecord = laboratoryResearches.first()
+            val previousRecord = basicIndicators.first()
             // add default based on previous record
             adapter.addFragment(
-                LaboratoryResearchRecordFragment(
+                BasicIndicatorsRecordFragment(
                     previousRecord.copy(
                         id = null,
-                        createdAt = resources.getString(R.string.lab_res_default_tooltip)
-                    ), this@LaboratoryResearchFragment
+                        createdAt = resources.getString(R.string.basic_indicators_default_tooltip)
+                    ), this@BasicIndicatorsFragment
                 )
             )
             // add others records
-            laboratoryResearches.forEach {
+            basicIndicators.forEach {
                 adapter.addFragment(
-                    LaboratoryResearchRecordFragment(
+                    BasicIndicatorsRecordFragment(
                         it,
-                        this@LaboratoryResearchFragment
+                        this@BasicIndicatorsFragment
                     )
                 )
             }
         }
     }
 
-    private fun initButtonsLogic(adapter: LaboratoryResearchAdapter) = with(binding) {
+    private fun initButtonsLogic(adapter: BasicIndicatorsAdapter) = with(binding) {
         with(actionButtonsBinding) {
             // reset
             negativeButton.setOnClickListener {
@@ -146,32 +146,32 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
             }
             // save
             positiveButton.setOnClickListener {
-                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_save))
-                val laboratoryResearch =
-                    adapter.getFragment(viewPager.currentItem).currentLaboratoryResearch
-                if (laboratoryResearch.id == null) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_save))
+                val basicIndicator =
+                    adapter.getFragment(viewPager.currentItem).currentBasicIndicator
+                if (basicIndicator.id == null) {
                     // create
-                    val createLaboratoryResearchRequestEntity =
-                        viewModel.getCreateLaboratoryResearchEntity(laboratoryResearch)
+                    val createBasicIndicatorRequestEntity =
+                        viewModel.getCreateBasicIndicatorEntity(basicIndicator)
                     resultView.setTryAgainAction {
-                        viewModel.reloadCreateLaboratoryResearch(
-                            createLaboratoryResearchRequestEntity
+                        viewModel.reloadCreateBasicIndicator(
+                            createBasicIndicatorRequestEntity
                         )
                     }
-                    viewModel.createUserLaboratoryResearch(
-                        createLaboratoryResearchRequestEntity
+                    viewModel.createUserBasicIndicators(
+                        createBasicIndicatorRequestEntity
                     )
                 } else {
                     // update
-                    val updateLaboratoryResearchRequestEntity =
-                        viewModel.getUpdateLaboratoryResearchEntity(laboratoryResearch)
+                    val updateBasicIndicatorRequestEntity =
+                        viewModel.getUpdateBasicIndicatorEntity(basicIndicator)
                     resultView.setTryAgainAction {
-                        viewModel.reloadUpdateLaboratoryResearch(
-                            updateLaboratoryResearchRequestEntity
+                        viewModel.reloadUpdateBasicIndicator(
+                            updateBasicIndicatorRequestEntity
                         )
                     }
-                    viewModel.updateUserLaboratoryResearch(
-                        updateLaboratoryResearchRequestEntity
+                    viewModel.updateUserBasicIndicator(
+                        updateBasicIndicatorRequestEntity
                     )
                 }
                 buttonVisibility(View.INVISIBLE)
@@ -179,10 +179,10 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
         }
     }
 
-    private fun initViewPager(adapter: LaboratoryResearchAdapter) = with(binding) {
+    private fun initViewPager(adapter: BasicIndicatorsAdapter) = with(binding) {
         viewPager.adapter = adapter
         // unregister previous Page Change Callback
-        if (this@LaboratoryResearchFragment::viewPagerOnPageChangeCallback.isInitialized)
+        if (this@BasicIndicatorsFragment::viewPagerOnPageChangeCallback.isInitialized)
             viewPager.unregisterOnPageChangeCallback(viewPagerOnPageChangeCallback)
 
         viewPagerOnPageChangeCallback = object :

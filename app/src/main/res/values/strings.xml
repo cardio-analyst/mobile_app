@@ -29,6 +29,27 @@
     <string name="hasOtherCVD">Атеросклероз</string>
 
 
+    <!-- Basic Indicators -->
+    <string name="basic_indicators_default_tooltip">Заполните и сохраните текущие показатели сердечно-сосудистого здоровья</string>
+    <string name="weight">Вес</string>
+    <string name="height">Рост</string>
+    <string name="body_mass_index_BMI">Вычисленный индекс массы тела (ИМТ)</string>
+    <string name="waist">Объем талии</string>
+    <string name="gender">Пол</string>
+    <string name="systolic_blood_pressure_level">Уровень систолического АД</string>
+    <string name="smoking">Курение</string>
+    <string name="total_cholesterol">Общий холестерин</string>
+    <string name="risk_of_cardiovascular_events">Риск сердечно-сосудистых событий в течение 10 лет по шкале SCORE</string>
+    <string name="ideal_cardiovascular_age">Ваш идеальный «сердечно-сосудистый возраст»</string>
+    <string name="choose_gender">Укажите свой пол</string>
+    <string name="genderMan">Мужской</string>
+    <string name="genderWoman">Женский</string>
+    <string name="unit_sm">см</string>
+    <string name="unit_kg">кг</string>
+    <string name="unit_mm_rt_st">мм.рт.ст</string>
+
+
+
     <!-- Lifestyle -->
     <string name="family_status_text">Семейное положение</string>
     <string name="event_participation">Участие в социально-культурных мероприятиях</string>
@@ -212,6 +233,7 @@
     <string name="button_text_start_test">Начать тестирование</string>
     <string name="button_text_next">Далее</string>
     <string name="button_text_finish">Завершить</string>
+    <string name="button_text_calculate">Рассчитать</string>
 
 
     <!-- Toasts -->
@@ -237,6 +259,7 @@
 
     <!-- Tooltips -->
     <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
+    <string name="basic_indicators_tooltip">Пожалуйста, заполните базовые показатели сердечно-сосудистого здоровья</string>
     <string name="laboratory_research_tooltip">Пожалуйста, заполните данные лабораторных исследований</string>
     <string name="lifestyle_tooltip">Пожалуйста, заполните данные о вашем образе жизни</string>
 
@@ -263,6 +286,8 @@
     <string name="flow_pending_user_info">Загрузка персональных данных</string>
     <string name="flow_pending_user_diseases_load">Загрузка персональных данных о заболеваниях</string>
     <string name="flow_pending_user_diseases_save">Сохранение данных о заболеваниях</string>
+    <string name="flow_pending_user_basic_indicators_load">Загрузка персональных данных об анализах</string>
+    <string name="flow_pending_user_basic_indicators_save">Сохранение персональных данных об анализах</string>
     <string name="flow_pending_user_laboratory_research_load">Загрузка персональных данных об анализах</string>
     <string name="flow_pending_user_laboratory_research_save">Сохранение персональных данных об анализах</string>
     <string name="flow_pending_user_lifestyle_load">Загрузка персональных данных об образе жизни</string>

@@ -27,14 +27,17 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
+        val initTab = viewModel.currentTab
         with(binding) {
-            tabNameTextView.text = TabItem.GENERAL_INFO.tabName
             profileButton.setOnClickListener {
                 viewModel.onChooseSettingsMode(TabItem.PROFILE)
                 tabNameTextView.text = TabItem.PROFILE.tabName
             }
             tabLayout.addOnTabSelectedListener(tabSelectedListener)
+            if (initTab == TabItem.PROFILE)
+                profileButton.performClick()
+            else
+                tabLayout.selectTab(tabLayout.getTabAt(initTab.position), true)
         }
     }
 
@@ -43,6 +46,10 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
             TabItem.GENERAL_INFO.position -> {
                 viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
                 binding.tabNameTextView.text = TabItem.GENERAL_INFO.tabName
+            }
+            TabItem.HEART_INDICATORS.position -> {
+                viewModel.onChooseSettingsMode(TabItem.HEART_INDICATORS)
+                binding.tabNameTextView.text = TabItem.HEART_INDICATORS.tabName
             }
             TabItem.EXTRA.position -> {
                 viewModel.onChooseSettingsMode(TabItem.EXTRA)

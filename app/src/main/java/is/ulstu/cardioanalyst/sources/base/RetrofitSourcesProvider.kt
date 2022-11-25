@@ -1,5 +1,7 @@
 package `is`.ulstu.cardioanalyst.sources.base
 
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.BasicIndicatorsSource
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.RetrofitBasicIndicatorsSource
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.diseases.sources.RetrofitDiseasesSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
@@ -23,6 +25,10 @@ class RetrofitSourcesProvider(
 
     override fun getDiseasesSource(): DiseasesSource {
         return RetrofitDiseasesSource(config)
+    }
+
+    override fun getBasicIndicatorsSource(): BasicIndicatorsSource {
+        return RetrofitBasicIndicatorsSource(config)
     }
 
     override fun getLifestyleSource(): LifestyleSource {

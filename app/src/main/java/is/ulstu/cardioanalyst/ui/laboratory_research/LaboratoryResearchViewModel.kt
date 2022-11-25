@@ -103,7 +103,7 @@ class LaboratoryResearchViewModel(
 
     fun onSuccessChangeToast() = uiActions.toast(Singletons.getString(R.string.user_info_save))
 
-    fun onOutOfRangeToast(name: String, range: ClosedFloatingPointRange<Double>) =
+    fun <T : Comparable<T>> onOutOfRangeToast(name: String, range: ClosedFloatingPointRange<T>) =
         uiActions.toast(
             Singletons.getString(
                 R.string.out_of_range_toast,

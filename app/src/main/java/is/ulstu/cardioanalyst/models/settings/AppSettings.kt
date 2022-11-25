@@ -24,4 +24,16 @@ interface AppSettings {
      * @param userRefreshToken [String]
      */
     fun setCurrentRefreshToken(userRefreshToken: String?)
+
+    /**
+     * Get last tab user visit.
+     * @return tab name [String]
+     */
+    fun getLastTab(): String?
+
+    /**
+     * Set last tab user visit.
+     * @param tabName [String]
+     */
+    fun setLastTab(tabName: String)
 }

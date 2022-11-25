@@ -46,12 +46,21 @@ class LaboratoryResearchRecordFragment(
             val inputMethodManager =
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+            val onError: (Int, ClosedFloatingPointRange<Double>) -> () -> Unit =
+                { toastErrorParamRes, range ->
+                    {
+                        laboratoryResearchRecordListener.makeToast(
+                            resources.getString(toastErrorParamRes),
+                            range
+                        )
+                    }
+                }
+
             highDensityCholesterolTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.5..5.5,
-                R.string.high_density_cholesterol,
-                R.string.unit_mmol_by_l
+                R.string.unit_mmol_by_l,
+                onError(R.string.high_density_cholesterol, 0.5..5.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.highDensityCholesterol) {
                     currentLaboratoryResearch.highDensityCholesterol = it
@@ -62,10 +71,9 @@ class LaboratoryResearchRecordFragment(
 
             lowDensityCholesterolTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.5..8.5,
-                R.string.low_density_cholesterol,
-                R.string.unit_mmol_by_l
+                R.string.unit_mmol_by_l,
+                onError(R.string.low_density_cholesterol, 0.5..8.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.lowDensityCholesterol) {
                     currentLaboratoryResearch.lowDensityCholesterol = it
@@ -76,10 +84,9 @@ class LaboratoryResearchRecordFragment(
 
             triglyceridesTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.2..8.5,
-                R.string.triglycerides,
-                R.string.unit_mmol_by_l
+                R.string.unit_mmol_by_l,
+                onError(R.string.triglycerides, 0.2..8.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.triglycerides) {
                     currentLaboratoryResearch.triglycerides = it
@@ -90,10 +97,9 @@ class LaboratoryResearchRecordFragment(
 
             lipoproteinTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.0..10.0,
-                R.string.lipoprotein,
-                R.string.unit_g_by_l
+                R.string.unit_g_by_l,
+                onError(R.string.lipoprotein, 0.0..10.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.lipoprotein) {
                     currentLaboratoryResearch.lipoprotein = it
@@ -104,10 +110,9 @@ class LaboratoryResearchRecordFragment(
 
             highlySensitiveCReactiveProteinTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.1..12.0,
-                R.string.highly_sensitive_C_reactive_protein,
-                R.string.unit_mg_by_l
+                R.string.unit_mg_by_l,
+                onError(R.string.highly_sensitive_C_reactive_protein, 0.1..12.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.highlySensitiveCReactiveProtein) {
                     currentLaboratoryResearch.highlySensitiveCReactiveProtein = it
@@ -118,10 +123,9 @@ class LaboratoryResearchRecordFragment(
 
             atherogenicCoefficientTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 0.1..8.0,
-                R.string.atherogenic_coefficient,
-                null
+                null,
+                onError(R.string.atherogenic_coefficient, 0.1..8.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.atherogenicityCoefficient) {
                     currentLaboratoryResearch.atherogenicityCoefficient = it
@@ -132,10 +136,9 @@ class LaboratoryResearchRecordFragment(
 
             creatinineTextEdit.smartEditText(
                 inputMethodManager,
-                laboratoryResearchRecordListener,
                 20.0..500.0,
-                R.string.creatinine,
-                R.string.unit_mmol_by_l
+                R.string.unit_mmol_by_l,
+                onError(R.string.creatinine, 20.0..500.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.creatinine) {
                     currentLaboratoryResearch.creatinine = it
@@ -192,7 +195,7 @@ class LaboratoryResearchRecordFragment(
     }
 
     interface LaboratoryResearchRecordListener {
-        fun makeToast(name: String, range: ClosedFloatingPointRange<Double>)
+        fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>)
 
         fun sengMessageChanges(isChanged: Boolean = true)
     }

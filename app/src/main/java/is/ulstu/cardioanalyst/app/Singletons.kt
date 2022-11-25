@@ -1,5 +1,8 @@
 package `is`.ulstu.cardioanalyst.app
 
+import `is`.ulstu.cardioanalyst.models.basic_indicators.BasicIndicatorsDBRepository
+import `is`.ulstu.cardioanalyst.models.basic_indicators.IBasicIndicatorsRepository
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.BasicIndicatorsSource
 import `is`.ulstu.cardioanalyst.models.diseases.DiseasesDBRepository
 import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
@@ -36,6 +39,10 @@ object Singletons {
         sourcesProvider.getDiseasesSource()
     }
 
+    val basicIndicatorsSource: BasicIndicatorsSource by lazy {
+        sourcesProvider.getBasicIndicatorsSource()
+    }
+
     val lifestyleSource: LifestyleSource by lazy {
         sourcesProvider.getLifestyleSource()
     }
@@ -52,6 +59,10 @@ object Singletons {
 
     val diseasesRepository: IDiseasesRepository by lazy {
         DiseasesDBRepository()
+    }
+
+    val basicIndicatorsRepository: IBasicIndicatorsRepository by lazy {
+        BasicIndicatorsDBRepository()
     }
 
     val lifestyleRepository: ILifestyleRepository by lazy {
