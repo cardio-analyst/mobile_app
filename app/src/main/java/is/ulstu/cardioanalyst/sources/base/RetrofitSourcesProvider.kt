@@ -8,6 +8,8 @@ import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryRes
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.RetrofitLaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.RetrofitLifestyleSource
+import `is`.ulstu.cardioanalyst.models.recommendations.sources.RecommendationsSource
+import `is`.ulstu.cardioanalyst.models.recommendations.sources.RetrofitRecommendationsSource
 import `is`.ulstu.cardioanalyst.models.users.sources.RetrofitUsersSource
 import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 import `is`.ulstu.cardioanalyst.sources.SourcesProvider
@@ -37,6 +39,10 @@ class RetrofitSourcesProvider(
 
     override fun getLaboratoryResearchSource(): LaboratoryResearchSource {
         return RetrofitLaboratoryResearchSource(config)
+    }
+
+    override fun getRecommendationsSource(): RecommendationsSource {
+        return RetrofitRecommendationsSource(config)
     }
 
 }

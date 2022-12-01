@@ -128,10 +128,13 @@
     <TextView
         android:id="@+id/regionTextViewAlert"
         style="@style/textViewHintProfile"
+        android:layout_width="0dp"
+        android:textAlignment="textEnd"
         android:text="Регион"
         android:layout_marginTop="0dp"
         android:textColor="@color/enter_color"
         app:layout_constraintEnd_toEndOf="@+id/birthDateTextEdit"
+        app:layout_constraintStart_toEndOf="@+id/regionTextView"
         app:layout_constraintTop_toTopOf="@+id/regionTextView" />
 
     <EditText

@@ -14,6 +14,9 @@ import `is`.ulstu.cardioanalyst.models.lifestyle.LifestyleDBRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.TreatmentAdherenceTestRepository
+import `is`.ulstu.cardioanalyst.models.recommendations.IRecommendationsRepository
+import `is`.ulstu.cardioanalyst.models.recommendations.RecommendationsDBRepository
+import `is`.ulstu.cardioanalyst.models.recommendations.sources.RecommendationsSource
 import `is`.ulstu.cardioanalyst.models.settings.AppSettings
 import `is`.ulstu.cardioanalyst.models.settings.SharedPreferencesAppSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
@@ -51,6 +54,10 @@ object Singletons {
         sourcesProvider.getLaboratoryResearchSource()
     }
 
+    val recommendationsSource: RecommendationsSource by lazy {
+        sourcesProvider.getRecommendationsSource()
+    }
+
     // --- repositories
 
     val userRepository: IUserRepository by lazy {
@@ -79,6 +86,10 @@ object Singletons {
 
     val laboratoryResearchRepository: ILaboratoryResearchRepository by lazy {
         LaboratoryResearchDBRepository()
+    }
+
+    val recommendationsRepository: IRecommendationsRepository by lazy {
+        RecommendationsDBRepository()
     }
 
     // --- context methods

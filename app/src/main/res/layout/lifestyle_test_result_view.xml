@@ -2,17 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="32dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <TextView
         android:id="@+id/nameTextView"
         style="@style/textViewHintLaboratoryResearch"
-        android:text="@string/high_density_cholesterol"
+        android:text="@string/angina_symptoms"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
-        android:textColor="@color/active_color"
+        android:textColor="@color/enter_color"
+        android:textSize="@dimen/text_large"
         android:minHeight="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +39,7 @@
         android:layout_marginBottom="0dp"
         android:gravity="end"
         android:enabled="true"
-        android:text="Регион"
-        android:textColor="@color/enter_color"
+        android:text="@string/treatment_adherence_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/resultTextView"
         app:layout_constraintTop_toTopOf="@+id/resultTextView"

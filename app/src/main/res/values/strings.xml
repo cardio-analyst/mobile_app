@@ -221,6 +221,13 @@
     <string name="unit_mg_by_l">мг/л</string>
 
 
+    <!-- Recommendations -->
+    <string name="recommendation">Рекомендация</string>
+    <string name="what_todo">Что рекомендуется делать?</string>
+    <string name="why_text">почему</string>
+    <string name="recommendation_todo">Рекомендации как поступить</string>
+
+
     <!-- Button's texts -->
     <string name="button_text_sign_in">Войти</string>
     <string name="button_text_sign_up">Зарегистрироваться</string>
@@ -292,5 +299,6 @@
     <string name="flow_pending_user_laboratory_research_save">Сохранение персональных данных об анализах</string>
     <string name="flow_pending_user_lifestyle_load">Загрузка персональных данных об образе жизни</string>
     <string name="flow_pending_user_lifestyle_save">Сохранение данных об образе жизни</string>
+    <string name="flow_pending_user_recommendations_load">Получение рекомендаций</string>
 
 </resources>
