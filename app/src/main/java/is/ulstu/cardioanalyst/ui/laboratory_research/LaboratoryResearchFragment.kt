@@ -106,25 +106,14 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
         laboratoryResearches: List<GetLaboratoryResearchResponseEntity>,
         adapter: LaboratoryResearchAdapter
     ) {
-        if (laboratoryResearches.isEmpty()) {
-            // add default
-            adapter.addFragment(
-                LaboratoryResearchRecordFragment(
-                    viewModel.getDefaultLaboratoryResearchRecord(),
-                    this@LaboratoryResearchFragment
-                )
+        // add default
+        adapter.addFragment(
+            LaboratoryResearchRecordFragment(
+                viewModel.getDefaultLaboratoryResearchRecord(),
+                this@LaboratoryResearchFragment
             )
-        } else {
-            val previousRecord = laboratoryResearches.first()
-            // add default based on previous record
-            adapter.addFragment(
-                LaboratoryResearchRecordFragment(
-                    previousRecord.copy(
-                        id = null,
-                        createdAt = resources.getString(R.string.lab_res_default_tooltip)
-                    ), this@LaboratoryResearchFragment
-                )
-            )
+        )
+        if (laboratoryResearches.isNotEmpty()) {
             // add others records
             laboratoryResearches.forEach {
                 adapter.addFragment(
@@ -200,11 +189,17 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
             }
         }
         viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback)
-        viewPager.currentItem = viewPagerCurrentPagePosition ?: 0
+        viewPager.currentItem = getActualPagePosition(adapter.itemCount)
         indicator.createIndicators(
             if (adapter.itemCount > 5) 5 else adapter.itemCount,
             getIndicatePosition(adapter.itemCount, viewPager.currentItem)
         )
+    }
+
+    private fun getActualPagePosition(itemCount: Int): Int {
+        return viewPagerCurrentPagePosition?.let {
+            if (viewPagerCurrentPagePosition == 0 && itemCount >= 2) 1 else it
+        } ?: if (itemCount >= 2) 1 else 0
     }
 
     private fun getIndicatePosition(itemCount: Int, position: Int): Int = if (itemCount > 5)

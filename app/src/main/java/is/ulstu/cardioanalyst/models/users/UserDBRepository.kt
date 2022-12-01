@@ -3,12 +3,104 @@ package `is`.ulstu.cardioanalyst.models.users
 import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.app.UserSessionExpired
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.*
+import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.utils.LazyFlowSubject
+import kotlinx.coroutines.flow.Flow
 
 class UserDBRepository : IUserRepository {
     private val usersSource = Singletons.usersSource
     private val appSettings = Singletons.appSettings
-    private val regionsList: List<String> = listOf("Ульяновск", "Москва", "Питер")
+    private val regionsList: List<String> = listOf(
+        "Москва",
+        "Санкт-Петербург",
+        "Севастополь",
+        "Республика Адыгея",
+        "Республика Алтай",
+        "Республика Башкортостан",
+        "Республика Бурятия",
+        "Республика Дагестан",
+        "Донецкая Народная Республика",
+        "Республика Ингушетия",
+        "Кабардино-Балкарская Республика",
+        "Республика Калмыкия",
+        "Карачаево-Черкесская Республика",
+        "Республика Карелия",
+        "Республика Коми",
+        "Республика Крым",
+        "Луганская Народная Республика",
+        "Республика Марий Эл",
+        "Республика Мордовия",
+        "Республика Саха (Якутия)",
+        "Республика Северная Осетия — Алания",
+        "Республика Татарстан",
+        "Республика Тыва",
+        "Удмуртская Республика",
+        "Республика Хакасия",
+        "Чеченская Республика",
+        "Чувашская Республика — Чувашия",
+        "Алтайский край",
+        "Забайкальский край",
+        "Камчатский край",
+        "Краснодарский край",
+        "Красноярский край",
+        "Пермский край",
+        "Приморский край",
+        "Ставропольский край",
+        "Хабаровский край",
+        "Амурская область",
+        "Архангельская область",
+        "Астраханская область",
+        "Белгородская область",
+        "Брянская область",
+        "Владимирская область",
+        "Волгоградская область",
+        "Вологодская область",
+        "Воронежская область",
+        "Запорожская область",
+        "Ивановская область",
+        "Иркутская область",
+        "Калининградская область",
+        "Калужская область",
+        "Кемеровская область — Кузбасс",
+        "Кировская область",
+        "Костромская область",
+        "Курганская область",
+        "Курская область",
+        "Ленинградская область",
+        "Липецкая область",
+        "Магаданская область",
+        "Московская область",
+        "Мурманская область",
+        "Нижегородская область",
+        "Новгородская область",
+        "Новосибирская область",
+        "Омская область",
+        "Оренбургская область",
+        "Орловская область",
+        "Пензенская область",
+        "Псковская область",
+        "Ростовская область",
+        "Рязанская область",
+        "Самарская область",
+        "Саратовская область",
+        "Сахалинская область",
+        "Свердловская область",
+        "Смоленская область",
+        "Тамбовская область",
+        "Тверская область",
+        "Томская область",
+        "Тульская область",
+        "Тюменская область",
+        "Ульяновская область",
+        "Херсонская область",
+        "Челябинская область",
+        "Ярославская область",
+        "Еврейская АО",
+        "Ненецкий АО",
+        "Ханты-Мансийский АО — Югра",
+        "Чукотский АО",
+        "Ямало-Ненецкий АО",
+    )
 
     // --- Lazy Repository Flows for observers
 
@@ -54,27 +146,8 @@ class UserDBRepository : IUserRepository {
     }
 
 
-    override fun signUpUser(
-        login: String,
-        email: String,
-        password: String,
-        firstName: String,
-        lastName: String,
-        middleName: String,
-        birthDate: String,
-        region: String
-    ) = userSignUpLazyFlowSubject.listen(
-        UserSingUpRequestEntity(
-            firstName,
-            lastName,
-            middleName,
-            birthDate,
-            region,
-            email,
-            login,
-            password
-        )
-    )
+    override fun signUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): Flow<Result<UserSignUpResponseEntity>> =
+        userSignUpLazyFlowSubject.listen(userSingUpRequestEntity)
 
     private suspend fun doSignUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity {
         val result = usersSource.signUp(userSingUpRequestEntity)
@@ -83,28 +156,8 @@ class UserDBRepository : IUserRepository {
         return result
     }
 
-    override fun reloadSignUpUserRequest(
-        login: String,
-        email: String,
-        password: String,
-        firstName: String,
-        lastName: String,
-        middleName: String,
-        birthDate: String,
-        region: String
-    ) {
-        userSignUpLazyFlowSubject.reloadArgument(
-            UserSingUpRequestEntity(
-                firstName,
-                lastName,
-                middleName,
-                birthDate,
-                region,
-                email,
-                login,
-                password
-            )
-        )
+    override fun reloadSignUpUserRequest(userSingUpRequestEntity: UserSingUpRequestEntity) {
+        userSignUpLazyFlowSubject.reloadArgument(userSingUpRequestEntity)
     }
 
 
@@ -119,21 +172,9 @@ class UserDBRepository : IUserRepository {
     override suspend fun logoutUser() =
         with(appSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
 
-    override suspend fun changeUserParams(
-        login: String,
-        email: String,
-        firstName: String,
-        lastName: String,
-        middleName: String,
-        birthDate: String,
-        region: String,
-        password: String
-    ): Unit = wrapBackendExceptions {
-        usersSource.setUserInfo(
-            UserInfoRequestEntity(
-                email, login, firstName, lastName, middleName, birthDate, region, password
-            )
-        )
-        reloadCurrentUserInfo()
-    }
+    override suspend fun changeUserParams(userInfoRequestEntity: UserInfoRequestEntity) =
+        wrapBackendExceptions {
+            usersSource.setUserInfo(userInfoRequestEntity)
+            reloadCurrentUserInfo()
+        }
 }

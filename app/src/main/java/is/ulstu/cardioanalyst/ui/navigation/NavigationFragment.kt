@@ -59,6 +59,10 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
                 viewModel.onChooseSettingsMode(TabItem.LIFESTYLE)
                 binding.tabNameTextView.text = TabItem.LIFESTYLE.tabName
             }
+            TabItem.RECOMMENDATION.position -> {
+                viewModel.onChooseSettingsMode(TabItem.RECOMMENDATION)
+                binding.tabNameTextView.text = TabItem.RECOMMENDATION.tabName
+            }
         }
     }
 

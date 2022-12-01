@@ -26,34 +26,22 @@ class RegistrationFragment : BaseFragment(R.layout.fragment_registration) {
             observeUserSignUp()
             observeUserSignIn()
             regionTextViewAlert.setOnClickListener {
-                val regions =
-                    viewModel.getAllAvailableRegions()?.toTypedArray() ?: return@setOnClickListener
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle(resources.getString(R.string.choose_region_text))
-                builder.setItems(regions) { dialog, which ->
-                    regionTextViewAlert.text = regions[which]
+                viewModel.regionsAlertDialogShow(context) { region ->
+                    regionTextViewAlert.text = region
                 }
-                val dialog = builder.create()
-                dialog.show()
             }
             registrationButton.setOnClickListener {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_reg))
-                viewModel.reloadSignUpUserRequest(
-                    emailTextEdit.text.toString(),
-                    loginTextEdit.text.toString(),
-                    passwordTextEdit.text.toString(),
-                    nameTextEdit.text.toString(),
-                    birthDateTextEdit.text.toString(),
-                    regionTextViewAlert.text.toString()
+                val userData = UserData(
+                    email = emailTextEdit.text.toString(),
+                    login = loginTextEdit.text.toString(),
+                    password = passwordTextEdit.text.toString(),
+                    name = nameTextEdit.text.toString(),
+                    birthDate = birthDateTextEdit.text.toString(),
+                    region = regionTextViewAlert.text.toString()
                 )
-                viewModel.onRegisterNewUser(
-                    emailTextEdit.text.toString(),
-                    loginTextEdit.text.toString(),
-                    passwordTextEdit.text.toString(),
-                    nameTextEdit.text.toString(),
-                    birthDateTextEdit.text.toString(),
-                    regionTextViewAlert.text.toString()
-                )
+                viewModel.reloadSignUpUserRequest(userData)
+                viewModel.onRegisterNewUser(userData)
             }
         }
     }

@@ -8,6 +8,7 @@ import `is`.ulstu.cardioanalyst.ui.enums.TabItem
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.LaboratoryResearchFragment
 import `is`.ulstu.cardioanalyst.ui.lifestyle.LifestyleFragment
 import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
+import `is`.ulstu.cardioanalyst.ui.recommendations.RecommendationsFragment
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.views.BaseViewModel
 
@@ -40,9 +41,9 @@ class NavigationViewModel(
                 currentTab = TabItem.EXTRA
                 LaboratoryResearchFragment.Screen()
             }
-            /*TabItem.RECOMMENDATION -> {
-                PhotoSampleSettingsFragment.Screen()
-            }*/
+            TabItem.RECOMMENDATION -> {
+                RecommendationsFragment.Screen()
+            }
             else -> {
                 throw Exception("Not correct mode")
             }

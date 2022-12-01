@@ -3,6 +3,7 @@ package `is`.ulstu.cardioanalyst.ui.profile
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentProfileBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
 import `is`.ulstu.foundation.views.BaseScreen
@@ -27,16 +28,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             // init region selector
-            val allAvailableRegions = viewModel.getAllAvailableRegions()
             regionTextViewAlert.setOnClickListener {
-                val regions = allAvailableRegions.toTypedArray()
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle(resources.getString(R.string.choose_region_text))
-                builder.setItems(regions) { dialog, which ->
-                    regionTextViewAlert.text = allAvailableRegions[which]
+                viewModel.regionsAlertDialogShow(context) { region ->
+                    regionTextViewAlert.text = region
                 }
-                val dialog = builder.create()
-                dialog.show()
             }
 
             // init user information fields
@@ -76,7 +71,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                     }
                     positiveButton.setOnClickListener {
                         with(binding) {
-                            viewModel.saveNewUserInfo(
+                            val userData = UserData(
                                 email = emailTextEdit.text.toString(),
                                 login = loginTextEdit.text.toString(),
                                 password = passwordTextEdit.text.toString(),
@@ -84,6 +79,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                                 birthDate = birthDateTextEdit.text.toString(),
                                 region = regionTextViewAlert.text.toString()
                             )
+                            viewModel.saveNewUserInfo(userData)
                             changeMode(isChangingMode = false)
                         }
                     }

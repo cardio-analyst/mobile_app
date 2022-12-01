@@ -4,6 +4,7 @@ import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.BasicIndicatorsS
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
+import `is`.ulstu.cardioanalyst.models.recommendations.sources.RecommendationsSource
 import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 
 /**
@@ -40,5 +41,11 @@ interface SourcesProvider {
      * user laboratoryResearches data.
      */
     fun getLaboratoryResearchSource(): LaboratoryResearchSource
+
+    /**
+     * Create [RecommendationsSource] which is responsible for reading/writing
+     * user recommendations data.
+     */
+    fun getRecommendationsSource(): RecommendationsSource
 
 }

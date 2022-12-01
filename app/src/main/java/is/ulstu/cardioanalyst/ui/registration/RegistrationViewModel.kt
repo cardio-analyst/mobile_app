@@ -4,12 +4,15 @@ import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.*
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
 import `is`.ulstu.cardioanalyst.ui.navigation.NavigationFragment
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
+import android.app.AlertDialog
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 
@@ -26,43 +29,11 @@ class RegistrationViewModel(
     private val _userSignIn = MutableLiveData<Result<Unit>>()
     val userSignIn = _userSignIn.share()
 
-    fun getAllAvailableRegions() = viewModelScope.safeLaunchData {
-        userRepository.getAllAvailableRegions()
-    }
+    private fun getAllAvailableRegions() = userRepository.getAllAvailableRegions()
 
-    fun onRegisterNewUser(
-        email: String,
-        login: String,
-        password: String,
-        name: String,
-        birthDate: String,
-        region: String
-    ) = viewModelScope.safeLaunch {
-        val regexEmail = Regex(Const.REGEX_EMAIL)
-        val regexDate = Regex(Const.REGEX_DATE)
-
-        val fullName = name.split(' ').toList()
-        if (!regexEmail.matches(email))
-            throw IncorrectEmailException()
-        if (fullName.size != 3)
-            throw IncorrectFullNameException()
-        if (!regexDate.matches(birthDate))
-            throw IncorrectBirthDateException()
-        if (region == "")
-            throw IncorrectRegionException()
-        if (password.length < 7)
-            throw IncorrectPasswordException()
-
-        userRepository.signUpUser(
-            login,
-            email,
-            password,
-            fullName[1],
-            fullName[0],
-            fullName[2],
-            birthDate,
-            region
-        ).collect {
+    fun onRegisterNewUser(userData: UserData) = viewModelScope.safeLaunch {
+        val userSingUpRequestEntity = validateUserInfo(userData)
+        userRepository.signUpUser(userSingUpRequestEntity).collect {
             _userSignUp.value = it
         }
     }
@@ -70,41 +41,11 @@ class RegistrationViewModel(
     fun reloadSignInUserRequest(loginOrEmail: String, password: String) =
         userRepository.reloadSignInUserRequest(loginOrEmail, password)
 
-    fun reloadSignUpUserRequest(
-        email: String,
-        login: String,
-        password: String,
-        name: String,
-        birthDate: String,
-        region: String
-    ) {
-        val regexEmail = Regex(Const.REGEX_EMAIL)
-        val regexDate = Regex(Const.REGEX_DATE)
-
+    fun reloadSignUpUserRequest(userData: UserData) {
         try {
-            val fullName = name.split(' ').toList()
-            if (!regexEmail.matches(email))
-                throw IncorrectEmailException()
-            if (fullName.size != 3)
-                throw IncorrectFullNameException()
-            if (!regexDate.matches(birthDate))
-                throw IncorrectBirthDateException()
-            if (region == "")
-                throw IncorrectRegionException()
-            if (password.length < 7)
-                throw IncorrectPasswordException()
-            userRepository.reloadSignUpUserRequest(
-                login,
-                email,
-                password,
-                fullName[1],
-                fullName[0],
-                fullName[2],
-                birthDate,
-                region
-            )
+            val userSingUpRequestEntity = validateUserInfo(userData)
+            userRepository.reloadSignUpUserRequest(userSingUpRequestEntity)
         } catch (_: Exception) {
-            // nothing to do
         }
     }
 
@@ -119,5 +60,49 @@ class RegistrationViewModel(
         navigator.goBack()
         if (Singletons.appSettings.getCurrentRefreshToken() != null)
             navigator.addFragmentToScreen(R.id.fragmentContainer, NavigationFragment.Screen())
+    }
+
+    fun regionsAlertDialogShow(context: Context?, action: (region: String) -> Unit) {
+        val regions =
+            getAllAvailableRegions().toTypedArray()
+        AlertDialog.Builder(context)
+            .setTitle(Singletons.getString(R.string.choose_region_text))
+            .setItems(regions) { _, which ->
+                action(regions[which])
+            }
+            .create()
+            .show()
+    }
+
+    /**
+     * @throws IncorrectEmailException
+     * @throws IncorrectFullNameException
+     * @throws IncorrectBirthDateException
+     * @throws IncorrectRegionException
+     * @throws IncorrectPasswordException
+     */
+    private fun validateUserInfo(userData: UserData): UserSingUpRequestEntity {
+        val regexEmail = Regex(Const.REGEX_EMAIL)
+        val regexDate = Regex(Const.REGEX_DATE)
+
+        val fullName = userData.name.split(' ').toList()
+        when {
+            !regexEmail.matches(userData.email) -> throw IncorrectEmailException()
+            fullName.size != 3 -> throw IncorrectFullNameException()
+            !regexDate.matches(userData.birthDate) -> throw IncorrectBirthDateException()
+            userData.region == "" -> throw IncorrectRegionException()
+            userData.password.length < 7 -> throw IncorrectPasswordException()
+        }
+
+        return UserSingUpRequestEntity(
+            firstName = fullName[1],
+            lastName = fullName[0],
+            middleName = fullName[2],
+            birthDate = userData.birthDate,
+            region = userData.region,
+            email = userData.email,
+            login = userData.login,
+            password = userData.password,
+        )
     }
 }
