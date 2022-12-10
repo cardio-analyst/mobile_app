@@ -12,10 +12,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 
-fun <T> LiveData<T>.requireValue(): T {
-    return this.value ?: throw IllegalStateException("Value is empty")
-}
-
 fun <T> LiveData<Result<T>>.observeResults(
     fragment: BaseFragment,
     root: View,

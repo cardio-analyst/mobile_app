@@ -12,9 +12,13 @@
     <string name="name_text">ФИО</string>
     <string name="region_text">Регион проживания</string>
     <string name="email_text">Почта</string>
+    <string name="email_doctor_text">Почта врача (не обязательно)</string>
     <string name="login_text">Логин</string>
     <string name="birth_date_text">Дата рождения</string>
     <string name="choose_region_text">Выберите регион</string>
+    <string name="send_to_myself_text">Отправить себе на почту</string>
+    <string name="share_text">Поделиться</string>
+    <string name="send_to_email_text">Отправка отчета на почту</string>
 
 
     <!-- Diseases -->
@@ -241,6 +245,7 @@
     <string name="button_text_next">Далее</string>
     <string name="button_text_finish">Завершить</string>
     <string name="button_text_calculate">Рассчитать</string>
+    <string name="button_text_send">Отправить</string>
 
 
     <!-- Toasts -->
@@ -248,6 +253,7 @@
     <string name="user_info_create">Изменения успешно сохранены</string>
     <string name="user_sign_up_successful">Регистрация прошла успешно!</string>
     <string name="out_of_range_toast">Показатель: %s, должен быть в диапазоне от %.1f до %.1f</string>
+    <string name="report_sent_toast">Отчет отправлен на почту</string>
 
 
     <!-- Alert dialogs -->
@@ -285,6 +291,7 @@
     <string name="app_logic_ex_connection_ex">Ошибка соединения, пожалуйста, проверьте подключение к Интернету</string>
     <string name="action_try_again">Попробуйте снова</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
+    <string name="auto_sign_in_exception">Пожалуйста, войдите или зарегистрируйтесь</string>
 
 
     <!-- Flow Pending Descriptions -->

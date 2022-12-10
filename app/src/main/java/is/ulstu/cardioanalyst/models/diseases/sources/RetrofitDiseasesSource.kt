@@ -3,8 +3,11 @@ package `is`.ulstu.cardioanalyst.models.diseases.sources
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import `is`.ulstu.cardioanalyst.sources.base.BaseRetrofitSource
 import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitDiseasesSource(
+@Singleton
+class RetrofitDiseasesSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), DiseasesSource {
 

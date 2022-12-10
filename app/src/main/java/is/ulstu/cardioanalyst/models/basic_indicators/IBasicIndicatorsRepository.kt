@@ -48,11 +48,20 @@ interface IBasicIndicatorsRepository : Repository {
         updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity
     )
 
+    /**
+     * Get CVE risk for user
+     * @param getCVERiskRequestEntity [GetCVERiskRequestEntity]
+     */
     fun getCVERisk(
         getCVERiskRequestEntity: GetCVERiskRequestEntity
     ): Flow<Result<GetCVERiskResponseEntity>>
 
+    /**
+     * Get user Ideal Age
+     * @param getCVERiskRequestEntity [GetCVERiskRequestEntity]
+     */
     fun getIdealAge(
         getCVERiskRequestEntity: GetCVERiskRequestEntity
     ): Flow<Result<GetIdealAgeResponseEntity>>
+
 }

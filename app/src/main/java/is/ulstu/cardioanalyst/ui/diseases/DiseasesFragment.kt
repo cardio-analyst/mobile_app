@@ -2,28 +2,24 @@ package `is`.ulstu.cardioanalyst.ui.diseases
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class DiseasesFragment : BaseFragment(R.layout.fragment_diseases) {
+@AndroidEntryPoint
+class DiseasesFragment @Inject constructor() : BaseFragment(R.layout.fragment_diseases) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<DiseasesViewModel>()
+    override val viewModel by viewModels<DiseasesViewModel>()
 
     private val binding by viewBinding(FragmentDiseasesBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
@@ -31,6 +27,7 @@ class DiseasesFragment : BaseFragment(R.layout.fragment_diseases) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         with(actionButtonsBinding) {
             buttonVisibility = {
                 negativeButton.visibility = it
@@ -41,11 +38,12 @@ class DiseasesFragment : BaseFragment(R.layout.fragment_diseases) {
 
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_diseases_load))
-            resultView.setTryAgainAction { viewModel.reloadDiseases() }
+            resultView.setTryAgainAction { viewModel.getOrReloadDiseases() }
         }
 
         observeDiseases()
         observeDiseasesSave()
+        viewModel.getOrReloadDiseases()
     }
 
     private fun observeDiseases() {
@@ -131,8 +129,9 @@ class DiseasesFragment : BaseFragment(R.layout.fragment_diseases) {
             viewModel.onSuccessSaveToast()
             with(binding) {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_diseases_load))
-                resultView.setTryAgainAction { viewModel.reloadDiseases() }
+                resultView.setTryAgainAction { viewModel.getOrReloadDiseases() }
             }
         })
     }
+
 }

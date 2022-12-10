@@ -2,43 +2,39 @@ package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
-import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.models.basic_indicators.IBasicIndicatorsRepository
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
+import `is`.ulstu.foundation.utils.SingleLiveEvent
 import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BasicIndicatorsViewModel(
+@HiltViewModel
+class BasicIndicatorsViewModel @Inject constructor(
     navigator: Navigator,
+    userSettings: UserSettings,
     private val uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
-
-    private val basicIndicatorsRepository: IBasicIndicatorsRepository =
-        Singletons.basicIndicatorsRepository
+    private val basicIndicatorsRepository: IBasicIndicatorsRepository,
+) : BaseViewModel(navigator, userSettings, uiActions) {
 
     private val _basicIndicators =
-        MutableLiveData<Result<List<GetBasicIndicatorResponseEntity>>>()
+        SingleLiveEvent<Result<List<GetBasicIndicatorResponseEntity>>>()
     val basicIndicators = _basicIndicators.share()
 
     private val _createBasicIndicators =
-        MutableLiveData<Result<CreateBasicIndicatorResponseEntity>>()
+        SingleLiveEvent<Result<CreateBasicIndicatorResponseEntity>>()
     val createBasicIndicators = _createBasicIndicators.share()
 
     private val _updateBasicIndicators =
-        MutableLiveData<Result<UpdateBasicIndicatorResponseEntity>>()
+        SingleLiveEvent<Result<UpdateBasicIndicatorResponseEntity>>()
     val updateBasicIndicators = _updateBasicIndicators.share()
-
-    private val _cveRisk = MutableLiveData<Result<GetCVERiskResponseEntity>>()
-    val cveRisk = _cveRisk.share()
-
-    private val _idealAge = MutableLiveData<Result<GetIdealAgeResponseEntity>>()
-    val idealAge = _idealAge.share()
 
 
     private fun getUserBasicIndicators() = viewModelScope.safeLaunch {
@@ -49,7 +45,11 @@ class BasicIndicatorsViewModel(
         }
     }
 
-    fun reloadBasicIndicators() = basicIndicatorsRepository.reloadBasicIndicators()
+    fun getOrReloadBasicIndicators() =
+        if (firstLoadFlag)
+            getUserBasicIndicators()
+        else
+            basicIndicatorsRepository.reloadBasicIndicators()
 
     fun createUserBasicIndicators(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity) =
         viewModelScope.safeLaunch {
@@ -109,40 +109,16 @@ class BasicIndicatorsViewModel(
     fun reloadUpdateBasicIndicator(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity) =
         basicIndicatorsRepository.reloadUpdateBasicIndicator(updateBasicIndicatorIdEntity)
 
-    fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity) =
-        viewModelScope.safeLaunch {
-            basicIndicatorsRepository.getCVERisk(
-                getCVERiskRequestEntity
-            ).collect {
-                if (it is Error && it.error is RefreshTokenExpired)
-                    throw it.error
-                _cveRisk.value = it
-            }
-        }
+    fun onSuccessCreateToast() = uiActions.toast(R.string.user_info_create)
 
-    fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity) =
-        viewModelScope.safeLaunch {
-            basicIndicatorsRepository.getIdealAge(
-                getCVERiskRequestEntity
-            ).collect {
-                if (it is Error && it.error is RefreshTokenExpired)
-                    throw it.error
-                _idealAge.value = it
-            }
-        }
-
-    fun onSuccessCreateToast() = uiActions.toast(Singletons.getString(R.string.user_info_create))
-
-    fun onSuccessChangeToast() = uiActions.toast(Singletons.getString(R.string.user_info_save))
+    fun onSuccessChangeToast() = uiActions.toast(R.string.user_info_save)
 
     fun <T : Comparable<T>> onOutOfRangeToast(name: String, range: ClosedFloatingPointRange<T>) =
         uiActions.toast(
-            Singletons.getString(
-                R.string.out_of_range_toast,
-                name,
-                range.start,
-                range.endInclusive
-            )
+            messageRes = R.string.out_of_range_toast,
+            name,
+            range.start,
+            range.endInclusive
         )
 
     fun getDefaultLBasicIndicatorRecord() = GetBasicIndicatorResponseEntity(
@@ -151,16 +127,13 @@ class BasicIndicatorsViewModel(
         height = 145.0,
         bodyMassIndex = 16.0,
         waistSize = 50.0,
-        gender = Singletons.getString(R.string.default_option_not_choosing),
+        gender = uiActions.getString(R.string.default_option_not_choosing),
         sbpLevel = 80.0,
         smoking = false,
         totalCholesterolLevel = 3.0,
         cvEventsRiskValue = 0,
         idealCardiovascularAgesRange = "40",
-        createdAt = Singletons.getString(R.string.basic_indicators_default_tooltip)
+        createdAt = uiActions.getString(R.string.basic_indicators_default_tooltip)
     )
 
-    init {
-        getUserBasicIndicators()
-    }
 }

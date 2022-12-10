@@ -1,7 +1,6 @@
 package `is`.ulstu.cardioanalyst.sources.base
 
 import `is`.ulstu.cardioanalyst.app.*
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingInRequestEntity
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import com.squareup.moshi.Moshi

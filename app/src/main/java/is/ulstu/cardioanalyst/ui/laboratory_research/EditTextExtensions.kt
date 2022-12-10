@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import kotlin.reflect.typeOf
 
 
 @SuppressLint("SetTextI18n")
@@ -42,7 +41,7 @@ fun <T : Comparable<T>> EditText.smartEditText(
             var value: T? = null
             try {
                 val str = text.toString()
-                value = when(range.start) {
+                value = when (range.start) {
                     is Int -> str.toInt() as T
                     is Double -> str.toDouble() as T
                     else -> throw Exception()

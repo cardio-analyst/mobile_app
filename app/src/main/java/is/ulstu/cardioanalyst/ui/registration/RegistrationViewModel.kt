@@ -2,6 +2,7 @@ package `is`.ulstu.cardioanalyst.ui.registration
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.*
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
@@ -15,13 +16,19 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RegistrationViewModel(
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
     private val navigator: Navigator,
+    private val userSettings: UserSettings,
     val uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
+    private val navigationFragment: NavigationFragment,
+) : BaseViewModel(navigator, userSettings, uiActions) {
 
-    private val userRepository: IUserRepository = Singletons.userRepository
+    @Inject
+    lateinit var userRepository: IUserRepository
 
     private val _userSignUp = MutableLiveData<Result<UserSignUpResponseEntity>>()
     val userSignUp = _userSignUp.share()
@@ -58,15 +65,15 @@ class RegistrationViewModel(
     fun onSuccessSignIn() {
         // clear stack?
         navigator.goBack()
-        if (Singletons.appSettings.getCurrentRefreshToken() != null)
-            navigator.addFragmentToScreen(R.id.fragmentContainer, NavigationFragment.Screen())
+        if (userSettings.getCurrentRefreshToken() != null)
+            navigator.addFragmentToScreen(R.id.fragmentContainer, navigationFragment)
     }
 
     fun regionsAlertDialogShow(context: Context?, action: (region: String) -> Unit) {
         val regions =
             getAllAvailableRegions().toTypedArray()
         AlertDialog.Builder(context)
-            .setTitle(Singletons.getString(R.string.choose_region_text))
+            .setTitle(uiActions.getString(R.string.choose_region_text))
             .setItems(regions) { _, which ->
                 action(regions[which])
             }

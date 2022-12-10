@@ -3,8 +3,11 @@ package `is`.ulstu.cardioanalyst.models.basic_indicators.sources
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
 import `is`.ulstu.cardioanalyst.sources.base.BaseRetrofitSource
 import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitBasicIndicatorsSource(
+@Singleton
+class RetrofitBasicIndicatorsSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), BasicIndicatorsSource {
 

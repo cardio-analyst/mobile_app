@@ -28,6 +28,11 @@ interface IUserRepository : Repository {
     fun getAllAvailableRegions(): List<String>
 
     /**
+     * Get user access token
+     */
+    suspend fun getUserAccessToken(): String?
+
+    /**
      * Refresh access token for user account session
      */
     suspend fun refreshUserAccessToken()

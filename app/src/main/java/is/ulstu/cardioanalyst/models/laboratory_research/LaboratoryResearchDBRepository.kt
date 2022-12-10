@@ -1,14 +1,19 @@
 package `is`.ulstu.cardioanalyst.models.laboratory_research
 
-import `is`.ulstu.cardioanalyst.app.Singletons
+import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
+import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
-
-    private val laboratoryResearchSource = Singletons.laboratoryResearchSource
+@Singleton
+class LaboratoryResearchDBRepository @Inject constructor(
+    private val laboratoryResearchSource: LaboratoryResearchSource,
+    private val userRepository: IUserRepository,
+) : ILaboratoryResearchRepository {
 
     // --- Lazy Repository Flows for observers
 
@@ -34,7 +39,7 @@ class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
         laboratoryResearchesLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetLaboratoryResearches(): List<GetLaboratoryResearchResponseEntity> =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             laboratoryResearchSource.getLaboratoryResearches()
         }
 
@@ -50,7 +55,7 @@ class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
 
 
     private suspend fun doCreateLaboratoryResearches(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity): CreateLaboratoryResearchResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             laboratoryResearchSource.createLaboratoryResearch(createLaboratoryResearchRequestEntity)
         }
 
@@ -66,7 +71,7 @@ class LaboratoryResearchDBRepository : ILaboratoryResearchRepository {
 
     private suspend fun doUpdateLaboratoryResearch(updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity)
             : UpdateLaboratoryResearchResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             laboratoryResearchSource.updateLaboratoryResearch(
                 laboratoryResearchId = updateLaboratoryResearchIdEntity.laboratoryResearchId,
                 updateLaboratoryResearchRequestEntity = UpdateLaboratoryResearchRequestEntity(

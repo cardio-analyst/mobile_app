@@ -1,15 +1,21 @@
 package `is`.ulstu.cardioanalyst.models.users
 
-import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.app.UserSessionExpired
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
+import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.*
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserDBRepository : IUserRepository {
-    private val usersSource = Singletons.usersSource
-    private val appSettings = Singletons.appSettings
+@Singleton
+class UserDBRepository @Inject constructor(
+    private val usersSource: UsersSource,
+    private val userSettings: UserSettings,
+) : IUserRepository {
+
     private val regionsList: List<String> = listOf(
         "Москва",
         "Санкт-Петербург",
@@ -123,9 +129,10 @@ class UserDBRepository : IUserRepository {
 
     override fun getCurrentUserInfo() = userLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetCurrentUserInfo(): UserInfoResponseEntity = wrapBackendExceptions {
-        usersSource.getUserInfo()
-    }
+    private suspend fun doGetCurrentUserInfo(): UserInfoResponseEntity =
+        wrapBackendExceptions(this@UserDBRepository) {
+            usersSource.getUserInfo()
+        }
 
     override fun reloadCurrentUserInfo() {
         userLazyFlowSubject.reloadAll()
@@ -137,8 +144,8 @@ class UserDBRepository : IUserRepository {
 
     private suspend fun doSignInUser(loginOrEmail: String, password: String) {
         val result = usersSource.signIn(UserSingInRequestEntity(loginOrEmail, password))
-        appSettings.setUserAccountAccessToken(result.accessToken)
-        appSettings.setCurrentRefreshToken(result.refreshToken)
+        userSettings.setUserAccountAccessToken(result.accessToken)
+        userSettings.setCurrentRefreshToken(result.refreshToken)
     }
 
     override fun reloadSignInUserRequest(loginOrEmail: String, password: String) {
@@ -161,19 +168,21 @@ class UserDBRepository : IUserRepository {
     }
 
 
+    override suspend fun getUserAccessToken(): String? = userSettings.getUserAccountAccessToken()
+
     override suspend fun refreshUserAccessToken() {
         val refreshToken =
-            Singletons.appSettings.getCurrentRefreshToken() ?: throw UserSessionExpired()
+            userSettings.getCurrentRefreshToken() ?: throw UserSessionExpired()
         val result = usersSource.refreshTokens(UserRefreshTokensRequestEntity(refreshToken))
-        appSettings.setUserAccountAccessToken(result.accessToken)
-        appSettings.setCurrentRefreshToken(result.refreshToken)
+        userSettings.setUserAccountAccessToken(result.accessToken)
+        userSettings.setCurrentRefreshToken(result.refreshToken)
     }
 
     override suspend fun logoutUser() =
-        with(appSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
+        with(userSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
 
     override suspend fun changeUserParams(userInfoRequestEntity: UserInfoRequestEntity) =
-        wrapBackendExceptions {
+        wrapBackendExceptions(this@UserDBRepository) {
             usersSource.setUserInfo(userInfoRequestEntity)
             reloadCurrentUserInfo()
         }

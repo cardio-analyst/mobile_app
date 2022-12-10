@@ -2,36 +2,38 @@ package `is`.ulstu.cardioanalyst.ui.laboratory_research
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
-import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
+import `is`.ulstu.foundation.utils.SingleLiveEvent
 import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LaboratoryResearchViewModel(
+@HiltViewModel
+class LaboratoryResearchViewModel @Inject constructor(
     navigator: Navigator,
+    userSettings: UserSettings,
     private val uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
-
-    private val laboratoryResearchRepository: ILaboratoryResearchRepository =
-        Singletons.laboratoryResearchRepository
+    private val laboratoryResearchRepository: ILaboratoryResearchRepository,
+) : BaseViewModel(navigator, userSettings, uiActions) {
 
     private val _laboratoryResearches =
-        MutableLiveData<Result<List<GetLaboratoryResearchResponseEntity>>>()
+        SingleLiveEvent<Result<List<GetLaboratoryResearchResponseEntity>>>()
     val laboratoryResearches = _laboratoryResearches.share()
 
     private val _createLaboratoryResearch =
-        MutableLiveData<Result<CreateLaboratoryResearchResponseEntity>>()
+        SingleLiveEvent<Result<CreateLaboratoryResearchResponseEntity>>()
     val createLaboratoryResearch = _createLaboratoryResearch.share()
 
     private val _updateLaboratoryResearch =
-        MutableLiveData<Result<UpdateLaboratoryResearchResponseEntity>>()
+        SingleLiveEvent<Result<UpdateLaboratoryResearchResponseEntity>>()
     val updateLaboratoryResearch = _updateLaboratoryResearch.share()
 
 
@@ -43,7 +45,11 @@ class LaboratoryResearchViewModel(
         }
     }
 
-    fun reloadLaboratoryResearches() = laboratoryResearchRepository.reloadGetLaboratoryResearches()
+    fun getOrReloadLaboratoryResearches() =
+        if (firstLoadFlag)
+            getUserLaboratoryResearches()
+        else
+            laboratoryResearchRepository.reloadGetLaboratoryResearches()
 
     fun createUserLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity) =
         viewModelScope.safeLaunch {
@@ -99,18 +105,16 @@ class LaboratoryResearchViewModel(
     fun reloadUpdateLaboratoryResearch(updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity) =
         laboratoryResearchRepository.reloadUpdateLaboratoryResearch(updateLaboratoryResearchIdEntity)
 
-    fun onSuccessCreateToast() = uiActions.toast(Singletons.getString(R.string.user_info_create))
+    fun onSuccessCreateToast() = uiActions.toast(R.string.user_info_create)
 
-    fun onSuccessChangeToast() = uiActions.toast(Singletons.getString(R.string.user_info_save))
+    fun onSuccessChangeToast() = uiActions.toast(R.string.user_info_save)
 
     fun <T : Comparable<T>> onOutOfRangeToast(name: String, range: ClosedFloatingPointRange<T>) =
         uiActions.toast(
-            Singletons.getString(
-                R.string.out_of_range_toast,
-                name,
-                range.start,
-                range.endInclusive
-            )
+            messageRes = R.string.out_of_range_toast,
+            name,
+            range.start,
+            range.endInclusive
         )
 
     fun getDefaultLaboratoryResearchRecord() = GetLaboratoryResearchResponseEntity(
@@ -123,10 +127,7 @@ class LaboratoryResearchViewModel(
         atherogenicityCoefficient = 0.1,
         creatinine = 20.0,
         atheroscleroticPlaquesPresence = false,
-        createdAt = Singletons.getString(R.string.lab_res_default_tooltip),
+        createdAt = uiActions.getString(R.string.lab_res_default_tooltip),
     )
 
-    init {
-        getUserLaboratoryResearches()
-    }
 }

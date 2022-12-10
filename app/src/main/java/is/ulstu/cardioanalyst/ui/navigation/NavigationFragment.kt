@@ -1,27 +1,21 @@
 package `is`.ulstu.cardioanalyst.ui.navigation
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
 import `is`.ulstu.cardioanalyst.databinding.FragmentNavigationBinding
 import `is`.ulstu.cardioanalyst.ui.enums.TabItem
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
-import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
+@AndroidEntryPoint
+class NavigationFragment @Inject constructor() : BaseFragment(R.layout.fragment_navigation) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<NavigationViewModel>()
+    override val viewModel by viewModels<NavigationViewModel>()
 
     private val binding by viewBinding(FragmentNavigationBinding::bind)
 
@@ -43,9 +37,9 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
 
     private fun onTabSelected(position: Int) {
         when (position) {
-            TabItem.GENERAL_INFO.position -> {
-                viewModel.onChooseSettingsMode(TabItem.GENERAL_INFO)
-                binding.tabNameTextView.text = TabItem.GENERAL_INFO.tabName
+            TabItem.DISEASES.position -> {
+                viewModel.onChooseSettingsMode(TabItem.DISEASES)
+                binding.tabNameTextView.text = TabItem.DISEASES.tabName
             }
             TabItem.HEART_INDICATORS.position -> {
                 viewModel.onChooseSettingsMode(TabItem.HEART_INDICATORS)
@@ -64,6 +58,11 @@ class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
                 binding.tabNameTextView.text = TabItem.RECOMMENDATION.tabName
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
     }
 
     private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {

@@ -6,20 +6,21 @@ import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_research),
+@AndroidEntryPoint
+class LaboratoryResearchFragment @Inject constructor(
+
+) : BaseFragment(R.layout.fragment_laboratory_research),
     LaboratoryResearchRecordFragment.LaboratoryResearchRecordListener {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<LaboratoryResearchViewModel>()
+    override val viewModel by viewModels<LaboratoryResearchViewModel>()
 
     private val binding by viewBinding(FragmentLaboratoryResearchBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
@@ -48,13 +49,14 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
 
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-            resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+            resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
         }
 
 
         observeLaboratoryResearches()
         observeCreateLaboratoryResearch()
         observeUpdateLaboratoryResearch()
+        viewModel.getOrReloadLaboratoryResearches()
     }
 
 
@@ -78,10 +80,10 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
             binding.resultView, {
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+                    resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
                     viewPagerCurrentPagePosition = viewPager.currentItem
                 }
-                viewModel.reloadLaboratoryResearches()
+                viewModel.getOrReloadLaboratoryResearches()
                 viewModel.onSuccessCreateToast()
             })
     }
@@ -93,10 +95,10 @@ class LaboratoryResearchFragment : BaseFragment(R.layout.fragment_laboratory_res
             binding.resultView, {
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.reloadLaboratoryResearches() }
+                    resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
                     viewPagerCurrentPagePosition = viewPager.currentItem
                 }
-                viewModel.reloadLaboratoryResearches()
+                viewModel.getOrReloadLaboratoryResearches()
                 viewModel.onSuccessChangeToast()
             })
     }

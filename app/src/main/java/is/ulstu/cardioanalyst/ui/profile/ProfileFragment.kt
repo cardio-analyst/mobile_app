@@ -6,20 +6,19 @@ import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
+@AndroidEntryPoint
+class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_profile) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<ProfileViewModel>()
+    override val viewModel by viewModels<ProfileViewModel>()
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
@@ -36,11 +35,13 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
             // init user information fields
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_info))
-            resultView.setTryAgainAction { viewModel.reload() }
-            observeUserDetails()
+            resultView.setTryAgainAction { viewModel.getOrReloadGetCurrentUser() }
+            shareButton.setOnClickListener { viewModel.sendReportToEmail() }
         }
-    }
 
+        observeUserDetails()
+        viewModel.getOrReloadGetCurrentUser()
+    }
     private fun observeUserDetails() {
         viewModel.user.observeResults(this, binding.root, binding.resultView, { currentUserInfo ->
             with(binding) {
@@ -67,7 +68,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                     positiveButton.text = resources.getString(R.string.button_text_save)
                     negativeButton.setOnClickListener {
                         changeMode(isChangingMode = false)
-                        viewModel.reload()
+                        viewModel.getOrReloadGetCurrentUser()
                     }
                     positiveButton.setOnClickListener {
                         with(binding) {

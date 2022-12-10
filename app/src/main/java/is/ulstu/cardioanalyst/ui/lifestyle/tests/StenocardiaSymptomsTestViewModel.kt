@@ -1,20 +1,18 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
 
-import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class StenocardiaSymptomsTestViewModel(
-    private val screen: StenocardiaSymptomsTestFragment.Screen,
+@HiltViewModel
+class StenocardiaSymptomsTestViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
-
-    private val stenocardiaSymptomsTestRepository = Singletons.stenocardiaSymptomsTestRepository
+    userSettings: UserSettings,
+    private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
+) : BaseViewModel(navigator, userSettings) {
 
     /**
      * @see StenocardiaSymptomsTestRepository
@@ -33,9 +31,9 @@ class StenocardiaSymptomsTestViewModel(
         }
     }
 
-    fun finish(result: Int) = viewModelScope.safeLaunch {
-        screen.lifestyleTestListener.returnStenocardiaSymptomsResult(result) {
-            navigator.goBack()
-        }
+    fun finish(result: Int) {
+        stenocardiaSymptomsTestRepository.scoreResult = result
+        navigator.goBack()
     }
+
 }

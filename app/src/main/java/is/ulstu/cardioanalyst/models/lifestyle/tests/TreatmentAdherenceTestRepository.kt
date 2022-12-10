@@ -1,45 +1,60 @@
 package `is`.ulstu.cardioanalyst.models.lifestyle.tests
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Singletons
+import `is`.ulstu.foundation.uiactions.UiActions
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TreatmentAdherenceTestRepository {
+@Singleton
+class TreatmentAdherenceTestRepository @Inject constructor(
+    uiActions: UiActions,
+) {
+
+    var results: Triple<Double, Double, Double>? = null
+        get() {
+            if (field != null) {
+                val value = field
+                field = null
+                return value
+            }
+            return field
+        }
 
     /**
      * Answers Kits for questions
      */
     private val answersKit: List<List<String>> = listOf(
         listOf(
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_high),
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_low),
-            Singletons.getString(R.string.treatment_adherence_answer_important_low),
-            Singletons.getString(R.string.treatment_adherence_answer_important_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_important_high),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_high),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_low),
+            uiActions.getString(R.string.treatment_adherence_answer_important_low),
+            uiActions.getString(R.string.treatment_adherence_answer_important_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_important_high),
         ),
         listOf(
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_not),
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_not_important_low),
-            Singletons.getString(R.string.treatment_adherence_answer_important_low),
-            Singletons.getString(R.string.treatment_adherence_answer_important_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_important_high),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_not),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_not_important_low),
+            uiActions.getString(R.string.treatment_adherence_answer_important_low),
+            uiActions.getString(R.string.treatment_adherence_answer_important_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_important_high),
         ),
         listOf(
-            Singletons.getString(R.string.treatment_adherence_answer_difficult_high),
-            Singletons.getString(R.string.treatment_adherence_answer_difficult_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_difficult_low),
-            Singletons.getString(R.string.treatment_adherence_answer_not_difficult_high),
-            Singletons.getString(R.string.treatment_adherence_answer_not_difficult_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_not_difficult_low),
+            uiActions.getString(R.string.treatment_adherence_answer_difficult_high),
+            uiActions.getString(R.string.treatment_adherence_answer_difficult_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_difficult_low),
+            uiActions.getString(R.string.treatment_adherence_answer_not_difficult_high),
+            uiActions.getString(R.string.treatment_adherence_answer_not_difficult_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_not_difficult_low),
         ),
         listOf(
-            Singletons.getString(R.string.treatment_adherence_answer_not_will_high),
-            Singletons.getString(R.string.treatment_adherence_answer_not_will_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_not_will_low),
-            Singletons.getString(R.string.treatment_adherence_answer_will_high),
-            Singletons.getString(R.string.treatment_adherence_answer_will_medium),
-            Singletons.getString(R.string.treatment_adherence_answer_will_low),
+            uiActions.getString(R.string.treatment_adherence_answer_not_will_high),
+            uiActions.getString(R.string.treatment_adherence_answer_not_will_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_not_will_low),
+            uiActions.getString(R.string.treatment_adherence_answer_will_high),
+            uiActions.getString(R.string.treatment_adherence_answer_will_medium),
+            uiActions.getString(R.string.treatment_adherence_answer_will_low),
         )
     )
 
@@ -50,127 +65,127 @@ class TreatmentAdherenceTestRepository {
     val questions: List<Question> = listOf(
         Question(
             0,
-            Singletons.getString(R.string.treatment_adherence_question_1),
+            uiActions.getString(R.string.treatment_adherence_question_1),
             answersKit[0]
         ),
         Question(
             1,
-            Singletons.getString(R.string.treatment_adherence_question_2),
+            uiActions.getString(R.string.treatment_adherence_question_2),
             answersKit[2]
         ),
         Question(
             2,
-            Singletons.getString(R.string.treatment_adherence_question_3),
+            uiActions.getString(R.string.treatment_adherence_question_3),
             answersKit[2]
         ),
         Question(
             3,
-            Singletons.getString(R.string.treatment_adherence_question_4),
+            uiActions.getString(R.string.treatment_adherence_question_4),
             answersKit[2]
         ),
         Question(
             4,
-            Singletons.getString(R.string.treatment_adherence_question_5),
+            uiActions.getString(R.string.treatment_adherence_question_5),
             answersKit[2]
         ),
         Question(
             5,
-            Singletons.getString(R.string.treatment_adherence_question_6),
+            uiActions.getString(R.string.treatment_adherence_question_6),
             answersKit[0]
         ),
         Question(
             6,
-            Singletons.getString(R.string.treatment_adherence_question_7),
+            uiActions.getString(R.string.treatment_adherence_question_7),
             answersKit[1]
         ),
         Question(
             7,
-            Singletons.getString(R.string.treatment_adherence_question_8),
+            uiActions.getString(R.string.treatment_adherence_question_8),
             answersKit[2]
         ),
         Question(
             8,
-            Singletons.getString(R.string.treatment_adherence_question_9),
+            uiActions.getString(R.string.treatment_adherence_question_9),
             answersKit[2]
         ),
         Question(
             9,
-            Singletons.getString(R.string.treatment_adherence_question_10),
+            uiActions.getString(R.string.treatment_adherence_question_10),
             answersKit[0]
         ),
         Question(
             10,
-            Singletons.getString(R.string.treatment_adherence_question_11),
+            uiActions.getString(R.string.treatment_adherence_question_11),
             answersKit[0]
         ),
         Question(
             11,
-            Singletons.getString(R.string.treatment_adherence_question_12),
+            uiActions.getString(R.string.treatment_adherence_question_12),
             answersKit[0]
         ),
         Question(
             12,
-            Singletons.getString(R.string.treatment_adherence_question_13),
+            uiActions.getString(R.string.treatment_adherence_question_13),
             answersKit[2]
         ),
         Question(
             13,
-            Singletons.getString(R.string.treatment_adherence_question_14),
+            uiActions.getString(R.string.treatment_adherence_question_14),
             answersKit[2]
         ),
         Question(
             14,
-            Singletons.getString(R.string.treatment_adherence_question_15),
+            uiActions.getString(R.string.treatment_adherence_question_15),
             answersKit[2]
         ),
         Question(
             15,
-            Singletons.getString(R.string.treatment_adherence_question_16),
+            uiActions.getString(R.string.treatment_adherence_question_16),
             answersKit[3]
         ),
         Question(
             16,
-            Singletons.getString(R.string.treatment_adherence_question_17),
+            uiActions.getString(R.string.treatment_adherence_question_17),
             answersKit[3]
         ),
         Question(
             17,
-            Singletons.getString(R.string.treatment_adherence_question_18),
+            uiActions.getString(R.string.treatment_adherence_question_18),
             answersKit[3]
         ),
         Question(
             18,
-            Singletons.getString(R.string.treatment_adherence_question_19),
+            uiActions.getString(R.string.treatment_adherence_question_19),
             answersKit[3]
         ),
         Question(
             19,
-            Singletons.getString(R.string.treatment_adherence_question_20),
+            uiActions.getString(R.string.treatment_adherence_question_20),
             answersKit[3]
         ),
         Question(
             20,
-            Singletons.getString(R.string.treatment_adherence_question_21),
+            uiActions.getString(R.string.treatment_adherence_question_21),
             answersKit[3]
         ),
         Question(
             21,
-            Singletons.getString(R.string.treatment_adherence_question_22),
+            uiActions.getString(R.string.treatment_adherence_question_22),
             answersKit[3]
         ),
         Question(
             22,
-            Singletons.getString(R.string.treatment_adherence_question_23),
+            uiActions.getString(R.string.treatment_adherence_question_23),
             answersKit[3]
         ),
         Question(
             23,
-            Singletons.getString(R.string.treatment_adherence_question_24),
+            uiActions.getString(R.string.treatment_adherence_question_24),
             answersKit[3]
         ),
         Question(
             24,
-            Singletons.getString(R.string.treatment_adherence_question_25),
+            uiActions.getString(R.string.treatment_adherence_question_25),
             answersKit[3]
         ),
     )

@@ -2,12 +2,13 @@ package `is`.ulstu.cardioanalyst.ui.profile
 
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.*
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoRequestEntity
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
 import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
+import `is`.ulstu.cardioanalyst.ui.report.SendingReportFragment
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
@@ -18,14 +19,17 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class ProfileViewModel(
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
     private val navigator: Navigator,
+    userSettings: UserSettings,
     private val uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
-
-    private val userRepository: IUserRepository = Singletons.userRepository
+    private val userRepository: IUserRepository,
+    private val sendingReportFragment: SendingReportFragment,
+) : BaseViewModel(navigator, userSettings, uiActions) {
 
     private val _user = MutableLiveData<Result<UserInfoResponseEntity>>()
     val user = _user.share()
@@ -40,26 +44,28 @@ class ProfileViewModel(
         }
     }
 
-    fun reload() {
-        userRepository.reloadCurrentUserInfo()
-    }
+    fun getOrReloadGetCurrentUser() =
+        if (firstLoadFlag)
+            getCurrentUser()
+        else
+            userRepository.reloadCurrentUserInfo()
 
     fun saveNewUserInfo(userData: UserData) = viewModelScope.safeLaunch {
         val userInfoRequestEntity = validateUserInfo(userData)
         userRepository.changeUserParams(userInfoRequestEntity)
-        uiActions.toast(Singletons.getString(R.string.user_info_save))
+        uiActions.toast(R.string.user_info_save)
     }
 
     fun onExitClick() = viewModelScope.safeLaunch {
         userRepository.logoutUser()
-        navigator.addFragmentToScreen(R.id.fragmentContainer, AuthorizationFragment.Screen())
+        navigator.addFragmentToScreen(R.id.fragmentContainer, AuthorizationFragment())
     }
 
     fun regionsAlertDialogShow(context: Context?, action: (region: String) -> Unit) {
         val regions =
             getAllAvailableRegions().toTypedArray()
         AlertDialog.Builder(context)
-            .setTitle(Singletons.getString(R.string.choose_region_text))
+            .setTitle(uiActions.getString(R.string.choose_region_text))
             .setItems(regions) { _, which ->
                 action(regions[which])
             }
@@ -100,7 +106,7 @@ class ProfileViewModel(
         )
     }
 
-    init {
-        getCurrentUser()
-    }
+    fun sendReportToEmail() =
+        navigator.addFragmentToScreen(R.id.tabFragmentContainer, sendingReportFragment)
+
 }

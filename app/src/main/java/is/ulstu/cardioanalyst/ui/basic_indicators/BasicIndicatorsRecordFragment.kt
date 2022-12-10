@@ -1,7 +1,6 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.BackendException
 import `is`.ulstu.cardioanalyst.app.BackendExceptions
 import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
@@ -10,31 +9,27 @@ import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Success
-import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class BasicIndicatorsRecordFragment(
     private val basicIndicator: GetBasicIndicatorResponseEntity,
     private val basicIndicatorRecordListener: BasicIndicatorRecordListener
 ) : BaseFragment(R.layout.fragment_basic_indicators_record) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
     var currentBasicIndicator: GetBasicIndicatorResponseEntity = basicIndicator.copy()
 
-    override val viewModel by screenViewModel<BasicIndicatorsRecordViewModel>()
+    override val viewModel by viewModels<BasicIndicatorsRecordViewModel>()
 
     private val binding by viewBinding(FragmentBasicIndicatorsRecordBinding::bind)
 
@@ -149,7 +144,7 @@ class BasicIndicatorsRecordFragment(
                 inputMethodManager,
                 80.0..250.0,
                 R.string.unit_mm_rt_st,
-                onError(R.string.systolic_blood_pressure_level, 3.0..15.2)
+                onError(R.string.systolic_blood_pressure_level, 80.0..250.0)
             ) {
                 if (it != null && it != currentBasicIndicator.sbpLevel) {
                     currentBasicIndicator.sbpLevel = it
@@ -164,7 +159,7 @@ class BasicIndicatorsRecordFragment(
             totalCholesterolLevelTextEdit.smartEditText(
                 inputMethodManager,
                 3.0..15.2,
-                R.string.unit_mm_rt_st,
+                R.string.unit_mmol_by_l,
                 onError(R.string.total_cholesterol, 3.0..15.2)
             ) {
                 if (it != null && it != currentBasicIndicator.totalCholesterolLevel) {
@@ -176,21 +171,25 @@ class BasicIndicatorsRecordFragment(
 
             // buttons
             cvEventsRiskCalculateButton.setOnClickListener {
-                viewModel.getCVERisk(GetCVERiskRequestEntity(
-                    gender = currentBasicIndicator.gender,
-                    smoking = currentBasicIndicator.smoking,
-                    sbpLevel = currentBasicIndicator.sbpLevel,
-                    totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
-                ))
+                viewModel.getCVERisk(
+                    GetCVERiskRequestEntity(
+                        gender = currentBasicIndicator.gender,
+                        smoking = currentBasicIndicator.smoking,
+                        sbpLevel = currentBasicIndicator.sbpLevel,
+                        totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
+                    )
+                )
             }
 
             idealCardiovascularAgeCalculateButton.setOnClickListener {
-                viewModel.getIdealAge(GetCVERiskRequestEntity(
-                    gender = currentBasicIndicator.gender,
-                    smoking = currentBasicIndicator.smoking,
-                    sbpLevel = currentBasicIndicator.sbpLevel,
-                    totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
-                ))
+                viewModel.getIdealAge(
+                    GetCVERiskRequestEntity(
+                        gender = currentBasicIndicator.gender,
+                        smoking = currentBasicIndicator.smoking,
+                        sbpLevel = currentBasicIndicator.sbpLevel,
+                        totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
+                    )
+                )
             }
         }
     }

@@ -1,9 +1,25 @@
 package `is`.ulstu.cardioanalyst.models.lifestyle.tests
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Singletons
+import `is`.ulstu.foundation.uiactions.UiActions
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class StenocardiaSymptomsTestRepository {
+@Singleton
+class StenocardiaSymptomsTestRepository @Inject constructor(
+    uiActions: UiActions,
+) {
+
+    var scoreResult: Int? = null
+        get() {
+            if (field != null) {
+                val value = field
+                field = null
+                return value
+            }
+            return field
+        }
+
     /**
      * Stenocardia Symptoms Test questions
      * List<
@@ -14,116 +30,116 @@ class StenocardiaSymptomsTestRepository {
      */
     val questions: List<Question> = listOf(
         Question(
-            Singletons.getString(R.string.stenocardia_question_1),
+            uiActions.getString(R.string.stenocardia_question_1),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_no), false),
-                Pair(Singletons.getString(R.string.stenocardia_answer_yes), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_no), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_yes), true),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_2),
+            uiActions.getString(R.string.stenocardia_question_2),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_no), false),
-                Pair(Singletons.getString(R.string.stenocardia_answer_yes), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_no), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_yes), true),
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_never_walk_fast_and_climb_a_mountain),
+                    uiActions.getString(R.string.stenocardia_answer_never_walk_fast_and_climb_a_mountain),
                     false
                 ),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_3),
+            uiActions.getString(R.string.stenocardia_question_3),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_no), false),
-                Pair(Singletons.getString(R.string.stenocardia_answer_yes), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_no), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_yes), true),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_4),
+            uiActions.getString(R.string.stenocardia_question_4),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_stop_or_go_slower), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_keep_going), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_stop_or_go_slower), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_keep_going), false),
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_take_nitroglycerin_or_medications),
+                    uiActions.getString(R.string.stenocardia_answer_take_nitroglycerin_or_medications),
                     true
                 ),
             ),
             2
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_5),
+            uiActions.getString(R.string.stenocardia_question_5),
             listOf(
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_pain_disappears_or_decreases),
+                    uiActions.getString(R.string.stenocardia_answer_pain_disappears_or_decreases),
                     true
                 ),
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_pain_does_not_disappear),
+                    uiActions.getString(R.string.stenocardia_answer_pain_does_not_disappear),
                     false
                 ),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_6),
+            uiActions.getString(R.string.stenocardia_question_6),
             listOf(
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_after_10_15_minutes_or_faster),
+                    uiActions.getString(R.string.stenocardia_answer_after_10_15_minutes_or_faster),
                     true
                 ),
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_more_10_minutes_later),
+                    uiActions.getString(R.string.stenocardia_answer_more_10_minutes_later),
                     false
                 ),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_7),
+            uiActions.getString(R.string.stenocardia_question_7),
             listOf(
                 Pair(
-                    Singletons.getString(R.string.stenocardia_answer_sternum_upper_or_middle_third),
+                    uiActions.getString(R.string.stenocardia_answer_sternum_upper_or_middle_third),
                     false
                 ),
-                Pair(Singletons.getString(R.string.stenocardia_answer_sternum_lower_third), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_left_side_chest_front), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_left_hand), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_other_areas), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_sternum_lower_third), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_left_side_chest_front), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_left_hand), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_other_areas), false),
             ),
             2
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_8),
+            uiActions.getString(R.string.stenocardia_question_8),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_no), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_yes), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_no), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_yes), false),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_9),
+            uiActions.getString(R.string.stenocardia_question_9),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_less_4_week), true),
-                Pair(Singletons.getString(R.string.stenocardia_answer_less_1_month), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_less_4_week), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_less_1_month), false),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_10),
+            uiActions.getString(R.string.stenocardia_question_10),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_less_2_week), false),
-                Pair(Singletons.getString(R.string.stenocardia_answer_almost_every_day), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_less_2_week), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_almost_every_day), true),
             ),
             1
         ),
         Question(
-            Singletons.getString(R.string.stenocardia_question_11),
+            uiActions.getString(R.string.stenocardia_question_11),
             listOf(
-                Pair(Singletons.getString(R.string.stenocardia_answer_no), false),
-                Pair(Singletons.getString(R.string.stenocardia_answer_yes), true),
+                Pair(uiActions.getString(R.string.stenocardia_answer_no), false),
+                Pair(uiActions.getString(R.string.stenocardia_answer_yes), true),
             ),
             1
         ),
