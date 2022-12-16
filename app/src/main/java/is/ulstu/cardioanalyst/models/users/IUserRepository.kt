@@ -55,7 +55,7 @@ interface IUserRepository : Repository {
     /**
      * Logout current user
      */
-    suspend fun logoutUser()
+    fun logoutUser()
 
     /**
      * Register new user

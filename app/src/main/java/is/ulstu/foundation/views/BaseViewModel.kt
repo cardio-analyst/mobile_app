@@ -80,7 +80,7 @@ open class BaseViewModel(
      * Cancel [Job] of viewModel for removing observers
      * @see LazyFlowSubject.listen job.cancel() will trigger awaitCLose()
      */
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         firstLoadFlag = true
         job.cancel()

@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.ui.laboratory_research
 
+import `is`.ulstu.cardioanalyst.R
 import android.annotation.SuppressLint
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -7,13 +8,21 @@ import android.widget.EditText
 
 
 @SuppressLint("SetTextI18n")
-fun <T> EditText.setTextBySample(value: T, text: String) {
-    setText("${value.toString()} $text")
+fun <T : Comparable<T>> EditText.setTextBySample(
+    value: T,
+    text: String? = null,
+    positiveRange: ClosedFloatingPointRange<T>? = null,
+) {
+    setText(if (text != null) "$value $text" else "$value")
+    if (positiveRange != null) {
+        setColor(value, positiveRange)
+    }
 }
 
 fun <T : Comparable<T>> EditText.smartEditText(
     imm: InputMethodManager,
     range: ClosedFloatingPointRange<T>,
+    positiveRange: ClosedFloatingPointRange<T>? = null,
     sampleId: Int?,
     onError: () -> Unit,
     block: (T?) -> T
@@ -56,11 +65,24 @@ fun <T : Comparable<T>> EditText.smartEditText(
             }
             val result = block.invoke(value)
             setTextBySample(
-                result,
-                sampleId?.let { resources.getString(it) } ?: ""
+                value = result,
+                sampleId?.let { resources.getString(it) } ?: "",
+                positiveRange
             )
             return@setOnEditorActionListener false
         }
         false
     }
+}
+
+fun <T : Comparable<T>> EditText.setColor(
+    param: T,
+    positiveRange: ClosedFloatingPointRange<T>
+) {
+    setTextColor(
+        resources.getColor(
+            if (param in positiveRange) R.color.green_color
+            else R.color.enter_color
+        )
+    )
 }

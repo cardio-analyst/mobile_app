@@ -5,6 +5,7 @@ import `is`.ulstu.cardioanalyst.app.BackendExceptions
 import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
+import `is`.ulstu.cardioanalyst.ui.laboratory_research.setColor
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText
 import `is`.ulstu.foundation.model.Error
@@ -16,6 +17,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,10 +75,10 @@ class BasicIndicatorsRecordFragment(
                 }
 
             weightTextEdit.smartEditText(
-                inputMethodManager,
-                40.0..160.0,
-                R.string.unit_kg,
-                onError(R.string.weight, 40.0..160.0)
+                imm = inputMethodManager,
+                range = 40.0..160.0,
+                sampleId = R.string.unit_kg,
+                onError = onError(R.string.weight, 40.0..160.0)
             ) {
                 if (it != null && it != currentBasicIndicator.weight) {
                     currentBasicIndicator.weight = it
@@ -87,15 +89,16 @@ class BasicIndicatorsRecordFragment(
                     bodyMassIndexTextEdit.setText(
                         currentBasicIndicator.bodyMassIndex.toString()
                     )
+                    bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
                     checkDifference()
                 }
                 currentBasicIndicator.weight
             }
             heightTextEdit.smartEditText(
-                inputMethodManager,
-                145.0..230.0,
-                R.string.unit_sm,
-                onError(R.string.height, 145.0..230.0)
+                imm =inputMethodManager,
+                range = 145.0..230.0,
+                sampleId = R.string.unit_sm,
+                onError = onError(R.string.height, 145.0..230.0)
             ) {
                 if (it != null && it != currentBasicIndicator.height) {
                     currentBasicIndicator.height = it
@@ -106,15 +109,16 @@ class BasicIndicatorsRecordFragment(
                     bodyMassIndexTextEdit.setText(
                         currentBasicIndicator.bodyMassIndex.toString()
                     )
+                    bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
                     checkDifference()
                 }
                 currentBasicIndicator.height
             }
             waistTextEdit.smartEditText(
-                inputMethodManager,
-                50.0..190.0,
-                R.string.unit_sm,
-                onError(R.string.waist, 50.0..190.0)
+                imm = inputMethodManager,
+                range = 50.0..190.0,
+                sampleId = R.string.unit_sm,
+                onError = onError(R.string.waist, 50.0..190.0)
             ) {
                 if (it != null && it != currentBasicIndicator.waistSize) {
                     currentBasicIndicator.waistSize = it
@@ -141,10 +145,11 @@ class BasicIndicatorsRecordFragment(
                 dialog.show()
             }
             systolicBloodPressureLevelTextEdit.smartEditText(
-                inputMethodManager,
-                80.0..250.0,
-                R.string.unit_mm_rt_st,
-                onError(R.string.systolic_blood_pressure_level, 80.0..250.0)
+                imm =inputMethodManager,
+                range = 80.0..250.0,
+                positiveRange = 100.0..130.0,
+                sampleId = R.string.unit_mm_rt_st,
+                onError = onError(R.string.systolic_blood_pressure_level, 80.0..250.0)
             ) {
                 if (it != null && it != currentBasicIndicator.sbpLevel) {
                     currentBasicIndicator.sbpLevel = it
@@ -157,10 +162,11 @@ class BasicIndicatorsRecordFragment(
                 checkDifference()
             }
             totalCholesterolLevelTextEdit.smartEditText(
-                inputMethodManager,
-                3.0..15.2,
-                R.string.unit_mmol_by_l,
-                onError(R.string.total_cholesterol, 3.0..15.2)
+                imm = inputMethodManager,
+                range = 3.0..15.2,
+                positiveRange = 2.8..5.2,
+                sampleId =R.string.unit_mmol_by_l,
+                onError = onError(R.string.total_cholesterol, 3.0..15.2)
             ) {
                 if (it != null && it != currentBasicIndicator.totalCholesterolLevel) {
                     currentBasicIndicator.totalCholesterolLevel = it
@@ -204,27 +210,30 @@ class BasicIndicatorsRecordFragment(
                     basicIndicator.createdAt
 
             weightTextEdit.setTextBySample(
-                basicIndicator.weight.toString(),
-                resources.getString(R.string.unit_kg)
+                value = basicIndicator.weight,
+                text = resources.getString(R.string.unit_kg),
             )
             heightTextEdit.setTextBySample(
-                basicIndicator.height.toString(),
-                resources.getString(R.string.unit_sm)
+                value = basicIndicator.height,
+                text = resources.getString(R.string.unit_sm)
             )
             bodyMassIndexTextEdit.setText(basicIndicator.bodyMassIndex.toString())
+            bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
             waistTextEdit.setTextBySample(
-                basicIndicator.waistSize.toString(),
-                resources.getString(R.string.unit_sm)
+                value = basicIndicator.waistSize,
+                text = resources.getString(R.string.unit_sm)
             )
             genderTextViewAlert.text = basicIndicator.gender
             systolicBloodPressureLevelTextEdit.setTextBySample(
-                basicIndicator.sbpLevel.toString(),
-                resources.getString(R.string.unit_mm_rt_st)
+                value = basicIndicator.sbpLevel,
+                text = resources.getString(R.string.unit_mm_rt_st),
+                positiveRange = 100.0..130.0,
             )
             smokingCheckbox.isChecked = basicIndicator.smoking
             totalCholesterolLevelTextEdit.setTextBySample(
-                basicIndicator.totalCholesterolLevel.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = basicIndicator.totalCholesterolLevel,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 2.8..5.2,
             )
             cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString())
             idealCardiovascularAgeTextEdit.setText(basicIndicator.idealCardiovascularAgesRange)

@@ -147,4 +147,9 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onCleared()
+    }
 }

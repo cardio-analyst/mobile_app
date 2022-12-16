@@ -178,7 +178,7 @@ class UserDBRepository @Inject constructor(
         userSettings.setCurrentRefreshToken(result.refreshToken)
     }
 
-    override suspend fun logoutUser() =
+    override fun logoutUser() =
         with(userSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
 
     override suspend fun changeUserParams(userInfoRequestEntity: UserInfoRequestEntity) =
