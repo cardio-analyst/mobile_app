@@ -44,7 +44,9 @@
     <string name="smoking">Курение</string>
     <string name="total_cholesterol">Общий холестерин</string>
     <string name="risk_of_cardiovascular_events">Риск сердечно-сосудистых событий в течение 10 лет по шкале SCORE</string>
-    <string name="ideal_cardiovascular_age">Ваш идеальный «сердечно-сосудистый возраст»</string>
+    <string name="risk_of_cardiovascular_description">Хорошее значение для вашего возраста отображаются зеленым цветом\nПриемлемые значения - желтым цветом\nКрасным цветом обозначаются тревожные значения риска, если система расчитала такое значение, рекомендуем изменить ваш образ жизни</string>
+    <string name="ideal_cardiovascular_age">Ваш сердечно-сосудистый возраст</string>
+    <string name="ideal_cardiovascular_age_description">Возраст человека - это возраст его сосудов \nЧем сильнее показатель сердечно-сосудистого возраста старше вашего истинного возраста, тем серъезнее вам нужно задуматься о своем здоровье</string>
     <string name="choose_gender">Укажите свой пол</string>
     <string name="genderMan">Мужской</string>
     <string name="genderWoman">Женский</string>

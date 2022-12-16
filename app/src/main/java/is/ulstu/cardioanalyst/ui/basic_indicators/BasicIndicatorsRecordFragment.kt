@@ -17,7 +17,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +38,22 @@ class BasicIndicatorsRecordFragment(
         super.onViewCreated(view, savedInstanceState)
         initFields()
         initFieldsLogic()
+
+        with(binding) {
+            cvEventsRiskValue.setOnClickListener {
+                cvEventsRiskDescription.visibility = when (cvEventsRiskDescription.visibility) {
+                    View.GONE -> View.VISIBLE
+                    else -> View.GONE
+                }
+            }
+            idealCardiovascularAge.setOnClickListener {
+                idealCardiovascularAgeDescription.visibility =
+                    when (idealCardiovascularAgeDescription.visibility) {
+                        View.GONE -> View.VISIBLE
+                        else -> View.GONE
+                    }
+            }
+        }
 
         observeCVERisk()
         observeIdealAge()
@@ -95,7 +110,7 @@ class BasicIndicatorsRecordFragment(
                 currentBasicIndicator.weight
             }
             heightTextEdit.smartEditText(
-                imm =inputMethodManager,
+                imm = inputMethodManager,
                 range = 145.0..230.0,
                 sampleId = R.string.unit_sm,
                 onError = onError(R.string.height, 145.0..230.0)
@@ -145,7 +160,7 @@ class BasicIndicatorsRecordFragment(
                 dialog.show()
             }
             systolicBloodPressureLevelTextEdit.smartEditText(
-                imm =inputMethodManager,
+                imm = inputMethodManager,
                 range = 80.0..250.0,
                 positiveRange = 100.0..130.0,
                 sampleId = R.string.unit_mm_rt_st,
@@ -165,7 +180,7 @@ class BasicIndicatorsRecordFragment(
                 imm = inputMethodManager,
                 range = 3.0..15.2,
                 positiveRange = 2.8..5.2,
-                sampleId =R.string.unit_mmol_by_l,
+                sampleId = R.string.unit_mmol_by_l,
                 onError = onError(R.string.total_cholesterol, 3.0..15.2)
             ) {
                 if (it != null && it != currentBasicIndicator.totalCholesterolLevel) {
@@ -235,8 +250,11 @@ class BasicIndicatorsRecordFragment(
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 2.8..5.2,
             )
-            cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString())
+            cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString() + "%")
+            cvEventsRiskValueTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
             idealCardiovascularAgeTextEdit.setText(basicIndicator.idealCardiovascularAgesRange)
+            idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
+
         }
     }
 
@@ -245,7 +263,8 @@ class BasicIndicatorsRecordFragment(
             if (result is Success) {
                 with(result.value) {
                     currentBasicIndicator.cvEventsRiskValue = this.value
-                    binding.cvEventsRiskValueTextEdit.setText(this.value.toString())
+                    binding.cvEventsRiskValueTextEdit.setText(this.value.toString() + "%")
+                    binding.cvEventsRiskValueTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
             } else if (result is Error && result.error is BackendExceptions) {
@@ -260,6 +279,7 @@ class BasicIndicatorsRecordFragment(
                 with(result.value) {
                     currentBasicIndicator.idealCardiovascularAgesRange = this.value
                     binding.idealCardiovascularAgeTextEdit.setText(this.value)
+                    binding.idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
             } else if (result is Error && result.error is BackendExceptions) {
@@ -267,6 +287,16 @@ class BasicIndicatorsRecordFragment(
             }
         }
     }
+
+    private fun getColorByOption(color: String) =
+        resources.getColor(
+            when (color) {
+                "positive" -> R.color.green_color
+                "neutral" -> R.color.yellow_color
+                "negative" -> R.color.active_color
+                else -> R.color.enter_color
+            }
+        )
 
     interface BasicIndicatorRecordListener {
         fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>)

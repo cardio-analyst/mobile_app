@@ -133,7 +133,8 @@ class BasicIndicatorsViewModel @Inject constructor(
         totalCholesterolLevel = 3.0,
         cvEventsRiskValue = 0,
         idealCardiovascularAgesRange = "40",
-        createdAt = uiActions.getString(R.string.basic_indicators_default_tooltip)
+        createdAt = uiActions.getString(R.string.basic_indicators_default_tooltip),
+        scale = "unknown"
     )
 
 }

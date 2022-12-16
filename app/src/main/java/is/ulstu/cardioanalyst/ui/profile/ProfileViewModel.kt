@@ -6,19 +6,12 @@ import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoRequestEntity
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
-import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
-import `is`.ulstu.cardioanalyst.ui.basic_indicators.BasicIndicatorsFragment
-import `is`.ulstu.cardioanalyst.ui.diseases.DiseasesFragment
-import `is`.ulstu.cardioanalyst.ui.laboratory_research.LaboratoryResearchFragment
-import `is`.ulstu.cardioanalyst.ui.lifestyle.LifestyleFragment
-import `is`.ulstu.cardioanalyst.ui.recommendations.RecommendationsFragment
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.cardioanalyst.ui.report.SendingReportFragment
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
-import `is`.ulstu.foundation.utils.SingleLiveEvent
 import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
 import android.app.AlertDialog
@@ -37,12 +30,6 @@ class ProfileViewModel @Inject constructor(
     private val uiActions: UiActions,
     private val userRepository: IUserRepository,
     private val sendingReportFragment: SendingReportFragment,
-    private val authorizationFragment: AuthorizationFragment,
-    private val basicIndicatorsFragment: BasicIndicatorsFragment,
-    private val diseasesFragment: DiseasesFragment,
-    private val laboratoryResearchFragment: LaboratoryResearchFragment,
-    private val lifestyleFragment: LifestyleFragment,
-    private val recommendationsFragment: RecommendationsFragment,
 ) : BaseViewModel(navigator, userSettings, uiActions) {
 
     private val _user = MutableLiveData<Result<UserInfoResponseEntity>>()
@@ -71,15 +58,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onExitClick() = viewModelScope.safeLaunch {
-        //onCleared()
-        /*basicIndicatorsFragment.viewModel.onCleared()
-        diseasesFragment.viewModel.onCleared()
-        laboratoryResearchFragment.viewModel.onCleared()
-        lifestyleFragment.viewModel.onCleared()
-        recommendationsFragment.viewModel.onCleared()*/
         userRepository.logoutUser()
         delay(500)
-        //navigator.addFragmentToScreen(R.id.fragmentContainer, authorizationFragment)
         exitProcess(-1)
     }
 
