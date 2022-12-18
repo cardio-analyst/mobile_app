@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.sources.base
+package `is`.ulstu.cardioanalyst.sources
 
 import com.squareup.moshi.Moshi
 import retrofit2.Retrofit

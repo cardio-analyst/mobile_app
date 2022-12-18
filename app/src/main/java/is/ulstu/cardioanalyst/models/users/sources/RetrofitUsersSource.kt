@@ -1,8 +1,8 @@
 package `is`.ulstu.cardioanalyst.models.users.sources
 
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.*
-import `is`.ulstu.cardioanalyst.sources.base.BaseRetrofitSource
-import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
+import `is`.ulstu.cardioanalyst.sources.BaseRetrofitSource
+import `is`.ulstu.cardioanalyst.sources.RetrofitConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.sources.base
+package `is`.ulstu.cardioanalyst.sources
 
 import `is`.ulstu.cardioanalyst.app.*
 import com.squareup.moshi.JsonDataException
