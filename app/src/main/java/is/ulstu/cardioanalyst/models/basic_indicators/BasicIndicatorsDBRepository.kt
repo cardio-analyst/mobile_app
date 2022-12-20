@@ -1,14 +1,19 @@
 package `is`.ulstu.cardioanalyst.models.basic_indicators
 
-import `is`.ulstu.cardioanalyst.app.Singletons
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.BasicIndicatorsSource
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
+import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
-
-    private val basicIndicatorsSource = Singletons.basicIndicatorsSource
+@Singleton
+class BasicIndicatorsDBRepository @Inject constructor(
+    private val basicIndicatorsSource: BasicIndicatorsSource,
+    private val userRepository: IUserRepository,
+) : IBasicIndicatorsRepository {
 
     // --- Lazy Repository Flows for observers
 
@@ -44,7 +49,7 @@ class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
         basicIndicatorsLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetBasicIndicators(): List<GetBasicIndicatorResponseEntity> =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.getBasicIndicators()
         }
 
@@ -59,7 +64,7 @@ class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
 
     private suspend fun doCreateBasicIndicators(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
             : CreateBasicIndicatorResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.createBasicIndicator(createBasicIndicatorRequestEntity)
         }
 
@@ -74,7 +79,7 @@ class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
 
     private suspend fun doUpdateBasicIndicators(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity)
             : UpdateBasicIndicatorResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.updateBasicIndicator(
                 basicIndicatorId = updateBasicIndicatorIdEntity.basicIndicatorId,
                 updateBasicIndicatorRequestEntity = UpdateBasicIndicatorRequestEntity(
@@ -102,7 +107,7 @@ class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
 
 
     private suspend fun doGetCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetCVERiskResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.getCVERisk(getCVERiskRequestEntity)
         }
 
@@ -111,7 +116,7 @@ class BasicIndicatorsDBRepository : IBasicIndicatorsRepository {
         idealAgeLazyFlowSubject.listen(getCVERiskRequestEntity)
 
     private suspend fun doGetIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetIdealAgeResponseEntity =
-        wrapBackendExceptions {
+        wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.getIdealAge(getCVERiskRequestEntity)
         }
 

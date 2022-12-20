@@ -3,23 +3,21 @@ package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleTestBinding
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.core.util.isNotEmpty
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class TreatmentAdherenceTestFragment : BaseFragment(R.layout.fragment_lifestyle_test) {
+@AndroidEntryPoint
+class TreatmentAdherenceTestFragment @Inject constructor() :
+    BaseFragment(R.layout.fragment_lifestyle_test) {
 
-    // no arguments for this screen
-    class Screen(
-        val lifestyleTestListener: LifestyleTestListener
-    ) : BaseScreen
-
-    override val viewModel by screenViewModel<TreatmentAdherenceTestViewModel>()
+    override val viewModel by viewModels<TreatmentAdherenceTestViewModel>()
 
     private val binding by viewBinding(FragmentLifestyleTestBinding::bind)
 

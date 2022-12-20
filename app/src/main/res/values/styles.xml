@@ -109,4 +109,9 @@
         <item name="android:textColorSecondary">@color/background_color</item>
     </style>
 
+    <style name="checkBoxStyleWhite" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
 </resources>

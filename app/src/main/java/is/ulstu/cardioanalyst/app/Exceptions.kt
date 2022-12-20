@@ -27,6 +27,9 @@ class ErrorResponseBody(
     val description: String,
 )
 
+class AutoSignInException :
+    AppException(message = Singletons.getString(R.string.auto_sign_in_exception))
+
 
 // --- Backend Exceptions Based in Sealed class
 

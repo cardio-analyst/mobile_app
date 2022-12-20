@@ -4,19 +4,17 @@ import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentRegistrationBinding
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class RegistrationFragment : BaseFragment(R.layout.fragment_registration) {
+@AndroidEntryPoint
+class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragment_registration) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<RegistrationViewModel>()
+    override val viewModel by viewModels<RegistrationViewModel>()
 
     private val binding by viewBinding(FragmentRegistrationBinding::bind)
 

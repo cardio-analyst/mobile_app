@@ -12,5 +12,6 @@ data class GetBasicIndicatorResponseEntity(
     var totalCholesterolLevel: Double,
     var cvEventsRiskValue: Int,
     var idealCardiovascularAgesRange: String,
-    var createdAt: String
+    var createdAt: String,
+    val scale: String,
 )

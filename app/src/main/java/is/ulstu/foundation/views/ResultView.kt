@@ -1,12 +1,12 @@
 package `is`.ulstu.foundation.views
 
 import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.app.AppException
 import `is`.ulstu.cardioanalyst.app.BackendExceptions
 import `is`.ulstu.cardioanalyst.app.ConnectionException
 import `is`.ulstu.cardioanalyst.databinding.PartResultViewBinding
 import `is`.ulstu.foundation.model.*
 import `is`.ulstu.foundation.uiactions.UiActions
-import android.content.ClipDescription
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -56,6 +56,7 @@ class ResultView @JvmOverloads constructor(
             val message = when (result.error) {
                 is ConnectionException -> result.error.message
                 is BackendExceptions -> result.error.description
+                is AppException -> result.error.message
                 else -> context.getString(R.string.unknown_exception)
             }
             binding.messageTextView.text = message
@@ -77,6 +78,7 @@ class ResultView @JvmOverloads constructor(
             val message = when (result.error) {
                 is ConnectionException -> result.error.message
                 is BackendExceptions -> result.error.description
+                is AppException -> result.error.message
                 else -> context.getString(R.string.unknown_exception)
             }
             message?.let { uiActions.toast(it) }

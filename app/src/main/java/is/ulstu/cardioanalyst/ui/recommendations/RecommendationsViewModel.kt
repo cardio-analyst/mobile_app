@@ -1,31 +1,31 @@
 package `is`.ulstu.cardioanalyst.ui.recommendations
 
-import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
-import `is`.ulstu.cardioanalyst.app.Singletons
-import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
-import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
 import `is`.ulstu.cardioanalyst.models.recommendations.IRecommendationsRepository
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecommendationsResponseEntity
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Result
 import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
+import `is`.ulstu.foundation.utils.SingleLiveEvent
 import `is`.ulstu.foundation.utils.share
 import `is`.ulstu.foundation.views.BaseViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RecommendationsViewModel(
+@HiltViewModel
+class RecommendationsViewModel @Inject constructor(
     navigator: Navigator,
+    userSettings: UserSettings,
     uiActions: UiActions,
-) : BaseViewModel(navigator, uiActions) {
-
-    private val recommendationsRepository: IRecommendationsRepository =
-        Singletons.recommendationsRepository
+    private val recommendationsRepository: IRecommendationsRepository,
+) : BaseViewModel(navigator, userSettings, uiActions) {
 
     private val _recommendations =
-        MutableLiveData<Result<List<GetRecommendationsResponseEntity>>>()
+        SingleLiveEvent<Result<List<GetRecommendationsResponseEntity>>>()
     val recommendations = _recommendations.share()
 
 
@@ -37,9 +37,10 @@ class RecommendationsViewModel(
         }
     }
 
-    fun reloadRecommendations() = recommendationsRepository.reloadGetRecommendations()
+    fun getOrReloadRecommendations() =
+        if (firstLoadFlag)
+            getUserRecommendations()
+        else
+            recommendationsRepository.reloadGetRecommendations()
 
-    init {
-        getUserRecommendations()
-    }
 }

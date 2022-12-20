@@ -1,28 +1,25 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Singletons
 import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
-import `is`.ulstu.cardioanalyst.ui.lifestyle.tests.LifestyleTestListener
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTestListener {
+@AndroidEntryPoint
+class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_lifestyle) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<LifestyleViewModel>()
+    override val viewModel by viewModels<LifestyleViewModel>()
 
     private val binding by viewBinding(FragmentLifestyleBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
@@ -36,28 +33,31 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
             buttonVisibility = {
                 negativeButton.visibility = it
                 positiveButton.visibility = it
-
             }
         }
 
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_lifestyle_load))
-            resultView.setTryAgainAction { viewModel.reloadLifestyle() }
+            resultView.setTryAgainAction { viewModel.getOrReloadLifestyle() }
         }
 
         observeLifestyle()
         observeLifestyleSave()
+        viewModel.getOrReloadLifestyle()
     }
 
     private fun observeLifestyle() {
         viewModel.lifestyle.observeResults(this, binding.root, binding.resultView, { data ->
             // init views
-            currentLifestyleData = data.copy()
+            currentLifestyleData = viewModel.getCurrentLifestyleData() ?: data.copy()
+            buttonVisibility(if (currentLifestyleData != data) View.VISIBLE else View.INVISIBLE)
             resetViews(currentLifestyleData, data)
 
             with(actionButtonsBinding) {
                 negativeButton.setOnClickListener {
+                    currentLifestyleData = data.copy()
                     resetViews(currentLifestyleData, data)
+                    buttonVisibility(View.INVISIBLE)
                 }
                 positiveButton.setOnClickListener {
                     with(binding) {
@@ -80,7 +80,7 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
             viewModel.onSuccessSaveToast()
             with(binding) {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_lifestyle_load))
-                resultView.setTryAgainAction { viewModel.reloadLifestyle() }
+                resultView.setTryAgainAction { viewModel.getOrReloadLifestyle() }
             }
         })
     }
@@ -89,14 +89,14 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
 
         // clear views
         binding.lifestyleLinearLayout.removeAllViews()
-        buttonVisibility(View.INVISIBLE)
+        val actualData = if (currentLifestyleData == data) data else currentLifestyleData
 
         // Family status
         addLifestyleFieldChooseView(
             resources.getString(R.string.family_status_text),
-            if (data.familyStatus != "") data.familyStatus else resources.getString(R.string.default_option_not_choosing),
+            if (actualData.familyStatus != "") actualData.familyStatus else resources.getString(R.string.default_option_not_choosing),
             resources.getString(R.string.choose_family_status_text),
-            familyStatusValues
+            viewModel.familyStatusValues
         ) {
             currentLifestyleData.familyStatus =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -106,9 +106,11 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Participation in social and cultural events
         addLifestyleFieldChooseView(
             resources.getString(R.string.event_participation),
-            if (data.eventsParticipation != "") data.eventsParticipation else resources.getString(R.string.default_option_not_choosing),
+            if (actualData.eventsParticipation != "") actualData.eventsParticipation else resources.getString(
+                R.string.default_option_not_choosing
+            ),
             resources.getString(R.string.choose_event_participation),
-            eventParticipationValues
+            viewModel.eventParticipationValues
         ) {
             currentLifestyleData.eventsParticipation =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -118,9 +120,11 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Physical activity
         addLifestyleFieldChooseView(
             resources.getString(R.string.physical_activity),
-            if (data.physicalActivity != "") data.physicalActivity else resources.getString(R.string.default_option_not_choosing),
+            if (actualData.physicalActivity != "") actualData.physicalActivity else resources.getString(
+                R.string.default_option_not_choosing
+            ),
             resources.getString(R.string.choose_physical_activity),
-            physicalActivityValues
+            viewModel.physicalActivityValues
         ) {
             currentLifestyleData.physicalActivity =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -130,9 +134,9 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Job status
         addLifestyleFieldChooseView(
             resources.getString(R.string.job_status),
-            if (data.workStatus != "") data.workStatus else resources.getString(R.string.default_option_not_choosing),
+            if (actualData.workStatus != "") actualData.workStatus else resources.getString(R.string.default_option_not_choosing),
             resources.getString(R.string.choose_job_status),
-            workStatusValues
+            viewModel.workStatusValues
         ) {
             currentLifestyleData.workStatus =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -142,11 +146,11 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Significant Value High
         addLifestyleFieldChooseView(
             resources.getString(R.string.significant_value_high),
-            if (data.significantValueHigh != "") data.significantValueHigh else resources.getString(
+            if (actualData.significantValueHigh != "") actualData.significantValueHigh else resources.getString(
                 R.string.default_option_not_choosing
             ),
             resources.getString(R.string.choose_significant_value_high),
-            lifeValues
+            viewModel.lifeValues
         ) {
             currentLifestyleData.significantValueHigh =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -156,11 +160,11 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Significant Value Medium
         addLifestyleFieldChooseView(
             resources.getString(R.string.significant_value_medium),
-            if (data.significantValueMedium != "") data.significantValueMedium else resources.getString(
+            if (actualData.significantValueMedium != "") actualData.significantValueMedium else resources.getString(
                 R.string.default_option_not_choosing
             ),
             resources.getString(R.string.choose_significant_value_medium),
-            lifeValues
+            viewModel.lifeValues
         ) {
             currentLifestyleData.significantValueMedium =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -170,9 +174,11 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         // Significant Value Low
         addLifestyleFieldChooseView(
             resources.getString(R.string.significant_value_low),
-            if (data.significantValueLow != "") data.significantValueLow else resources.getString(R.string.default_option_not_choosing),
+            if (actualData.significantValueLow != "") actualData.significantValueLow else resources.getString(
+                R.string.default_option_not_choosing
+            ),
             resources.getString(R.string.choose_significant_value_low),
-            lifeValues
+            viewModel.lifeValues
         ) {
             currentLifestyleData.significantValueLow =
                 if (it == resources.getString(R.string.default_option_not_choosing)) "" else it
@@ -183,29 +189,32 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         addLifestyleTestView(
             resources.getString(R.string.angina_symptoms),
             when {
-                data.anginaScore >= 2 -> resources.getString(R.string.angina_symptoms_symptoms)
-                data.anginaScore < 0 -> resources.getString(R.string.default_option_not_passed)
+                actualData.anginaScore >= 2 -> resources.getString(R.string.angina_symptoms_symptoms)
+                actualData.anginaScore < 0 -> resources.getString(R.string.default_option_not_passed)
                 else -> resources.getString(R.string.angina_symptoms_no_symptoms)
             }
         ) {
-            viewModel.startStenocardiaSymptomsTest(this)
+            viewModel.setCurrentLifestyleData(this.currentLifestyleData)
+            viewModel.startStenocardiaSymptomsTest()
         }
 
         // Treatment Adherence
         val treatmentAdherence =
-            (data.adherenceDrugTherapy + 2 * data.adherenceMedicalSupport + 3 * data.adherenceLifestyleMod) / 6
+            (actualData.adherenceDrugTherapy + 2 * actualData.adherenceMedicalSupport + 3 * actualData.adherenceLifestyleMod) / 6
         addLifestyleTestView(
             resources.getString(R.string.treatment_adherence),
             when {
-                (data.adherenceDrugTherapy < 0 || data.adherenceMedicalSupport < 0 || data.adherenceLifestyleMod < 0)
+                (actualData.adherenceDrugTherapy < 0 || actualData.adherenceMedicalSupport < 0 || actualData.adherenceLifestyleMod < 0)
                 -> resources.getString(R.string.default_option_not_passed)
                 treatmentAdherence < 50 -> resources.getString(R.string.treatment_adherence_low)
                 treatmentAdherence < 75 -> resources.getString(R.string.treatment_adherence_medium)
                 else -> resources.getString(R.string.treatment_adherence_high)
             }
         ) {
-            viewModel.startTreatmentAdherenceTest(this)
+            viewModel.setCurrentLifestyleData(this.currentLifestyleData)
+            viewModel.startTreatmentAdherenceTest()
         }
+
     }
 
     private fun addLifestyleTestView(
@@ -278,92 +287,4 @@ class LifestyleFragment : BaseFragment(R.layout.fragment_lifestyle), LifestyleTe
         binding.lifestyleLinearLayout.addView(view)
     }
 
-    override fun returnStenocardiaSymptomsResult(score: Int, action: () -> Unit) {
-        currentLifestyleData.anginaScore = score
-        with(binding) {
-            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_lifestyle_save))
-            resultView.setTryAgainAction {
-                viewModel.reloadLifestyleSave(
-                    currentLifestyleData
-                )
-            }
-        }
-        viewModel.setUserLifestyle(currentLifestyleData)
-
-        viewModel.lifestyleSave.observeResults(this, binding.root, binding.resultView, {
-            // init views
-            action.invoke()
-        })
-    }
-
-    override fun returnTreatmentAdherenceResult(
-        results: Triple<Double, Double, Double>,
-        action: () -> Unit
-    ) {
-        currentLifestyleData.adherenceDrugTherapy = results.first
-        currentLifestyleData.adherenceMedicalSupport = results.second
-        currentLifestyleData.adherenceLifestyleMod = results.third
-        with(binding) {
-            resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_lifestyle_save))
-            resultView.setTryAgainAction {
-                viewModel.reloadLifestyleSave(
-                    currentLifestyleData
-                )
-            }
-        }
-        viewModel.setUserLifestyle(currentLifestyleData)
-
-        viewModel.lifestyleSave.observeResults(this, binding.root, binding.resultView, {
-            // init views
-            action.invoke()
-        })
-    }
-
-    companion object {
-        private val familyStatusValues = listOf(
-            Singletons.getString(R.string.default_option_not_choosing),
-            Singletons.getString(R.string.family_status_married),
-            Singletons.getString(R.string.family_status_not_married),
-            Singletons.getString(R.string.family_status_divorced),
-            Singletons.getString(R.string.family_status_widower),
-        )
-
-        private val eventParticipationValues = listOf(
-            Singletons.getString(R.string.default_option_not_choosing),
-            Singletons.getString(R.string.event_participation_one_in_week),
-            Singletons.getString(R.string.event_participation_more_than_one_in_week)
-        )
-
-        private val physicalActivityValues = listOf(
-            Singletons.getString(R.string.physical_activity_one_in_week),
-            Singletons.getString(R.string.physical_activity_more_than_one_in_week),
-            Singletons.getString(R.string.physical_activity_one_in_day),
-        )
-
-        private val workStatusValues = listOf(
-            Singletons.getString(R.string.work_status_worker),
-            Singletons.getString(R.string.work_status_unemployed),
-            Singletons.getString(R.string.work_status_looking_for_job),
-            Singletons.getString(R.string.work_status_pensioner),
-        )
-
-        private val lifeValues = listOf(
-            Singletons.getString(R.string.life_values_active_life),
-            Singletons.getString(R.string.life_values_life_wisdom),
-            Singletons.getString(R.string.life_values_health),
-            Singletons.getString(R.string.life_values_interesting_job),
-            Singletons.getString(R.string.life_values_beauty_of_nature_and_art),
-            Singletons.getString(R.string.life_values_love),
-            Singletons.getString(R.string.life_values_financially_secure_life),
-            Singletons.getString(R.string.life_values_having_good_and_true_friends),
-            Singletons.getString(R.string.life_values_public_vocation),
-            Singletons.getString(R.string.life_values_knowledge_and_intellectual_development),
-            Singletons.getString(R.string.life_values_productive_life),
-            Singletons.getString(R.string.life_values_entertainment),
-            Singletons.getString(R.string.life_values_autonomy),
-            Singletons.getString(R.string.life_values_happy_family_life),
-            Singletons.getString(R.string.life_values_creativity),
-            Singletons.getString(R.string.life_values_self_confidence),
-        )
-    }
 }

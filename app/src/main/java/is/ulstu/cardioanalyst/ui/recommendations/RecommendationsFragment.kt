@@ -1,25 +1,22 @@
 package `is`.ulstu.cardioanalyst.ui.recommendations
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
 import `is`.ulstu.cardioanalyst.databinding.FragmentRecommendationsBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.os.Bundle
 import android.view.View
-import android.widget.ListView
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class RecommendationsFragment: BaseFragment(R.layout.fragment_recommendations) {
+@AndroidEntryPoint
+class RecommendationsFragment @Inject constructor() :
+    BaseFragment(R.layout.fragment_recommendations) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
-    override val viewModel by screenViewModel<RecommendationsViewModel>()
+    override val viewModel by viewModels<RecommendationsViewModel>()
 
     private val binding by viewBinding(FragmentRecommendationsBinding::bind)
     private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
@@ -29,19 +26,24 @@ class RecommendationsFragment: BaseFragment(R.layout.fragment_recommendations) {
 
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_recommendations_load))
-            resultView.setTryAgainAction { viewModel.reloadRecommendations() }
+            resultView.setTryAgainAction { viewModel.getOrReloadRecommendations() }
         }
 
         observeRecommendations()
+        viewModel.getOrReloadRecommendations()
     }
 
     private fun observeRecommendations() {
-        viewModel.recommendations.observeResults(this, binding.root, binding.resultView, { recommendations ->
-            val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
-            if (adapter != null) {
-                initViewPager(adapter)
-            }
-        })
+        viewModel.recommendations.observeResults(
+            this,
+            binding.root,
+            binding.resultView,
+            { recommendations ->
+                val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
+                if (adapter != null) {
+                    initViewPager(adapter)
+                }
+            })
     }
 
     private fun initViewPager(adapter: RecommendationsAdapter) = with(binding) {

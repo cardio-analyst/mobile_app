@@ -234,7 +234,25 @@
                 android:layout_marginStart="24dp"
                 android:text="@string/risk_of_cardiovascular_events"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalCholesterolLevel"/>
+                app:layout_constraintTop_toBottomOf="@+id/totalCholesterolLevel"
+                android:enabled="true"/>
+
+            <TextView
+                android:id="@+id/cvEventsRiskDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:minHeight="68dp"
+                android:textSize="@dimen/text_medium"
+                android:gravity="center_vertical"
+                android:textColor="@color/background_color"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/risk_of_cardiovascular_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvEventsRiskValue"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/cvEventsRiskValueTextEdit"
@@ -260,7 +278,7 @@
                 style="@style/button_positive"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvEventsRiskValue" />
+                app:layout_constraintTop_toBottomOf="@+id/cvEventsRiskDescription" />
 
             <TextView
                 android:id="@+id/idealCardiovascularAge"
@@ -269,7 +287,25 @@
                 android:layout_marginStart="24dp"
                 android:text="@string/ideal_cardiovascular_age"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvEventsRiskCalculateButton"/>
+                app:layout_constraintTop_toBottomOf="@+id/cvEventsRiskCalculateButton"
+                android:enabled="true"/>
+
+            <TextView
+                android:id="@+id/idealCardiovascularAgeDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:minHeight="68dp"
+                android:textSize="@dimen/text_medium"
+                android:gravity="center_vertical"
+                android:textColor="@color/background_color"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/ideal_cardiovascular_age_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idealCardiovascularAge"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/idealCardiovascularAgeTextEdit"
@@ -295,7 +331,7 @@
                 style="@style/button_positive"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idealCardiovascularAge" />
+                app:layout_constraintTop_toBottomOf="@+id/idealCardiovascularAgeDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

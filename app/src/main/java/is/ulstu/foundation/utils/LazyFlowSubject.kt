@@ -44,6 +44,11 @@ class LazyFlowSubject<A : Any, T : Any>(
     }
 
     /**
+     * @see LazyListenersSubject.removeAllListeners
+     */
+    fun removeAllListeners() = lazyListenersSubject.removeAllListeners()
+
+    /**
      * @see LazyListenersSubject.addListener
      * @see LazyListenersSubject.removeListener
      */

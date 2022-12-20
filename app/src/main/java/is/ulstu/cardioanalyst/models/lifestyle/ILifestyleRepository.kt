@@ -31,4 +31,15 @@ interface ILifestyleRepository : Repository {
      */
     fun reloadSetLifestyleUserRequest(lifestyleMainEntity: LifestyleMainEntity)
 
+    /**
+     * Savings temp params
+     * (when user do not save changes but start some tests in different fragment)
+     */
+    fun setCurrentChanges(lifestyleMainEntity: LifestyleMainEntity?)
+
+    /**
+     * Get savings temp params
+     */
+    fun getCurrentChanges(): LifestyleMainEntity?
+
 }

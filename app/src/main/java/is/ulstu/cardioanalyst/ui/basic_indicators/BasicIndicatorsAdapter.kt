@@ -1,7 +1,5 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
-import `is`.ulstu.foundation.ARG_SCREEN
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -23,8 +21,6 @@ class BasicIndicatorsAdapter(
     private val fragmentList: MutableList<BasicIndicatorsRecordFragment> = mutableListOf()
 
     fun addFragment(basicIndicatorsRecordFragment: BasicIndicatorsRecordFragment) {
-        val screen = BasicIndicatorsRecordFragment.Screen()
-        basicIndicatorsRecordFragment.arguments = bundleOf(ARG_SCREEN to screen)
         fragmentList.add(basicIndicatorsRecordFragment)
     }
 

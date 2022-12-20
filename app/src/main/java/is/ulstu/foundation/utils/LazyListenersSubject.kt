@@ -37,14 +37,24 @@ class LazyListenersSubject<A : Any, T : Any>(
      * will reuse the same cached value without triggering a [loader].
      */
     fun addListener(argument: A, listener: ValueListener<T>) = handlerExecutor.execute {
-        val listenerRecord = ListenerRecord(argument, listener)
-        listeners.add(listenerRecord)
+
         val futureRecord = futures[argument]
         if (futureRecord == null) {
+            val listenerRecord = ListenerRecord(argument, listener)
+            listeners.add(listenerRecord)
             execute(argument)
         } else {
-            listener.invoke(futureRecord.lastValue)
+            reloadArgument(argument)
         }
+    }
+
+    /**
+     * Remove all listeners with canceling value loader for arguments
+     */
+    fun removeAllListeners() {
+        val arguments = listeners.map { it.arg }
+        listeners.clear()
+        arguments.forEach { cancel(it) }
     }
 
     /**

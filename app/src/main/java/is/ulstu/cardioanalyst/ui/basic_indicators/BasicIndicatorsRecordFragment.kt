@@ -1,40 +1,36 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.BackendException
 import `is`.ulstu.cardioanalyst.app.BackendExceptions
 import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
+import `is`.ulstu.cardioanalyst.ui.laboratory_research.setColor
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText
 import `is`.ulstu.foundation.model.Error
 import `is`.ulstu.foundation.model.Success
-import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
-import `is`.ulstu.foundation.views.screenViewModel
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class BasicIndicatorsRecordFragment(
     private val basicIndicator: GetBasicIndicatorResponseEntity,
     private val basicIndicatorRecordListener: BasicIndicatorRecordListener
 ) : BaseFragment(R.layout.fragment_basic_indicators_record) {
 
-    // no arguments for this screen
-    class Screen : BaseScreen
-
     var currentBasicIndicator: GetBasicIndicatorResponseEntity = basicIndicator.copy()
 
-    override val viewModel by screenViewModel<BasicIndicatorsRecordViewModel>()
+    override val viewModel by viewModels<BasicIndicatorsRecordViewModel>()
 
     private val binding by viewBinding(FragmentBasicIndicatorsRecordBinding::bind)
 
@@ -42,6 +38,22 @@ class BasicIndicatorsRecordFragment(
         super.onViewCreated(view, savedInstanceState)
         initFields()
         initFieldsLogic()
+
+        with(binding) {
+            cvEventsRiskValue.setOnClickListener {
+                cvEventsRiskDescription.visibility = when (cvEventsRiskDescription.visibility) {
+                    View.GONE -> View.VISIBLE
+                    else -> View.GONE
+                }
+            }
+            idealCardiovascularAge.setOnClickListener {
+                idealCardiovascularAgeDescription.visibility =
+                    when (idealCardiovascularAgeDescription.visibility) {
+                        View.GONE -> View.VISIBLE
+                        else -> View.GONE
+                    }
+            }
+        }
 
         observeCVERisk()
         observeIdealAge()
@@ -78,10 +90,10 @@ class BasicIndicatorsRecordFragment(
                 }
 
             weightTextEdit.smartEditText(
-                inputMethodManager,
-                40.0..160.0,
-                R.string.unit_kg,
-                onError(R.string.weight, 40.0..160.0)
+                imm = inputMethodManager,
+                range = 40.0..160.0,
+                sampleId = R.string.unit_kg,
+                onError = onError(R.string.weight, 40.0..160.0)
             ) {
                 if (it != null && it != currentBasicIndicator.weight) {
                     currentBasicIndicator.weight = it
@@ -92,15 +104,16 @@ class BasicIndicatorsRecordFragment(
                     bodyMassIndexTextEdit.setText(
                         currentBasicIndicator.bodyMassIndex.toString()
                     )
+                    bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
                     checkDifference()
                 }
                 currentBasicIndicator.weight
             }
             heightTextEdit.smartEditText(
-                inputMethodManager,
-                145.0..230.0,
-                R.string.unit_sm,
-                onError(R.string.height, 145.0..230.0)
+                imm = inputMethodManager,
+                range = 145.0..230.0,
+                sampleId = R.string.unit_sm,
+                onError = onError(R.string.height, 145.0..230.0)
             ) {
                 if (it != null && it != currentBasicIndicator.height) {
                     currentBasicIndicator.height = it
@@ -111,15 +124,16 @@ class BasicIndicatorsRecordFragment(
                     bodyMassIndexTextEdit.setText(
                         currentBasicIndicator.bodyMassIndex.toString()
                     )
+                    bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
                     checkDifference()
                 }
                 currentBasicIndicator.height
             }
             waistTextEdit.smartEditText(
-                inputMethodManager,
-                50.0..190.0,
-                R.string.unit_sm,
-                onError(R.string.waist, 50.0..190.0)
+                imm = inputMethodManager,
+                range = 50.0..190.0,
+                sampleId = R.string.unit_sm,
+                onError = onError(R.string.waist, 50.0..190.0)
             ) {
                 if (it != null && it != currentBasicIndicator.waistSize) {
                     currentBasicIndicator.waistSize = it
@@ -146,10 +160,11 @@ class BasicIndicatorsRecordFragment(
                 dialog.show()
             }
             systolicBloodPressureLevelTextEdit.smartEditText(
-                inputMethodManager,
-                80.0..250.0,
-                R.string.unit_mm_rt_st,
-                onError(R.string.systolic_blood_pressure_level, 3.0..15.2)
+                imm = inputMethodManager,
+                range = 80.0..250.0,
+                positiveRange = 100.0..130.0,
+                sampleId = R.string.unit_mm_rt_st,
+                onError = onError(R.string.systolic_blood_pressure_level, 80.0..250.0)
             ) {
                 if (it != null && it != currentBasicIndicator.sbpLevel) {
                     currentBasicIndicator.sbpLevel = it
@@ -162,10 +177,11 @@ class BasicIndicatorsRecordFragment(
                 checkDifference()
             }
             totalCholesterolLevelTextEdit.smartEditText(
-                inputMethodManager,
-                3.0..15.2,
-                R.string.unit_mm_rt_st,
-                onError(R.string.total_cholesterol, 3.0..15.2)
+                imm = inputMethodManager,
+                range = 3.0..15.2,
+                positiveRange = 2.8..5.2,
+                sampleId = R.string.unit_mmol_by_l,
+                onError = onError(R.string.total_cholesterol, 3.0..15.2)
             ) {
                 if (it != null && it != currentBasicIndicator.totalCholesterolLevel) {
                     currentBasicIndicator.totalCholesterolLevel = it
@@ -176,21 +192,25 @@ class BasicIndicatorsRecordFragment(
 
             // buttons
             cvEventsRiskCalculateButton.setOnClickListener {
-                viewModel.getCVERisk(GetCVERiskRequestEntity(
-                    gender = currentBasicIndicator.gender,
-                    smoking = currentBasicIndicator.smoking,
-                    sbpLevel = currentBasicIndicator.sbpLevel,
-                    totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
-                ))
+                viewModel.getCVERisk(
+                    GetCVERiskRequestEntity(
+                        gender = currentBasicIndicator.gender,
+                        smoking = currentBasicIndicator.smoking,
+                        sbpLevel = currentBasicIndicator.sbpLevel,
+                        totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
+                    )
+                )
             }
 
             idealCardiovascularAgeCalculateButton.setOnClickListener {
-                viewModel.getIdealAge(GetCVERiskRequestEntity(
-                    gender = currentBasicIndicator.gender,
-                    smoking = currentBasicIndicator.smoking,
-                    sbpLevel = currentBasicIndicator.sbpLevel,
-                    totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
-                ))
+                viewModel.getIdealAge(
+                    GetCVERiskRequestEntity(
+                        gender = currentBasicIndicator.gender,
+                        smoking = currentBasicIndicator.smoking,
+                        sbpLevel = currentBasicIndicator.sbpLevel,
+                        totalCholesterolLevel = currentBasicIndicator.totalCholesterolLevel
+                    )
+                )
             }
         }
     }
@@ -205,30 +225,36 @@ class BasicIndicatorsRecordFragment(
                     basicIndicator.createdAt
 
             weightTextEdit.setTextBySample(
-                basicIndicator.weight.toString(),
-                resources.getString(R.string.unit_kg)
+                value = basicIndicator.weight,
+                text = resources.getString(R.string.unit_kg),
             )
             heightTextEdit.setTextBySample(
-                basicIndicator.height.toString(),
-                resources.getString(R.string.unit_sm)
+                value = basicIndicator.height,
+                text = resources.getString(R.string.unit_sm)
             )
             bodyMassIndexTextEdit.setText(basicIndicator.bodyMassIndex.toString())
+            bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
             waistTextEdit.setTextBySample(
-                basicIndicator.waistSize.toString(),
-                resources.getString(R.string.unit_sm)
+                value = basicIndicator.waistSize,
+                text = resources.getString(R.string.unit_sm)
             )
             genderTextViewAlert.text = basicIndicator.gender
             systolicBloodPressureLevelTextEdit.setTextBySample(
-                basicIndicator.sbpLevel.toString(),
-                resources.getString(R.string.unit_mm_rt_st)
+                value = basicIndicator.sbpLevel,
+                text = resources.getString(R.string.unit_mm_rt_st),
+                positiveRange = 100.0..130.0,
             )
             smokingCheckbox.isChecked = basicIndicator.smoking
             totalCholesterolLevelTextEdit.setTextBySample(
-                basicIndicator.totalCholesterolLevel.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = basicIndicator.totalCholesterolLevel,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 2.8..5.2,
             )
-            cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString())
+            cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString() + "%")
+            cvEventsRiskValueTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
             idealCardiovascularAgeTextEdit.setText(basicIndicator.idealCardiovascularAgesRange)
+            idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
+
         }
     }
 
@@ -237,7 +263,8 @@ class BasicIndicatorsRecordFragment(
             if (result is Success) {
                 with(result.value) {
                     currentBasicIndicator.cvEventsRiskValue = this.value
-                    binding.cvEventsRiskValueTextEdit.setText(this.value.toString())
+                    binding.cvEventsRiskValueTextEdit.setText(this.value.toString() + "%")
+                    binding.cvEventsRiskValueTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
             } else if (result is Error && result.error is BackendExceptions) {
@@ -252,6 +279,7 @@ class BasicIndicatorsRecordFragment(
                 with(result.value) {
                     currentBasicIndicator.idealCardiovascularAgesRange = this.value
                     binding.idealCardiovascularAgeTextEdit.setText(this.value)
+                    binding.idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
             } else if (result is Error && result.error is BackendExceptions) {
@@ -259,6 +287,16 @@ class BasicIndicatorsRecordFragment(
             }
         }
     }
+
+    private fun getColorByOption(color: String) =
+        resources.getColor(
+            when (color) {
+                "positive" -> R.color.green_color
+                "neutral" -> R.color.yellow_color
+                "negative" -> R.color.active_color
+                else -> R.color.enter_color
+            }
+        )
 
     interface BasicIndicatorRecordListener {
         fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>)

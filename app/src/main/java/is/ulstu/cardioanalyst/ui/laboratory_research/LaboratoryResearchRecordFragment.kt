@@ -57,10 +57,11 @@ class LaboratoryResearchRecordFragment(
                 }
 
             highDensityCholesterolTextEdit.smartEditText(
-                inputMethodManager,
-                0.5..5.5,
-                R.string.unit_mmol_by_l,
-                onError(R.string.high_density_cholesterol, 0.5..5.5)
+                imm = inputMethodManager,
+                range = 0.5..5.5,
+                positiveRange = 0.72..1.94,
+                sampleId = R.string.unit_mmol_by_l,
+                onError = onError(R.string.high_density_cholesterol, 0.5..5.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.highDensityCholesterol) {
                     currentLaboratoryResearch.highDensityCholesterol = it
@@ -70,10 +71,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             lowDensityCholesterolTextEdit.smartEditText(
-                inputMethodManager,
-                0.5..8.5,
-                R.string.unit_mmol_by_l,
-                onError(R.string.low_density_cholesterol, 0.5..8.5)
+                imm = inputMethodManager,
+                range = 0.5..8.5,
+                positiveRange = 0.72..1.94,
+                sampleId = R.string.unit_mmol_by_l,
+                onError = onError(R.string.low_density_cholesterol, 0.5..8.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.lowDensityCholesterol) {
                     currentLaboratoryResearch.lowDensityCholesterol = it
@@ -83,10 +85,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             triglyceridesTextEdit.smartEditText(
-                inputMethodManager,
-                0.2..8.5,
-                R.string.unit_mmol_by_l,
-                onError(R.string.triglycerides, 0.2..8.5)
+                imm = inputMethodManager,
+                range = 0.2..8.5,
+                positiveRange = 0.2..1.7,
+                sampleId = R.string.unit_mmol_by_l,
+                onError = onError(R.string.triglycerides, 0.2..8.5)
             ) {
                 if (it != null && it != currentLaboratoryResearch.triglycerides) {
                     currentLaboratoryResearch.triglycerides = it
@@ -96,10 +99,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             lipoproteinTextEdit.smartEditText(
-                inputMethodManager,
-                0.0..10.0,
-                R.string.unit_g_by_l,
-                onError(R.string.lipoprotein, 0.0..10.0)
+                imm = inputMethodManager,
+                range = 0.0..10.0,
+                positiveRange = 0.01..0.3,
+                sampleId = R.string.unit_g_by_l,
+                onError = onError(R.string.lipoprotein, 0.0..10.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.lipoprotein) {
                     currentLaboratoryResearch.lipoprotein = it
@@ -109,10 +113,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             highlySensitiveCReactiveProteinTextEdit.smartEditText(
-                inputMethodManager,
-                0.1..12.0,
-                R.string.unit_mg_by_l,
-                onError(R.string.highly_sensitive_C_reactive_protein, 0.1..12.0)
+                imm = inputMethodManager,
+                range = 0.1..12.0,
+                positiveRange = 0.0..5.0,
+                sampleId = R.string.unit_mg_by_l,
+                onError = onError(R.string.highly_sensitive_C_reactive_protein, 0.1..12.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.highlySensitiveCReactiveProtein) {
                     currentLaboratoryResearch.highlySensitiveCReactiveProtein = it
@@ -122,10 +127,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             atherogenicCoefficientTextEdit.smartEditText(
-                inputMethodManager,
-                0.1..8.0,
-                null,
-                onError(R.string.atherogenic_coefficient, 0.1..8.0)
+                imm = inputMethodManager,
+                range = 0.1..8.0,
+                positiveRange = 2.0..3.0,
+                sampleId = null,
+                onError = onError(R.string.atherogenic_coefficient, 0.1..8.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.atherogenicityCoefficient) {
                     currentLaboratoryResearch.atherogenicityCoefficient = it
@@ -135,10 +141,11 @@ class LaboratoryResearchRecordFragment(
             }
 
             creatinineTextEdit.smartEditText(
-                inputMethodManager,
-                20.0..500.0,
-                R.string.unit_mmol_by_l,
-                onError(R.string.creatinine, 20.0..500.0)
+                imm = inputMethodManager,
+                range = 20.0..500.0,
+                positiveRange = 44.0..115.0,
+                sampleId = R.string.unit_mmol_by_l,
+                onError = onError(R.string.creatinine, 20.0..500.0)
             ) {
                 if (it != null && it != currentLaboratoryResearch.creatinine) {
                     currentLaboratoryResearch.creatinine = it
@@ -164,31 +171,39 @@ class LaboratoryResearchRecordFragment(
                     laboratoryResearch.createdAt
 
             highDensityCholesterolTextEdit.setTextBySample(
-                laboratoryResearch.highDensityCholesterol.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = laboratoryResearch.highDensityCholesterol,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 0.72..1.94,
             )
             lowDensityCholesterolTextEdit.setTextBySample(
-                laboratoryResearch.lowDensityCholesterol.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = laboratoryResearch.lowDensityCholesterol,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 0.72..1.94,
             )
             triglyceridesTextEdit.setTextBySample(
-                laboratoryResearch.triglycerides.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = laboratoryResearch.triglycerides,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 0.2..1.7,
             )
             lipoproteinTextEdit.setTextBySample(
-                laboratoryResearch.lipoprotein.toString(),
-                resources.getString(R.string.unit_g_by_l)
+                value = laboratoryResearch.lipoprotein,
+                text = resources.getString(R.string.unit_g_by_l),
+                positiveRange = 0.01..0.3,
             )
             highlySensitiveCReactiveProteinTextEdit.setTextBySample(
-                laboratoryResearch.highlySensitiveCReactiveProtein.toString(),
-                resources.getString(R.string.unit_mg_by_l)
+                value = laboratoryResearch.highlySensitiveCReactiveProtein,
+                text = resources.getString(R.string.unit_mg_by_l),
+                positiveRange = 0.0..5.0,
             )
-            atherogenicCoefficientTextEdit.setText(
-                laboratoryResearch.atherogenicityCoefficient.toString()
+            atherogenicCoefficientTextEdit.setTextBySample(
+                value = laboratoryResearch.atherogenicityCoefficient,
+                text = null,
+                positiveRange = 2.0..3.0,
             )
             creatinineTextEdit.setTextBySample(
-                laboratoryResearch.creatinine.toString(),
-                resources.getString(R.string.unit_mmol_by_l)
+                value = laboratoryResearch.creatinine,
+                text = resources.getString(R.string.unit_mmol_by_l),
+                positiveRange = 44.0..115.0,
             )
             uzdmagResultsCheckbox.isChecked = laboratoryResearch.atheroscleroticPlaquesPresence
         }

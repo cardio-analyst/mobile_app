@@ -1,10 +1,13 @@
 package `is`.ulstu.cardioanalyst.models.lifestyle.sources
 
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
-import `is`.ulstu.cardioanalyst.sources.base.BaseRetrofitSource
-import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
+import `is`.ulstu.cardioanalyst.sources.BaseRetrofitSource
+import `is`.ulstu.cardioanalyst.sources.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitLifestyleSource(
+@Singleton
+class RetrofitLifestyleSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), LifestyleSource {
 
