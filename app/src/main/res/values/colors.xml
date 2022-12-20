@@ -11,4 +11,6 @@
     <color name="active_color">#DA1010</color>
     <color name="inactive_color">#888888</color>
     <color name="enter_color">#4961DF</color>
+    <color name="green_color">#05A20B</color>
+    <color name="yellow_color">#FCCA00</color>
 </resources>

@@ -1,17 +1,20 @@
 package `is`.ulstu.cardioanalyst.models.users.sources
 
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.*
-import `is`.ulstu.cardioanalyst.sources.base.BaseRetrofitSource
-import `is`.ulstu.cardioanalyst.sources.base.RetrofitConfig
+import `is`.ulstu.cardioanalyst.sources.BaseRetrofitSource
+import `is`.ulstu.cardioanalyst.sources.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitUsersSource(
+@Singleton
+class RetrofitUsersSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), UsersSource {
 
     private val usersApi = retrofit.create(UsersApi::class.java)
 
-    override suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): String =
-        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestEntity).token }
+    override suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity =
+        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestEntity) }
 
 
     override suspend fun signUp(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity =
@@ -23,4 +26,7 @@ class RetrofitUsersSource(
 
     override suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity =
         wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestEntity) }
+
+    override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity =
+        wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestEntity) }
 }

@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.models.users.sources.entities
 
 data class UserSignInResponseEntity(
-    val token: String
+    val accessToken: String,
+    val refreshToken: String,
 )

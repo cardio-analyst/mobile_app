@@ -12,9 +12,9 @@ interface UsersSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return JWT-token
+     * @return [UserSignInResponseEntity] which contains [accessToken] and [refreshToken] tokens
      */
-    suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): String
+    suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity
 
     /**
      * Create a new user account.
@@ -42,5 +42,14 @@ interface UsersSource {
      * @return [UserInfoResponseEntity]
      */
     suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity
+
+    /**
+     * Refresh the user's tokens
+     * @throws ConnectionException
+     * @throws BackendExceptions
+     * @throws ParseBackendResponseException
+     * @return [UserInfoResponseEntity] which contains [accessToken] and [refreshToken] tokens
+     */
+    suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity
 
 }

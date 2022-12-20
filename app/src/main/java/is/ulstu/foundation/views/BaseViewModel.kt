@@ -1,27 +1,41 @@
 package `is`.ulstu.foundation.views
 
-import `is`.ulstu.cardioanalyst.app.AlreadyRegisteredWithLogin
-import `is`.ulstu.cardioanalyst.app.BackendException
-import `is`.ulstu.cardioanalyst.app.ConnectionException
-import `is`.ulstu.cardioanalyst.app.InputExceptions
+import `is`.ulstu.cardioanalyst.app.*
+import `is`.ulstu.cardioanalyst.models.settings.UserSettings
+import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
+import `is`.ulstu.foundation.navigator.Navigator
 import `is`.ulstu.foundation.uiactions.UiActions
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import `is`.ulstu.foundation.utils.LazyFlowSubject
 import androidx.lifecycle.ViewModel
-import `is`.ulstu.foundation.utils.Event
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
-typealias LiveEvent<T> = LiveData<Event<T>>
-typealias MutableLiveEvent<T> = MutableLiveData<Event<T>>
 
 /**
  * Base class for all view-models.
  */
-open class BaseViewModel(private val uiAction: UiActions? = null) : ViewModel() {
+open class BaseViewModel(
+    private val navigator: Navigator,
+    private val userSettings: UserSettings,
+    private val uiAction: UiActions? = null,
+) : ViewModel() {
+
+    /**
+     * Flag of first loading main get request of viewModel
+     */
+    protected var firstLoadFlag: Boolean = true
+        get() {
+            if (field) {
+                field = false
+                return true
+            }
+            return field
+        }
+
+    /**
+     * Main Job() of viewModel for correct [safeLaunch] method work
+     */
+    private var job = Job()
 
     /**
      * Override this method in child classes if you want to listen for results
@@ -35,48 +49,41 @@ open class BaseViewModel(private val uiAction: UiActions? = null) : ViewModel() 
      * Safe launch database sources
      */
     fun CoroutineScope.safeLaunch(block: suspend CoroutineScope.() -> Unit) {
-        viewModelScope.launch(Dispatchers.Main) {
+        if (job.isCancelled) job = Job()
+        viewModelScope.launch(job) {
             try {
                 block.invoke(this)
             } catch (e: ConnectionException) {
                 e.message?.let { uiAction?.toast(it) }
             } catch (e: BackendException) {
-                uiAction?.toast(e.description)
-            } catch (e: AlreadyRegisteredWithLogin) {
+                uiAction?.toast(e.error + e.description)
+            } catch (e: RefreshTokenExpired) {
+                userSettings.setCurrentRefreshToken(null)
+                if (userSettings.getUserAccountAccessToken() != null)
+                    navigator.launch(AuthorizationFragment())
+                userSettings.setUserAccountAccessToken(null)
+            } catch (e: BackendExceptions) {
                 uiAction?.toast(e.description)
             } catch (e: InputExceptions) {
                 uiAction?.toast(e.description)
-            }
-            catch (e: Exception) {
+            } catch (e: AppLogicExceptions) {
+                e.message?.let { uiAction?.toast(it) }
+            } catch (_: CancellationException) {
+                // ignore cancel exception
+            } catch (e: Exception) {
                 e.message?.let { uiAction?.toast(it) }
             }
         }
     }
 
     /**
-     * Safe launch database sources methods returns data
+     * Cancel [Job] of viewModel for removing observers
+     * @see LazyFlowSubject.listen job.cancel() will trigger awaitCLose()
      */
-    fun <T> CoroutineScope.safeLaunchData(block: suspend CoroutineScope.() -> T): T? {
-        return runBlocking {
-            try {
-                block()
-            } catch (e: ConnectionException) {
-                e.message?.let { uiAction?.toast(it) }
-                null
-            } catch (e: BackendException) {
-                uiAction?.toast(e.description)
-                null
-            } catch (e: AlreadyRegisteredWithLogin) {
-                uiAction?.toast(e.description)
-                null
-            } catch (e: InputExceptions) {
-                uiAction?.toast(e.description)
-                null
-            }
-            catch (e: Exception) {
-                e.message?.let { uiAction?.toast(it) }
-                null
-            }
-        }
+    public override fun onCleared() {
+        super.onCleared()
+        firstLoadFlag = true
+        job.cancel()
     }
+
 }

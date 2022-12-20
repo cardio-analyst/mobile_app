@@ -1,15 +1,12 @@
 package `is`.ulstu.foundation.navigator
 
-import `is`.ulstu.foundation.ARG_SCREEN
 import `is`.ulstu.foundation.utils.Event
 import `is`.ulstu.foundation.views.BaseFragment
-import `is`.ulstu.foundation.views.BaseScreen
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 
@@ -17,7 +14,7 @@ class FragmentNavigator(
     private val activity: AppCompatActivity,
     @IdRes private val mainContainerId: Int,
     private val animations: Animations,
-    private val initialScreenCreator: () -> BaseScreen
+    private val initialScreenFragment: Fragment
 ) : Navigator {
 
     private var result: Event<Any>? = null
@@ -26,7 +23,7 @@ class FragmentNavigator(
         if (savedInstanceState == null) {
             // define the initial screen that should be launched when app starts.
             launchFragment(
-                screen = initialScreenCreator(),
+                fragment = initialScreenFragment,
                 addToBackStack = false
             )
         }
@@ -37,12 +34,12 @@ class FragmentNavigator(
         activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentCallbacks)
     }
 
-    override fun launch(screen: BaseScreen) {
-        launchFragment(screen)
+    override fun launch(fragment: Fragment) {
+        launchFragment(fragment)
     }
 
-    override fun addFragmentToScreen(containerId: Int, screen: BaseScreen) {
-        addFragment(containerId, screen)
+    override fun addFragmentToScreen(containerId: Int, fragment: Fragment) {
+        addFragment(containerId, fragment)
     }
 
     override fun goBack(result: Any?) {
@@ -52,13 +49,10 @@ class FragmentNavigator(
         activity.onBackPressed()
     }
 
-    fun launchFragment(screen: BaseScreen, addToBackStack: Boolean = true) {
-        // as screen classes are inside fragments -> we can create fragment directly from screen
-        val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
-        // set screen object as fragment's argument
-        fragment.arguments = bundleOf(ARG_SCREEN to screen)
+    override fun getBackstackFragmentCount(): Int =
+        activity.supportFragmentManager.backStackEntryCount
 
-        // adding listeners
+    fun launchFragment(fragment: Fragment, addToBackStack: Boolean = true) {
         //if (fragment is ChangeModeParamsListener) changeModeParamsListener = fragment
 
         val transaction = activity.supportFragmentManager.beginTransaction()
@@ -74,10 +68,7 @@ class FragmentNavigator(
             .commit()
     }
 
-    private fun addFragment(containerId: Int, screen: BaseScreen) {
-        val fragment = screen.javaClass.enclosingClass.newInstance() as Fragment
-
-        fragment.arguments = bundleOf(ARG_SCREEN to screen)
+    private fun addFragment(containerId: Int, fragment: Fragment) {
         val transaction = activity.supportFragmentManager.beginTransaction()
         transaction
             .setCustomAnimations(
@@ -87,6 +78,13 @@ class FragmentNavigator(
                 animations.popExitAnim
             )
             .replace(containerId, fragment)
+            .commit()
+    }
+
+    override fun removeFragment(fragment: Fragment) {
+        val transaction = activity.supportFragmentManager.beginTransaction()
+        transaction
+            .remove(fragment)
             .commit()
     }
 

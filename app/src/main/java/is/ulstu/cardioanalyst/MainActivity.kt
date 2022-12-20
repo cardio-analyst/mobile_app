@@ -1,28 +1,23 @@
 package `is`.ulstu.cardioanalyst
 
 import `is`.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment
-import `is`.ulstu.cardioanalyst.ui.navigation.NavigationFragment
 import `is`.ulstu.foundation.ActivityScopeViewModel
 import `is`.ulstu.foundation.navigator.FragmentNavigator
-import `is`.ulstu.foundation.navigator.IntermediateNavigator
-import `is`.ulstu.foundation.uiactions.AndroidUiActions
-import `is`.ulstu.foundation.uiactions.AndroidUiHelper
-import `is`.ulstu.foundation.utils.viewModelCreator
-import `is`.ulstu.foundation.views.FragmentsHolder
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), FragmentsHolder {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var authorizationFragment: AuthorizationFragment
 
     private lateinit var navigator: FragmentNavigator
 
-    private val activityViewModel by viewModelCreator<ActivityScopeViewModel> {
-        ActivityScopeViewModel(
-            uiActions = AndroidUiActions(applicationContext),
-            navigator = IntermediateNavigator(),
-            uiHelper = AndroidUiHelper(applicationContext, windowManager)
-        )
-    }
+    private val activityViewModel by viewModels<ActivityScopeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +32,7 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
                 R.anim.pop_enter,
                 R.anim.pop_exit
             ),
-            initialScreenCreator = { AuthorizationFragment.Screen() }
+            initialScreenFragment = authorizationFragment
         )
         navigator.onCreate(savedInstanceState)
     }
@@ -64,11 +59,4 @@ class MainActivity : AppCompatActivity(), FragmentsHolder {
         activityViewModel.navigator.setTarget(null)
     }
 
-    override fun notifyScreenUpdates() {
-        navigator.notifyScreenUpdates()
-    }
-
-    override fun getActivityScopeViewModel(): ActivityScopeViewModel {
-        return activityViewModel
-    }
 }

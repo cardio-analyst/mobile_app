@@ -1,13 +1,17 @@
 package `is`.ulstu.cardioanalyst.models.settings
 
 interface AppSettings {
-    /**
-     * Get auth token of the current logged-in user.
-     */
-    fun getCurrentToken(): String?
 
     /**
-     * Set auth token of the logged-in user.
+     * Get last tab user visit.
+     * @return tab name [String]
      */
-    fun setCurrentToken(token: String?)
+    fun getLastTab(): String?
+
+    /**
+     * Set last tab user visit.
+     * @param tabName [String]
+     */
+    fun setLastTab(tabName: String)
+
 }

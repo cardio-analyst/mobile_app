@@ -9,12 +9,14 @@ open class AppException : RuntimeException {
     constructor() : super()
     constructor(message: String) : super(message)
     constructor(cause: Throwable) : super(cause)
+    constructor(message: String, cause: Throwable) : super(message, cause)
 }
 
 
 // --- Different Exceptions
 
-class ConnectionException(cause: Throwable) : AppException(cause = cause)
+class ConnectionException(cause: Throwable) :
+    AppException(Singletons.getString(R.string.app_logic_ex_connection_ex), cause = cause)
 
 class ParseBackendResponseException(
     cause: Throwable
@@ -25,18 +27,28 @@ class ErrorResponseBody(
     val description: String,
 )
 
+class AutoSignInException :
+    AppException(message = Singletons.getString(R.string.auto_sign_in_exception))
+
 
 // --- Backend Exceptions Based in Sealed class
 
-sealed class BackendExceptions : AppException() {
+sealed class BackendExceptions(val description: String = "") : AppException() {
     companion object {
-        fun initBackendException(errorResponseBody: ErrorResponseBody) = when (errorResponseBody.error) {
-            "AlreadyRegisteredWithLogin" -> AlreadyRegisteredWithLogin(errorResponseBody.description)
-            else -> {
-                BackendException(
-                    error = errorResponseBody.error,
+        fun initBackendException(errorResponseBody: ErrorResponseBody): BackendExceptions {
+
+            return when (errorResponseBody.error) {
+                "AlreadyRegisteredWithLogin" -> AlreadyRegisteredWithLogin(
                     description = errorResponseBody.description
                 )
+                "RefreshTokenExpired", "WrongRefreshToken" -> RefreshTokenExpired()
+                "AccessTokenExpired", "WrongAccessToken" -> AccessTokenExpired()
+                else -> {
+                    BackendException(
+                        error = errorResponseBody.error,
+                        description = errorResponseBody.description
+                    )
+                }
             }
         }
     }
@@ -44,22 +56,39 @@ sealed class BackendExceptions : AppException() {
 
 class BackendException(
     val error: String,
-    val description: String
-) : BackendExceptions()
+    description: String
+) : BackendExceptions(description)
 
-class AlreadyRegisteredWithLogin(val description: String) : BackendExceptions()
+class AlreadyRegisteredWithLogin(description: String) : BackendExceptions(description)
+
+class RefreshTokenExpired : BackendExceptions()
+
+class AccessTokenExpired : BackendExceptions()
 
 
 // --- User Input Exceptions Based in Sealed class
 
 sealed class InputExceptions(val description: String) : AppException()
 
-class IncorrectEmailException() : InputExceptions(Singletons.getString(R.string.in_ex_incorrect_email))
+class IncorrectEmailException() :
+    InputExceptions(Singletons.getString(R.string.in_ex_incorrect_email))
 
-class IncorrectFullNameException() : InputExceptions(Singletons.getString(R.string.in_ex_incorrect_full_name))
+class IncorrectFullNameException() :
+    InputExceptions(Singletons.getString(R.string.in_ex_incorrect_full_name))
 
-class IncorrectBirthDateException() : InputExceptions(Singletons.getString(R.string.in_ex_incorrect_birth_date))
+class IncorrectBirthDateException() :
+    InputExceptions(Singletons.getString(R.string.in_ex_incorrect_birth_date))
 
-class IncorrectRegionException() : InputExceptions(Singletons.getString(R.string.in_ex_incorrect_region))
+class IncorrectRegionException() :
+    InputExceptions(Singletons.getString(R.string.in_ex_incorrect_region))
 
-class IncorrectPasswordException() : InputExceptions(Singletons.getString(R.string.in_ex_incorrect_password))
+class IncorrectPasswordException() :
+    InputExceptions(Singletons.getString(R.string.in_ex_incorrect_password))
+
+
+// --- User Input Exceptions Based in Sealed class
+
+sealed class AppLogicExceptions(description: String) : AppException(message = description)
+
+class UserSessionExpired :
+    AppLogicExceptions(Singletons.getString(R.string.app_logic_ex_user_session_expired))

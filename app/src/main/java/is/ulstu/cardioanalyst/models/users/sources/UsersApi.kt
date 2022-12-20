@@ -16,6 +16,9 @@ interface UsersApi {
     @GET("profile/info")
     suspend fun getUserInfo(): UserInfoResponseEntity
 
-    @POST("profile/edit")
+    @PUT("profile/edit")
     suspend fun setUserInfo(@Body body: UserInfoRequestEntity): UserInfoResponseEntity
+
+    @POST("auth/refreshTokens")
+    suspend fun refreshTokens(@Body body: UserRefreshTokensRequestEntity): UserSignInResponseEntity
 }

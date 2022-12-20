@@ -1,15 +1,14 @@
 package `is`.ulstu.cardioanalyst.app
 
-import `is`.ulstu.foundation.BaseApplication
-import `is`.ulstu.foundation.model.Repository
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class App : Application(), BaseApplication {
-
-    override val repositories: List<Repository> = listOf<Repository>()
+@HiltAndroidApp
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
         Singletons.init(appContext = baseContext)
     }
+
 }
