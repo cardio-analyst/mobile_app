@@ -9,10 +9,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StenocardiaSymptomsTestViewModel @Inject constructor(
-    private val navigator: Navigator,
-    userSettings: UserSettings,
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
-) : BaseViewModel(navigator, userSettings) {
+) : BaseViewModel() {
 
     /**
      * @see StenocardiaSymptomsTestRepository
@@ -33,7 +31,6 @@ class StenocardiaSymptomsTestViewModel @Inject constructor(
 
     fun finish(result: Int) {
         stenocardiaSymptomsTestRepository.scoreResult = result
-        navigator.goBack()
     }
 
 }

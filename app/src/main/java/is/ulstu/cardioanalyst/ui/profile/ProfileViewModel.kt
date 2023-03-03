@@ -25,12 +25,10 @@ import kotlin.system.exitProcess
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val userRepository: IUserRepository,
     private val sendingReportFragment: SendingReportFragment,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _user = MutableLiveData<Result<UserInfoResponseEntity>>()
     val user = _user.share()
@@ -106,11 +104,6 @@ class ProfileViewModel @Inject constructor(
             login = userData.login,
             password = userData.password,
         )
-    }
-
-    fun sendReportToEmail() {
-        onCleared()
-        navigator.addFragmentToScreen(R.id.tabFragmentContainer, sendingReportFragment)
     }
 
 }

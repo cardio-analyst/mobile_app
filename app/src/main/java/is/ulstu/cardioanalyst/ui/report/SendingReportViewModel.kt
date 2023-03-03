@@ -21,12 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SendingReportViewModel @Inject constructor(
-    private val navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val recommendationsRepository: IRecommendationsRepository,
     private val profileFragment: ProfileFragment,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _sendReportToEmail = SingleLiveEvent<Result<SendReportResponseEntity>>()
 
@@ -52,13 +50,10 @@ class SendingReportViewModel @Inject constructor(
         }
     }
 
-    fun close() = navigator.addFragmentToScreen(R.id.tabFragmentContainer, profileFragment)
-
     fun observeSendReportToEmail(lifecycleOwner: LifecycleOwner) {
         _sendReportToEmail.observe(lifecycleOwner) { result ->
             if (result is Success) {
                 uiActions.toast(R.string.report_sent_toast)
-                close()
             }
             if (result is Error) {
                 val message = when (result.error) {

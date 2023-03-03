@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_tab_item_heart_indicators"
+        android:src="@drawable/ic_basic_indicators"
         app:layout_constraintStart_toEndOf="@id/firstWordLogo"
         app:layout_constraintTop_toTopOf="@id/firstWordLogo"
         app:layout_constraintBottom_toBottomOf="@id/firstWordLogo"

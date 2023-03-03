@@ -15,8 +15,6 @@ import kotlinx.coroutines.*
  * Base class for all view-models.
  */
 open class BaseViewModel(
-    private val navigator: Navigator,
-    private val userSettings: UserSettings,
     private val uiAction: UiActions? = null,
 ) : ViewModel() {
 
@@ -57,11 +55,6 @@ open class BaseViewModel(
                 e.message?.let { uiAction?.toast(it) }
             } catch (e: BackendException) {
                 uiAction?.toast(e.error + e.description)
-            } catch (e: RefreshTokenExpired) {
-                userSettings.setCurrentRefreshToken(null)
-                if (userSettings.getUserAccountAccessToken() != null)
-                    navigator.launch(AuthorizationFragment())
-                userSettings.setUserAccountAccessToken(null)
             } catch (e: BackendExceptions) {
                 uiAction?.toast(e.description)
             } catch (e: InputExceptions) {

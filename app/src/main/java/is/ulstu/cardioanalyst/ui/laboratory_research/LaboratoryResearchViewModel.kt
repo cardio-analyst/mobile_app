@@ -18,11 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LaboratoryResearchViewModel @Inject constructor(
-    navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val laboratoryResearchRepository: ILaboratoryResearchRepository,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _laboratoryResearches =
         SingleLiveEvent<Result<List<GetLaboratoryResearchResponseEntity>>>()

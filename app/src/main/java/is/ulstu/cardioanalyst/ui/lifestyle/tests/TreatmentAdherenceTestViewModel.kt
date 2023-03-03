@@ -12,10 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TreatmentAdherenceTestViewModel @Inject constructor(
-    private val navigator: Navigator,
-    userSettings: UserSettings,
     private val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository,
-) : BaseViewModel(navigator, userSettings) {
+) : BaseViewModel() {
 
     /**
      * @see TreatmentAdherenceTestRepository
@@ -27,6 +25,5 @@ class TreatmentAdherenceTestViewModel @Inject constructor(
 
     fun finish(results: Triple<Double, Double, Double>) {
         treatmentAdherenceTestRepository.results = results
-        navigator.goBack()
     }
 }

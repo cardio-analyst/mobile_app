@@ -19,11 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsRecordViewModel @Inject constructor(
-    navigator: Navigator,
-    userSettings: UserSettings,
     val uiActions: UiActions,
     private val basicIndicatorsRepository: IBasicIndicatorsRepository,
-) : BaseViewModel(navigator, userSettings) {
+) : BaseViewModel() {
 
     private val _cveRisk = MutableLiveData<Result<GetCVERiskResponseEntity>>()
     val cveRisk = _cveRisk.share()

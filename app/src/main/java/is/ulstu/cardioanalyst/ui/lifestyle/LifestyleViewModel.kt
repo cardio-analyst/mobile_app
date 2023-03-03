@@ -24,13 +24,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LifestyleViewModel @Inject constructor(
-    private val navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val lifestyleRepository: ILifestyleRepository,
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
     private val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _lifestyle = SingleLiveEvent<Result<LifestyleMainEntity>>()
     val lifestyle = _lifestyle.share()
@@ -85,12 +83,6 @@ class LifestyleViewModel @Inject constructor(
         lifestyleRepository.reloadSetLifestyleUserRequest(lifestyleMainEntity)
 
     fun onSuccessSaveToast() = uiActions.toast(R.string.user_info_save)
-
-    fun startStenocardiaSymptomsTest() =
-        navigator.launch(StenocardiaSymptomsTestFragment())
-
-    fun startTreatmentAdherenceTest() =
-        navigator.launch(TreatmentAdherenceTestFragment())
 
 
     val familyStatusValues = listOf(

@@ -195,7 +195,7 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
             }
         ) {
             viewModel.setCurrentLifestyleData(this.currentLifestyleData)
-            viewModel.startStenocardiaSymptomsTest()
+            //viewModel.startStenocardiaSymptomsTest()
         }
 
         // Treatment Adherence
@@ -212,7 +212,7 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
             }
         ) {
             viewModel.setCurrentLifestyleData(this.currentLifestyleData)
-            viewModel.startTreatmentAdherenceTest()
+            //viewModel.startTreatmentAdherenceTest()
         }
 
     }

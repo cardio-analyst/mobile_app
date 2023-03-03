@@ -18,11 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsViewModel @Inject constructor(
-    navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val basicIndicatorsRepository: IBasicIndicatorsRepository,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _basicIndicators =
         SingleLiveEvent<Result<List<GetBasicIndicatorResponseEntity>>>()

@@ -19,11 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DiseasesViewModel @Inject constructor(
-    navigator: Navigator,
-    userSettings: UserSettings,
     private val uiActions: UiActions,
     private val diseasesRepository: IDiseasesRepository,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _diseases = SingleLiveEvent<Result<DiseasesMainEntity>>()
     val diseases = _diseases.share()

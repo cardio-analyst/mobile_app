@@ -263,13 +263,13 @@
     <string name="exit_account_alert_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
 
 
-    <!-- Tab names -->
-    <string name="tab_item_profile">Профиль</string>
-    <string name="tab_item_diseases">Заболевания</string>
-    <string name="tab_item_heart_indicators">Сердечно-сосудистые показатели</string>
-    <string name="tab_item_lifestyle">Образ жизни</string>
-    <string name="tab_item_extra">Дополнительно</string>
-    <string name="tab_item_recommendation">Рекомендации</string>
+    <!-- Tab titles -->
+    <string name="title_profile">Профиль</string>
+    <string name="title_diseases">Заболевания</string>
+    <string name="title_basic_indicators">Сердечно-сосудистые показатели</string>
+    <string name="title_lifestyle">Образ жизни</string>
+    <string name="title_laboratory_research">Дополнительно</string>
+    <string name="title_recommendation">Рекомендации</string>
 
 
     <!-- Tooltips -->

@@ -37,7 +37,9 @@ class SendingReportFragment @Inject constructor() : BaseFragment(R.layout.fragme
                 val isSendToUserEmail = isSendUserEmailCheckbox.isChecked
                 viewModel.sendReportToEmail(receiver, isSendToUserEmail)
             }
-            cancelTextView.setOnClickListener { viewModel.close() }
+            cancelTextView.setOnClickListener {
+                //viewModel.close()
+            }
         }
         viewModel.observeSendReportToEmail(this)
     }

@@ -21,22 +21,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
-    private val navigator: Navigator,
-    private val userSettings: UserSettings,
     val uiActions: UiActions,
     private val userRepository: IUserRepository,
-    private val navigationFragment: NavigationFragment,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _userSignIn = SingleLiveEvent<Result<Unit>>()
     val userSignIn = _userSignIn.share()
-
-    private val _autoSignIn = SingleLiveEvent<Result<Unit>>()
-    val autoSignIn = _autoSignIn.share()
-
-
-    private fun launchApp() =
-        navigator.addFragmentToScreen(R.id.fragmentContainer, navigationFragment)
 
     fun onEnter(loginOrEmail: String, password: String) = viewModelScope.safeLaunch {
         userRepository.signInUser(loginOrEmail, password).collect {
@@ -46,39 +36,4 @@ class AuthorizationViewModel @Inject constructor(
 
     fun reload(loginOrEmail: String, password: String) =
         userRepository.reloadSignInUserRequest(loginOrEmail, password)
-
-    fun onSuccessSignIn() {
-        if (navigator.getBackstackFragmentCount() > 0) {
-            navigator.goBack()
-        } else {
-            launchApp()
-        }
-    }
-
-    fun checkCurrentAuthToken() = viewModelScope.safeLaunch {
-        _autoSignIn.value = Pending()
-        if (userSettings.getCurrentRefreshToken() != null) {
-            try {
-                userRepository.refreshUserAccessToken()
-            } catch (e: Exception) {
-                val ex = AutoSignInException()
-                val error = Error<Unit>(ex)
-                _autoSignIn.value = error
-                return@safeLaunch
-            }
-
-            if (userSettings.getUserAccountAccessToken() != null) {
-                _autoSignIn.value = Success(value = Unit)
-                launchApp()
-                return@safeLaunch
-            }
-        }
-        val ex = AutoSignInException()
-        val error = Error<Unit>(ex)
-        _autoSignIn.value = error
-    }
-
-    fun onRegister() {
-        navigator.launch(RegistrationFragment())
-    }
 }

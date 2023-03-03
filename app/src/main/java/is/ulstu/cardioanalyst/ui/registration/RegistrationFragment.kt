@@ -1,14 +1,15 @@
 package `is`.ulstu.cardioanalyst.ui.registration
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentRegistrationBinding
 import `is`.ulstu.foundation.model.observeResults
 import `is`.ulstu.foundation.views.BaseFragment
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.viewModels
-import by.kirich1409.viewbindingdelegate.viewBinding
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -70,9 +71,17 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
             this,
             binding.root,
             binding.resultView,
-            { viewModel.onSuccessSignIn() },
+            {
+                navigateToTabsScreen()
+            },
             ignoreError = true,
             uiActions = viewModel.uiActions
         )
+    }
+
+    private fun navigateToTabsScreen() {
+        val direction =
+            RegistrationFragmentDirections.actionNavigationRegistrationToNavigationTabs()
+        findNavController().navigate(direction)
     }
 }

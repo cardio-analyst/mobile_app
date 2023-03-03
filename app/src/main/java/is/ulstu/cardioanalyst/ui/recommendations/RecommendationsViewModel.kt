@@ -18,11 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecommendationsViewModel @Inject constructor(
-    navigator: Navigator,
-    userSettings: UserSettings,
     uiActions: UiActions,
     private val recommendationsRepository: IRecommendationsRepository,
-) : BaseViewModel(navigator, userSettings, uiActions) {
+) : BaseViewModel(uiActions) {
 
     private val _recommendations =
         SingleLiveEvent<Result<List<GetRecommendationsResponseEntity>>>()

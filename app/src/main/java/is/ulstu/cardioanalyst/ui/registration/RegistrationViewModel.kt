@@ -21,14 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    private val navigator: Navigator,
-    private val userSettings: UserSettings,
     val uiActions: UiActions,
-    private val navigationFragment: NavigationFragment,
-) : BaseViewModel(navigator, userSettings, uiActions) {
-
-    @Inject
-    lateinit var userRepository: IUserRepository
+    private val userRepository: IUserRepository
+) : BaseViewModel(uiActions) {
 
     private val _userSignUp = MutableLiveData<Result<UserSignUpResponseEntity>>()
     val userSignUp = _userSignUp.share()
@@ -53,6 +48,7 @@ class RegistrationViewModel @Inject constructor(
             val userSingUpRequestEntity = validateUserInfo(userData)
             userRepository.reloadSignUpUserRequest(userSingUpRequestEntity)
         } catch (_: Exception) {
+
         }
     }
 
@@ -60,13 +56,6 @@ class RegistrationViewModel @Inject constructor(
         userRepository.signInUser(login, password).collect {
             _userSignIn.value = it
         }
-    }
-
-    fun onSuccessSignIn() {
-        // clear stack?
-        navigator.goBack()
-        if (userSettings.getCurrentRefreshToken() != null)
-            navigator.addFragmentToScreen(R.id.fragmentContainer, navigationFragment)
     }
 
     fun regionsAlertDialogShow(context: Context?, action: (region: String) -> Unit) {

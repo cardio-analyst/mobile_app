@@ -36,7 +36,9 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
             // init user information fields
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_info))
             resultView.setTryAgainAction { viewModel.getOrReloadGetCurrentUser() }
-            shareButton.setOnClickListener { viewModel.sendReportToEmail() }
+            shareButton.setOnClickListener {
+                //viewModel.sendReportToEmail()
+            }
         }
 
         observeUserDetails()
