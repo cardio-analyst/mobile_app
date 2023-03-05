@@ -11,7 +11,13 @@
         android:id="@+id/navigation_tabs"
         android:name="is.ulstu.cardioanalyst.ui.TabsFragment"
         android:label="fragment_tabs"
-        tools:layout="@layout/fragment_tabs" />
+        tools:layout="@layout/fragment_tabs" >
+        <action
+            android:id="@+id/action_navigation_tabs_to_auth_graph"
+            app:destination="@id/auth_graph"
+            app:popUpTo="@id/navigation_tabs"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <action
         android:id="@+id/action_global_navigation_tabs"

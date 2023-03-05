@@ -29,8 +29,6 @@ class RecommendationsViewModel @Inject constructor(
 
     private fun getUserRecommendations() = viewModelScope.safeLaunch {
         recommendationsRepository.getRecommendations().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _recommendations.value = it
         }
     }

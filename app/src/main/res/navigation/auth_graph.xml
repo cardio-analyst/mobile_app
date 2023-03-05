@@ -21,10 +21,4 @@
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration" />
 
-    <action
-        android:id="@+id/action_global_navigation_authorization"
-        app:destination="@id/navigation_authorization"
-        app:popUpTo="@id/navigation_tabs"
-        app:popUpToInclusive="true" />
-
 </navigation>

@@ -3,6 +3,7 @@ package `is`.ulstu.cardioanalyst.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TabsFragment @Inject constructor() : Fragment(R.layout.fragment_tabs) {
 
+    private val viewModel by viewModels<TabsViewModel>()
     private lateinit var binding: FragmentTabsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

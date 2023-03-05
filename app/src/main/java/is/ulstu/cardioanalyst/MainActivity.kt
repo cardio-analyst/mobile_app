@@ -3,8 +3,11 @@ package `is`.ulstu.cardioanalyst
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.databinding.ActivityMainBinding
 import `is`.ulstu.foundation.ActivityScopeViewModel
 
 @AndroidEntryPoint
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         if (activityViewModel.isUserAuthorized()) {
             prepareRootNavController(isSignedIn = true)
@@ -24,8 +27,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun getRootNavController(): NavController {
+        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_activity_main) as NavHostFragment
+        return navHost.navController
+    }
+
     private fun prepareRootNavController(isSignedIn: Boolean) {
-        val navController = findNavController(R.id.nav_host_activity_main)
+        val navController = getRootNavController()
         val graph = navController.navInflater.inflate(R.navigation.main_graph)
         graph.setStartDestination(
             if (isSignedIn) {

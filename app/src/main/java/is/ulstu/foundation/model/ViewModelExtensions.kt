@@ -11,6 +11,9 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
+import `is`.ulstu.cardioanalyst.ui.TabsFragmentDirections
+import `is`.ulstu.foundation.views.findMainNavController
 
 fun <T> LiveData<Result<T>>.observeResults(
     fragment: BaseFragment,
@@ -19,8 +22,14 @@ fun <T> LiveData<Result<T>>.observeResults(
     onSuccess: (T) -> Unit,
     ignoreError: Boolean = false,
     uiActions: UiActions? = null,
-) {
+    ) {
     observe(fragment.viewLifecycleOwner) { result ->
+        if (result is Error && result.error is RefreshTokenExpired) {
+            // to Auth
+            val direction = TabsFragmentDirections.actionNavigationTabsToAuthGraph()
+            fragment.findMainNavController().navigate(direction)
+        }
+
         if (ignoreError && uiActions != null)
             resultView.setResult(fragment, result, uiActions)
         else
