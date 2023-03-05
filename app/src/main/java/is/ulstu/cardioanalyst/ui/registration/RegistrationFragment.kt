@@ -80,8 +80,6 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
     }
 
     private fun navigateToTabsScreen() {
-        val direction =
-            RegistrationFragmentDirections.actionNavigationRegistrationToNavigationTabs()
-        findNavController().navigate(direction)
+        findNavController().navigate(R.id.action_global_navigation_tabs)
     }
 }

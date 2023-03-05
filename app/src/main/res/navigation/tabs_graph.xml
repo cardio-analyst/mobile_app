@@ -2,13 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tabs_graph"
-    app:startDestination="@+id/navigation_diseases">
+    app:startDestination="@+id/navigation_recommendation">
 
-    <include app:graph="@navigation/diseases" />
-    <include app:graph="@navigation/basic_indicators" />
-    <include app:graph="@navigation/laboratory_research" />
-    <include app:graph="@navigation/lifestyle" />
+    <include app:graph="@navigation/user_info_graph" />
     <include app:graph="@navigation/recommendation" />
-    <!--<include app:graph="@navigation/profile" />-->
+    <include app:graph="@navigation/profile" />
 
 </navigation>

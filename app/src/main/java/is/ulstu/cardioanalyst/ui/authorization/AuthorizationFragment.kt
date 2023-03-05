@@ -56,15 +56,12 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
     }
 
     private fun navigateToRegistrationScreen() {
-        val direction =
-            AuthorizationFragmentDirections.actionAuthorizationFragmentToRegistrationFragment()
+        val direction =AuthorizationFragmentDirections.actionNavigationAuthorizationToNavigationRegistration()
         findNavController().navigate(direction)
     }
 
     private fun navigateToTabsScreen() {
-        val direction =
-            AuthorizationFragmentDirections.actionAuthorizationFragmentToTabsFragment()
-        findNavController().navigate(direction)
+        findNavController().navigate(R.id.action_global_navigation_tabs)
     }
 
 }

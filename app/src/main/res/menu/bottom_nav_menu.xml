@@ -2,33 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_basic_indicators"
-        android:icon="@drawable/ic_basic_indicators"
-        android:title="@string/title_basic_indicators" />
-
-    <item
-        android:id="@+id/navigation_diseases"
+        android:id="@+id/user_info_graph"
         android:icon="@drawable/ic_diseases"
-        android:title="@string/title_diseases" />
-
-    <item
-        android:id="@+id/navigation_laboratory_research"
-        android:icon="@drawable/ic_laboratory_research"
-        android:title="@string/title_laboratory_research" />
-
-    <item
-        android:id="@+id/navigation_lifestyle"
-        android:icon="@drawable/ic_lifestyle"
-        android:title="@string/title_lifestyle" />
+        android:title="@string/title_user_info" />
 
     <item
         android:id="@+id/navigation_recommendation"
         android:icon="@drawable/ic_recommendation"
         android:title="@string/title_recommendation" />
 
-    <!--<item
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user_profile"
-        android:title="@string/title_profile" />-->
+        android:title="@string/title_profile" />
 
 </menu>

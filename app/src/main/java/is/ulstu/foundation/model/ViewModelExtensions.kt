@@ -37,6 +37,7 @@ fun <T> LiveData<Result<T>>.observeResults(
                     it.isVisible = result is Success<*> || (ignoreError && result is Error<*>)
                 }
         }
+
         if (result is Success) {
             onSuccess.invoke(result.value)
         }

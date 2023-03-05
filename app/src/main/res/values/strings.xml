@@ -270,6 +270,7 @@
     <string name="title_lifestyle">Образ жизни</string>
     <string name="title_laboratory_research">Дополнительно</string>
     <string name="title_recommendation">Рекомендации</string>
+    <string name="title_user_info">Анкета</string>
 
 
     <!-- Tooltips -->
