@@ -99,7 +99,6 @@
         <item name="android:minHeight">68dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:textColor">@color/inactive_color</item>
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:enabled">false</item>
     </style>
@@ -112,6 +111,10 @@
     <style name="checkBoxStyleWhite" parent="Base.Theme.AppCompat">
         <item name="colorAccent">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="BottomNavigationViewNoElevation" parent="@style/ThemeOverlay.MaterialComponents">
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 
 </resources>

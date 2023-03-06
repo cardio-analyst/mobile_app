@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.databinding.ActivityMainBinding
@@ -17,18 +16,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         if (activityViewModel.isUserAuthorized()) {
+            // Tabs screen
             prepareRootNavController(isSignedIn = true)
         } else {
+            // Auth nav graph
             prepareRootNavController(isSignedIn = false)
         }
 
     }
 
     private fun getRootNavController(): NavController {
-        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_activity_main) as NavHostFragment
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.nav_host_activity_main) as NavHostFragment
         return navHost.navController
     }
 

@@ -41,8 +41,8 @@ sealed class BackendExceptions(val description: String = "") : AppException() {
                 "AlreadyRegisteredWithLogin" -> AlreadyRegisteredWithLogin(
                     description = errorResponseBody.description
                 )
-                "RefreshTokenExpired", "WrongRefreshToken", "WrongAuthHeader" -> RefreshTokenExpired()
-                "AccessTokenExpired", "WrongAccessToken" -> AccessTokenExpired()
+                "RefreshTokenExpired", "WrongRefreshToken" -> RefreshTokenExpired()
+                "AccessTokenExpired", "WrongAccessToken", "WrongAuthHeader" -> AccessTokenExpired()
                 else -> {
                     BackendException(
                         error = errorResponseBody.error,

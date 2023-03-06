@@ -1,15 +1,16 @@
 package `is`.ulstu.cardioanalyst.ui.recommendations
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentRecommendationsBinding
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentRecommendationsBinding
+import `is`.ulstu.foundation.model.ResultViewTools
+import `is`.ulstu.foundation.model.observeResultsComponent
+import `is`.ulstu.foundation.views.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,6 +21,9 @@ class RecommendationsFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentRecommendationsBinding::bind)
     private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
+    private val resultViewTools by lazy {
+        ResultViewTools(this, binding.root, binding.resultView)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,16 +38,12 @@ class RecommendationsFragment @Inject constructor() :
     }
 
     private fun observeRecommendations() {
-        viewModel.recommendations.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            { recommendations ->
-                val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
-                if (adapter != null) {
-                    initViewPager(adapter)
-                }
-            })
+        viewModel.recommendations.observeResultsComponent(resultViewTools) { recommendations ->
+            val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
+            if (adapter != null) {
+                initViewPager(adapter)
+            }
+        }
     }
 
     private fun initViewPager(adapter: RecommendationsAdapter) = with(binding) {

@@ -22,6 +22,7 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
+    private var changeModeState = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,8 +37,34 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
             // init user information fields
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_info))
             resultView.setTryAgainAction { viewModel.getOrReloadGetCurrentUser() }
-            shareButton.setOnClickListener {
-                //viewModel.sendReportToEmail()
+            editButton.setOnClickListener {
+                changeMode()
+            }
+
+            // init buttons logic
+            with(actionButtonsBinding) {
+                negativeButton.text = resources.getString(R.string.button_text_cancel)
+                positiveButton.text = resources.getString(R.string.button_text_save)
+                negativeButton.visibility = View.INVISIBLE
+                positiveButton.visibility = View.INVISIBLE
+                negativeButton.setOnClickListener {
+                    changeMode()
+                    viewModel.getOrReloadGetCurrentUser()
+                }
+                positiveButton.setOnClickListener {
+                    with(binding) {
+                        val userData = UserData(
+                            email = emailTextEdit.text.toString(),
+                            login = loginTextEdit.text.toString(),
+                            password = passwordTextEdit.text.toString(),
+                            name = nameTextEdit.text.toString(),
+                            birthDate = birthDateTextEdit.text.toString(),
+                            region = regionTextViewAlert.text.toString()
+                        )
+                        viewModel.saveNewUserInfo(userData)
+                        changeMode()
+                    }
+                }
             }
         }
 
@@ -55,10 +82,49 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
                 )
                 birthDateTextEdit.setText(currentUserInfo.birthDate)
                 regionTextViewAlert.text = currentUserInfo.region
-                changeMode(true)
-                changeMode(false)
+                changeMode()
+                changeMode()
             }
         })
+    }
+
+    private fun changeMode() {
+        changeModeState = !changeModeState
+        with(binding) {
+            passwordTextView.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
+            passwordTextEdit.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
+            with(actionButtonsBinding) {
+                negativeButton.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
+                positiveButton.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
+            }
+
+            emailTextEdit.isEnabled = changeModeState
+            loginTextEdit.isEnabled = changeModeState
+            nameTextEdit.isEnabled = changeModeState
+            birthDateTextEdit.isEnabled = changeModeState
+            regionTextViewAlert.isEnabled = changeModeState
+            passwordTextEdit.isEnabled = changeModeState
+
+            if (changeModeState) {
+                emailTextEdit.paintFlags = emailTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                loginTextEdit.paintFlags = loginTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                nameTextEdit.paintFlags = nameTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                birthDateTextEdit.paintFlags =
+                    birthDateTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                regionTextViewAlert.paintFlags =
+                    regionTextViewAlert.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            } else {
+                emailTextEdit.paintFlags =
+                    emailTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                loginTextEdit.paintFlags =
+                    loginTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                nameTextEdit.paintFlags = nameTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                birthDateTextEdit.paintFlags =
+                    birthDateTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+                regionTextViewAlert.paintFlags =
+                    regionTextViewAlert.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+            }
+        }
     }
 
     private fun changeMode(isChangingMode: Boolean = true) {

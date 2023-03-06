@@ -38,7 +38,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/why_text"
                 android:textAlignment="textStart"
-                android:textColor="@color/background_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +65,6 @@
                 android:minHeight="0dp"
                 android:text="@string/recommendation_todo"
                 android:textAlignment="textStart"
-                android:textColor="@color/background_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/whatToDoTextView" />
