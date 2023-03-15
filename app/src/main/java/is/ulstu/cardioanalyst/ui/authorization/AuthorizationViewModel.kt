@@ -7,7 +7,7 @@ import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.utils.SingleLiveEvent
+import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel

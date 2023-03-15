@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.example.presentation'
+    namespace 'com.example.theme'
     compileSdk targetAndroidSdk
 
     defaultConfig {
@@ -30,25 +28,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
     implementation Libs.Android.CoreKtx
     implementation Libs.Android.AppCompat
-    implementation Libs.Android.LifecycleLivedataKtx
-    implementation Libs.Android.LifecycleViewModelKtx
-    implementation Libs.Android.NavigationFragments
-    implementation Libs.Android.NavigationUI
-
     implementation Libs.Google.Material
-    implementation Libs.Google.Hilt
-    kapt Libs.Google.HiltCompiler
-
-    implementation Libs.JetBrains.CoroutinesCore
-
-    implementation project(Modules.Core.Common)
-    implementation project(Modules.Core.Theme)
 }

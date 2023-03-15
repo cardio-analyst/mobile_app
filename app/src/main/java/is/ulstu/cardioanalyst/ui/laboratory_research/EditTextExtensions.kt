@@ -81,8 +81,8 @@ fun <T : Comparable<T>> EditText.setColor(
 ) {
     setTextColor(
         resources.getColor(
-            if (param in positiveRange) R.color.enter_color
-            else R.color.active_color
+            if (param in positiveRange) com.example.theme.R.color.enter_color
+            else com.example.theme.R.color.active_color
         )
     )
 }

@@ -10,7 +10,7 @@ import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
 import com.example.presentation.uiactions.UiAction
-import `is`.ulstu.foundation.utils.SingleLiveEvent
+import com.example.presentation.SingleLiveEvent
 import com.example.presentation.BaseViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope

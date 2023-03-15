@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.databinding.ActivityMainBinding
-import `is`.ulstu.foundation.ActivityScopeViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

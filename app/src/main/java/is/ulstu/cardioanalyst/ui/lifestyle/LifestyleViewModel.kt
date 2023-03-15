@@ -14,7 +14,7 @@ import `is`.ulstu.cardioanalyst.models.lifestyle.ILifestyleRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.TreatmentAdherenceTestRepository
-import `is`.ulstu.foundation.utils.SingleLiveEvent
+import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel

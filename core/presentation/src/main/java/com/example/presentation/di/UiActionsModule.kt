@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.di
+package com.example.presentation.di
 
 import com.example.presentation.uiactions.AndroidUiAction
 import com.example.presentation.uiactions.UiAction

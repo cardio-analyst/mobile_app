@@ -293,10 +293,10 @@ class BasicIndicatorsRecordFragment(
     private fun getColorByOption(color: String) =
         resources.getColor(
             when (color) {
-                "positive" -> R.color.green_color
-                "neutral" -> R.color.yellow_color
-                "negative" -> R.color.active_color
-                else -> R.color.enter_color
+                "positive" -> com.example.theme.R.color.green_color
+                "neutral" -> com.example.theme.R.color.yellow_color
+                "negative" -> com.example.theme.R.color.active_color
+                else -> com.example.theme.R.color.enter_color
             }
         )
 

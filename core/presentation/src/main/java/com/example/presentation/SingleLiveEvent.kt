@@ -1,4 +1,4 @@
-package `is`.ulstu.foundation.utils
+package com.example.presentation
 
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable

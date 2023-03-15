@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
-import `is`.ulstu.foundation.utils.SingleLiveEvent
+import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel

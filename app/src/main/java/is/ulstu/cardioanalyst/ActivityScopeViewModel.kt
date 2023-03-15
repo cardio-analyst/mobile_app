@@ -1,4 +1,4 @@
-package `is`.ulstu.foundation
+package `is`.ulstu.cardioanalyst
 
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

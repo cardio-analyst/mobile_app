@@ -234,16 +234,16 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
         valueTextView.setTextColor(
             resources.getColor(
                 when (value) {
-                    resources.getString(R.string.treatment_adherence_high), resources.getString(R.string.angina_symptoms_no_symptoms) -> R.color.green_color
-                    resources.getString(R.string.treatment_adherence_medium) -> R.color.yellow_color
-                    resources.getString(R.string.treatment_adherence_low), resources.getString(R.string.angina_symptoms_symptoms) -> R.color.active_color
-                    else -> R.color.inactive_color
+                    resources.getString(R.string.treatment_adherence_high), resources.getString(R.string.angina_symptoms_no_symptoms) -> com.example.theme.R.color.green_color
+                    resources.getString(R.string.treatment_adherence_medium) -> com.example.theme.R.color.yellow_color
+                    resources.getString(R.string.treatment_adherence_low), resources.getString(R.string.angina_symptoms_symptoms) -> com.example.theme.R.color.active_color
+                    else -> com.example.theme.R.color.inactive_color
                 }
             )
         )
 
         if (value == resources.getString(R.string.default_option_not_passed)) resultTextView.setTextColor(
-            resources.getColor(R.color.active_color)
+            resources.getColor(com.example.theme.R.color.active_color)
         )
 
         startTestButton.setOnClickListener {
