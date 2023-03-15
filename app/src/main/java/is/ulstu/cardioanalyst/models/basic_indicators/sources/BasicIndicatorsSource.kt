@@ -1,8 +1,8 @@
 package `is`.ulstu.cardioanalyst.models.basic_indicators.sources
 
-import `is`.ulstu.cardioanalyst.app.BackendExceptions
-import `is`.ulstu.cardioanalyst.app.ConnectionException
-import `is`.ulstu.cardioanalyst.app.ParseBackendResponseException
+import com.example.common.BackendExceptions
+import com.example.common.ConnectionException
+import com.example.common.ParseBackendResponseException
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
 
 interface BasicIndicatorsSource {

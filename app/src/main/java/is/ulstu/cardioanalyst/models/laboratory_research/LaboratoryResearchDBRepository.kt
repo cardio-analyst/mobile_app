@@ -1,10 +1,10 @@
 package `is`.ulstu.cardioanalyst.models.laboratory_research
 
+import com.example.common.flows.LazyFlowSubject
+import com.example.common.flows.ResultState
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.LaboratoryResearchSource
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,7 +35,7 @@ class LaboratoryResearchDBRepository @Inject constructor(
         }
 
 
-    override fun getLaboratoryResearches(): Flow<Result<List<GetLaboratoryResearchResponseEntity>>> =
+    override fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseEntity>>> =
         laboratoryResearchesLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetLaboratoryResearches(): List<GetLaboratoryResearchResponseEntity> =
@@ -50,7 +50,7 @@ class LaboratoryResearchDBRepository @Inject constructor(
 
     override fun createLaboratoryResearch(
         createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity
-    ): Flow<Result<CreateLaboratoryResearchResponseEntity>> =
+    ): Flow<ResultState<CreateLaboratoryResearchResponseEntity>> =
         laboratoryResearchCreateLazyFlowSubject.listen(createLaboratoryResearchRequestEntity)
 
 
@@ -66,7 +66,7 @@ class LaboratoryResearchDBRepository @Inject constructor(
 
     override fun updateLaboratoryResearch(
         updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
-    ): Flow<Result<UpdateLaboratoryResearchResponseEntity>> =
+    ): Flow<ResultState<UpdateLaboratoryResearchResponseEntity>> =
         laboratoryResearchUpdateLazyFlowSubject.listen(updateLaboratoryResearchIdEntity)
 
     private suspend fun doUpdateLaboratoryResearch(updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity)

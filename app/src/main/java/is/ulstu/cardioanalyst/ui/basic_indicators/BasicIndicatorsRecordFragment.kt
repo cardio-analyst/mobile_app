@@ -1,16 +1,5 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.BackendExceptions
-import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
-import `is`.ulstu.cardioanalyst.ui.laboratory_research.setColor
-import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
-import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Success
-import `is`.ulstu.foundation.views.BaseFragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
@@ -19,7 +8,18 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.common.BackendExceptions
+import com.example.common.flows.Error
+import com.example.common.flows.Success
+import com.example.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
+import `is`.ulstu.cardioanalyst.ui.laboratory_research.setColor
+import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
+import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
@@ -267,8 +267,9 @@ class BasicIndicatorsRecordFragment(
                     binding.cvEventsRiskValueTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
-            } else if (result is Error && result.error is BackendExceptions) {
-                viewModel.uiActions.toast(result.error.description)
+            } else if (result is Error) {
+                (result.error as? BackendExceptions)
+                    ?.let { viewModel.uiActions.toast(it.description) }
             }
         }
     }
@@ -282,8 +283,9 @@ class BasicIndicatorsRecordFragment(
                     binding.idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(this.scale))
                     checkDifference()
                 }
-            } else if (result is Error && result.error is BackendExceptions) {
-                viewModel.uiActions.toast(result.error.description)
+            } else if (result is Error) {
+                (result.error as? BackendExceptions)
+                    ?.let { viewModel.uiActions.toast(it.description) }
             }
         }
     }

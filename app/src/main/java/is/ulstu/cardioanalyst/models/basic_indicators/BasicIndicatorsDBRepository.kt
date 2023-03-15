@@ -1,10 +1,10 @@
 package `is`.ulstu.cardioanalyst.models.basic_indicators
 
+import com.example.common.flows.LazyFlowSubject
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.BasicIndicatorsSource
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,7 +45,7 @@ class BasicIndicatorsDBRepository @Inject constructor(
         }
 
 
-    override fun getBasicIndicators(): Flow<Result<List<GetBasicIndicatorResponseEntity>>> =
+    override fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseEntity>>> =
         basicIndicatorsLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetBasicIndicators(): List<GetBasicIndicatorResponseEntity> =
@@ -59,7 +59,7 @@ class BasicIndicatorsDBRepository @Inject constructor(
 
 
     override fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : Flow<Result<CreateBasicIndicatorResponseEntity>> =
+            : Flow<ResultState<CreateBasicIndicatorResponseEntity>> =
         basicIndicatorCreateLazyFlowSubject.listen(createBasicIndicatorRequestEntity)
 
     private suspend fun doCreateBasicIndicators(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
@@ -74,7 +74,7 @@ class BasicIndicatorsDBRepository @Inject constructor(
 
 
     override fun updateBasicIndicator(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity)
-            : Flow<Result<UpdateBasicIndicatorResponseEntity>> =
+            : Flow<ResultState<UpdateBasicIndicatorResponseEntity>> =
         basicIndicatorUpdateLazyFlowSubject.listen(updateBasicIndicatorIdEntity)
 
     private suspend fun doUpdateBasicIndicators(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity)
@@ -102,7 +102,7 @@ class BasicIndicatorsDBRepository @Inject constructor(
     }
 
 
-    override fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<Result<GetCVERiskResponseEntity>> =
+    override fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<ResultState<GetCVERiskResponseEntity>> =
         cveRiskLazyFlowSubject.listen(getCVERiskRequestEntity)
 
 
@@ -112,7 +112,7 @@ class BasicIndicatorsDBRepository @Inject constructor(
         }
 
 
-    override fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<Result<GetIdealAgeResponseEntity>> =
+    override fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<ResultState<GetIdealAgeResponseEntity>> =
         idealAgeLazyFlowSubject.listen(getCVERiskRequestEntity)
 
     private suspend fun doGetIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetIdealAgeResponseEntity =

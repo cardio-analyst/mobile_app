@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.di
 
-import `is`.ulstu.foundation.uiactions.AndroidUiActions
-import `is`.ulstu.foundation.uiactions.UiActions
+import com.example.presentation.uiactions.AndroidUiAction
+import com.example.presentation.uiactions.UiAction
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ abstract class UiActionsModule {
 
     @Binds
     abstract fun bindUiActions(
-        androidUiActions: AndroidUiActions
-    ): UiActions
+        androidUiActions: AndroidUiAction
+    ): UiAction
 
 }

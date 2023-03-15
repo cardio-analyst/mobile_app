@@ -1,11 +1,11 @@
 package `is`.ulstu.cardioanalyst.models.users
 
-import `is`.ulstu.cardioanalyst.app.UserSessionExpired
+import com.example.common.UserSessionExpired
+import com.example.common.flows.LazyFlowSubject
+import com.example.common.flows.ResultState
 import `is`.ulstu.cardioanalyst.models.settings.UserSettings
 import `is`.ulstu.cardioanalyst.models.users.sources.UsersSource
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.*
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -153,7 +153,7 @@ class UserDBRepository @Inject constructor(
     }
 
 
-    override fun signUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): Flow<Result<UserSignUpResponseEntity>> =
+    override fun signUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): Flow<ResultState<UserSignUpResponseEntity>> =
         userSignUpLazyFlowSubject.listen(userSingUpRequestEntity)
 
     private suspend fun doSignUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity {

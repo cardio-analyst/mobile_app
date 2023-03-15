@@ -2,7 +2,7 @@ package `is`.ulstu.cardioanalyst.models.laboratory_research
 
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
 import `is`.ulstu.foundation.model.Repository
-import `is`.ulstu.foundation.model.Result
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface ILaboratoryResearchRepository : Repository {
@@ -11,7 +11,7 @@ interface ILaboratoryResearchRepository : Repository {
      * Get all available diseases to laboratoryResearches
      * @return [Flow]
      */
-    fun getLaboratoryResearches(): Flow<Result<List<GetLaboratoryResearchResponseEntity>>>
+    fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseEntity>>>
 
     /**
      * Create new user laboratoryResearch
@@ -19,7 +19,7 @@ interface ILaboratoryResearchRepository : Repository {
      * @return [Flow]
      */
     fun createLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity)
-            : Flow<Result<CreateLaboratoryResearchResponseEntity>>
+            : Flow<ResultState<CreateLaboratoryResearchResponseEntity>>
 
     /**
      * Update user laboratoryResearch
@@ -28,7 +28,7 @@ interface ILaboratoryResearchRepository : Repository {
      */
     fun updateLaboratoryResearch(
         updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
-    ): Flow<Result<UpdateLaboratoryResearchResponseEntity>>
+    ): Flow<ResultState<UpdateLaboratoryResearchResponseEntity>>
 
     /**
      * Reload getting all available diseases to laboratoryResearches

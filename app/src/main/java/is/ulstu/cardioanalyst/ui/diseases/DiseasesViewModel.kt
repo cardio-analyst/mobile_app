@@ -1,32 +1,30 @@
 package `is`.ulstu.cardioanalyst.ui.diseases
 
+import androidx.lifecycle.viewModelScope
+import com.example.common.RefreshTokenExpired
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.common.flows.Success
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
 import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.model.Success
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.SingleLiveEvent
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DiseasesViewModel @Inject constructor(
-    private val uiActions: UiActions,
+    private val uiActions: UiAction,
     private val diseasesRepository: IDiseasesRepository,
 ) : BaseViewModel(uiActions) {
 
-    private val _diseases = SingleLiveEvent<Result<DiseasesMainEntity>>()
+    private val _diseases = SingleLiveEvent<ResultState<DiseasesMainEntity>>()
     val diseases = _diseases.share()
 
-    private val _diseasesSave = SingleLiveEvent<Result<DiseasesMainEntity>>()
+    private val _diseasesSave = SingleLiveEvent<ResultState<DiseasesMainEntity>>()
     val diseasesSave = _diseasesSave.share()
 
     private fun getUserDiseases() = viewModelScope.safeLaunch {

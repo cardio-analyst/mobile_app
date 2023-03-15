@@ -1,8 +1,8 @@
 package `is`.ulstu.cardioanalyst.models.recommendations.sources
 
-import `is`.ulstu.cardioanalyst.app.BackendExceptions
-import `is`.ulstu.cardioanalyst.app.ConnectionException
-import `is`.ulstu.cardioanalyst.app.ParseBackendResponseException
+import com.example.common.BackendExceptions
+import com.example.common.ConnectionException
+import com.example.common.ParseBackendResponseException
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecommendationsResponseEntity
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportRequestEntity
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportResponseEntity

@@ -1,39 +1,34 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle
 
+import androidx.lifecycle.viewModelScope
+import com.example.common.RefreshTokenExpired
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.common.flows.Success
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
 import `is`.ulstu.cardioanalyst.models.lifestyle.ILifestyleRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
 import `is`.ulstu.cardioanalyst.models.lifestyle.tests.TreatmentAdherenceTestRepository
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.cardioanalyst.ui.lifestyle.tests.StenocardiaSymptomsTestFragment
-import `is`.ulstu.cardioanalyst.ui.lifestyle.tests.TreatmentAdherenceTestFragment
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.model.Success
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.SingleLiveEvent
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LifestyleViewModel @Inject constructor(
-    private val uiActions: UiActions,
+    private val uiActions: UiAction,
     private val lifestyleRepository: ILifestyleRepository,
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
     private val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository,
 ) : BaseViewModel(uiActions) {
 
-    private val _lifestyle = SingleLiveEvent<Result<LifestyleMainEntity>>()
+    private val _lifestyle = SingleLiveEvent<ResultState<LifestyleMainEntity>>()
     val lifestyle = _lifestyle.share()
 
-    private val _lifestyleSave = SingleLiveEvent<Result<LifestyleMainEntity>>()
+    private val _lifestyleSave = SingleLiveEvent<ResultState<LifestyleMainEntity>>()
     val lifestyleSave = _lifestyleSave.share()
 
     fun setCurrentLifestyleData(currentLifestyleData: LifestyleMainEntity?) =

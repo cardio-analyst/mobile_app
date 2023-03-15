@@ -1,8 +1,5 @@
 package `is`.ulstu.cardioanalyst.ui.report
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentSendReportBinding
-import `is`.ulstu.foundation.views.BaseFragment
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentSendReportBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint

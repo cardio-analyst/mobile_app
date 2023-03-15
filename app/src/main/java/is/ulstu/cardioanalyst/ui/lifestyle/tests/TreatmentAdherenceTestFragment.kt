@@ -1,8 +1,5 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleTestBinding
-import `is`.ulstu.foundation.views.BaseFragment
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -10,7 +7,10 @@ import android.widget.ListView
 import androidx.core.util.isNotEmpty
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleTestBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint

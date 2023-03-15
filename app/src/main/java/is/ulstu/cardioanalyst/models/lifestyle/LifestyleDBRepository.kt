@@ -1,10 +1,10 @@
 package `is`.ulstu.cardioanalyst.models.lifestyle
 
+import com.example.common.flows.LazyFlowSubject
+import com.example.common.flows.ResultState
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.LifestyleSource
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ class LifestyleDBRepository @Inject constructor(
         }
 
 
-    override fun getUserLifestyle(): Flow<Result<LifestyleMainEntity>> =
+    override fun getUserLifestyle(): Flow<ResultState<LifestyleMainEntity>> =
         lifestyleLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetLifestyle(): LifestyleMainEntity =
@@ -42,7 +42,7 @@ class LifestyleDBRepository @Inject constructor(
     }
 
 
-    override fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<Result<LifestyleMainEntity>> =
+    override fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<ResultState<LifestyleMainEntity>> =
         lifestyleSaveLazyFlowSubject.listen(lifestyleMainEntity)
 
     private suspend fun doSetUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): LifestyleMainEntity =

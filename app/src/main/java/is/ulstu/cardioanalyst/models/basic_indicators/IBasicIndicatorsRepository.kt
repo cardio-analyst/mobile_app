@@ -2,7 +2,7 @@ package `is`.ulstu.cardioanalyst.models.basic_indicators
 
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
 import `is`.ulstu.foundation.model.Repository
-import `is`.ulstu.foundation.model.Result
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface IBasicIndicatorsRepository : Repository {
@@ -10,7 +10,7 @@ interface IBasicIndicatorsRepository : Repository {
      * Get all available BasicIndicators
      * @return [Flow]
      */
-    fun getBasicIndicators(): Flow<Result<List<GetBasicIndicatorResponseEntity>>>
+    fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseEntity>>>
 
     /**
      * Create new user BasicIndicators record
@@ -18,7 +18,7 @@ interface IBasicIndicatorsRepository : Repository {
      * @return [Flow]
      */
     fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : Flow<Result<CreateBasicIndicatorResponseEntity>>
+            : Flow<ResultState<CreateBasicIndicatorResponseEntity>>
 
     /**
      * Update user BasicIndicators record
@@ -27,7 +27,7 @@ interface IBasicIndicatorsRepository : Repository {
      */
     fun updateBasicIndicator(
         updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity
-    ): Flow<Result<UpdateBasicIndicatorResponseEntity>>
+    ): Flow<ResultState<UpdateBasicIndicatorResponseEntity>>
 
     /**
      * Reload getting all available diseases to BasicIndicators
@@ -54,7 +54,7 @@ interface IBasicIndicatorsRepository : Repository {
      */
     fun getCVERisk(
         getCVERiskRequestEntity: GetCVERiskRequestEntity
-    ): Flow<Result<GetCVERiskResponseEntity>>
+    ): Flow<ResultState<GetCVERiskResponseEntity>>
 
     /**
      * Get user Ideal Age
@@ -62,6 +62,6 @@ interface IBasicIndicatorsRepository : Repository {
      */
     fun getIdealAge(
         getCVERiskRequestEntity: GetCVERiskRequestEntity
-    ): Flow<Result<GetIdealAgeResponseEntity>>
+    ): Flow<ResultState<GetIdealAgeResponseEntity>>
 
 }

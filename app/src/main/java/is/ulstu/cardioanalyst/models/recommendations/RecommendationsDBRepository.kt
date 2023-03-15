@@ -1,12 +1,12 @@
 package `is`.ulstu.cardioanalyst.models.recommendations
 
+import com.example.common.flows.LazyFlowSubject
+import com.example.common.flows.ResultState
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.RecommendationsSource
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecommendationsResponseEntity
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportRequestEntity
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportResponseEntity
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,7 +30,7 @@ class RecommendationsDBRepository @Inject constructor(
         }
 
 
-    override fun getRecommendations(): Flow<Result<List<GetRecommendationsResponseEntity>>> =
+    override fun getRecommendations(): Flow<ResultState<List<GetRecommendationsResponseEntity>>> =
         recommendationsLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetLaboratoryResearches(): List<GetRecommendationsResponseEntity> =
@@ -43,7 +43,7 @@ class RecommendationsDBRepository @Inject constructor(
     }
 
 
-    override fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<Result<SendReportResponseEntity>> =
+    override fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<ResultState<SendReportResponseEntity>> =
         sendReportToEmailLazyFlowSubject.listen(sendReportRequestEntity)
 
     private suspend fun doSendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): SendReportResponseEntity =

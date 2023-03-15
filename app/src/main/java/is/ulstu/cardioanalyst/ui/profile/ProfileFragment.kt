@@ -1,18 +1,18 @@
 package `is`.ulstu.cardioanalyst.ui.profile
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentProfileBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.ui.registration.UserData
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentProfileBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -71,6 +71,7 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
         observeUserDetails()
         viewModel.getOrReloadGetCurrentUser()
     }
+
     private fun observeUserDetails() {
         viewModel.user.observeResults(this, binding.root, binding.resultView, { currentUserInfo ->
             with(binding) {

@@ -1,6 +1,6 @@
 package `is`.ulstu.foundation.model
 
-import `is`.ulstu.cardioanalyst.app.AccessTokenExpired
+import com.example.common.AccessTokenExpired
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 
 /**

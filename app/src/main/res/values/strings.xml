@@ -280,21 +280,9 @@
     <string name="lifestyle_tooltip">Пожалуйста, заполните данные о вашем образе жизни</string>
 
 
-    <!-- Input Exceptions -->
-    <string name="in_ex_incorrect_email">Некорректно введена электронная почта</string>
-    <string name="in_ex_incorrect_full_name">Некорректное ФИО</string>
-    <string name="in_ex_incorrect_birth_date">Неверно введена дата рождения</string>
-    <string name="in_ex_incorrect_region">Пожалуйста, заполните регион</string>
-    <string name="in_ex_incorrect_password">Пароль должен содержать как минимум 7 символов</string>
-
-
     <!-- App Logic Exceptions -->
-    <string name="app_logic_ex_user_session_expired">
-        Ваша сессия завершена, чтобы продолжить войдите заново</string>
-    <string name="app_logic_ex_connection_ex">Ошибка соединения, пожалуйста, проверьте подключение к Интернету</string>
     <string name="action_try_again">Попробуйте снова</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
-    <string name="auto_sign_in_exception">Пожалуйста, войдите или зарегистрируйтесь</string>
 
 
     <!-- Flow Pending Descriptions -->

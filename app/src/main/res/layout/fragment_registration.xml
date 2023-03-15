@@ -163,7 +163,7 @@
         app:layout_constraintTop_toTopOf="@id/view"
         app:layout_constraintVertical_bias="0.97"/>
 
-    <is.ulstu.foundation.views.ResultView
+    <com.example.presentation.ResultView
         android:id="@+id/resultView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

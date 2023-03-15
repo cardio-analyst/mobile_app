@@ -1,17 +1,17 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
 import javax.inject.Inject
 
 @AndroidEntryPoint

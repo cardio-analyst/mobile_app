@@ -5,7 +5,7 @@ import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEn
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
 import `is`.ulstu.foundation.model.Repository
-import `is`.ulstu.foundation.model.Result
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository : Repository {
@@ -14,7 +14,7 @@ interface IUserRepository : Repository {
      * Get user information
      * @return [Flow]
      */
-    fun getCurrentUserInfo(): Flow<Result<UserInfoResponseEntity>>
+    fun getCurrentUserInfo(): Flow<ResultState<UserInfoResponseEntity>>
 
     /**
      * Reload user information
@@ -43,7 +43,7 @@ interface IUserRepository : Repository {
      * @param password [String]
      * @return [Flow]
      */
-    fun signInUser(loginOrEmail: String, password: String): Flow<Result<Unit>>
+    fun signInUser(loginOrEmail: String, password: String): Flow<ResultState<Unit>>
 
     /**
      * Reload user sign in request in case error
@@ -62,7 +62,7 @@ interface IUserRepository : Repository {
      */
     fun signUpUser(
         userSingUpRequestEntity: UserSingUpRequestEntity
-    ): Flow<Result<UserSignUpResponseEntity>>
+    ): Flow<ResultState<UserSignUpResponseEntity>>
 
     /**
      * Reload user sign in request in case error

@@ -1,37 +1,35 @@
 package `is`.ulstu.cardioanalyst.ui.laboratory_research
 
+import androidx.lifecycle.viewModelScope
+import com.example.common.RefreshTokenExpired
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
 import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.SingleLiveEvent
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LaboratoryResearchViewModel @Inject constructor(
-    private val uiActions: UiActions,
+    private val uiActions: UiAction,
     private val laboratoryResearchRepository: ILaboratoryResearchRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _laboratoryResearches =
-        SingleLiveEvent<Result<List<GetLaboratoryResearchResponseEntity>>>()
+        SingleLiveEvent<ResultState<List<GetLaboratoryResearchResponseEntity>>>()
     val laboratoryResearches = _laboratoryResearches.share()
 
     private val _createLaboratoryResearch =
-        SingleLiveEvent<Result<CreateLaboratoryResearchResponseEntity>>()
+        SingleLiveEvent<ResultState<CreateLaboratoryResearchResponseEntity>>()
     val createLaboratoryResearch = _createLaboratoryResearch.share()
 
     private val _updateLaboratoryResearch =
-        SingleLiveEvent<Result<UpdateLaboratoryResearchResponseEntity>>()
+        SingleLiveEvent<ResultState<UpdateLaboratoryResearchResponseEntity>>()
     val updateLaboratoryResearch = _updateLaboratoryResearch.share()
 
 

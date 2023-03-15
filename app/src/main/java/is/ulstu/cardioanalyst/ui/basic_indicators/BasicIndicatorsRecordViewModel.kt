@@ -1,32 +1,30 @@
 package `is`.ulstu.cardioanalyst.ui.basic_indicators
 
-import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.common.RefreshTokenExpired
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.models.basic_indicators.IBasicIndicatorsRepository
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskResponseEntity
 import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetIdealAgeResponseEntity
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsRecordViewModel @Inject constructor(
-    val uiActions: UiActions,
+    val uiActions: UiAction,
     private val basicIndicatorsRepository: IBasicIndicatorsRepository,
 ) : BaseViewModel() {
 
-    private val _cveRisk = MutableLiveData<Result<GetCVERiskResponseEntity>>()
+    private val _cveRisk = MutableLiveData<ResultState<GetCVERiskResponseEntity>>()
     val cveRisk = _cveRisk.share()
 
-    private val _idealAge = MutableLiveData<Result<GetIdealAgeResponseEntity>>()
+    private val _idealAge = MutableLiveData<ResultState<GetIdealAgeResponseEntity>>()
     val idealAge = _idealAge.share()
 
     fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity) =

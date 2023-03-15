@@ -1,15 +1,15 @@
 package `is`.ulstu.cardioanalyst.ui.authorization
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,7 +56,8 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
     }
 
     private fun navigateToRegistrationScreen() {
-        val direction =AuthorizationFragmentDirections.actionNavigationAuthorizationToNavigationRegistration()
+        val direction =
+            AuthorizationFragmentDirections.actionNavigationAuthorizationToNavigationRegistration()
         findNavController().navigate(direction)
     }
 

@@ -2,7 +2,7 @@ package `is`.ulstu.cardioanalyst.models.lifestyle
 
 import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
 import `is`.ulstu.foundation.model.Repository
-import `is`.ulstu.foundation.model.Result
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface ILifestyleRepository : Repository {
@@ -11,14 +11,14 @@ interface ILifestyleRepository : Repository {
      * Get lifestyle data to check
      * @return [Flow]
      */
-    fun getUserLifestyle(): Flow<Result<LifestyleMainEntity>>
+    fun getUserLifestyle(): Flow<ResultState<LifestyleMainEntity>>
 
     /**
      * Set user lifestyle data
      * @param lifestyleMainEntity [LifestyleMainEntity]
      * @return [Flow]
      */
-    fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<Result<LifestyleMainEntity>>
+    fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<ResultState<LifestyleMainEntity>>
 
     /**
      * Reload get user's lifestyle data request in case error

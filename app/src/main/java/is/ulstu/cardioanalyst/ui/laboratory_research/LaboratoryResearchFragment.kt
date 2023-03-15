@@ -1,23 +1,22 @@
 package `is`.ulstu.cardioanalyst.ui.laboratory_research
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LaboratoryResearchFragment @Inject constructor(
-
-) : BaseFragment(R.layout.fragment_laboratory_research),
+class LaboratoryResearchFragment @Inject constructor() :
+    BaseFragment(R.layout.fragment_laboratory_research),
     LaboratoryResearchRecordFragment.LaboratoryResearchRecordListener {
 
     override val viewModel by viewModels<LaboratoryResearchViewModel>()

@@ -4,7 +4,7 @@ import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecom
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportRequestEntity
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportResponseEntity
 import `is`.ulstu.foundation.model.Repository
-import `is`.ulstu.foundation.model.Result
+import com.example.common.flows.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface IRecommendationsRepository : Repository {
@@ -13,7 +13,7 @@ interface IRecommendationsRepository : Repository {
      * Get recommendations
      * @return [Flow]
      */
-    fun getRecommendations(): Flow<Result<List<GetRecommendationsResponseEntity>>>
+    fun getRecommendations(): Flow<ResultState<List<GetRecommendationsResponseEntity>>>
 
     /**
      * Reload getting recommendations
@@ -23,7 +23,7 @@ interface IRecommendationsRepository : Repository {
     /**
      * Send report to email
      */
-    fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<Result<SendReportResponseEntity>>
+    fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<ResultState<SendReportResponseEntity>>
 
     /**
      * Reload sending report

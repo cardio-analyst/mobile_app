@@ -1,11 +1,5 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
-import `is`.ulstu.foundation.model.observeResults
-import `is`.ulstu.foundation.views.BaseFragment
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
@@ -13,7 +7,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.databinding.FragmentLifestyleBinding
+import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
+import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -187,8 +187,7 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
 
         // Stenocardia Symptoms
         addLifestyleTestView(
-            resources.getString(R.string.angina_symptoms),
-            when {
+            resources.getString(R.string.angina_symptoms), when {
                 actualData.anginaScore >= 2 -> resources.getString(R.string.angina_symptoms_symptoms)
                 actualData.anginaScore < 0 -> resources.getString(R.string.default_option_not_passed)
                 else -> resources.getString(R.string.angina_symptoms_no_symptoms)
@@ -202,10 +201,10 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
         val treatmentAdherence =
             (actualData.adherenceDrugTherapy + 2 * actualData.adherenceMedicalSupport + 3 * actualData.adherenceLifestyleMod) / 6
         addLifestyleTestView(
-            resources.getString(R.string.treatment_adherence),
-            when {
-                (actualData.adherenceDrugTherapy < 0 || actualData.adherenceMedicalSupport < 0 || actualData.adherenceLifestyleMod < 0)
-                -> resources.getString(R.string.default_option_not_passed)
+            resources.getString(R.string.treatment_adherence), when {
+                (actualData.adherenceDrugTherapy < 0 || actualData.adherenceMedicalSupport < 0 || actualData.adherenceLifestyleMod < 0) -> resources.getString(
+                    R.string.default_option_not_passed
+                )
                 treatmentAdherence < 50 -> resources.getString(R.string.treatment_adherence_low)
                 treatmentAdherence < 75 -> resources.getString(R.string.treatment_adherence_medium)
                 else -> resources.getString(R.string.treatment_adherence_high)
@@ -235,18 +234,17 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
         valueTextView.setTextColor(
             resources.getColor(
                 when (value) {
-                    resources.getString(R.string.treatment_adherence_high),
-                    resources.getString(R.string.angina_symptoms_no_symptoms) -> R.color.green_color
+                    resources.getString(R.string.treatment_adherence_high), resources.getString(R.string.angina_symptoms_no_symptoms) -> R.color.green_color
                     resources.getString(R.string.treatment_adherence_medium) -> R.color.yellow_color
-                    resources.getString(R.string.treatment_adherence_low),
-                    resources.getString(R.string.angina_symptoms_symptoms) -> R.color.active_color
+                    resources.getString(R.string.treatment_adherence_low), resources.getString(R.string.angina_symptoms_symptoms) -> R.color.active_color
                     else -> R.color.inactive_color
                 }
             )
         )
 
-        if (value == resources.getString(R.string.default_option_not_passed))
-            resultTextView.setTextColor(resources.getColor(R.color.active_color))
+        if (value == resources.getString(R.string.default_option_not_passed)) resultTextView.setTextColor(
+            resources.getColor(R.color.active_color)
+        )
 
         startTestButton.setOnClickListener {
             action.invoke()

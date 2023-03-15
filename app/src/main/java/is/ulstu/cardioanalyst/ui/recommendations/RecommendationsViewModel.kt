@@ -1,29 +1,24 @@
 package `is`.ulstu.cardioanalyst.ui.recommendations
 
-import `is`.ulstu.cardioanalyst.app.RefreshTokenExpired
+import androidx.lifecycle.viewModelScope
+import com.example.common.flows.ResultState
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.models.recommendations.IRecommendationsRepository
 import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecommendationsResponseEntity
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
 import `is`.ulstu.foundation.utils.SingleLiveEvent
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RecommendationsViewModel @Inject constructor(
-    uiActions: UiActions,
+    uiAction: UiAction,
     private val recommendationsRepository: IRecommendationsRepository,
-) : BaseViewModel(uiActions) {
+) : BaseViewModel(uiAction) {
 
     private val _recommendations =
-        SingleLiveEvent<Result<List<GetRecommendationsResponseEntity>>>()
+        SingleLiveEvent<ResultState<List<GetRecommendationsResponseEntity>>>()
     val recommendations = _recommendations.share()
 
 

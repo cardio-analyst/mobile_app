@@ -5,12 +5,12 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
+import com.example.presentation.observeResultsComponent
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentRecommendationsBinding
-import `is`.ulstu.foundation.model.ResultViewTools
-import `is`.ulstu.foundation.model.observeResultsComponent
-import `is`.ulstu.foundation.views.BaseFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,7 +38,7 @@ class RecommendationsFragment @Inject constructor() :
     }
 
     private fun observeRecommendations() {
-        viewModel.recommendations.observeResultsComponent(resultViewTools) { recommendations ->
+        viewModel.recommendations.observeResultsComponent(resultViewTools, null) { recommendations ->
             val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
             if (adapter != null) {
                 initViewPager(adapter)

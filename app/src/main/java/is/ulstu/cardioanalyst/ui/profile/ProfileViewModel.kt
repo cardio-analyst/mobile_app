@@ -1,36 +1,35 @@
 package `is`.ulstu.cardioanalyst.ui.profile
 
+import android.app.AlertDialog
+import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.common.*
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.presentation.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.*
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
+import `is`.ulstu.cardioanalyst.app.Const
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoRequestEntity
 import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.cardioanalyst.ui.report.SendingReportFragment
-import `is`.ulstu.foundation.model.Error
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
-import android.app.AlertDialog
-import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.presentation.uiactions.UiAction
+import com.example.presentation.BaseViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val uiActions: UiActions,
+    private val uiActions: UiAction,
     private val userRepository: IUserRepository,
     private val sendingReportFragment: SendingReportFragment,
 ) : BaseViewModel(uiActions) {
 
-    private val _user = MutableLiveData<Result<UserInfoResponseEntity>>()
+    private val _user = MutableLiveData<ResultState<UserInfoResponseEntity>>()
     val user = _user.share()
 
     private fun getAllAvailableRegions() = userRepository.getAllAvailableRegions()

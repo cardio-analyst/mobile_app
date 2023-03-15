@@ -1,10 +1,10 @@
 package `is`.ulstu.cardioanalyst.models.diseases
 
+import com.example.common.flows.LazyFlowSubject
+import com.example.common.flows.ResultState
 import `is`.ulstu.cardioanalyst.models.diseases.sources.DiseasesSource
 import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.utils.LazyFlowSubject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,19 +27,20 @@ class DiseasesDBRepository @Inject constructor(
         }
 
 
-    override fun getUserDiseases(): Flow<Result<DiseasesMainEntity>> =
+    override fun getUserDiseases(): Flow<ResultState<DiseasesMainEntity>> =
         diseasesLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetDiseases(): DiseasesMainEntity = wrapBackendExceptions(userRepository) {
-        diseasesSource.getUserDiseases()
-    }
+    private suspend fun doGetDiseases(): DiseasesMainEntity =
+        wrapBackendExceptions(userRepository) {
+            diseasesSource.getUserDiseases()
+        }
 
     override fun reloadGetDiseasesUserRequest() {
         diseasesLazyFlowSubject.reloadAll()
     }
 
 
-    override fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): Flow<Result<DiseasesMainEntity>> =
+    override fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): Flow<ResultState<DiseasesMainEntity>> =
         diseasesSaveLazyFlowSubject.listen(diseasesMainEntity)
 
     private suspend fun doSetUserDiseases(diseasesMainEntity: DiseasesMainEntity): DiseasesMainEntity =

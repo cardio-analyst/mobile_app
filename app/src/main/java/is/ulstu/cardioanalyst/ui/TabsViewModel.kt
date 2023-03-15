@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.ui
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.foundation.views.BaseViewModel
+import com.example.presentation.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel

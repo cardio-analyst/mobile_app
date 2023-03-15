@@ -1,6 +1,6 @@
 package `is`.ulstu.cardioanalyst.sources
 
-import `is`.ulstu.cardioanalyst.app.*
+import com.example.common.*
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import com.squareup.moshi.Moshi

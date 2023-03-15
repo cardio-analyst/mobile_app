@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Cardio Analyst"
 include ':app'
+include ':core:common'
+include ':core:presentation'

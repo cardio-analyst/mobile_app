@@ -1,34 +1,32 @@
 package `is`.ulstu.cardioanalyst.ui.registration
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.*
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
-import `is`.ulstu.cardioanalyst.ui.navigation.NavigationFragment
-import `is`.ulstu.foundation.model.Result
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.uiactions.UiActions
-import `is`.ulstu.foundation.utils.share
-import `is`.ulstu.foundation.views.BaseViewModel
 import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.common.*
+import com.example.common.flows.ResultState
+import com.example.presentation.BaseViewModel
+import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.app.Const
+import `is`.ulstu.cardioanalyst.models.users.IUserRepository
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
+import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    val uiActions: UiActions,
+    val uiActions: UiAction,
     private val userRepository: IUserRepository
 ) : BaseViewModel(uiActions) {
 
-    private val _userSignUp = MutableLiveData<Result<UserSignUpResponseEntity>>()
+    private val _userSignUp = MutableLiveData<ResultState<UserSignUpResponseEntity>>()
     val userSignUp = _userSignUp.share()
 
-    private val _userSignIn = MutableLiveData<Result<Unit>>()
+    private val _userSignIn = MutableLiveData<ResultState<Unit>>()
     val userSignIn = _userSignIn.share()
 
     private fun getAllAvailableRegions() = userRepository.getAllAvailableRegions()

@@ -1,10 +1,8 @@
 package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
 
-import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
-import `is`.ulstu.foundation.navigator.Navigator
-import `is`.ulstu.foundation.views.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
+import com.example.presentation.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
