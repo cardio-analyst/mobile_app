@@ -1,6 +1,56 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.navigation_version = "2.5.3"
+    ext {
+        targetAndroidSdk = 33
+        minAndroidSdk = 23
+
+        navigation_version = "2.5.3"
+        lifecycle_version = "2.6.0"
+
+        okhttp_version = "4.10.0"
+        retrofit_version = "2.9.0"
+
+        hiltVersion = "2.44"
+
+
+        Libs = [
+                Android: [
+                        CoreKtx: "androidx.core:core-ktx:1.9.0",
+                        AppCompat: "androidx.appcompat:appcompat:1.6.1",
+                        ConstraintLayout: "androidx.constraintlayout:constraintlayout:2.1.4",
+                        LifecycleLivedataKtx: "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+                        LifecycleViewModelKtx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+                        ActivityKtx: "androidx.activity:activity-ktx:1.6.1",
+                        FragmentKtx: "androidx.fragment:fragment-ktx:1.5.5",
+                        NavigationFragments: "androidx.navigation:navigation-fragment-ktx:$navigation_version",
+                        NavigationUI: "androidx.navigation:navigation-ui-ktx:$navigation_version",
+                        ViewPager2: "androidx.viewpager2:viewpager2:1.0.0",
+                ],
+                Google: [
+                        Material: "com.google.android.material:material:1.8.0",
+                        Hilt: "com.google.dagger:hilt-android:$hiltVersion",
+                        HiltCompiler: "com.google.dagger:hilt-compiler:$hiltVersion",
+                ],
+                JetBrains: [
+                        CoroutinesCore: "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
+                ],
+                Square: [
+                        OkHttp3: "com.squareup.okhttp3:okhttp:$okhttp_version",
+                        LoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
+                        Retrofit: "com.squareup.retrofit2:retrofit:$retrofit_version",
+                        ConverterMoshi: "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+                ],
+                Testing: [
+                        JUnit: "junit:junit:4.13.2",
+                        TestJUnit: "androidx.test.ext:junit:1.1.5",
+                        EspressoCore: "androidx.test.espresso:espresso-core:3.5.1",
+                ],
+                Stuff: [
+                        CircleIndicator: "me.relex:circleindicator:2.1.6",
+                        ViewBinding: "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6",
+                ],
+        ]
+    }
 
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
@@ -10,8 +60,8 @@ buildscript {
 plugins {
     id 'com.android.application' version '7.4.0' apply false
     id 'com.android.library' version '7.4.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+    id 'com.google.dagger.hilt.android' version "$hiltVersion" apply false
 }
 
 task clean(type: Delete) {
