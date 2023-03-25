@@ -11,12 +11,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.common.BackendExceptions
 import com.example.common.flows.Error
 import com.example.common.flows.Success
+import com.example.data.repositories.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
+import com.example.data.repositories.basic_indicators.sources.entities.GetCVERiskRequestEntity
 import com.example.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.setColor
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.setTextBySample
 import `is`.ulstu.cardioanalyst.ui.laboratory_research.smartEditText

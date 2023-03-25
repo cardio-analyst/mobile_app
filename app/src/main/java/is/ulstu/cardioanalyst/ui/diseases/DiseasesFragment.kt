@@ -7,13 +7,13 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
 import com.example.presentation.BaseFragment
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
 import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
 import javax.inject.Inject
 
 @AndroidEntryPoint

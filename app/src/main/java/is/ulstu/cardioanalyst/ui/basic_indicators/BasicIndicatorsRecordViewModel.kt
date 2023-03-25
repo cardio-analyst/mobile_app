@@ -5,20 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
+import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
+import com.example.data.repositories.basic_indicators.sources.entities.GetCVERiskRequestEntity
+import com.example.data.repositories.basic_indicators.sources.entities.GetCVERiskResponseEntity
+import com.example.data.repositories.basic_indicators.sources.entities.GetIdealAgeResponseEntity
 import com.example.presentation.BaseViewModel
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.models.basic_indicators.IBasicIndicatorsRepository
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskRequestEntity
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetCVERiskResponseEntity
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.GetIdealAgeResponseEntity
 import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsRecordViewModel @Inject constructor(
     val uiActions: UiAction,
-    private val basicIndicatorsRepository: IBasicIndicatorsRepository,
+    private val basicIndicatorsRepository: IBasicIndicatorsDataRepository,
 ) : BaseViewModel() {
 
     private val _cveRisk = MutableLiveData<ResultState<GetCVERiskResponseEntity>>()

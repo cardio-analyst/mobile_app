@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Stenocardia Symptoms Test -->
+    <!-- Questions -->
+    <string name="stenocardia_question_1">1. Бывает ли у Вас боль или неприятное ощущение в грудной клетке?</string>
+    <string name="stenocardia_question_2">2. Возникает ли эта боль, когда Вы идете в гору, поднимаетесь по лестнице или спешите?</string>
+    <string name="stenocardia_question_3">3. Возникает ли эта боль при ходьбе обычным шагом по ровному месту?</string>
+    <string name="stenocardia_question_4">4. Что Вы делаете, если боль (неприятное ощущение) возникает во время ходьбы?</string>
+    <string name="stenocardia_question_5">5. Если Вы останавливаетесь или принимаете нитроглицерин, что происходит с болью?</string>
+    <string name="stenocardia_question_6">6. Как быстро проходит боль?</string>
+    <string name="stenocardia_question_7">7. Можете ли Вы сказать, где её ощущаете?</string>
+    <string name="stenocardia_question_8">8. Вы обращались по поводу этих болей к врачу?</string>
+    <string name="stenocardia_question_9">9. Когда впервые появились эти боли?</string>
+    <string name="stenocardia_question_10">10. Как часто они возникают в течение последнего месяца?</string>
+    <string name="stenocardia_question_11">11. Изменился ли их характер в течение последнего месяца?</string>
+    <!-- Available answers -->
+    <string name="stenocardia_answer_yes">Да</string>
+    <string name="stenocardia_answer_no">Нет</string>
+    <string name="stenocardia_answer_never_walk_fast_and_climb_a_mountain">Никогда не хожу быстро и не поднимаюсь в гору</string>
+    <string name="stenocardia_answer_stop_or_go_slower">Останавливаюсь или иду медленнее.</string>
+    <string name="stenocardia_answer_keep_going">Продолжаю идти, не снижая темпа.</string>
+    <string name="stenocardia_answer_take_nitroglycerin_or_medications">Принимаю нитроглицерин или другие препараты.</string>
+    <string name="stenocardia_answer_pain_disappears_or_decreases">Боль исчезает или уменьшается.</string>
+    <string name="stenocardia_answer_pain_does_not_disappear">Боль не исчезает.</string>
+    <string name="stenocardia_answer_after_10_15_minutes_or_faster">Через 10–15 минут или быстрее.</string>
+    <string name="stenocardia_answer_more_10_minutes_later">Более чем через 10 минут.</string>
+    <string name="stenocardia_answer_sternum_upper_or_middle_third">Грудина (верхняя или средняя треть).</string>
+    <string name="stenocardia_answer_sternum_lower_third">Грудина (нижняя треть).</string>
+    <string name="stenocardia_answer_left_side_chest_front">Левая сторона грудной клетки спереди.</string>
+    <string name="stenocardia_answer_left_hand">Левая рука.</string>
+    <string name="stenocardia_answer_other_areas">Другие области.</string>
+    <string name="stenocardia_answer_less_4_week">Менее 4 недель назад.</string>
+    <string name="stenocardia_answer_less_1_month">Более 1 месяца назад.</string>
+    <string name="stenocardia_answer_less_2_week">Менее 2 раз в неделю.</string>
+    <string name="stenocardia_answer_almost_every_day">Почти каждый день.</string>
+
+    <!-- Treatment Adherence Test -->
+    <!-- Questions -->
+    <string name="treatment_adherence_question_1">1. Врач выявил у вас хроническую болезнь. Важно ли вам знать, какими признаками она проявляется?</string>
+    <string name="treatment_adherence_question_2">2. Врач назначил вам лекарство, которое нужно принимать каждый день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_3">3. Врач назначил вам лекарство, которое нужно принимать несколько раз в день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_4">4. Врач назначил вам несколько лекарств, которые нужно принимать каждый день в течение многих лет. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_5">5. Врач предложил вам каждый день в течение многих лет отмечать имеющиеся проявления болезни. Насколько сложно для вас выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_6">6. Хроническая болезнь имеет свои проявления. Насколько важно для вас не ощущать эти проявления?</string>
+    <string name="treatment_adherence_question_7">7. Если у вас есть сексуальная жизнь, насколько важно для вас сохранять ее на привычном уровне?</string>
+    <string name="treatment_adherence_question_8">8. Хроническая болезнь вынуждает изменить привычный образ жизни. Насколько сложно для вас такое изменение?</string>
+    <string name="treatment_adherence_question_9">9. Хроническая болезнь вынуждает изменить привычную диету. Насколько сложно для вас такое изменение?</string>
+    <string name="treatment_adherence_question_10">10. Хроническая болезнь может привести к инвалидности. Насколько важно для вас получить или подтвердить группу инвалидности?</string>
+    <string name="treatment_adherence_question_11">11. Хроническая болезнь может изменить работу внутренних органов и анализы. Насколько важно для вас знать результаты анализов?</string>
+    <string name="treatment_adherence_question_12">12. Все люди верят или не верят в Бога. Насколько важно для вас верить в Бога?</string>
+    <string name="treatment_adherence_question_13">13. Хроническая болезнь приводит к необходимости регулярно посещать врача. Насколько сложно для вас такое врачебное наблюдение?</string>
+    <string name="treatment_adherence_question_14">14. Прием лекарств может вызывать неприятные ощущения. Насколько сложно для вас будет переносить такие ощущения?</string>
+    <string name="treatment_adherence_question_15">15. Хроническая болезнь может ограничить привычную жизнь, активный отдых и развлечения. Насколько сложно для вас пойти на такие ограничения?</string>
+    <string name="treatment_adherence_question_16">16. Врач назначил лекарство, которое нужно принимать каждый день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_17">17. Врач назначил лекарство, которое нужно принимать несколько раз в день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_18">18. Врач назначил несколько лекарств, которые нужно принимать каждый день в течение многих лет. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_19">19. Врач предложил каждый день в течение многих лет отмечать имеющиеся проявления болезни. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_20">20. Врач сообщил, что назначенные лекарства могут вызывать неприятные ощущения, в том числе и те, что вы у себя уже наблюдаете. Будете ли вы принимать такие лекарства?</string>
+    <string name="treatment_adherence_question_21">21. Врач сообщил, что назначенные лекарства могут ухудшать сексуальную жизнь. Будете ли вы после этого принимать такие лекарства?</string>
+    <string name="treatment_adherence_question_22">22. Врач сообщил, что в связи с болезнью нужно изменить привычный образ жизни. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_23">23. Врач сообщил, что в связи с болезнью нужно изменить привычную диету. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_24">24. Врач сообщил, что в связи с болезнью нужно регулярно приходить на прием. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <string name="treatment_adherence_question_25">25. Врач сообщил, что в связи с болезнью нужно регулярно сдавать анализы. Будете ли вы точно выполнять эту рекомендацию?</string>
+    <!-- Available answers -->
+    <string name="treatment_adherence_answer_not_important_not">Совершенно не важно/ее нет</string>
+    <string name="treatment_adherence_answer_not_important_high">Совершенно не важно</string>
+    <string name="treatment_adherence_answer_not_important_medium">Почти не важно</string>
+    <string name="treatment_adherence_answer_not_important_low">Скорее не важно, чем важно</string>
+    <string name="treatment_adherence_answer_important_low">Скорее важно, чем не важно</string>
+    <string name="treatment_adherence_answer_important_medium">Достаточно важно</string>
+    <string name="treatment_adherence_answer_important_high">Очень важно</string>
+    <string name="treatment_adherence_answer_difficult_high">Очень сложно</string>
+    <string name="treatment_adherence_answer_difficult_medium">Достаточно сложно</string>
+    <string name="treatment_adherence_answer_difficult_low">Скорее сложно, чем не сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_high">Скорее не сложно, чем сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_medium">Почти не сложно</string>
+    <string name="treatment_adherence_answer_not_difficult_low">Совершенно не сложно</string>
+    <string name="treatment_adherence_answer_not_will_high">Ни за что не буду</string>
+    <string name="treatment_adherence_answer_not_will_medium">Вероятнее всего не буду</string>
+    <string name="treatment_adherence_answer_not_will_low">Скорее не буду, чем буду</string>
+    <string name="treatment_adherence_answer_will_high">Скорее буду, чем не буду</string>
+    <string name="treatment_adherence_answer_will_medium">Вероятнее всего буду</string>
+    <string name="treatment_adherence_answer_will_low">Обязательно буду</string>
+</resources>

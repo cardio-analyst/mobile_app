@@ -6,21 +6,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.common.*
 import com.example.common.flows.ResultState
+import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.sources.entities.UserSignUpResponseEntity
+import com.example.data.repositories.users.sources.entities.UserSingUpRequestEntity
 import com.example.presentation.BaseViewModel
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.Const
-import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSignUpResponseEntity
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserSingUpRequestEntity
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     val uiActions: UiAction,
-    private val userRepository: IUserRepository
+    private val userRepository: IUserDataRepository
 ) : BaseViewModel(uiActions) {
 
     private val _userSignUp = MutableLiveData<ResultState<UserSignUpResponseEntity>>()

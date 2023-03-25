@@ -1,9 +1,9 @@
 package `is`.ulstu.cardioanalyst.ui.recommendations
 
-import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.GetRecommendationsResponseEntity
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
 
 /*
 class RecommendationsAdapter(

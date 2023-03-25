@@ -5,20 +5,20 @@ import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
+import com.example.data.repositories.diseases.IDiseasesDataRepository
+import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
 import com.example.presentation.BaseViewModel
+import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.models.diseases.IDiseasesRepository
-import `is`.ulstu.cardioanalyst.models.diseases.sources.entities.DiseasesMainEntity
-import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class DiseasesViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val diseasesRepository: IDiseasesRepository,
+    private val diseasesRepository: IDiseasesDataRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _diseases = SingleLiveEvent<ResultState<DiseasesMainEntity>>()

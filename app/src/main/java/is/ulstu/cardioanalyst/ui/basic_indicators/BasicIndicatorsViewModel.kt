@@ -4,20 +4,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
+import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
+import com.example.data.repositories.basic_indicators.sources.entities.*
 import com.example.presentation.BaseViewModel
+import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.models.basic_indicators.IBasicIndicatorsRepository
-import `is`.ulstu.cardioanalyst.models.basic_indicators.sources.entities.*
-import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val basicIndicatorsRepository: IBasicIndicatorsRepository,
+    private val basicIndicatorsRepository: IBasicIndicatorsDataRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _basicIndicators =

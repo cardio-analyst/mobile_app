@@ -72,4 +72,7 @@ dependencies {
     implementation project(Modules.Core.Common)
     implementation project(Modules.Core.Presentation)
     implementation project(Modules.Core.Theme)
+
+    // Implements data layer
+    implementation project(Modules.Data)
 }

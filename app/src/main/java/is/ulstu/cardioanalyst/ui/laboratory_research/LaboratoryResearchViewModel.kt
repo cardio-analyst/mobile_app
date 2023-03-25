@@ -4,20 +4,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
+import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataRepository
+import com.example.data.repositories.laboratory_research.sources.entities.*
 import com.example.presentation.BaseViewModel
+import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.models.laboratory_research.ILaboratoryResearchRepository
-import `is`.ulstu.cardioanalyst.models.laboratory_research.sources.entities.*
-import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class LaboratoryResearchViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val laboratoryResearchRepository: ILaboratoryResearchRepository,
+    private val laboratoryResearchRepository: ILaboratoryResearchDataRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _laboratoryResearches =

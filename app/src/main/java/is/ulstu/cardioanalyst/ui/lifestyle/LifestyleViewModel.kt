@@ -5,22 +5,22 @@ import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
+import com.example.data.repositories.lifestyle.ILifestyleDataRepository
+import com.example.data.repositories.lifestyle.sources.entities.LifestyleMainEntity
+import com.example.data.repositories.lifestyle.tests.StenocardiaSymptomsTestRepository
+import com.example.data.repositories.lifestyle.tests.TreatmentAdherenceTestRepository
 import com.example.presentation.BaseViewModel
+import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.models.lifestyle.ILifestyleRepository
-import `is`.ulstu.cardioanalyst.models.lifestyle.sources.entities.LifestyleMainEntity
-import `is`.ulstu.cardioanalyst.models.lifestyle.tests.StenocardiaSymptomsTestRepository
-import `is`.ulstu.cardioanalyst.models.lifestyle.tests.TreatmentAdherenceTestRepository
-import com.example.presentation.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class LifestyleViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val lifestyleRepository: ILifestyleRepository,
+    private val lifestyleRepository: ILifestyleDataRepository,
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
     private val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository,
 ) : BaseViewModel(uiActions) {

@@ -1,30 +1,30 @@
 package `is`.ulstu.cardioanalyst.ui.report
 
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.*
-import `is`.ulstu.cardioanalyst.models.recommendations.IRecommendationsRepository
-import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportRequestEntity
-import `is`.ulstu.cardioanalyst.models.recommendations.sources.entities.SendReportResponseEntity
-import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
-import com.example.common.flows.Error
-import com.example.common.flows.ResultState
-import com.example.common.flows.Success
-import com.example.presentation.uiactions.UiAction
-import com.example.presentation.SingleLiveEvent
-import com.example.presentation.BaseViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.example.common.BackendExceptions
 import com.example.common.ConnectionException
 import com.example.common.IncorrectEmailException
 import com.example.common.RefreshTokenExpired
+import com.example.common.flows.Error
+import com.example.common.flows.ResultState
+import com.example.common.flows.Success
+import com.example.data.repositories.recommendations.IRecommendationsDataRepository
+import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
+import com.example.presentation.BaseViewModel
+import com.example.presentation.SingleLiveEvent
+import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.app.Const
+import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
 import javax.inject.Inject
 
 @HiltViewModel
 class SendingReportViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val recommendationsRepository: IRecommendationsRepository,
+    private val recommendationsRepository: IRecommendationsDataRepository,
     private val profileFragment: ProfileFragment,
 ) : BaseViewModel(uiActions) {
 

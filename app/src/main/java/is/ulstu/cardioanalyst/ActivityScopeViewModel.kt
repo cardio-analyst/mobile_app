@@ -2,7 +2,7 @@ package `is`.ulstu.cardioanalyst
 
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.models.settings.UserSettings
+import com.example.data.settings.UserSettings
 import com.example.presentation.BaseViewModel
 import javax.inject.Inject
 

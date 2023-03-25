@@ -7,17 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.*
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
+import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.sources.entities.UserInfoRequestEntity
+import com.example.data.repositories.users.sources.entities.UserInfoResponseEntity
+import com.example.presentation.BaseViewModel
 import com.example.presentation.share
+import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.app.Const
-import `is`.ulstu.cardioanalyst.models.users.IUserRepository
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoRequestEntity
-import `is`.ulstu.cardioanalyst.models.users.sources.entities.UserInfoResponseEntity
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.cardioanalyst.ui.report.SendingReportFragment
-import com.example.presentation.uiactions.UiAction
-import com.example.presentation.BaseViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 import kotlin.system.exitProcess
@@ -25,7 +25,7 @@ import kotlin.system.exitProcess
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val userRepository: IUserRepository,
+    private val userRepository: IUserDataRepository,
     private val sendingReportFragment: SendingReportFragment,
 ) : BaseViewModel(uiActions) {
 
