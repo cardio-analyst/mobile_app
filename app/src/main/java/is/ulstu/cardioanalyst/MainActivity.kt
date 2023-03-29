@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.databinding.ActivityMainBinding
+import `is`.ulstu.cardioanalyst.presentation.controllers.MainController
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var mainController: MainController
     private val activityViewModel by viewModels<ActivityScopeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +29,16 @@ class MainActivity : AppCompatActivity() {
             // Auth nav graph
             prepareRootNavController(isSignedIn = false)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        mainController.mainNavController = findNavController(R.id.nav_host_activity_main)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mainController.mainNavController = null
     }
 
     private fun getRootNavController(): NavController {

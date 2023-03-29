@@ -1,15 +1,14 @@
-package `is`.ulstu.cardioanalyst.ui.authorization
+package com.example.authorization.presentation
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.authorization.R
+import com.example.authorization.databinding.FragmentAuthorizationBinding
 import com.example.presentation.BaseFragment
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentAuthorizationBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,7 +34,7 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
                 )
             }
             registrationButton.setOnClickListener {
-                navigateToRegistrationScreen()
+                viewModel.launchRegistrationScreen()
             }
         }
 
@@ -48,21 +47,11 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
             binding.root,
             binding.resultView,
             {
-                navigateToTabsScreen()
+                viewModel.launchTabsScreen()
             },
             ignoreError = true,
             uiActions = viewModel.uiActions
         )
-    }
-
-    private fun navigateToRegistrationScreen() {
-        val direction =
-            AuthorizationFragmentDirections.actionNavigationAuthorizationToNavigationRegistration()
-        findNavController().navigate(direction)
-    }
-
-    private fun navigateToTabsScreen() {
-        findNavController().navigate(R.id.action_global_navigation_tabs)
     }
 
 }

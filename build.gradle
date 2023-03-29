@@ -61,10 +61,6 @@ buildscript {
                 Features: [
                         Profile: ":features:profile",
                         Authorization: ":features:authorization",
-                        Search: ":features:search",
-                        EventDetail: ":features:event_detail",
-                        Categories: ":features:categories",
-                        News: ":features:news",
                 ],
                 Training: ":training",
         ]

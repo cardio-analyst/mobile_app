@@ -1,8 +1,8 @@
-package `is`.ulstu.cardioanalyst.ui.authorization
+package com.example.authorization.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.example.authorization.domain.UserSignInRepository
 import com.example.common.flows.ResultState
-import com.example.data.repositories.users.IUserDataRepository
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
@@ -13,18 +13,19 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
     val uiActions: UiAction,
-    private val userRepository: IUserDataRepository,
-) : BaseViewModel(uiActions) {
+    private val userSignInRepository: UserSignInRepository,
+    private val authorizationRouter: AuthorizationRouter,
+) : BaseViewModel(uiActions), AuthorizationRouter by authorizationRouter {
 
     private val _userSignIn = SingleLiveEvent<ResultState<Unit>>()
     val userSignIn = _userSignIn.share()
 
     fun onEnter(loginOrEmail: String, password: String) = viewModelScope.safeLaunch {
-        userRepository.signInUser(loginOrEmail, password).collect {
+        userSignInRepository.signInUser(loginOrEmail, password).collect {
             _userSignIn.value = it
         }
     }
 
     fun reload(loginOrEmail: String, password: String) =
-        userRepository.reloadSignInUserRequest(loginOrEmail, password)
+        userSignInRepository.reloadSignInUserRequest(loginOrEmail, password)
 }

@@ -1,0 +1,60 @@
+ext.buildFeature = { args ->
+    android {
+        namespace args.namespace
+        compileSdk targetAndroidSdk
+
+        defaultConfig {
+            minSdk minAndroidSdk
+            targetSdk targetAndroidSdk
+
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            consumerProguardFiles "consumer-rules.pro"
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
+        buildFeatures {
+            viewBinding true
+        }
+    }
+
+    dependencies {
+        // default dependencies for all feature modules
+        implementation Libs.Android.CoreKtx
+        implementation Libs.Android.AppCompat
+        implementation Libs.Android.ActivityKtx
+        implementation Libs.Android.FragmentKtx
+        implementation Libs.Android.LifecycleLivedataKtx
+        implementation Libs.Android.LifecycleViewModelKtx
+
+        implementation Libs.Google.Material
+        implementation Libs.Google.Hilt
+        kapt Libs.Google.HiltCompiler
+
+        implementation Libs.JetBrains.CoroutinesCore
+
+        implementation Libs.Stuff.ViewBinding
+
+        implementation project(Modules.Core.Common)
+        implementation project(Modules.Core.Theme)
+        implementation project(Modules.Core.Presentation)
+
+        // define additional dependencies in each build.gradle feature-module file
+        if (args.containsKey('dependencies')) {
+            def closure = args.dependencies
+            closure.delegate = delegate
+            closure()
+        }
+    }
+}

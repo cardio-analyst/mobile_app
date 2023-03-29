@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_authorization"
-        android:name="is.ulstu.cardioanalyst.ui.authorization.AuthorizationFragment"
+        android:name="com.example.authorization.presentation.AuthorizationFragment"
         android:label="AuthorizationFragment"
         tools:layout="@layout/fragment_authorization">
         <action

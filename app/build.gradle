@@ -75,4 +75,7 @@ dependencies {
 
     // Implements data layer
     implementation project(Modules.Data)
+
+    // Implements modules
+    implementation project(Modules.Features.Authorization)
 }
