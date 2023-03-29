@@ -12,18 +12,18 @@ interface UsersSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserSignInResponseEntity] which contains [accessToken] and [refreshToken] tokens
+     * @return [UserSignInResponseDataEntity] which contains [accessToken] and [refreshToken] tokens
      */
-    suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity
+    suspend fun signIn(userSingInRequestDataEntity: UserSingInRequestDataEntity): UserSignInResponseDataEntity
 
     /**
      * Create a new user account.
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserSignUpResponseEntity]
+     * @return [UserSignUpResponseDataEntity]
      */
-    suspend fun signUp(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity
+    suspend fun signUp(userSingUpRequestDataEntity: UserSingUpRequestDataEntity): UserSignUpResponseDataEntity
 
     /**
      * Get the user info of the current signed-in user.
@@ -50,6 +50,6 @@ interface UsersSource {
      * @throws ParseBackendResponseException
      * @return [UserInfoResponseEntity] which contains [accessToken] and [refreshToken] tokens
      */
-    suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity
+    suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity
 
 }

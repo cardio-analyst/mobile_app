@@ -115,12 +115,12 @@ class UserDataRepository @Inject constructor(
     }
 
     private val userSignInLazyFlowSubject =
-        LazyFlowSubject<UserSingInRequestEntity, Unit> { userSingInRequestEntity ->
+        LazyFlowSubject<UserSingInRequestDataEntity, Unit> { userSingInRequestEntity ->
             doSignInUser(userSingInRequestEntity.loginOrEmail, userSingInRequestEntity.password)
         }
 
     private val userSignUpLazyFlowSubject =
-        LazyFlowSubject<UserSingUpRequestEntity, UserSignUpResponseEntity> { userSingUpRequestEntity ->
+        LazyFlowSubject<UserSingUpRequestDataEntity, UserSignUpResponseDataEntity> { userSingUpRequestEntity ->
             doSignUpUser(userSingUpRequestEntity)
         }
 
@@ -140,31 +140,31 @@ class UserDataRepository @Inject constructor(
 
 
     override fun signInUser(loginOrEmail: String, password: String) =
-        userSignInLazyFlowSubject.listen(UserSingInRequestEntity(loginOrEmail, password))
+        userSignInLazyFlowSubject.listen(UserSingInRequestDataEntity(loginOrEmail, password))
 
     private suspend fun doSignInUser(loginOrEmail: String, password: String) {
-        val result = usersSource.signIn(UserSingInRequestEntity(loginOrEmail, password))
+        val result = usersSource.signIn(UserSingInRequestDataEntity(loginOrEmail, password))
         userSettings.setUserAccountAccessToken(result.accessToken)
         userSettings.setCurrentRefreshToken(result.refreshToken)
     }
 
     override fun reloadSignInUserRequest(loginOrEmail: String, password: String) {
-        userSignInLazyFlowSubject.reloadArgument(UserSingInRequestEntity(loginOrEmail, password))
+        userSignInLazyFlowSubject.reloadArgument(UserSingInRequestDataEntity(loginOrEmail, password))
     }
 
 
-    override fun signUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): Flow<ResultState<UserSignUpResponseEntity>> =
-        userSignUpLazyFlowSubject.listen(userSingUpRequestEntity)
+    override fun signUpUser(userSingUpRequestDataEntity: UserSingUpRequestDataEntity): Flow<ResultState<UserSignUpResponseDataEntity>> =
+        userSignUpLazyFlowSubject.listen(userSingUpRequestDataEntity)
 
-    private suspend fun doSignUpUser(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity {
-        val result = usersSource.signUp(userSingUpRequestEntity)
+    private suspend fun doSignUpUser(userSingUpRequestDataEntity: UserSingUpRequestDataEntity): UserSignUpResponseDataEntity {
+        val result = usersSource.signUp(userSingUpRequestDataEntity)
         if (result.result != "Registered")
             throw Exception("Server error")
         return result
     }
 
-    override fun reloadSignUpUserRequest(userSingUpRequestEntity: UserSingUpRequestEntity) {
-        userSignUpLazyFlowSubject.reloadArgument(userSingUpRequestEntity)
+    override fun reloadSignUpUserRequest(userSingUpRequestDataEntity: UserSingUpRequestDataEntity) {
+        userSignUpLazyFlowSubject.reloadArgument(userSingUpRequestDataEntity)
     }
 
 

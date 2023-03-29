@@ -1,15 +1,16 @@
-package `is`.ulstu.cardioanalyst.ui.registration
+package com.example.registration.presentation
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
-import com.example.presentation.observeResults
+import com.example.presentation.ResultViewTools
+import com.example.presentation.observeResultsComponent
+import com.example.registration.R
+import com.example.registration.databinding.FragmentRegistrationBinding
+import com.example.registration.domain.entities.UserData
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentRegistrationBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,6 +19,15 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
     override val viewModel by viewModels<RegistrationViewModel>()
 
     private val binding by viewBinding(FragmentRegistrationBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            ignoreError = true,
+            uiActions = viewModel.uiActions,
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,40 +56,30 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
     }
 
     private fun observeUserSignUp() {
-        viewModel.userSignUp.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            {
-                binding.resultView.setPendingDescription(resources.getString(R.string.flow_pending_auth))
+        viewModel.userSignUp.observeResultsComponent(
+            resultViewTools = resultViewTools,
+            onSessionExpired = null,
+        ) {
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_auth))
                 viewModel.reloadSignInUserRequest(
-                    binding.loginTextEdit.text.toString(),
-                    binding.passwordTextEdit.text.toString()
+                    loginTextEdit.text.toString(),
+                    passwordTextEdit.text.toString()
                 )
                 viewModel.onEnterNewUser(
-                    binding.loginTextEdit.text.toString(),
-                    binding.passwordTextEdit.text.toString()
+                    loginTextEdit.text.toString(),
+                    passwordTextEdit.text.toString()
                 )
-            },
-            ignoreError = true,
-            uiActions = viewModel.uiActions
-        )
+            }
+        }
     }
 
     private fun observeUserSignIn() {
-        viewModel.userSignIn.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            {
-                navigateToTabsScreen()
-            },
-            ignoreError = true,
-            uiActions = viewModel.uiActions
-        )
-    }
-
-    private fun navigateToTabsScreen() {
-        findNavController().navigate(R.id.action_global_navigation_tabs)
+        viewModel.userSignIn.observeResultsComponent(
+            resultViewTools = resultViewTools,
+            onSessionExpired = null,
+        ) {
+            viewModel.launchTabsScreen()
+        }
     }
 }

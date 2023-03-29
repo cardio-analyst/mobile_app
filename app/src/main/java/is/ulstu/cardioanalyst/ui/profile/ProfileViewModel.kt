@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.common.*
+import com.example.common.constants.RegexConstants
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.data.repositories.users.IUserDataRepository
@@ -15,7 +16,6 @@ import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Const
 import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import `is`.ulstu.cardioanalyst.ui.report.SendingReportFragment
 import kotlinx.coroutines.delay
@@ -80,8 +80,8 @@ class ProfileViewModel @Inject constructor(
      * @throws IncorrectPasswordException
      */
     private fun validateUserInfo(userData: UserData): UserInfoRequestEntity {
-        val regexEmail = Regex(Const.REGEX_EMAIL)
-        val regexDate = Regex(Const.REGEX_DATE)
+        val regexEmail = Regex(RegexConstants.REGEX_EMAIL)
+        val regexDate = Regex(RegexConstants.REGEX_DATE)
 
         val fullName = userData.name.split(' ').toList()
         when {

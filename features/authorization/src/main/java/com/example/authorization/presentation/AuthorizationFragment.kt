@@ -7,7 +7,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.authorization.R
 import com.example.authorization.databinding.FragmentAuthorizationBinding
 import com.example.presentation.BaseFragment
-import com.example.presentation.observeResults
+import com.example.presentation.ResultViewTools
+import com.example.presentation.observeResultsComponent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,6 +18,15 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
     override val viewModel by viewModels<AuthorizationViewModel>()
 
     private val binding by viewBinding(FragmentAuthorizationBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            ignoreError = true,
+            uiActions = viewModel.uiActions,
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,16 +52,12 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
     }
 
     private fun observeUserSignIn() {
-        viewModel.userSignIn.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            {
-                viewModel.launchTabsScreen()
-            },
-            ignoreError = true,
-            uiActions = viewModel.uiActions
-        )
+        viewModel.userSignIn.observeResultsComponent(
+            resultViewTools = resultViewTools,
+            onSessionExpired = null,
+        ) {
+            viewModel.launchTabsScreen()
+        }
     }
 
 }

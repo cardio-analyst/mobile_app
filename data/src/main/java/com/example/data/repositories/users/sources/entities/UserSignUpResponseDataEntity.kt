@@ -1,5 +1,5 @@
 package com.example.data.repositories.users.sources.entities
 
-data class UserSignUpResponseEntity(
+data class UserSignUpResponseDataEntity(
     val result: String
 )

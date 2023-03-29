@@ -4,8 +4,8 @@ import com.example.common.flows.ResultState
 import com.example.data.Repository
 import com.example.data.repositories.users.sources.entities.UserInfoRequestEntity
 import com.example.data.repositories.users.sources.entities.UserInfoResponseEntity
-import com.example.data.repositories.users.sources.entities.UserSignUpResponseEntity
-import com.example.data.repositories.users.sources.entities.UserSingUpRequestEntity
+import com.example.data.repositories.users.sources.entities.UserSignUpResponseDataEntity
+import com.example.data.repositories.users.sources.entities.UserSingUpRequestDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface IUserDataRepository : Repository {
@@ -61,14 +61,14 @@ interface IUserDataRepository : Repository {
      * Register new user
      */
     fun signUpUser(
-        userSingUpRequestEntity: UserSingUpRequestEntity
-    ): Flow<ResultState<UserSignUpResponseEntity>>
+        userSingUpRequestDataEntity: UserSingUpRequestDataEntity
+    ): Flow<ResultState<UserSignUpResponseDataEntity>>
 
     /**
      * Reload user sign in request in case error
      */
     fun reloadSignUpUserRequest(
-        userSingUpRequestEntity: UserSingUpRequestEntity
+        userSingUpRequestDataEntity: UserSingUpRequestDataEntity
     )
 
     /**

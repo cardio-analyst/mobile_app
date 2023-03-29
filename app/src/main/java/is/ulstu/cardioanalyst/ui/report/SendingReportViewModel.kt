@@ -6,6 +6,7 @@ import com.example.common.BackendExceptions
 import com.example.common.ConnectionException
 import com.example.common.IncorrectEmailException
 import com.example.common.RefreshTokenExpired
+import com.example.common.constants.RegexConstants
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
@@ -17,7 +18,6 @@ import com.example.presentation.SingleLiveEvent
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Const
 import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class SendingReportViewModel @Inject constructor(
         viewModelScope.safeLaunch {
             // validation
             if (receiver != "") {
-                val regexEmail = Regex(Const.REGEX_EMAIL)
+                val regexEmail = Regex(RegexConstants.REGEX_EMAIL)
                 if (!regexEmail.matches(receiver))
                     throw IncorrectEmailException()
             } else if (!isSendToUserEmail) {

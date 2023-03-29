@@ -1,4 +1,4 @@
-package com.example.authorization.domain.entities
+package com.example.registration.domain.entities
 
 data class UserSignUpResponseEntity(
     val result: String

@@ -1,22 +1,22 @@
 package com.example.common.flows
 
+import kotlinx.coroutines.runBlocking
+
 sealed class ResultState<T> {
 
     /**
-     * Convert Result<T> into Result<R>.
+     * Convert the [ResultState] type to another type.
      */
     fun <R> map(mapper: ((T) -> R)? = null): ResultState<R> {
-        return when (this) {
-            is Success<T> -> {
-                if (mapper == null) {
-                    throw IllegalStateException("Can't map Success<T> result without mapper.")
-                } else {
-                    Success(mapper(this.value))
+        return runBlocking {
+            val suspendMapper: (suspend (T) -> R)? = if (mapper == null) {
+                null
+            } else {
+                {
+                    mapper(it)
                 }
             }
-            is Error<T> -> Error(this.error)
-            is Empty<T> -> Empty()
-            is Pending<T> -> Pending()
+            suspendMap(suspendMapper)
         }
     }
 
@@ -26,16 +26,43 @@ sealed class ResultState<T> {
     }
 
     fun isFinished() = this is Success<T> || this is Error<T>
+
+    /**
+     * Convert the [ResultState] type to another type by using a suspend lambda.
+     */
+    abstract suspend fun <R> suspendMap(mapper: (suspend (T) -> R)? = null): ResultState<R>
 }
 
 class Success<T>(
     val value: T
-) : ResultState<T>()
+) : ResultState<T>() {
+    override suspend fun <R> suspendMap(mapper: (suspend (T) -> R)?): ResultState<R> {
+        if (mapper == null) throw IllegalStateException("Can't map Container.Success without mapper")
+        return try {
+            Success(mapper(value))
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+}
 
 class Error<T>(
     val error: Throwable
-) : ResultState<T>()
+) : ResultState<T>() {
+    override suspend fun <R> suspendMap(mapper: (suspend (T) -> R)?): ResultState<R> {
+        return Error(error = error)
+    }
 
-class Empty<T> : ResultState<T>()
+}
 
-class Pending<T> : ResultState<T>()
+class Empty<T> : ResultState<T>() {
+    override suspend fun <R> suspendMap(mapper: (suspend (T) -> R)?): ResultState<R> {
+        return Empty()
+    }
+}
+
+class Pending<T> : ResultState<T>() {
+    override suspend fun <R> suspendMap(mapper: (suspend (T) -> R)?): ResultState<R> {
+        return Pending()
+    }
+}

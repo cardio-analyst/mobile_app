@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterUserSignInRepository @Inject constructor(
-    private val userRepository: IUserDataRepository
+    private val userRepository: IUserDataRepository,
 ) : UserSignInRepository {
 
     override fun signInUser(loginOrEmail: String, password: String): Flow<ResultState<Unit>> =

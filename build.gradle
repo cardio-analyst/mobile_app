@@ -61,6 +61,7 @@ buildscript {
                 Features: [
                         Profile: ":features:profile",
                         Authorization: ":features:authorization",
+                        Registration: ":features:registration",
                 ],
                 Training: ":training",
         ]

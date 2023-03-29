@@ -8,10 +8,10 @@ import retrofit2.http.PUT
 
 interface UsersApi {
     @POST("auth/signIn")
-    suspend fun signIn(@Body body: UserSingInRequestEntity): UserSignInResponseEntity
+    suspend fun signIn(@Body body: UserSingInRequestDataEntity): UserSignInResponseDataEntity
 
     @POST("auth/signUp")
-    suspend fun signUp(@Body body: UserSingUpRequestEntity): UserSignUpResponseEntity
+    suspend fun signUp(@Body body: UserSingUpRequestDataEntity): UserSignUpResponseDataEntity
 
     @GET("profile/info")
     suspend fun getUserInfo(): UserInfoResponseEntity
@@ -20,5 +20,5 @@ interface UsersApi {
     suspend fun setUserInfo(@Body body: UserInfoRequestEntity): UserInfoResponseEntity
 
     @POST("auth/refreshTokens")
-    suspend fun refreshTokens(@Body body: UserRefreshTokensRequestEntity): UserSignInResponseEntity
+    suspend fun refreshTokens(@Body body: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity
 }

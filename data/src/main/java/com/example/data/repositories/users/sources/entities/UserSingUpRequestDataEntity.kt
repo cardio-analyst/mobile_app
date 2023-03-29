@@ -1,6 +1,6 @@
 package com.example.data.repositories.users.sources.entities
 
-data class UserSingUpRequestEntity(
+data class UserSingUpRequestDataEntity(
     var firstName: String,
     var lastName: String,
     var middleName: String,

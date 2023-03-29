@@ -1,27 +1,28 @@
-package `is`.ulstu.cardioanalyst.ui.registration
+package com.example.registration.presentation
 
 import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.common.*
+import com.example.common.constants.RegexConstants
 import com.example.common.flows.ResultState
-import com.example.data.repositories.users.IUserDataRepository
-import com.example.data.repositories.users.sources.entities.UserSignUpResponseEntity
-import com.example.data.repositories.users.sources.entities.UserSingUpRequestEntity
 import com.example.presentation.BaseViewModel
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
+import com.example.registration.domain.UserSignUpRepository
+import com.example.registration.domain.entities.UserData
+import com.example.registration.domain.entities.UserSignUpResponseEntity
+import com.example.registration.domain.entities.UserSingUpRequestEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.app.Const
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     val uiActions: UiAction,
-    private val userRepository: IUserDataRepository
-) : BaseViewModel(uiActions) {
+    private val userSignUpRepository: UserSignUpRepository,
+    private val registrationRouter: RegistrationRouter,
+) : BaseViewModel(uiActions), RegistrationRouter by registrationRouter {
 
     private val _userSignUp = MutableLiveData<ResultState<UserSignUpResponseEntity>>()
     val userSignUp = _userSignUp.share()
@@ -29,29 +30,29 @@ class RegistrationViewModel @Inject constructor(
     private val _userSignIn = MutableLiveData<ResultState<Unit>>()
     val userSignIn = _userSignIn.share()
 
-    private fun getAllAvailableRegions() = userRepository.getAllAvailableRegions()
+    private fun getAllAvailableRegions() = userSignUpRepository.getAllAvailableRegions()
 
     fun onRegisterNewUser(userData: UserData) = viewModelScope.safeLaunch {
         val userSingUpRequestEntity = validateUserInfo(userData)
-        userRepository.signUpUser(userSingUpRequestEntity).collect {
+        userSignUpRepository.signUpUser(userSingUpRequestEntity).collect {
             _userSignUp.value = it
         }
     }
 
     fun reloadSignInUserRequest(loginOrEmail: String, password: String) =
-        userRepository.reloadSignInUserRequest(loginOrEmail, password)
+        userSignUpRepository.reloadSignInUserRequest(loginOrEmail, password)
 
     fun reloadSignUpUserRequest(userData: UserData) {
         try {
             val userSingUpRequestEntity = validateUserInfo(userData)
-            userRepository.reloadSignUpUserRequest(userSingUpRequestEntity)
+            userSignUpRepository.reloadSignUpUserRequest(userSingUpRequestEntity)
         } catch (_: Exception) {
 
         }
     }
 
     fun onEnterNewUser(login: String, password: String) = viewModelScope.safeLaunch {
-        userRepository.signInUser(login, password).collect {
+        userSignUpRepository.signInUser(login, password).collect {
             _userSignIn.value = it
         }
     }
@@ -60,7 +61,7 @@ class RegistrationViewModel @Inject constructor(
         val regions =
             getAllAvailableRegions().toTypedArray()
         AlertDialog.Builder(context)
-            .setTitle(uiActions.getString(R.string.choose_region_text))
+            .setTitle(uiActions.getString(com.example.registration.R.string.choose_region_text))
             .setItems(regions) { _, which ->
                 action(regions[which])
             }
@@ -76,8 +77,8 @@ class RegistrationViewModel @Inject constructor(
      * @throws IncorrectPasswordException
      */
     private fun validateUserInfo(userData: UserData): UserSingUpRequestEntity {
-        val regexEmail = Regex(Const.REGEX_EMAIL)
-        val regexDate = Regex(Const.REGEX_DATE)
+        val regexEmail = Regex(RegexConstants.REGEX_EMAIL)
+        val regexDate = Regex(RegexConstants.REGEX_DATE)
 
         val fullName = userData.name.split(' ').toList()
         when {

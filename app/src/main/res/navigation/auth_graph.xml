@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_registration"
-        android:name="is.ulstu.cardioanalyst.ui.registration.RegistrationFragment"
+        android:name="com.example.registration.presentation.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration" />
 

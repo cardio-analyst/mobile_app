@@ -13,12 +13,12 @@ class RetrofitUsersSource @Inject constructor(
 
     private val usersApi = retrofit.create(UsersApi::class.java)
 
-    override suspend fun signIn(userSingInRequestEntity: UserSingInRequestEntity): UserSignInResponseEntity =
-        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestEntity) }
+    override suspend fun signIn(userSingInRequestDataEntity: UserSingInRequestDataEntity): UserSignInResponseDataEntity =
+        wrapRetrofitExceptions { usersApi.signIn(userSingInRequestDataEntity) }
 
 
-    override suspend fun signUp(userSingUpRequestEntity: UserSingUpRequestEntity): UserSignUpResponseEntity =
-        wrapRetrofitExceptions { usersApi.signUp(userSingUpRequestEntity) }
+    override suspend fun signUp(userSingUpRequestDataEntity: UserSingUpRequestDataEntity): UserSignUpResponseDataEntity =
+        wrapRetrofitExceptions { usersApi.signUp(userSingUpRequestDataEntity) }
 
 
     override suspend fun getUserInfo(): UserInfoResponseEntity =
@@ -27,6 +27,6 @@ class RetrofitUsersSource @Inject constructor(
     override suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity =
         wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestEntity) }
 
-    override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseEntity =
+    override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity =
         wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestEntity) }
 }

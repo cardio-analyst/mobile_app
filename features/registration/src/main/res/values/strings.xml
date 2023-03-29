@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="choose_region_text">Выберите регион</string>
+    <string name="welcome_text">Добро пожаловать!</string>
+    <string name="email_text">Почта</string>
+    <string name="login_text">Логин</string>
+    <string name="name_text">ФИО</string>
+    <string name="region_text">Регион проживания</string>
+    <string name="birth_date_text">Дата рождения</string>
+    <string name="password_text">Пароль</string>
+    <string name="button_text_sign_up">Зарегистрироваться</string>
+
+
+    <!-- Flow Pending Descriptions -->
+    <string name="flow_pending_auth">Авторизация…</string>
+    <string name="flow_pending_reg">Регистрация…</string>
+</resources>
