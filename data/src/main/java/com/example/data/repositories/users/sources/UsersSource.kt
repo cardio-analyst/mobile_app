@@ -50,6 +50,6 @@ interface UsersSource {
      * @throws ParseBackendResponseException
      * @return [UserInfoResponseDataEntity] which contains [accessToken] and [refreshToken] tokens
      */
-    suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity
+    suspend fun refreshTokens(userRefreshTokensRequestDataEntity: UserRefreshTokensRequestDataEntity): UserSignInResponseDataEntity
 
 }

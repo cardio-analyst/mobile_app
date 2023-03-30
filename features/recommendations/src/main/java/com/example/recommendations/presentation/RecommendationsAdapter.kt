@@ -1,22 +1,9 @@
-package `is`.ulstu.cardioanalyst.ui.recommendations
+package com.example.recommendations.presentation
 
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
-
-/*
-class RecommendationsAdapter(
-    context: Context,
-    private val recommendationsList: List<GetRecommendationsResponseEntity>
-) : ArrayAdapter<GetRecommendationsResponseEntity>(context, R.layout.recommendation_view, recommendationsList) {
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = if (convertView == null) RecommendationView(context) else convertView as RecommendationView
-        view.setParams(recommendationsList[position])
-        return view
-    }
-}*/
+import com.example.recommendations.domain.entities.GetRecommendationsResponseEntity
 
 class RecommendationsAdapter(
     private val context: Context,

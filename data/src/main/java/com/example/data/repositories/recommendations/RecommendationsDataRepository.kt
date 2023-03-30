@@ -3,7 +3,7 @@ package com.example.data.repositories.recommendations
 import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.recommendations.sources.RecommendationsSource
-import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
 import com.example.data.repositories.users.IUserDataRepository
@@ -20,7 +20,7 @@ class RecommendationsDataRepository @Inject constructor(
     // --- Lazy Repository Flows for observers
 
     private val recommendationsLazyFlowSubject =
-        LazyFlowSubject<Unit, List<GetRecommendationsResponseEntity>> {
+        LazyFlowSubject<Unit, List<GetRecommendationsResponseDataEntity>> {
             doGetLaboratoryResearches()
         }
 
@@ -30,10 +30,10 @@ class RecommendationsDataRepository @Inject constructor(
         }
 
 
-    override fun getRecommendations(): Flow<ResultState<List<GetRecommendationsResponseEntity>>> =
+    override fun getRecommendations(): Flow<ResultState<List<GetRecommendationsResponseDataEntity>>> =
         recommendationsLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetLaboratoryResearches(): List<GetRecommendationsResponseEntity> =
+    private suspend fun doGetLaboratoryResearches(): List<GetRecommendationsResponseDataEntity> =
         wrapBackendExceptions(userRepository) {
             recommendationsSource.getRecommendations()
         }

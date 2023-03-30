@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.recommendations
+package com.example.recommendations.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -8,9 +8,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
 import com.example.presentation.ResultViewTools
 import com.example.presentation.observeResultsComponent
+import com.example.recommendations.R
+import com.example.recommendations.databinding.FragmentRecommendationsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentRecommendationsBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,7 +38,10 @@ class RecommendationsFragment @Inject constructor() :
     }
 
     private fun observeRecommendations() {
-        viewModel.recommendations.observeResultsComponent(resultViewTools, null) { recommendations ->
+        viewModel.recommendations.observeResultsComponent(
+            resultViewTools,
+            null
+        ) { recommendations ->
             val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
             if (adapter != null) {
                 initViewPager(adapter)

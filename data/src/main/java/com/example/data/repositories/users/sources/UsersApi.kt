@@ -20,5 +20,5 @@ interface UsersApi {
     suspend fun setUserInfo(@Body body: UserInfoRequestDataEntity): UserInfoResponseDataEntity
 
     @POST("auth/refreshTokens")
-    suspend fun refreshTokens(@Body body: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity
+    suspend fun refreshTokens(@Body body: UserRefreshTokensRequestDataEntity): UserSignInResponseDataEntity
 }

@@ -1,20 +1,20 @@
-package `is`.ulstu.cardioanalyst.ui.recommendations
+package com.example.recommendations.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.example.common.flows.ResultState
-import com.example.data.repositories.recommendations.IRecommendationsDataRepository
-import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
+import com.example.recommendations.domain.RecommendationsRepository
+import com.example.recommendations.domain.entities.GetRecommendationsResponseEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RecommendationsViewModel @Inject constructor(
     uiAction: UiAction,
-    private val recommendationsRepository: IRecommendationsDataRepository,
+    private val recommendationsRepository: RecommendationsRepository,
 ) : BaseViewModel(uiAction) {
 
     private val _recommendations =

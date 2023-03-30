@@ -2,7 +2,7 @@ package com.example.data.repositories.recommendations.sources
 
 import com.example.data.base.network.BaseRetrofitSource
 import com.example.data.base.network.RetrofitConfig
-import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class RetrofitRecommendationsSource @Inject constructor(
 
     private val recommendationsApi = retrofit.create(RecommendationsApi::class.java)
 
-    override suspend fun getRecommendations(): List<GetRecommendationsResponseEntity> =
+    override suspend fun getRecommendations(): List<GetRecommendationsResponseDataEntity> =
         wrapRetrofitExceptions { recommendationsApi.getRecommendations().recommendations }
 
     override suspend fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): SendReportResponseEntity =

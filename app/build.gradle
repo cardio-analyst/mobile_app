@@ -80,4 +80,5 @@ dependencies {
     implementation project(Modules.Features.Authorization)
     implementation project(Modules.Features.Registration)
     implementation project(Modules.Features.Profile)
+    implementation project(Modules.Features.Recommendations)
 }

@@ -173,7 +173,7 @@ class UserDataRepository @Inject constructor(
     override suspend fun refreshUserAccessToken() {
         val refreshToken =
             userSettings.getCurrentRefreshToken() ?: throw UserSessionExpired()
-        val result = usersSource.refreshTokens(UserRefreshTokensRequestEntity(refreshToken))
+        val result = usersSource.refreshTokens(UserRefreshTokensRequestDataEntity(refreshToken))
         userSettings.setUserAccountAccessToken(result.accessToken)
         userSettings.setCurrentRefreshToken(result.refreshToken)
     }

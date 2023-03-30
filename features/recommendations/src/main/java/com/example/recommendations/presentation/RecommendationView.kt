@@ -1,13 +1,13 @@
-package `is`.ulstu.cardioanalyst.ui.recommendations
+package com.example.recommendations.presentation
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseEntity
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.RecommendationViewBinding
+import com.example.recommendations.R
+import com.example.recommendations.databinding.RecommendationViewBinding
+import com.example.recommendations.domain.entities.GetRecommendationsResponseEntity
 
 class RecommendationView @JvmOverloads constructor(
     context: Context,

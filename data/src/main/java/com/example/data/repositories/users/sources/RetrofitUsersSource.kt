@@ -27,6 +27,6 @@ class RetrofitUsersSource @Inject constructor(
     override suspend fun setUserInfo(userInfoRequestDataEntity: UserInfoRequestDataEntity): UserInfoResponseDataEntity =
         wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestDataEntity) }
 
-    override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity =
-        wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestEntity) }
+    override suspend fun refreshTokens(userRefreshTokensRequestDataEntity: UserRefreshTokensRequestDataEntity): UserSignInResponseDataEntity =
+        wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestDataEntity) }
 }

@@ -1,5 +1,5 @@
 package com.example.data.repositories.users.sources.entities
 
-data class UserRefreshTokensRequestEntity(
+data class UserRefreshTokensRequestDataEntity(
     val refreshToken: String
 )
