@@ -7,11 +7,11 @@ import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.data.repositories.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
 import com.example.presentation.BaseFragment
+import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint

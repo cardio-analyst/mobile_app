@@ -18,7 +18,7 @@ import com.example.presentation.SingleLiveEvent
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.ui.profile.ProfileFragment
+import com.example.profile.presentation.ProfileFragment
 import javax.inject.Inject
 
 @HiltViewModel

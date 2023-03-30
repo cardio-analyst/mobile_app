@@ -21,11 +21,11 @@ class RetrofitUsersSource @Inject constructor(
         wrapRetrofitExceptions { usersApi.signUp(userSingUpRequestDataEntity) }
 
 
-    override suspend fun getUserInfo(): UserInfoResponseEntity =
+    override suspend fun getUserInfo(): UserInfoResponseDataEntity =
         wrapRetrofitExceptions { usersApi.getUserInfo() }
 
-    override suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity =
-        wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestEntity) }
+    override suspend fun setUserInfo(userInfoRequestDataEntity: UserInfoRequestDataEntity): UserInfoResponseDataEntity =
+        wrapRetrofitExceptions { usersApi.setUserInfo(userInfoRequestDataEntity) }
 
     override suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity =
         wrapRetrofitExceptions { usersApi.refreshTokens(userRefreshTokensRequestEntity) }

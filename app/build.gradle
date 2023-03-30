@@ -79,4 +79,5 @@ dependencies {
     // Implements modules
     implementation project(Modules.Features.Authorization)
     implementation project(Modules.Features.Registration)
+    implementation project(Modules.Features.Profile)
 }

@@ -1,12 +1,14 @@
 package `is`.ulstu.cardioanalyst.di
 
 import com.example.authorization.presentation.AuthorizationRouter
+import com.example.profile.presentation.ProfileRouter
 import com.example.registration.presentation.RegistrationRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `is`.ulstu.cardioanalyst.presentation.nav_routers.AuthorizationNavigation
+import `is`.ulstu.cardioanalyst.presentation.nav_routers.ProfileNavigation
 import `is`.ulstu.cardioanalyst.presentation.nav_routers.RegistrationNavigation
 
 @Module
@@ -22,4 +24,9 @@ abstract class RoutersModule {
     abstract fun bindRegistrationRouter(
         registrationNavigation: RegistrationNavigation
     ): RegistrationRouter
+
+    @Binds
+    abstract fun bindProfileRouter(
+        profileNavigation: ProfileNavigation
+    ): ProfileRouter
 }

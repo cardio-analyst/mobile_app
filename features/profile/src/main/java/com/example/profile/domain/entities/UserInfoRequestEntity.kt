@@ -1,4 +1,4 @@
-package com.example.data.repositories.users.sources.entities
+package com.example.profile.domain.entities
 
 data class UserInfoRequestEntity(
     val email: String,

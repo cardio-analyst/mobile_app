@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.profile
+package com.example.profile.presentation
 
 import android.app.AlertDialog
 import android.graphics.Paint
@@ -7,12 +7,12 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
+import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
+import com.example.profile.R
+import com.example.profile.databinding.FragmentProfileBinding
+import com.example.profile.domain.entities.UserData
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentProfileBinding
-import `is`.ulstu.cardioanalyst.databinding.PairActionButtonsBinding
-import `is`.ulstu.cardioanalyst.ui.registration.UserData
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,11 +40,22 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
             editButton.setOnClickListener {
                 changeMode()
             }
+            exitButton.setOnClickListener {
+                AlertDialog.Builder(this@ProfileFragment.context)
+                    .setTitle(R.string.exit_account_alert_dialog_title)
+                    .setMessage(R.string.exit_account_alert_dialog_message)
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
+                        viewModel.onExitClick()
+                    }
+                    .setNegativeButton(android.R.string.no) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+            }
 
             // init buttons logic
             with(actionButtonsBinding) {
-                negativeButton.text = resources.getString(R.string.button_text_cancel)
-                positiveButton.text = resources.getString(R.string.button_text_save)
                 negativeButton.visibility = View.INVISIBLE
                 positiveButton.visibility = View.INVISIBLE
                 negativeButton.setOnClickListener {
@@ -92,6 +103,7 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
     private fun changeMode() {
         changeModeState = !changeModeState
         with(binding) {
+            exitButton.visibility = if (!changeModeState) View.VISIBLE else View.INVISIBLE
             passwordTextView.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
             passwordTextEdit.visibility = if (changeModeState) View.VISIBLE else View.INVISIBLE
             with(actionButtonsBinding) {
@@ -115,95 +127,6 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
                 regionTextViewAlert.paintFlags =
                     regionTextViewAlert.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             } else {
-                emailTextEdit.paintFlags =
-                    emailTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                loginTextEdit.paintFlags =
-                    loginTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                nameTextEdit.paintFlags = nameTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                birthDateTextEdit.paintFlags =
-                    birthDateTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-                regionTextViewAlert.paintFlags =
-                    regionTextViewAlert.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
-            }
-        }
-    }
-
-    private fun changeMode(isChangingMode: Boolean = true) {
-        with(binding) {
-            if (isChangingMode) {
-                // init buttons logic
-                with(actionButtonsBinding) {
-                    negativeButton.text = resources.getString(R.string.button_text_cancel)
-                    positiveButton.text = resources.getString(R.string.button_text_save)
-                    negativeButton.setOnClickListener {
-                        changeMode(isChangingMode = false)
-                        viewModel.getOrReloadGetCurrentUser()
-                    }
-                    positiveButton.setOnClickListener {
-                        with(binding) {
-                            val userData = UserData(
-                                email = emailTextEdit.text.toString(),
-                                login = loginTextEdit.text.toString(),
-                                password = passwordTextEdit.text.toString(),
-                                name = nameTextEdit.text.toString(),
-                                birthDate = birthDateTextEdit.text.toString(),
-                                region = regionTextViewAlert.text.toString()
-                            )
-                            viewModel.saveNewUserInfo(userData)
-                            changeMode(isChangingMode = false)
-                        }
-                    }
-                }
-
-                passwordTextView.visibility = View.VISIBLE
-                passwordTextEdit.visibility = View.VISIBLE
-
-                emailTextEdit.isEnabled = true
-                loginTextEdit.isEnabled = true
-                nameTextEdit.isEnabled = true
-                birthDateTextEdit.isEnabled = true
-                regionTextViewAlert.isEnabled = true
-                passwordTextEdit.isEnabled = true
-
-                emailTextEdit.paintFlags = emailTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                loginTextEdit.paintFlags = loginTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                nameTextEdit.paintFlags = nameTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                birthDateTextEdit.paintFlags =
-                    birthDateTextEdit.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                regionTextViewAlert.paintFlags =
-                    regionTextViewAlert.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-            } else {
-                // init buttons logic
-                with(actionButtonsBinding) {
-                    negativeButton.text = resources.getString(R.string.button_text_exit)
-                    positiveButton.text = resources.getString(R.string.button_text_change)
-                    negativeButton.setOnClickListener {
-                        AlertDialog.Builder(this@ProfileFragment.context)
-                            .setTitle(R.string.exit_account_alert_dialog_title)
-                            .setMessage(R.string.exit_account_alert_dialog_message)
-                            .setPositiveButton(android.R.string.yes) { dialog, _ ->
-                                viewModel.onExitClick()
-                            }
-                            .setNegativeButton(android.R.string.no) { dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            .create()
-                            .show()
-                    }
-                    positiveButton.setOnClickListener { changeMode(isChangingMode = true) }
-                }
-
-                passwordTextView.visibility = View.INVISIBLE
-                passwordTextEdit.visibility = View.INVISIBLE
-
-                emailTextEdit.isEnabled = false
-                loginTextEdit.isEnabled = false
-                nameTextEdit.isEnabled = false
-                birthDateTextEdit.isEnabled = false
-                regionTextViewAlert.isEnabled = false
-                passwordTextEdit.isEnabled = false
-
                 emailTextEdit.paintFlags =
                     emailTextEdit.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
                 loginTextEdit.paintFlags =

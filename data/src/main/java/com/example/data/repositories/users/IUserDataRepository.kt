@@ -2,8 +2,8 @@ package com.example.data.repositories.users
 
 import com.example.common.flows.ResultState
 import com.example.data.Repository
-import com.example.data.repositories.users.sources.entities.UserInfoRequestEntity
-import com.example.data.repositories.users.sources.entities.UserInfoResponseEntity
+import com.example.data.repositories.users.sources.entities.UserInfoRequestDataEntity
+import com.example.data.repositories.users.sources.entities.UserInfoResponseDataEntity
 import com.example.data.repositories.users.sources.entities.UserSignUpResponseDataEntity
 import com.example.data.repositories.users.sources.entities.UserSingUpRequestDataEntity
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +14,7 @@ interface IUserDataRepository : Repository {
      * Get user information
      * @return [Flow]
      */
-    fun getCurrentUserInfo(): Flow<ResultState<UserInfoResponseEntity>>
+    fun getCurrentUserInfo(): Flow<ResultState<UserInfoResponseDataEntity>>
 
     /**
      * Reload user information
@@ -75,6 +75,6 @@ interface IUserDataRepository : Repository {
      * Change user params
      */
     suspend fun changeUserParams(
-        userInfoRequestEntity: UserInfoRequestEntity
+        userInfoRequestDataEntity: UserInfoRequestDataEntity
     )
 }

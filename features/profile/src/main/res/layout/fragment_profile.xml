@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context="com.example.profile.presentation.ProfileFragment">
 
     <TextView
         android:id="@+id/title"
@@ -186,6 +186,16 @@
         app:layout_constraintEnd_toEndOf="@+id/nameTextEdit"
         app:layout_constraintTop_toTopOf="@+id/passwordTextView"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:text="@string/button_text_exit"
+        style="@style/button_positive"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordTextEdit"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include layout="@layout/pair_action_buttons"
         android:layout_height="wrap_content"

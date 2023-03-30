@@ -1,6 +1,6 @@
 package com.example.data.repositories.users.sources.entities
 
-data class UserInfoResponseEntity(
+data class UserInfoResponseDataEntity(
     val email: String,
     val login: String,
     val firstName: String,

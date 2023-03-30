@@ -110,7 +110,7 @@ class UserDataRepository @Inject constructor(
 
     // --- Lazy Repository Flows for observers
 
-    private val userLazyFlowSubject = LazyFlowSubject<Unit, UserInfoResponseEntity> {
+    private val userLazyFlowSubject = LazyFlowSubject<Unit, UserInfoResponseDataEntity> {
         doGetCurrentUserInfo()
     }
 
@@ -129,7 +129,7 @@ class UserDataRepository @Inject constructor(
 
     override fun getCurrentUserInfo() = userLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetCurrentUserInfo(): UserInfoResponseEntity =
+    private suspend fun doGetCurrentUserInfo(): UserInfoResponseDataEntity =
         wrapBackendExceptions(this@UserDataRepository) {
             usersSource.getUserInfo()
         }
@@ -181,9 +181,9 @@ class UserDataRepository @Inject constructor(
     override fun logoutUser() =
         with(userSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
 
-    override suspend fun changeUserParams(userInfoRequestEntity: UserInfoRequestEntity) =
+    override suspend fun changeUserParams(userInfoRequestDataEntity: UserInfoRequestDataEntity) =
         wrapBackendExceptions(this@UserDataRepository) {
-            usersSource.setUserInfo(userInfoRequestEntity)
+            usersSource.setUserInfo(userInfoRequestDataEntity)
             reloadCurrentUserInfo()
         }
 }

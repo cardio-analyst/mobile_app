@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.registration
+package com.example.profile.domain.entities
 
 data class UserData(
     val email: String,

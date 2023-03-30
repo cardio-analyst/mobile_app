@@ -14,10 +14,10 @@ interface UsersApi {
     suspend fun signUp(@Body body: UserSingUpRequestDataEntity): UserSignUpResponseDataEntity
 
     @GET("profile/info")
-    suspend fun getUserInfo(): UserInfoResponseEntity
+    suspend fun getUserInfo(): UserInfoResponseDataEntity
 
     @PUT("profile/edit")
-    suspend fun setUserInfo(@Body body: UserInfoRequestEntity): UserInfoResponseEntity
+    suspend fun setUserInfo(@Body body: UserInfoRequestDataEntity): UserInfoResponseDataEntity
 
     @POST("auth/refreshTokens")
     suspend fun refreshTokens(@Body body: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity

@@ -30,25 +30,25 @@ interface UsersSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity]
+     * @return [UserInfoResponseDataEntity]
      */
-    suspend fun getUserInfo(): UserInfoResponseEntity
+    suspend fun getUserInfo(): UserInfoResponseDataEntity
 
     /**
      * Change the user info of the current signed-in user.
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity]
+     * @return [UserInfoResponseDataEntity]
      */
-    suspend fun setUserInfo(userInfoRequestEntity: UserInfoRequestEntity): UserInfoResponseEntity
+    suspend fun setUserInfo(userInfoRequestDataEntity: UserInfoRequestDataEntity): UserInfoResponseDataEntity
 
     /**
      * Refresh the user's tokens
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UserInfoResponseEntity] which contains [accessToken] and [refreshToken] tokens
+     * @return [UserInfoResponseDataEntity] which contains [accessToken] and [refreshToken] tokens
      */
     suspend fun refreshTokens(userRefreshTokensRequestEntity: UserRefreshTokensRequestEntity): UserSignInResponseDataEntity
 
