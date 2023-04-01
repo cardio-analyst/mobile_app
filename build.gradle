@@ -63,6 +63,9 @@ buildscript {
                         Authorization: ":features:authorization",
                         Registration: ":features:registration",
                         Recommendations: ":features:recommendations",
+                        Questionnaires: [
+                                QuestionnairesList: ":features:questionnaires:questionnaires-list",
+                        ],
                 ],
                 Training: ":training",
         ]

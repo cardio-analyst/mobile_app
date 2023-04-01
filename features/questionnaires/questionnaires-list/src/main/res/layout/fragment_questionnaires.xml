@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.QuestionnairesFragment">
+
+    <!--<androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_user_info"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/user_info_graph"
+        tools:layout="@layout/fragment_user_info" />-->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/titleVerticalMargin"
+        android:background="@drawable/title_background"
+        android:elevation="@dimen/titleElevation"
+        android:paddingHorizontal="@dimen/titleHorizontalPadding"
+        android:paddingVertical="@dimen/titleVerticalPadding"
+        android:text="@string/title_questionnaires"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/titleVerticalMargin"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
