@@ -1,6 +1,6 @@
-package com.example.data.repositories.diseases.sources.entities
+package com.example.diseases.domain.entities
 
-data class DiseasesMainEntity(
+data class DiseasesEntity(
     val cvdPredisposed: Boolean,
     val takesStatins: Boolean,
     val hasChronicKidneyDisease: Boolean,

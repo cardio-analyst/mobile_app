@@ -3,7 +3,7 @@ package com.example.data.repositories.diseases.sources
 import com.example.common.BackendExceptions
 import com.example.common.ConnectionException
 import com.example.common.ParseBackendResponseException
-import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
+import com.example.data.repositories.diseases.sources.entities.DiseasesDataEntity
 
 interface DiseasesSource {
     /**
@@ -11,17 +11,17 @@ interface DiseasesSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [DiseasesMainEntity]
+     * @return [DiseasesDataEntity]
      */
-    suspend fun getUserDiseases(): DiseasesMainEntity
+    suspend fun getUserDiseases(): DiseasesDataEntity
 
     /**
      * Change the user diseases
-     * @param diseasesMainEntity [DiseasesMainEntity]
+     * @param diseasesDataEntity [DiseasesDataEntity]
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [DiseasesMainEntity]
+     * @return [DiseasesDataEntity]
      */
-    suspend fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): DiseasesMainEntity
+    suspend fun setUserDiseases(diseasesDataEntity: DiseasesDataEntity): DiseasesDataEntity
 }

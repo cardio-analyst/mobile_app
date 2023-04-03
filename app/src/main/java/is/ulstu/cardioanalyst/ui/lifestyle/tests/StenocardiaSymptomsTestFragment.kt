@@ -37,7 +37,7 @@ class StenocardiaSymptomsTestFragment @Inject constructor() :
                     this@StenocardiaSymptomsTestFragment.context?.let { context ->
                         ArrayAdapter(
                             context,
-                            R.layout.simple_list_item_multiple_choice,
+                            com.example.presentation.R.layout.simple_list_item_multiple_choice,
                             question.questionsAnswers.map { it.first }.toList()
                         )
                     }

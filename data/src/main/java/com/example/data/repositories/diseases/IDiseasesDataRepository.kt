@@ -2,7 +2,7 @@ package com.example.data.repositories.diseases
 
 import com.example.common.flows.ResultState
 import com.example.data.Repository
-import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
+import com.example.data.repositories.diseases.sources.entities.DiseasesDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface IDiseasesDataRepository : Repository {
@@ -10,14 +10,14 @@ interface IDiseasesDataRepository : Repository {
      * Get all available diseases to check
      * @return [Flow]
      */
-    fun getUserDiseases(): Flow<ResultState<DiseasesMainEntity>>
+    fun getUserDiseases(): Flow<ResultState<DiseasesDataEntity>>
 
     /**
      * Set user diseases
-     * @param diseasesMainEntity [DiseasesMainEntity]
+     * @param diseasesDataEntity [DiseasesDataEntity]
      * @return [Flow]
      */
-    fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): Flow<ResultState<DiseasesMainEntity>>
+    fun setUserDiseases(diseasesDataEntity: DiseasesDataEntity): Flow<ResultState<DiseasesDataEntity>>
 
     /**
      * Reload get user's diseases request in case error
@@ -26,8 +26,8 @@ interface IDiseasesDataRepository : Repository {
 
     /**
      * Reload set user's diseases request in case error
-     * @param diseasesMainEntity [DiseasesMainEntity]
+     * @param diseasesDataEntity [DiseasesDataEntity]
      */
-    fun reloadSetDiseasesUserRequest(diseasesMainEntity: DiseasesMainEntity)
+    fun reloadSetDiseasesUserRequest(diseasesDataEntity: DiseasesDataEntity)
 
 }

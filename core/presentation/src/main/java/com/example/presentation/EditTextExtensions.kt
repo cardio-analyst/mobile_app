@@ -1,6 +1,5 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package com.example.presentation
 
-import `is`.ulstu.cardioanalyst.R
 import android.annotation.SuppressLint
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager

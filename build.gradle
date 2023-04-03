@@ -65,6 +65,7 @@ buildscript {
                         Recommendations: ":features:recommendations",
                         Questionnaires: [
                                 QuestionnairesList: ":features:questionnaires:questionnaires-list",
+                                Diseases: ":features:questionnaires:diseases",
                         ],
                 ],
                 Training: ":training",

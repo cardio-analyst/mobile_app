@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/top_round_background"
     android:backgroundTint="@color/white"
-    tools:context=".ui.diseases.DiseasesFragment">
+    tools:context="com.example.diseases.presentation.DiseasesFragment">
 
     <TextView
         android:id="@+id/diseasesTooltip"

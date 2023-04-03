@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.diseases
+package com.example.diseases.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,13 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
+import com.example.diseases.R
+import com.example.diseases.databinding.FragmentDiseasesBinding
+import com.example.diseases.domain.entities.DiseasesEntity
 import com.example.presentation.BaseFragment
 import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentDiseasesBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,7 +64,7 @@ class DiseasesFragment @Inject constructor() : BaseFragment(R.layout.fragment_di
                     this@DiseasesFragment.context?.let {
                         ArrayAdapter(
                             it,
-                            R.layout.simple_list_item_multiple_choice,
+                            com.example.presentation.R.layout.simple_list_item_multiple_choice,
                             diseases.keys.toList()
                         )
                     }
@@ -98,7 +98,7 @@ class DiseasesFragment @Inject constructor() : BaseFragment(R.layout.fragment_di
                 }
 
                 actionButtonsBinding.positiveButton.setOnClickListener {
-                    val newDiseasesMainEntity = DiseasesMainEntity(
+                    val newDiseasesMainEntity = DiseasesEntity(
                         cvdPredisposed = diseasesListView.isItemChecked(0),
                         takesStatins = diseasesListView.isItemChecked(1),
                         hasChronicKidneyDisease = diseasesListView.isItemChecked(2),

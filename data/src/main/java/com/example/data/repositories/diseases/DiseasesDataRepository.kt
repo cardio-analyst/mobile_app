@@ -3,7 +3,7 @@ package com.example.data.repositories.diseases
 import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.diseases.sources.DiseasesSource
-import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
+import com.example.data.repositories.diseases.sources.entities.DiseasesDataEntity
 import com.example.data.repositories.users.IUserDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -17,20 +17,20 @@ class DiseasesDataRepository @Inject constructor(
 
     // --- Lazy Repository Flows for observers
 
-    private val diseasesLazyFlowSubject = LazyFlowSubject<Unit, DiseasesMainEntity> {
+    private val diseasesLazyFlowSubject = LazyFlowSubject<Unit, DiseasesDataEntity> {
         doGetDiseases()
     }
 
     private val diseasesSaveLazyFlowSubject =
-        LazyFlowSubject<DiseasesMainEntity, DiseasesMainEntity> { diseasesMainEntity ->
+        LazyFlowSubject<DiseasesDataEntity, DiseasesDataEntity> { diseasesMainEntity ->
             doSetUserDiseases(diseasesMainEntity)
         }
 
 
-    override fun getUserDiseases(): Flow<ResultState<DiseasesMainEntity>> =
+    override fun getUserDiseases(): Flow<ResultState<DiseasesDataEntity>> =
         diseasesLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetDiseases(): DiseasesMainEntity =
+    private suspend fun doGetDiseases(): DiseasesDataEntity =
         wrapBackendExceptions(userRepository) {
             diseasesSource.getUserDiseases()
         }
@@ -40,14 +40,14 @@ class DiseasesDataRepository @Inject constructor(
     }
 
 
-    override fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): Flow<ResultState<DiseasesMainEntity>> =
-        diseasesSaveLazyFlowSubject.listen(diseasesMainEntity)
+    override fun setUserDiseases(diseasesDataEntity: DiseasesDataEntity): Flow<ResultState<DiseasesDataEntity>> =
+        diseasesSaveLazyFlowSubject.listen(diseasesDataEntity)
 
-    private suspend fun doSetUserDiseases(diseasesMainEntity: DiseasesMainEntity): DiseasesMainEntity =
-        wrapBackendExceptions(userRepository) { diseasesSource.setUserDiseases(diseasesMainEntity) }
+    private suspend fun doSetUserDiseases(diseasesDataEntity: DiseasesDataEntity): DiseasesDataEntity =
+        wrapBackendExceptions(userRepository) { diseasesSource.setUserDiseases(diseasesDataEntity) }
 
-    override fun reloadSetDiseasesUserRequest(diseasesMainEntity: DiseasesMainEntity) {
-        diseasesSaveLazyFlowSubject.reloadArgument(diseasesMainEntity)
+    override fun reloadSetDiseasesUserRequest(diseasesDataEntity: DiseasesDataEntity) {
+        diseasesSaveLazyFlowSubject.reloadArgument(diseasesDataEntity)
     }
 
 }

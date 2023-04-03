@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.data.repositories.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
+import com.example.presentation.setTextBySample
+import com.example.presentation.smartEditText
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchRecordBinding
 

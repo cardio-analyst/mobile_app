@@ -55,7 +55,7 @@ class TreatmentAdherenceTestFragment @Inject constructor() :
                     this@TreatmentAdherenceTestFragment.context?.let { context ->
                         ArrayAdapter(
                             context,
-                            R.layout.simple_list_item_multiple_choice,
+                            com.example.presentation.R.layout.simple_list_item_multiple_choice,
                             question.questionsAnswers
                         )
                     }

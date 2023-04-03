@@ -2,7 +2,7 @@ package com.example.data.repositories.diseases.sources
 
 import com.example.data.base.network.BaseRetrofitSource
 import com.example.data.base.network.RetrofitConfig
-import com.example.data.repositories.diseases.sources.entities.DiseasesMainEntity
+import com.example.data.repositories.diseases.sources.entities.DiseasesDataEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,9 +13,9 @@ class RetrofitDiseasesSource @Inject constructor(
 
     private val diseasesApi = retrofit.create(DiseasesApi::class.java)
 
-    override suspend fun getUserDiseases(): DiseasesMainEntity =
+    override suspend fun getUserDiseases(): DiseasesDataEntity =
         wrapRetrofitExceptions { diseasesApi.getUserDiseases() }
 
-    override suspend fun setUserDiseases(diseasesMainEntity: DiseasesMainEntity): DiseasesMainEntity =
-        wrapRetrofitExceptions { diseasesApi.setUserDiseases(diseasesMainEntity) }
+    override suspend fun setUserDiseases(diseasesDataEntity: DiseasesDataEntity): DiseasesDataEntity =
+        wrapRetrofitExceptions { diseasesApi.setUserDiseases(diseasesDataEntity) }
 }
