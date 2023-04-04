@@ -1,31 +1,31 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package com.example.laboratory_research.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.data.repositories.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
+import com.example.laboratory_research.R
+import com.example.laboratory_research.databinding.FragmentLaboratoryResearchBinding
+import com.example.laboratory_research.domain.entities.GetLaboratoryResearchResponseEntity
 import com.example.presentation.BaseFragment
 import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LaboratoryResearchFragment @Inject constructor() :
-    BaseFragment(R.layout.fragment_laboratory_research),
-    LaboratoryResearchRecordFragment.LaboratoryResearchRecordListener {
+    BaseFragment(R.layout.fragment_laboratory_research) {
 
-    override val viewModel by viewModels<LaboratoryResearchViewModel>()
+    override val viewModel by activityViewModels<LaboratoryResearchViewModel>()
 
     private val binding by viewBinding(FragmentLaboratoryResearchBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
-    private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
+    private var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
     private var viewPagerCurrentPagePosition: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,9 +55,25 @@ class LaboratoryResearchFragment @Inject constructor() :
         observeLaboratoryResearches()
         observeCreateLaboratoryResearch()
         observeUpdateLaboratoryResearch()
+        observeCurrentLaboratoryChanged()
         viewModel.getOrReloadLaboratoryResearches()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewPagerOnPageChangeCallback?.let { binding.viewPager.unregisterOnPageChangeCallback(it) }
+        viewPagerOnPageChangeCallback = null
+    }
+
+    private fun observeCurrentLaboratoryChanged() {
+        viewModel.currentLaboratoryResearchChanged.observe(viewLifecycleOwner) { changed ->
+            if (changed) {
+                buttonVisibility(View.VISIBLE)
+            } else {
+                buttonVisibility(View.INVISIBLE)
+            }
+        }
+    }
 
     private fun observeLaboratoryResearches() {
         viewModel.laboratoryResearches.observeResults(
@@ -109,19 +125,17 @@ class LaboratoryResearchFragment @Inject constructor() :
     ) {
         // add default
         adapter.addFragment(
-            LaboratoryResearchRecordFragment(
-                viewModel.getDefaultLaboratoryResearchRecord(),
-                this@LaboratoryResearchFragment
-            )
+            LaboratoryResearchRecordFragment()
         )
         if (laboratoryResearches.isNotEmpty()) {
             // add others records
             laboratoryResearches.forEach {
                 adapter.addFragment(
-                    LaboratoryResearchRecordFragment(
-                        it,
-                        this@LaboratoryResearchFragment
-                    )
+                    LaboratoryResearchRecordFragment().apply {
+                        arguments = bundleOf(
+                            LaboratoryResearchRecordFragment.ARG_ID to it.id
+                        )
+                    }
                 )
             }
         }
@@ -137,32 +151,37 @@ class LaboratoryResearchFragment @Inject constructor() :
             // save
             positiveButton.setOnClickListener {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_save))
+                val laboratoryResearchId =
+                    adapter.getFragment(viewPager.currentItem).laboratoryResearchId
                 val laboratoryResearch =
-                    adapter.getFragment(viewPager.currentItem).currentLaboratoryResearch
-                if (laboratoryResearch.id == null) {
-                    // create
-                    val createLaboratoryResearchRequestEntity =
-                        viewModel.getCreateLaboratoryResearchEntity(laboratoryResearch)
-                    resultView.setTryAgainAction {
-                        viewModel.reloadCreateLaboratoryResearch(
+                    viewModel.laboratoryResearchChangedMap[laboratoryResearchId]
+                if (laboratoryResearch != null) {
+                    if (laboratoryResearchId == null) {
+                        // create
+                        val createLaboratoryResearchRequestEntity =
+                            viewModel.getCreateLaboratoryResearchEntity(laboratoryResearch)
+                        resultView.setTryAgainAction {
+                            viewModel.reloadCreateLaboratoryResearch(
+                                createLaboratoryResearchRequestEntity
+                            )
+                        }
+                        viewModel.createUserLaboratoryResearch(
                             createLaboratoryResearchRequestEntity
                         )
-                    }
-                    viewModel.createUserLaboratoryResearch(
-                        createLaboratoryResearchRequestEntity
-                    )
-                } else {
-                    // update
-                    val updateLaboratoryResearchRequestEntity =
-                        viewModel.getUpdateLaboratoryResearchEntity(laboratoryResearch)
-                    resultView.setTryAgainAction {
-                        viewModel.reloadUpdateLaboratoryResearch(
+                    } else {
+                        // update
+                        val updateLaboratoryResearchRequestEntity =
+                            viewModel.getUpdateLaboratoryResearchEntity(laboratoryResearch)
+                        resultView.setTryAgainAction {
+                            viewModel.reloadUpdateLaboratoryResearch(
+                                updateLaboratoryResearchRequestEntity
+                            )
+                        }
+                        viewModel.updateUserLaboratoryResearch(
                             updateLaboratoryResearchRequestEntity
                         )
                     }
-                    viewModel.updateUserLaboratoryResearch(
-                        updateLaboratoryResearchRequestEntity
-                    )
+                    viewModel.laboratoryResearchChangedMap.remove(laboratoryResearchId)
                 }
                 buttonVisibility(View.INVISIBLE)
             }
@@ -171,9 +190,7 @@ class LaboratoryResearchFragment @Inject constructor() :
 
     private fun initViewPager(adapter: LaboratoryResearchAdapter) = with(binding) {
         viewPager.adapter = adapter
-        // unregister previous Page Change Callback
-        if (this@LaboratoryResearchFragment::viewPagerOnPageChangeCallback.isInitialized)
-            viewPager.unregisterOnPageChangeCallback(viewPagerOnPageChangeCallback)
+        viewPagerOnPageChangeCallback?.let { viewPager.unregisterOnPageChangeCallback(it) }
 
         viewPagerOnPageChangeCallback = object :
             ViewPager2.OnPageChangeCallback() {
@@ -186,10 +203,16 @@ class LaboratoryResearchFragment @Inject constructor() :
                 else
                     resources.getString(R.string.button_text_save)
                 // hide or show buttons
-                adapter.getFragment(viewPager.currentItem).checkDifference()
+                val laboratoryResearchId =
+                    adapter.getFragment(viewPager.currentItem).laboratoryResearchId
+                if (viewModel.laboratoryResearchChangedMap.containsKey(laboratoryResearchId)) {
+                    buttonVisibility(View.VISIBLE)
+                } else {
+                    buttonVisibility(View.INVISIBLE)
+                }
             }
         }
-        viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback)
+        viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback!!)
         viewPager.currentItem = getActualPagePosition(adapter.itemCount)
         indicator.createIndicators(
             if (adapter.itemCount > 5) 5 else adapter.itemCount,
@@ -211,15 +234,4 @@ class LaboratoryResearchFragment @Inject constructor() :
             else -> 2
         }
     else position
-
-    override fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>) =
-        viewModel.onOutOfRangeToast(name, range)
-
-    override fun sengMessageChanges(isChanged: Boolean) {
-        if (isChanged) {
-            buttonVisibility(View.VISIBLE)
-        } else {
-            buttonVisibility(View.INVISIBLE)
-        }
-    }
 }

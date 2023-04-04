@@ -1,4 +1,4 @@
-package com.example.data.repositories.laboratory_research.sources.entities
+package com.example.laboratory_research.domain.entities
 
 data class UpdateLaboratoryResearchResponseEntity(
     val result: String

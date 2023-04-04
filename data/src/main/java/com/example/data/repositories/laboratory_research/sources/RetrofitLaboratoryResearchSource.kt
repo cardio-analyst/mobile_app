@@ -13,25 +13,25 @@ class RetrofitLaboratoryResearchSource @Inject constructor(
 
     private val laboratoryResearchApi = retrofit.create(LaboratoryResearchApi::class.java)
 
-    override suspend fun getLaboratoryResearches(): List<GetLaboratoryResearchResponseEntity> =
+    override suspend fun getLaboratoryResearches(): List<GetLaboratoryResearchResponseDataEntity> =
         wrapRetrofitExceptions { laboratoryResearchApi.getLaboratoryResearches().analyses }
 
-    override suspend fun createLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity)
-            : CreateLaboratoryResearchResponseEntity =
+    override suspend fun createLaboratoryResearch(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity)
+            : CreateLaboratoryResearchResponseDataEntity =
         wrapRetrofitExceptions {
             laboratoryResearchApi.createLaboratoryResearch(
-                createLaboratoryResearchRequestEntity
+                createLaboratoryResearchRequestDataEntity
             )
         }
 
     override suspend fun updateLaboratoryResearch(
         laboratoryResearchId: Long,
-        updateLaboratoryResearchRequestEntity: UpdateLaboratoryResearchRequestEntity
-    ): UpdateLaboratoryResearchResponseEntity =
+        updateLaboratoryResearchRequestDataEntity: UpdateLaboratoryResearchRequestDataEntity
+    ): UpdateLaboratoryResearchResponseDataEntity =
         wrapRetrofitExceptions {
             laboratoryResearchApi.updateLaboratoryResearch(
                 laboratoryResearchId,
-                updateLaboratoryResearchRequestEntity
+                updateLaboratoryResearchRequestDataEntity
             )
         }
 }

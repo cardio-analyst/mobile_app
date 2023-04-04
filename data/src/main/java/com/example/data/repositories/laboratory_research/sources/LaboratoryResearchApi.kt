@@ -6,16 +6,16 @@ import retrofit2.http.*
 interface LaboratoryResearchApi {
 
     @GET("analyses")
-    suspend fun getLaboratoryResearches(): GetLaboratoryResearchArrayResponseEntity
+    suspend fun getLaboratoryResearches(): GetLaboratoryResearchArrayResponseDataEntity
 
     @POST("analyses")
     suspend fun createLaboratoryResearch(
-        @Body createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity
-    ): CreateLaboratoryResearchResponseEntity
+        @Body createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity
+    ): CreateLaboratoryResearchResponseDataEntity
 
     @PUT("analyses/{laboratoryResearchId}")
     suspend fun updateLaboratoryResearch(
         @Path("laboratoryResearchId") laboratoryResearchId: Long,
-        @Body body: UpdateLaboratoryResearchRequestEntity
-    ): UpdateLaboratoryResearchResponseEntity
+        @Body body: UpdateLaboratoryResearchRequestDataEntity
+    ): UpdateLaboratoryResearchResponseDataEntity
 }

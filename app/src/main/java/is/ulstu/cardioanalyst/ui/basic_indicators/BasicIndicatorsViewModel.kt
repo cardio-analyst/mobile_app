@@ -38,6 +38,7 @@ class BasicIndicatorsViewModel @Inject constructor(
             if (it is Error && it.error is RefreshTokenExpired)
                 throw it.error
             _basicIndicators.value = it
+            val a = 5
         }
     }
 

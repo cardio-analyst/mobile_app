@@ -11,24 +11,24 @@ interface ILaboratoryResearchDataRepository : Repository {
      * Get all available diseases to laboratoryResearches
      * @return [Flow]
      */
-    fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseEntity>>>
+    fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseDataEntity>>>
 
     /**
      * Create new user laboratoryResearch
-     * @param createLaboratoryResearchRequestEntity [CreateLaboratoryResearchRequestEntity]
+     * @param createLaboratoryResearchRequestDataEntity [CreateLaboratoryResearchRequestDataEntity]
      * @return [Flow]
      */
-    fun createLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity)
-            : Flow<ResultState<CreateLaboratoryResearchResponseEntity>>
+    fun createLaboratoryResearch(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity)
+            : Flow<ResultState<CreateLaboratoryResearchResponseDataEntity>>
 
     /**
      * Update user laboratoryResearch
-     * @param updateLaboratoryResearchIdEntity [UpdateLaboratoryResearchIdEntity]
+     * @param updateLaboratoryResearchIdDataEntity [UpdateLaboratoryResearchIdDataEntity]
      * @return [Flow]
      */
     fun updateLaboratoryResearch(
-        updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
-    ): Flow<ResultState<UpdateLaboratoryResearchResponseEntity>>
+        updateLaboratoryResearchIdDataEntity: UpdateLaboratoryResearchIdDataEntity
+    ): Flow<ResultState<UpdateLaboratoryResearchResponseDataEntity>>
 
     /**
      * Reload getting all available diseases to laboratoryResearches
@@ -37,15 +37,15 @@ interface ILaboratoryResearchDataRepository : Repository {
 
     /**
      * Reload creating new user laboratoryResearch
-     * @param createLaboratoryResearchRequestEntity [CreateLaboratoryResearchRequestEntity]
+     * @param createLaboratoryResearchRequestDataEntity [CreateLaboratoryResearchRequestDataEntity]
      */
-    fun reloadCreateLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity)
+    fun reloadCreateLaboratoryResearch(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity)
 
     /**
      * Reload updating user laboratoryResearch
-     * @param updateLaboratoryResearchIdEntity [UpdateLaboratoryResearchIdEntity]
+     * @param updateLaboratoryResearchIdDataEntity [UpdateLaboratoryResearchIdDataEntity]
      */
     fun reloadUpdateLaboratoryResearch(
-        updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
+        updateLaboratoryResearchIdDataEntity: UpdateLaboratoryResearchIdDataEntity
     )
 }

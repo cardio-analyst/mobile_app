@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package com.example.laboratory_research.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,41 +6,66 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.data.repositories.laboratory_research.sources.entities.GetLaboratoryResearchResponseEntity
+import com.example.laboratory_research.R
+import com.example.laboratory_research.databinding.FragmentLaboratoryResearchRecordBinding
+import com.example.laboratory_research.domain.entities.GetLaboratoryResearchResponseEntity
 import com.example.presentation.setTextBySample
 import com.example.presentation.smartEditText
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentLaboratoryResearchRecordBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
+class LaboratoryResearchRecordFragment @Inject constructor() : Fragment(R.layout.fragment_laboratory_research_record) {
 
-class LaboratoryResearchRecordFragment(
-    private val laboratoryResearch: GetLaboratoryResearchResponseEntity,
-    private val laboratoryResearchRecordListener: LaboratoryResearchRecordListener
-) : Fragment(R.layout.fragment_laboratory_research_record) {
+    val laboratoryResearchId by lazy {
+        arguments?.getLong(ARG_ID)
+    }
 
-    var currentLaboratoryResearch: GetLaboratoryResearchResponseEntity =
-        laboratoryResearch.copy()
+    private val viewModel by activityViewModels<LaboratoryResearchViewModel>()
+
+    private val laboratoryResearch by lazy {
+        if (laboratoryResearchId != null) {
+            viewModel.getLaboratoryResearchesById(laboratoryResearchId!!)
+                ?: viewModel.getDefaultLaboratoryResearchRecord()
+        } else {
+            viewModel.getDefaultLaboratoryResearchRecord()
+        }
+    }
+    private lateinit var currentLaboratoryResearch: GetLaboratoryResearchResponseEntity
 
     private val binding by viewBinding(FragmentLaboratoryResearchRecordBinding::bind)
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentLaboratoryResearch =
+            viewModel.laboratoryResearchChangedMap[laboratoryResearchId] ?: laboratoryResearch.copy()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initFields()
         initFieldsLogic()
     }
 
     fun resetFields() {
+        viewModel.laboratoryResearchChangedMap.remove(laboratoryResearchId)
         currentLaboratoryResearch = laboratoryResearch.copy()
         initFields()
     }
 
-    fun checkDifference() {
-        return if (currentLaboratoryResearch != laboratoryResearch)
-            laboratoryResearchRecordListener.sengMessageChanges()
-        else
-            laboratoryResearchRecordListener.sengMessageChanges(isChanged = false)
+    private fun checkDifference() {
+        if (currentLaboratoryResearch != laboratoryResearch) {
+            viewModel.laboratoryResearchChangedMap[laboratoryResearchId] = currentLaboratoryResearch
+            viewModel.currentLaboratoryResearchChanged.value = true
+        }
+        else {
+            viewModel.laboratoryResearchChangedMap.remove(laboratoryResearchId)
+            viewModel.currentLaboratoryResearchChanged.value = false
+        }
     }
 
     private fun initFieldsLogic() {
@@ -51,7 +76,7 @@ class LaboratoryResearchRecordFragment(
             val onError: (Int, ClosedFloatingPointRange<Double>) -> () -> Unit =
                 { toastErrorParamRes, range ->
                     {
-                        laboratoryResearchRecordListener.makeToast(
+                        viewModel.onOutOfRangeToast(
                             resources.getString(toastErrorParamRes),
                             range
                         )
@@ -173,47 +198,45 @@ class LaboratoryResearchRecordFragment(
                     laboratoryResearch.createdAt
 
             highDensityCholesterolTextEdit.setTextBySample(
-                value = laboratoryResearch.highDensityCholesterol,
+                value = currentLaboratoryResearch.highDensityCholesterol,
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 0.72..1.94,
             )
             lowDensityCholesterolTextEdit.setTextBySample(
-                value = laboratoryResearch.lowDensityCholesterol,
+                value = currentLaboratoryResearch.lowDensityCholesterol,
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 0.72..1.94,
             )
             triglyceridesTextEdit.setTextBySample(
-                value = laboratoryResearch.triglycerides,
+                value = currentLaboratoryResearch.triglycerides,
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 0.2..1.7,
             )
             lipoproteinTextEdit.setTextBySample(
-                value = laboratoryResearch.lipoprotein,
+                value = currentLaboratoryResearch.lipoprotein,
                 text = resources.getString(R.string.unit_g_by_l),
                 positiveRange = 0.01..0.3,
             )
             highlySensitiveCReactiveProteinTextEdit.setTextBySample(
-                value = laboratoryResearch.highlySensitiveCReactiveProtein,
+                value = currentLaboratoryResearch.highlySensitiveCReactiveProtein,
                 text = resources.getString(R.string.unit_mg_by_l),
                 positiveRange = 0.0..5.0,
             )
             atherogenicCoefficientTextEdit.setTextBySample(
-                value = laboratoryResearch.atherogenicityCoefficient,
+                value = currentLaboratoryResearch.atherogenicityCoefficient,
                 text = null,
                 positiveRange = 2.0..3.0,
             )
             creatinineTextEdit.setTextBySample(
-                value = laboratoryResearch.creatinine,
+                value = currentLaboratoryResearch.creatinine,
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 44.0..115.0,
             )
-            uzdmagResultsCheckbox.isChecked = laboratoryResearch.atheroscleroticPlaquesPresence
+            uzdmagResultsCheckbox.isChecked = currentLaboratoryResearch.atheroscleroticPlaquesPresence
         }
     }
 
-    interface LaboratoryResearchRecordListener {
-        fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>)
-
-        fun sengMessageChanges(isChanged: Boolean = true)
+    companion object {
+        const val ARG_ID = "ID"
     }
 }

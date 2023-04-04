@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/laboratoryResearchFragment"
-        android:name="is.ulstu.cardioanalyst.ui.laboratory_research.LaboratoryResearchFragment"
+        android:name="com.example.laboratory_research.presentation.LaboratoryResearchFragment"
         android:label="LaboratoryResearchFragment"
         tools:layout="@layout/fragment_laboratory_research"/>
 

@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package com.example.laboratory_research.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

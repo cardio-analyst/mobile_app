@@ -1,6 +1,6 @@
 package com.example.data.repositories.laboratory_research.sources.entities
 
-data class CreateLaboratoryResearchRequestEntity(
+data class CreateLaboratoryResearchRequestDataEntity(
     val highDensityCholesterol: Double,
     val lowDensityCholesterol: Double,
     val triglycerides: Double,

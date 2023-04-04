@@ -1,6 +1,6 @@
 package com.example.data.repositories.laboratory_research.sources.entities
 
-data class UpdateLaboratoryResearchIdEntity(
+data class UpdateLaboratoryResearchIdDataEntity(
     val laboratoryResearchId: Long,
     val highDensityCholesterol: Double,
     val lowDensityCholesterol: Double,

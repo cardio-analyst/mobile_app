@@ -14,27 +14,27 @@ interface LaboratoryResearchSource {
      * @throws ParseBackendResponseException
      * @return [List]
      */
-    suspend fun getLaboratoryResearches(): List<GetLaboratoryResearchResponseEntity>
+    suspend fun getLaboratoryResearches(): List<GetLaboratoryResearchResponseDataEntity>
 
     /**
      * Create the user laboratoryResearches
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [CreateLaboratoryResearchResponseEntity]
+     * @return [CreateLaboratoryResearchResponseDataEntity]
      */
-    suspend fun createLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity)
-            : CreateLaboratoryResearchResponseEntity
+    suspend fun createLaboratoryResearch(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity)
+            : CreateLaboratoryResearchResponseDataEntity
 
     /**
      * Update the user laboratoryResearch
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UpdateLaboratoryResearchResponseEntity]
+     * @return [UpdateLaboratoryResearchResponseDataEntity]
      */
     suspend fun updateLaboratoryResearch(
         laboratoryResearchId: Long,
-        updateLaboratoryResearchRequestEntity: UpdateLaboratoryResearchRequestEntity
-    ): UpdateLaboratoryResearchResponseEntity
+        updateLaboratoryResearchRequestDataEntity: UpdateLaboratoryResearchRequestDataEntity
+    ): UpdateLaboratoryResearchResponseDataEntity
 }

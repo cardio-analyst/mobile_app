@@ -18,27 +18,27 @@ class LaboratoryResearchDataRepository @Inject constructor(
     // --- Lazy Repository Flows for observers
 
     private val laboratoryResearchesLazyFlowSubject =
-        LazyFlowSubject<Unit, List<GetLaboratoryResearchResponseEntity>> {
+        LazyFlowSubject<Unit, List<GetLaboratoryResearchResponseDataEntity>> {
             doGetLaboratoryResearches()
         }
 
     private val laboratoryResearchCreateLazyFlowSubject =
-        LazyFlowSubject<CreateLaboratoryResearchRequestEntity, CreateLaboratoryResearchResponseEntity>
+        LazyFlowSubject<CreateLaboratoryResearchRequestDataEntity, CreateLaboratoryResearchResponseDataEntity>
         { createLaboratoryResearchRequestEntity ->
             doCreateLaboratoryResearches(createLaboratoryResearchRequestEntity)
         }
 
     private val laboratoryResearchUpdateLazyFlowSubject =
-        LazyFlowSubject<UpdateLaboratoryResearchIdEntity, UpdateLaboratoryResearchResponseEntity>
+        LazyFlowSubject<UpdateLaboratoryResearchIdDataEntity, UpdateLaboratoryResearchResponseDataEntity>
         { updateLaboratoryResearchRequestIdEntity ->
             doUpdateLaboratoryResearch(updateLaboratoryResearchRequestIdEntity)
         }
 
 
-    override fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseEntity>>> =
+    override fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseDataEntity>>> =
         laboratoryResearchesLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetLaboratoryResearches(): List<GetLaboratoryResearchResponseEntity> =
+    private suspend fun doGetLaboratoryResearches(): List<GetLaboratoryResearchResponseDataEntity> =
         wrapBackendExceptions(userRepository) {
             laboratoryResearchSource.getLaboratoryResearches()
         }
@@ -49,47 +49,47 @@ class LaboratoryResearchDataRepository @Inject constructor(
 
 
     override fun createLaboratoryResearch(
-        createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity
-    ): Flow<ResultState<CreateLaboratoryResearchResponseEntity>> =
-        laboratoryResearchCreateLazyFlowSubject.listen(createLaboratoryResearchRequestEntity)
+        createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity
+    ): Flow<ResultState<CreateLaboratoryResearchResponseDataEntity>> =
+        laboratoryResearchCreateLazyFlowSubject.listen(createLaboratoryResearchRequestDataEntity)
 
 
-    private suspend fun doCreateLaboratoryResearches(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity): CreateLaboratoryResearchResponseEntity =
+    private suspend fun doCreateLaboratoryResearches(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity): CreateLaboratoryResearchResponseDataEntity =
         wrapBackendExceptions(userRepository) {
-            laboratoryResearchSource.createLaboratoryResearch(createLaboratoryResearchRequestEntity)
+            laboratoryResearchSource.createLaboratoryResearch(createLaboratoryResearchRequestDataEntity)
         }
 
-    override fun reloadCreateLaboratoryResearch(createLaboratoryResearchRequestEntity: CreateLaboratoryResearchRequestEntity) {
-        laboratoryResearchCreateLazyFlowSubject.reloadArgument(createLaboratoryResearchRequestEntity)
+    override fun reloadCreateLaboratoryResearch(createLaboratoryResearchRequestDataEntity: CreateLaboratoryResearchRequestDataEntity) {
+        laboratoryResearchCreateLazyFlowSubject.reloadArgument(createLaboratoryResearchRequestDataEntity)
     }
 
 
     override fun updateLaboratoryResearch(
-        updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
-    ): Flow<ResultState<UpdateLaboratoryResearchResponseEntity>> =
-        laboratoryResearchUpdateLazyFlowSubject.listen(updateLaboratoryResearchIdEntity)
+        updateLaboratoryResearchIdDataEntity: UpdateLaboratoryResearchIdDataEntity
+    ): Flow<ResultState<UpdateLaboratoryResearchResponseDataEntity>> =
+        laboratoryResearchUpdateLazyFlowSubject.listen(updateLaboratoryResearchIdDataEntity)
 
-    private suspend fun doUpdateLaboratoryResearch(updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity)
-            : UpdateLaboratoryResearchResponseEntity =
+    private suspend fun doUpdateLaboratoryResearch(updateLaboratoryResearchIdDataEntity: UpdateLaboratoryResearchIdDataEntity)
+            : UpdateLaboratoryResearchResponseDataEntity =
         wrapBackendExceptions(userRepository) {
             laboratoryResearchSource.updateLaboratoryResearch(
-                laboratoryResearchId = updateLaboratoryResearchIdEntity.laboratoryResearchId,
-                updateLaboratoryResearchRequestEntity = UpdateLaboratoryResearchRequestEntity(
-                    highDensityCholesterol = updateLaboratoryResearchIdEntity.highDensityCholesterol,
-                    lowDensityCholesterol = updateLaboratoryResearchIdEntity.lowDensityCholesterol,
-                    triglycerides = updateLaboratoryResearchIdEntity.triglycerides,
-                    lipoprotein = updateLaboratoryResearchIdEntity.lipoprotein,
-                    highlySensitiveCReactiveProtein = updateLaboratoryResearchIdEntity.highlySensitiveCReactiveProtein,
-                    atherogenicityCoefficient = updateLaboratoryResearchIdEntity.atherogenicityCoefficient,
-                    creatinine = updateLaboratoryResearchIdEntity.creatinine,
-                    atheroscleroticPlaquesPresence = updateLaboratoryResearchIdEntity.atheroscleroticPlaquesPresence,
+                laboratoryResearchId = updateLaboratoryResearchIdDataEntity.laboratoryResearchId,
+                updateLaboratoryResearchRequestDataEntity = UpdateLaboratoryResearchRequestDataEntity(
+                    highDensityCholesterol = updateLaboratoryResearchIdDataEntity.highDensityCholesterol,
+                    lowDensityCholesterol = updateLaboratoryResearchIdDataEntity.lowDensityCholesterol,
+                    triglycerides = updateLaboratoryResearchIdDataEntity.triglycerides,
+                    lipoprotein = updateLaboratoryResearchIdDataEntity.lipoprotein,
+                    highlySensitiveCReactiveProtein = updateLaboratoryResearchIdDataEntity.highlySensitiveCReactiveProtein,
+                    atherogenicityCoefficient = updateLaboratoryResearchIdDataEntity.atherogenicityCoefficient,
+                    creatinine = updateLaboratoryResearchIdDataEntity.creatinine,
+                    atheroscleroticPlaquesPresence = updateLaboratoryResearchIdDataEntity.atheroscleroticPlaquesPresence,
                 )
             )
         }
 
     override fun reloadUpdateLaboratoryResearch(
-        updateLaboratoryResearchIdEntity: UpdateLaboratoryResearchIdEntity
+        updateLaboratoryResearchIdDataEntity: UpdateLaboratoryResearchIdDataEntity
     ) {
-        laboratoryResearchUpdateLazyFlowSubject.reloadArgument(updateLaboratoryResearchIdEntity)
+        laboratoryResearchUpdateLazyFlowSubject.reloadArgument(updateLaboratoryResearchIdDataEntity)
     }
 }

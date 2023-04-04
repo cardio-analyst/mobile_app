@@ -30,6 +30,7 @@ buildscript {
                         Material: "com.google.android.material:material:1.8.0",
                         Hilt: "com.google.dagger:hilt-android:$hiltVersion",
                         HiltCompiler: "com.google.dagger:hilt-compiler:$hiltVersion",
+                        HiltNavigation: "androidx.hilt:hilt-navigation-fragment:1.0.0",
                 ],
                 JetBrains: [
                         CoroutinesCore: "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
@@ -66,6 +67,7 @@ buildscript {
                         Questionnaires: [
                                 QuestionnairesList: ":features:questionnaires:questionnaires-list",
                                 Diseases: ":features:questionnaires:diseases",
+                                LaboratoryResearch: ":features:questionnaires:laboratory-research",
                         ],
                 ],
                 Training: ":training",

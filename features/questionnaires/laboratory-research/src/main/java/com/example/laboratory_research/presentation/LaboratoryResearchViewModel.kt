@@ -1,23 +1,23 @@
-package `is`.ulstu.cardioanalyst.ui.laboratory_research
+package com.example.laboratory_research.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
-import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataRepository
-import com.example.data.repositories.laboratory_research.sources.entities.*
+import com.example.laboratory_research.R
+import com.example.laboratory_research.domain.LaboratoryResearchRepository
+import com.example.laboratory_research.domain.entities.*
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.R
 import javax.inject.Inject
 
 @HiltViewModel
 class LaboratoryResearchViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val laboratoryResearchRepository: ILaboratoryResearchDataRepository,
+    private val laboratoryResearchRepository: LaboratoryResearchRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _laboratoryResearches =
@@ -32,6 +32,13 @@ class LaboratoryResearchViewModel @Inject constructor(
         SingleLiveEvent<ResultState<UpdateLaboratoryResearchResponseEntity>>()
     val updateLaboratoryResearch = _updateLaboratoryResearch.share()
 
+    val currentLaboratoryResearchChanged = SingleLiveEvent<Boolean>()
+
+    val laboratoryResearchChangedMap = mutableMapOf<Long?, GetLaboratoryResearchResponseEntity>()
+
+
+    fun getLaboratoryResearchesById(id: Long) =
+        _laboratoryResearches.value?.getValueOrNull()?.first { id == it.id }
 
     private fun getUserLaboratoryResearches() = viewModelScope.safeLaunch {
         laboratoryResearchRepository.getLaboratoryResearches().collect {

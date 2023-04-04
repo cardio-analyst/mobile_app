@@ -1,6 +1,6 @@
-package com.example.data.repositories.laboratory_research.sources.entities
+package com.example.laboratory_research.domain.entities
 
-data class UpdateLaboratoryResearchRequestEntity(
+data class CreateLaboratoryResearchRequestEntity(
     val highDensityCholesterol: Double,
     val lowDensityCholesterol: Double,
     val triglycerides: Double,
