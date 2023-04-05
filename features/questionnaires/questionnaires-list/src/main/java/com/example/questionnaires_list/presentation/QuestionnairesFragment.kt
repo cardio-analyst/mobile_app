@@ -27,6 +27,9 @@ class QuestionnairesFragment @Inject constructor() :
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             recyclerView.adapter = questionnairesAdapter
+            reportButton.setOnClickListener {
+                viewModel.launchReportScreen()
+            }
         }
     }
 

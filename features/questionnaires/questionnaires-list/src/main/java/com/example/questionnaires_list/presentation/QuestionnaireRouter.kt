@@ -9,4 +9,6 @@ interface QuestionnaireRouter {
     fun launchLaboratoryResearchScreen()
 
     fun launchLifestyleScreen()
+
+    fun launchReportScreen()
 }

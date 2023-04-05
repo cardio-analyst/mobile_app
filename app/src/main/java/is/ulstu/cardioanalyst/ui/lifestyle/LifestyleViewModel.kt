@@ -15,6 +15,7 @@ import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
+import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,7 @@ class LifestyleViewModel @Inject constructor(
     private val lifestyleRepository: ILifestyleDataRepository,
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
     private val treatmentAdherenceTestRepository: TreatmentAdherenceTestRepository,
+    private val tabsController: TabsController,
 ) : BaseViewModel(uiActions) {
 
     private val _lifestyle = SingleLiveEvent<ResultState<LifestyleMainEntity>>()
@@ -79,6 +81,15 @@ class LifestyleViewModel @Inject constructor(
 
     fun onSuccessSaveToast() = uiActions.toast(R.string.user_info_save)
 
+    fun startStenocardiaSymptomsTest() {
+        val direction = LifestyleFragmentDirections.actionLifestyleFragmentToStenocardiaSymptomsTestFragment()
+        tabsController.navigate(direction)
+    }
+
+    fun startTreatmentAdherenceTest() {
+        val direction = LifestyleFragmentDirections.actionLifestyleFragmentToTreatmentAdherenceTestFragment()
+        tabsController.navigate(direction)
+    }
 
     val familyStatusValues = listOf(
         uiActions.getString(R.string.default_option_not_choosing),

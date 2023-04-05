@@ -9,6 +9,21 @@
         android:id="@+id/lifestyleFragment"
         android:name="is.ulstu.cardioanalyst.ui.lifestyle.LifestyleFragment"
         android:label="LifestyleFragment"
-        tools:layout="@layout/fragment_lifestyle"/>
+        tools:layout="@layout/fragment_lifestyle">
+        <action
+            android:id="@+id/action_lifestyleFragment_to_stenocardiaSymptomsTestFragment"
+            app:destination="@id/stenocardiaSymptomsTestFragment" />
+        <action
+            android:id="@+id/action_lifestyleFragment_to_treatmentAdherenceTestFragment"
+            app:destination="@id/treatmentAdherenceTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stenocardiaSymptomsTestFragment"
+        android:name="is.ulstu.cardioanalyst.ui.lifestyle.tests.StenocardiaSymptomsTestFragment"
+        android:label="StenocardiaSymptomsTestFragment" />
+    <fragment
+        android:id="@+id/treatmentAdherenceTestFragment"
+        android:name="is.ulstu.cardioanalyst.ui.lifestyle.tests.TreatmentAdherenceTestFragment"
+        android:label="TreatmentAdherenceTestFragment" />
 
 </navigation>

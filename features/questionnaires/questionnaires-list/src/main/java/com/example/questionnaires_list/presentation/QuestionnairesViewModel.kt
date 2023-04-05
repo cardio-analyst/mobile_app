@@ -11,7 +11,7 @@ import javax.inject.Inject
 class QuestionnairesViewModel @Inject constructor(
     private val uiAction: UiAction,
     private val questionnaireRouter: QuestionnaireRouter,
-) : BaseViewModel() {
+) : BaseViewModel(), QuestionnaireRouter by questionnaireRouter {
 
     fun getQuestionnairesList(): List<Questionnaire> = listOf(
         Questionnaire(

@@ -27,6 +27,13 @@
         <action
             android:id="@+id/action_questionnairesFragment_to_navigation_basic_indicators"
             app:destination="@id/navigation_basic_indicators" />
+        <action
+            android:id="@+id/action_questionnairesFragment_to_sendingReportFragment"
+            app:destination="@id/sendingReportFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/sendingReportFragment"
+        android:name="is.ulstu.cardioanalyst.ui.report.SendingReportFragment"
+        android:label="SendingReportFragment" />
 
 </navigation>

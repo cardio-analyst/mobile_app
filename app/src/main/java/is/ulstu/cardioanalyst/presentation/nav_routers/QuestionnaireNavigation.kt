@@ -35,4 +35,9 @@ class QuestionnaireNavigation @Inject constructor(
         tabsController.navigate(direction)
     }
 
+    override fun launchReportScreen() {
+        val direction = QuestionnairesFragmentDirections.actionQuestionnairesFragmentToSendingReportFragment()
+        tabsController.navigate(direction)
+    }
+
 }

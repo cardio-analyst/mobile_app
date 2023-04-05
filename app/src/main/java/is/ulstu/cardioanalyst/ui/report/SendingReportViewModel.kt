@@ -19,13 +19,14 @@ import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `is`.ulstu.cardioanalyst.R
 import com.example.profile.presentation.ProfileFragment
+import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
 import javax.inject.Inject
 
 @HiltViewModel
 class SendingReportViewModel @Inject constructor(
     private val uiActions: UiAction,
     private val recommendationsRepository: IRecommendationsDataRepository,
-    private val profileFragment: ProfileFragment,
+    private val tabsController: TabsController,
 ) : BaseViewModel(uiActions) {
 
     private val _sendReportToEmail = SingleLiveEvent<ResultState<SendReportResponseEntity>>()
@@ -67,5 +68,7 @@ class SendingReportViewModel @Inject constructor(
             }
         }
     }
+
+    fun goBack() = tabsController.goBack()
 
 }

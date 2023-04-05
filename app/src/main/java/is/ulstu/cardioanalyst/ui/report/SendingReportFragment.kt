@@ -38,7 +38,7 @@ class SendingReportFragment @Inject constructor() : BaseFragment(R.layout.fragme
                 viewModel.sendReportToEmail(receiver, isSendToUserEmail)
             }
             cancelTextView.setOnClickListener {
-                //viewModel.close()
+                viewModel.goBack()
             }
         }
         viewModel.observeSendReportToEmail(this)

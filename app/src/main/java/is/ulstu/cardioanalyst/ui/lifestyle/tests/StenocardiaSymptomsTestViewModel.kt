@@ -3,11 +3,13 @@ package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
 import com.example.data.repositories.lifestyle.tests.StenocardiaSymptomsTestRepository
 import com.example.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
 import javax.inject.Inject
 
 @HiltViewModel
 class StenocardiaSymptomsTestViewModel @Inject constructor(
     private val stenocardiaSymptomsTestRepository: StenocardiaSymptomsTestRepository,
+    private val tabsController: TabsController,
 ) : BaseViewModel() {
 
     /**
@@ -29,6 +31,7 @@ class StenocardiaSymptomsTestViewModel @Inject constructor(
 
     fun finish(result: Int) {
         stenocardiaSymptomsTestRepository.scoreResult = result
+        tabsController.goBack()
     }
 
 }
