@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.basic_indicators
+package com.example.basic_indicators.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

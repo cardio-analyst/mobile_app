@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.basic_indicators
+package com.example.basic_indicators.presentation
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -6,33 +6,52 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.basic_indicators.R
+import com.example.basic_indicators.databinding.FragmentBasicIndicatorsRecordBinding
+import com.example.basic_indicators.domain.entities.GetBasicIndicatorResponseEntity
+import com.example.basic_indicators.domain.entities.GetCVERiskRequestEntity
 import com.example.common.BackendExceptions
 import com.example.common.flows.Error
 import com.example.common.flows.Success
-import com.example.data.repositories.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
-import com.example.data.repositories.basic_indicators.sources.entities.GetCVERiskRequestEntity
 import com.example.presentation.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsRecordBinding
 import com.example.presentation.setColor
 import com.example.presentation.setTextBySample
 import com.example.presentation.smartEditText
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class BasicIndicatorsRecordFragment(
-    private val basicIndicator: GetBasicIndicatorResponseEntity,
-    private val basicIndicatorRecordListener: BasicIndicatorRecordListener
-) : BaseFragment(R.layout.fragment_basic_indicators_record) {
+class BasicIndicatorsRecordFragment @Inject constructor() :
+    BaseFragment(R.layout.fragment_basic_indicators_record) {
 
-    var currentBasicIndicator: GetBasicIndicatorResponseEntity = basicIndicator.copy()
+    val basicIndicatorId by lazy {
+        arguments?.getLong(ARG_ID)
+    }
 
     override val viewModel by viewModels<BasicIndicatorsRecordViewModel>()
+    private val viewModelBasicIndicator by activityViewModels<BasicIndicatorsViewModel>()
+
+    private val basicIndicator by lazy {
+        if (basicIndicatorId != null) {
+            viewModelBasicIndicator.getLaboratoryResearchesById(basicIndicatorId!!)
+                ?: viewModelBasicIndicator.getDefaultLBasicIndicatorRecord()
+        } else {
+            viewModelBasicIndicator.getDefaultLBasicIndicatorRecord()
+        }
+    }
+    private lateinit var currentBasicIndicator: GetBasicIndicatorResponseEntity
 
     private val binding by viewBinding(FragmentBasicIndicatorsRecordBinding::bind)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentBasicIndicator = viewModelBasicIndicator.basicIndicatorsChangedMap[basicIndicatorId]
+            ?: basicIndicator.copy()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,15 +79,20 @@ class BasicIndicatorsRecordFragment(
     }
 
     fun resetFields() {
+        viewModelBasicIndicator.basicIndicatorsChangedMap.remove(basicIndicatorId)
         currentBasicIndicator = basicIndicator.copy()
         initFields()
     }
 
-    fun checkDifference() {
-        return if (currentBasicIndicator != basicIndicator)
-            basicIndicatorRecordListener.sengMessageChanges()
-        else
-            basicIndicatorRecordListener.sengMessageChanges(isChanged = false)
+    private fun checkDifference() {
+        if (currentBasicIndicator != basicIndicator) {
+            viewModelBasicIndicator.basicIndicatorsChangedMap[basicIndicatorId] =
+                currentBasicIndicator
+            viewModelBasicIndicator.currentBasicIndicatorChanged.value = true
+        } else {
+            viewModelBasicIndicator.basicIndicatorsChangedMap.remove(basicIndicatorId)
+            viewModelBasicIndicator.currentBasicIndicatorChanged.value = false
+        }
     }
 
     private fun calculateBMI(weight: Double, height: Double): Double =
@@ -82,7 +106,7 @@ class BasicIndicatorsRecordFragment(
             val onError: (Int, ClosedFloatingPointRange<Double>) -> () -> Unit =
                 { toastErrorParamRes, range ->
                     {
-                        basicIndicatorRecordListener.makeToast(
+                        viewModelBasicIndicator.onOutOfRangeToast(
                             resources.getString(toastErrorParamRes),
                             range
                         )
@@ -225,35 +249,35 @@ class BasicIndicatorsRecordFragment(
                     basicIndicator.createdAt
 
             weightTextEdit.setTextBySample(
-                value = basicIndicator.weight,
+                value = currentBasicIndicator.weight,
                 text = resources.getString(R.string.unit_kg),
             )
             heightTextEdit.setTextBySample(
-                value = basicIndicator.height,
+                value = currentBasicIndicator.height,
                 text = resources.getString(R.string.unit_sm)
             )
-            bodyMassIndexTextEdit.setText(basicIndicator.bodyMassIndex.toString())
+            bodyMassIndexTextEdit.setText(currentBasicIndicator.bodyMassIndex.toString())
             bodyMassIndexTextEdit.setColor(currentBasicIndicator.bodyMassIndex, 18.5..24.99)
             waistTextEdit.setTextBySample(
-                value = basicIndicator.waistSize,
+                value = currentBasicIndicator.waistSize,
                 text = resources.getString(R.string.unit_sm)
             )
-            genderTextViewAlert.text = basicIndicator.gender
+            genderTextViewAlert.text = currentBasicIndicator.gender
             systolicBloodPressureLevelTextEdit.setTextBySample(
-                value = basicIndicator.sbpLevel,
+                value = currentBasicIndicator.sbpLevel,
                 text = resources.getString(R.string.unit_mm_rt_st),
                 positiveRange = 100.0..130.0,
             )
-            smokingCheckbox.isChecked = basicIndicator.smoking
+            smokingCheckbox.isChecked = currentBasicIndicator.smoking
             totalCholesterolLevelTextEdit.setTextBySample(
-                value = basicIndicator.totalCholesterolLevel,
+                value = currentBasicIndicator.totalCholesterolLevel,
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 2.8..5.2,
             )
-            cvEventsRiskValueTextEdit.setText(basicIndicator.cvEventsRiskValue.toString() + "%")
-            cvEventsRiskValueTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
-            idealCardiovascularAgeTextEdit.setText(basicIndicator.idealCardiovascularAgesRange)
-            idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(basicIndicator.scale))
+            cvEventsRiskValueTextEdit.setText(currentBasicIndicator.cvEventsRiskValue.toString() + "%")
+            cvEventsRiskValueTextEdit.setTextColor(getColorByOption(currentBasicIndicator.scale))
+            idealCardiovascularAgeTextEdit.setText(currentBasicIndicator.idealCardiovascularAgesRange)
+            idealCardiovascularAgeTextEdit.setTextColor(getColorByOption(currentBasicIndicator.scale))
 
         }
     }
@@ -300,10 +324,8 @@ class BasicIndicatorsRecordFragment(
             }
         )
 
-    interface BasicIndicatorRecordListener {
-        fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>)
-
-        fun sengMessageChanges(isChanged: Boolean = true)
+    companion object {
+        const val ARG_ID = "ID"
     }
 
 }

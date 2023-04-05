@@ -1,6 +1,6 @@
 package com.example.data.repositories.basic_indicators.sources.entities
 
-data class GetIdealAgeResponseEntity(
-    val value: String,
+data class GetCVERiskResponseDataEntity(
+    val value: Int,
     val scale: String,
 )

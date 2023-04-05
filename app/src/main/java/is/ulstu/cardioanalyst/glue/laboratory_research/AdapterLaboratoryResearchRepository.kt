@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.laboratory_research
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.laboratory_research.LaboratoryResearchDataRepository
+import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataRepository
 import com.example.laboratory_research.domain.LaboratoryResearchRepository
 import com.example.laboratory_research.domain.entities.*
 import `is`.ulstu.cardioanalyst.glue.laboratory_research.mappers.*
@@ -11,8 +11,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AdapterLaboratoryResearch @Inject constructor(
-    private val laboratoryResearchRepository: LaboratoryResearchDataRepository
+class AdapterLaboratoryResearchRepository @Inject constructor(
+    private val laboratoryResearchRepository: ILaboratoryResearchDataRepository
 ) : LaboratoryResearchRepository {
 
     override fun getLaboratoryResearches(): Flow<ResultState<List<GetLaboratoryResearchResponseEntity>>> =

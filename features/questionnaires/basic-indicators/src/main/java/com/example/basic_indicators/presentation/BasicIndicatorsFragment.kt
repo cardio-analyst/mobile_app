@@ -1,32 +1,31 @@
-package `is`.ulstu.cardioanalyst.ui.basic_indicators
+package com.example.basic_indicators.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.data.repositories.basic_indicators.sources.entities.GetBasicIndicatorResponseEntity
+import com.example.basic_indicators.R
+import com.example.basic_indicators.databinding.FragmentBasicIndicatorsBinding
+import com.example.basic_indicators.domain.entities.GetBasicIndicatorResponseEntity
 import com.example.presentation.BaseFragment
 import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentBasicIndicatorsBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class BasicIndicatorsFragment @Inject constructor() :
-    BaseFragment(R.layout.fragment_basic_indicators),
-    BasicIndicatorsRecordFragment.BasicIndicatorRecordListener {
+    BaseFragment(R.layout.fragment_basic_indicators) {
 
-    override val viewModel by viewModels<BasicIndicatorsViewModel>()
+    override val viewModel by activityViewModels<BasicIndicatorsViewModel>()
 
     private val binding by viewBinding(FragmentBasicIndicatorsBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
-    private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
-    private var viewPagerCurrentPagePosition: Int? = null
+    private var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,9 +54,26 @@ class BasicIndicatorsFragment @Inject constructor() :
         observeBasicIndicators()
         observeCreateBasicIndicator()
         observeUpdateBasicIndicator()
+        observeCurrentBasicIndicatorChanged()
         viewModel.getOrReloadBasicIndicators()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewPagerOnPageChangeCallback?.let { binding.viewPager.unregisterOnPageChangeCallback(it) }
+        viewPagerOnPageChangeCallback = null
+        binding.viewPager.adapter = null
+    }
+
+    private fun observeCurrentBasicIndicatorChanged() {
+        viewModel.currentBasicIndicatorChanged.observe(viewLifecycleOwner) { changed ->
+            if (changed) {
+                buttonVisibility(View.VISIBLE)
+            } else {
+                buttonVisibility(View.INVISIBLE)
+            }
+        }
+    }
 
     private fun observeBasicIndicators() {
         viewModel.basicIndicators.observeResults(
@@ -80,7 +96,6 @@ class BasicIndicatorsFragment @Inject constructor() :
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
                     resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
-                    viewPagerCurrentPagePosition = viewPager.currentItem
                 }
                 viewModel.getOrReloadBasicIndicators()
                 viewModel.onSuccessCreateToast()
@@ -95,7 +110,6 @@ class BasicIndicatorsFragment @Inject constructor() :
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
                     resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
-                    viewPagerCurrentPagePosition = viewPager.currentItem
                 }
                 viewModel.getOrReloadBasicIndicators()
                 viewModel.onSuccessChangeToast()
@@ -109,19 +123,17 @@ class BasicIndicatorsFragment @Inject constructor() :
     ) {
         // add default
         adapter.addFragment(
-            BasicIndicatorsRecordFragment(
-                viewModel.getDefaultLBasicIndicatorRecord(),
-                this@BasicIndicatorsFragment
-            )
+            BasicIndicatorsRecordFragment()
         )
         if (basicIndicators.isNotEmpty()) {
             // add others records
             basicIndicators.forEach {
                 adapter.addFragment(
-                    BasicIndicatorsRecordFragment(
-                        it,
-                        this@BasicIndicatorsFragment
-                    )
+                    BasicIndicatorsRecordFragment().apply {
+                        arguments = bundleOf(
+                            BasicIndicatorsRecordFragment.ARG_ID to it.id
+                        )
+                    }
                 )
             }
         }
@@ -137,32 +149,36 @@ class BasicIndicatorsFragment @Inject constructor() :
             // save
             positiveButton.setOnClickListener {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_save))
-                val basicIndicator =
-                    adapter.getFragment(viewPager.currentItem).currentBasicIndicator
-                if (basicIndicator.id == null) {
-                    // create
-                    val createBasicIndicatorRequestEntity =
-                        viewModel.getCreateBasicIndicatorEntity(basicIndicator)
-                    resultView.setTryAgainAction {
-                        viewModel.reloadCreateBasicIndicator(
+                val basicIndicatorId =
+                    adapter.getFragment(viewPager.currentItem).basicIndicatorId
+                val basicIndicator = viewModel.basicIndicatorsChangedMap[basicIndicatorId]
+                if (basicIndicator != null) {
+                    if (basicIndicatorId == null) {
+                        // create
+                        val createBasicIndicatorRequestEntity =
+                            viewModel.getCreateBasicIndicatorEntity(basicIndicator)
+                        resultView.setTryAgainAction {
+                            viewModel.reloadCreateBasicIndicator(
+                                createBasicIndicatorRequestEntity
+                            )
+                        }
+                        viewModel.createUserBasicIndicators(
                             createBasicIndicatorRequestEntity
                         )
-                    }
-                    viewModel.createUserBasicIndicators(
-                        createBasicIndicatorRequestEntity
-                    )
-                } else {
-                    // update
-                    val updateBasicIndicatorRequestEntity =
-                        viewModel.getUpdateBasicIndicatorEntity(basicIndicator)
-                    resultView.setTryAgainAction {
-                        viewModel.reloadUpdateBasicIndicator(
+                    } else {
+                        // update
+                        val updateBasicIndicatorRequestEntity =
+                            viewModel.getUpdateBasicIndicatorEntity(basicIndicator)
+                        resultView.setTryAgainAction {
+                            viewModel.reloadUpdateBasicIndicator(
+                                updateBasicIndicatorRequestEntity
+                            )
+                        }
+                        viewModel.updateUserBasicIndicator(
                             updateBasicIndicatorRequestEntity
                         )
                     }
-                    viewModel.updateUserBasicIndicator(
-                        updateBasicIndicatorRequestEntity
-                    )
+                    viewModel.basicIndicatorsChangedMap.remove(basicIndicatorId)
                 }
                 buttonVisibility(View.INVISIBLE)
             }
@@ -171,9 +187,7 @@ class BasicIndicatorsFragment @Inject constructor() :
 
     private fun initViewPager(adapter: BasicIndicatorsAdapter) = with(binding) {
         viewPager.adapter = adapter
-        // unregister previous Page Change Callback
-        if (this@BasicIndicatorsFragment::viewPagerOnPageChangeCallback.isInitialized)
-            viewPager.unregisterOnPageChangeCallback(viewPagerOnPageChangeCallback)
+        viewPagerOnPageChangeCallback?.let { viewPager.unregisterOnPageChangeCallback(it) }
 
         viewPagerOnPageChangeCallback = object :
             ViewPager2.OnPageChangeCallback() {
@@ -186,10 +200,18 @@ class BasicIndicatorsFragment @Inject constructor() :
                 else
                     resources.getString(R.string.button_text_save)
                 // hide or show buttons
-                adapter.getFragment(viewPager.currentItem).checkDifference()
+                val basicIndicatorId =
+                    adapter.getFragment(viewPager.currentItem).basicIndicatorId
+                if (viewModel.basicIndicatorsChangedMap.containsKey(basicIndicatorId)) {
+                    buttonVisibility(View.VISIBLE)
+                } else {
+                    buttonVisibility(View.INVISIBLE)
+                }
+                // new current page
+                viewModel.viewPagerCurrentPagePosition = viewPager.currentItem
             }
         }
-        viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback)
+        viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback!!)
         viewPager.currentItem = getActualPagePosition(adapter.itemCount)
         indicator.createIndicators(
             if (adapter.itemCount > 5) 5 else adapter.itemCount,
@@ -198,8 +220,8 @@ class BasicIndicatorsFragment @Inject constructor() :
     }
 
     private fun getActualPagePosition(itemCount: Int): Int {
-        return viewPagerCurrentPagePosition?.let {
-            if (viewPagerCurrentPagePosition == 0 && itemCount >= 2) 1 else it
+        return viewModel.viewPagerCurrentPagePosition?.let {
+            if (viewModel.viewPagerCurrentPagePosition == 0 && itemCount >= 2) 1 else it
         } ?: if (itemCount >= 2) 1 else 0
     }
 
@@ -212,14 +234,4 @@ class BasicIndicatorsFragment @Inject constructor() :
         }
     else position
 
-    override fun <T : Comparable<T>> makeToast(name: String, range: ClosedFloatingPointRange<T>) =
-        viewModel.onOutOfRangeToast(name, range)
-
-    override fun sengMessageChanges(isChanged: Boolean) {
-        if (isChanged) {
-            buttonVisibility(View.VISIBLE)
-        } else {
-            buttonVisibility(View.INVISIBLE)
-        }
-    }
 }

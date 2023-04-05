@@ -13,44 +13,44 @@ class RetrofitBasicIndicatorsSource @Inject constructor(
 
     private val basicIndicatorsApi = retrofit.create(BasicIndicatorsApi::class.java)
 
-    override suspend fun getBasicIndicators(): List<GetBasicIndicatorResponseEntity> =
+    override suspend fun getBasicIndicators(): List<GetBasicIndicatorResponseDataEntity> =
         wrapRetrofitExceptions { basicIndicatorsApi.getBasicIndicators().basicIndicators }
 
-    override suspend fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity): CreateBasicIndicatorResponseEntity =
+    override suspend fun createBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity): CreateBasicIndicatorResponseDataEntity =
         wrapRetrofitExceptions {
             basicIndicatorsApi.createBasicIndicator(
-                createBasicIndicatorRequestEntity
+                createBasicIndicatorRequestDataEntity
             )
         }
 
     override suspend fun updateBasicIndicator(
         basicIndicatorId: Long,
-        updateBasicIndicatorRequestEntity: UpdateBasicIndicatorRequestEntity
-    ): UpdateBasicIndicatorResponseEntity =
+        updateBasicIndicatorRequestDataEntity: UpdateBasicIndicatorRequestDataEntity
+    ): UpdateBasicIndicatorResponseDataEntity =
         wrapRetrofitExceptions {
             basicIndicatorsApi.updateBasicIndicator(
                 basicIndicatorId,
-                updateBasicIndicatorRequestEntity
+                updateBasicIndicatorRequestDataEntity
             )
         }
 
-    override suspend fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetCVERiskResponseEntity =
+    override suspend fun getCVERisk(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetCVERiskResponseDataEntity =
         wrapRetrofitExceptions {
             basicIndicatorsApi.getCVERisk(
-                getCVERiskRequestEntity.gender,
-                getCVERiskRequestEntity.smoking,
-                getCVERiskRequestEntity.sbpLevel,
-                getCVERiskRequestEntity.totalCholesterolLevel
+                getCVERiskRequestDataEntity.gender,
+                getCVERiskRequestDataEntity.smoking,
+                getCVERiskRequestDataEntity.sbpLevel,
+                getCVERiskRequestDataEntity.totalCholesterolLevel
             )
         }
 
-    override suspend fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetIdealAgeResponseEntity =
+    override suspend fun getIdealAge(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetIdealAgeResponseDataEntity =
         wrapRetrofitExceptions {
             basicIndicatorsApi.getIdealAge(
-                getCVERiskRequestEntity.gender,
-                getCVERiskRequestEntity.smoking,
-                getCVERiskRequestEntity.sbpLevel,
-                getCVERiskRequestEntity.totalCholesterolLevel
+                getCVERiskRequestDataEntity.gender,
+                getCVERiskRequestDataEntity.smoking,
+                getCVERiskRequestDataEntity.sbpLevel,
+                getCVERiskRequestDataEntity.totalCholesterolLevel
             )
         }
 }

@@ -36,6 +36,8 @@ class LaboratoryResearchViewModel @Inject constructor(
 
     val laboratoryResearchChangedMap = mutableMapOf<Long?, GetLaboratoryResearchResponseEntity>()
 
+    var viewPagerCurrentPagePosition: Int? = null
+
 
     fun getLaboratoryResearchesById(id: Long) =
         _laboratoryResearches.value?.getValueOrNull()?.first { id == it.id }

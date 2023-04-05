@@ -1,23 +1,23 @@
-package `is`.ulstu.cardioanalyst.ui.basic_indicators
+package com.example.basic_indicators.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.example.basic_indicators.R
+import com.example.basic_indicators.domain.BasicIndicatorsRepository
+import com.example.basic_indicators.domain.entities.*
 import com.example.common.RefreshTokenExpired
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
-import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
-import com.example.data.repositories.basic_indicators.sources.entities.*
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
 import com.example.presentation.uiactions.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.R
 import javax.inject.Inject
 
 @HiltViewModel
 class BasicIndicatorsViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val basicIndicatorsRepository: IBasicIndicatorsDataRepository,
+    private val basicIndicatorsRepository: BasicIndicatorsRepository,
 ) : BaseViewModel(uiActions) {
 
     private val _basicIndicators =
@@ -32,13 +32,21 @@ class BasicIndicatorsViewModel @Inject constructor(
         SingleLiveEvent<ResultState<UpdateBasicIndicatorResponseEntity>>()
     val updateBasicIndicators = _updateBasicIndicators.share()
 
+    val currentBasicIndicatorChanged = SingleLiveEvent<Boolean>()
+
+    val basicIndicatorsChangedMap = mutableMapOf<Long?, GetBasicIndicatorResponseEntity>()
+
+    var viewPagerCurrentPagePosition: Int? = null
+
+
+    fun getLaboratoryResearchesById(id: Long) =
+        _basicIndicators.value?.getValueOrNull()?.first { id == it.id }
 
     private fun getUserBasicIndicators() = viewModelScope.safeLaunch {
         basicIndicatorsRepository.getBasicIndicators().collect {
             if (it is Error && it.error is RefreshTokenExpired)
                 throw it.error
             _basicIndicators.value = it
-            val a = 5
         }
     }
 

@@ -10,24 +10,24 @@ interface IBasicIndicatorsDataRepository : Repository {
      * Get all available BasicIndicators
      * @return [Flow]
      */
-    fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseEntity>>>
+    fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseDataEntity>>>
 
     /**
      * Create new user BasicIndicators record
-     * @param createBasicIndicatorRequestEntity [CreateBasicIndicatorRequestEntity]
+     * @param createBasicIndicatorRequestDataEntity [CreateBasicIndicatorRequestDataEntity]
      * @return [Flow]
      */
-    fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : Flow<ResultState<CreateBasicIndicatorResponseEntity>>
+    fun createBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity)
+            : Flow<ResultState<CreateBasicIndicatorResponseDataEntity>>
 
     /**
      * Update user BasicIndicators record
-     * @param updateBasicIndicatorIdEntity [UpdateBasicIndicatorIdEntity]
+     * @param updateBasicIndicatorIdDataEntity [UpdateBasicIndicatorIdDataEntity]
      * @return [Flow]
      */
     fun updateBasicIndicator(
-        updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity
-    ): Flow<ResultState<UpdateBasicIndicatorResponseEntity>>
+        updateBasicIndicatorIdDataEntity: UpdateBasicIndicatorIdDataEntity
+    ): Flow<ResultState<UpdateBasicIndicatorResponseDataEntity>>
 
     /**
      * Reload getting all available diseases to BasicIndicators
@@ -36,32 +36,32 @@ interface IBasicIndicatorsDataRepository : Repository {
 
     /**
      * Reload creating new user BasicIndicators record
-     * @param createBasicIndicatorRequestEntity [CreateBasicIndicatorRequestEntity]
+     * @param createBasicIndicatorRequestDataEntity [CreateBasicIndicatorRequestDataEntity]
      */
-    fun reloadCreateBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
+    fun reloadCreateBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity)
 
     /**
      * Reload updating user BasicIndicators record
-     * @param updateBasicIndicatorIdEntity [UpdateBasicIndicatorIdEntity]
+     * @param updateBasicIndicatorIdDataEntity [UpdateBasicIndicatorIdDataEntity]
      */
     fun reloadUpdateBasicIndicator(
-        updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity
+        updateBasicIndicatorIdDataEntity: UpdateBasicIndicatorIdDataEntity
     )
 
     /**
      * Get CVE risk for user
-     * @param getCVERiskRequestEntity [GetCVERiskRequestEntity]
+     * @param getCVERiskRequestDataEntity [GetCVERiskRequestDataEntity]
      */
     fun getCVERisk(
-        getCVERiskRequestEntity: GetCVERiskRequestEntity
-    ): Flow<ResultState<GetCVERiskResponseEntity>>
+        getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity
+    ): Flow<ResultState<GetCVERiskResponseDataEntity>>
 
     /**
      * Get user Ideal Age
-     * @param getCVERiskRequestEntity [GetCVERiskRequestEntity]
+     * @param getCVERiskRequestDataEntity [GetCVERiskRequestDataEntity]
      */
     fun getIdealAge(
-        getCVERiskRequestEntity: GetCVERiskRequestEntity
-    ): Flow<ResultState<GetIdealAgeResponseEntity>>
+        getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity
+    ): Flow<ResultState<GetIdealAgeResponseDataEntity>>
 
 }

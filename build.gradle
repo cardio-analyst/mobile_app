@@ -68,6 +68,7 @@ buildscript {
                                 QuestionnairesList: ":features:questionnaires:questionnaires-list",
                                 Diseases: ":features:questionnaires:diseases",
                                 LaboratoryResearch: ":features:questionnaires:laboratory-research",
+                                BasicIndicators: ":features:questionnaires:basic-indicators",
                         ],
                 ],
                 Training: ":training",

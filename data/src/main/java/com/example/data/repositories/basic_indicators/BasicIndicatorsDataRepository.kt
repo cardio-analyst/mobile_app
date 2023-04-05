@@ -18,37 +18,37 @@ class BasicIndicatorsDataRepository @Inject constructor(
     // --- Lazy Repository Flows for observers
 
     private val basicIndicatorsLazyFlowSubject =
-        LazyFlowSubject<Unit, List<GetBasicIndicatorResponseEntity>> {
+        LazyFlowSubject<Unit, List<GetBasicIndicatorResponseDataEntity>> {
             doGetBasicIndicators()
         }
 
     private val basicIndicatorCreateLazyFlowSubject =
-        LazyFlowSubject<CreateBasicIndicatorRequestEntity, CreateBasicIndicatorResponseEntity>
+        LazyFlowSubject<CreateBasicIndicatorRequestDataEntity, CreateBasicIndicatorResponseDataEntity>
         { createBasicIndicatorRequestEntity ->
             doCreateBasicIndicators(createBasicIndicatorRequestEntity)
         }
 
     private val basicIndicatorUpdateLazyFlowSubject =
-        LazyFlowSubject<UpdateBasicIndicatorIdEntity, UpdateBasicIndicatorResponseEntity>
+        LazyFlowSubject<UpdateBasicIndicatorIdDataEntity, UpdateBasicIndicatorResponseDataEntity>
         { updateBasicIndicatorIdEntity ->
             doUpdateBasicIndicators(updateBasicIndicatorIdEntity)
         }
 
     private val cveRiskLazyFlowSubject =
-        LazyFlowSubject<GetCVERiskRequestEntity, GetCVERiskResponseEntity> { getCVERiskRequestEntity ->
+        LazyFlowSubject<GetCVERiskRequestDataEntity, GetCVERiskResponseDataEntity> { getCVERiskRequestEntity ->
             doGetCVERisk(getCVERiskRequestEntity)
         }
 
     private val idealAgeLazyFlowSubject =
-        LazyFlowSubject<GetCVERiskRequestEntity, GetIdealAgeResponseEntity> { getCVERiskRequestEntity ->
+        LazyFlowSubject<GetCVERiskRequestDataEntity, GetIdealAgeResponseDataEntity> { getCVERiskRequestEntity ->
             doGetIdealAge(getCVERiskRequestEntity)
         }
 
 
-    override fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseEntity>>> =
+    override fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseDataEntity>>> =
         basicIndicatorsLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetBasicIndicators(): List<GetBasicIndicatorResponseEntity> =
+    private suspend fun doGetBasicIndicators(): List<GetBasicIndicatorResponseDataEntity> =
         wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.getBasicIndicators()
         }
@@ -58,66 +58,66 @@ class BasicIndicatorsDataRepository @Inject constructor(
     }
 
 
-    override fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : Flow<ResultState<CreateBasicIndicatorResponseEntity>> =
-        basicIndicatorCreateLazyFlowSubject.listen(createBasicIndicatorRequestEntity)
+    override fun createBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity)
+            : Flow<ResultState<CreateBasicIndicatorResponseDataEntity>> =
+        basicIndicatorCreateLazyFlowSubject.listen(createBasicIndicatorRequestDataEntity)
 
-    private suspend fun doCreateBasicIndicators(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : CreateBasicIndicatorResponseEntity =
+    private suspend fun doCreateBasicIndicators(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity)
+            : CreateBasicIndicatorResponseDataEntity =
         wrapBackendExceptions(userRepository) {
-            basicIndicatorsSource.createBasicIndicator(createBasicIndicatorRequestEntity)
+            basicIndicatorsSource.createBasicIndicator(createBasicIndicatorRequestDataEntity)
         }
 
-    override fun reloadCreateBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity) {
-        basicIndicatorCreateLazyFlowSubject.reloadArgument(createBasicIndicatorRequestEntity)
+    override fun reloadCreateBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity) {
+        basicIndicatorCreateLazyFlowSubject.reloadArgument(createBasicIndicatorRequestDataEntity)
     }
 
 
-    override fun updateBasicIndicator(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity)
-            : Flow<ResultState<UpdateBasicIndicatorResponseEntity>> =
-        basicIndicatorUpdateLazyFlowSubject.listen(updateBasicIndicatorIdEntity)
+    override fun updateBasicIndicator(updateBasicIndicatorIdDataEntity: UpdateBasicIndicatorIdDataEntity)
+            : Flow<ResultState<UpdateBasicIndicatorResponseDataEntity>> =
+        basicIndicatorUpdateLazyFlowSubject.listen(updateBasicIndicatorIdDataEntity)
 
-    private suspend fun doUpdateBasicIndicators(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity)
-            : UpdateBasicIndicatorResponseEntity =
+    private suspend fun doUpdateBasicIndicators(updateBasicIndicatorIdDataEntity: UpdateBasicIndicatorIdDataEntity)
+            : UpdateBasicIndicatorResponseDataEntity =
         wrapBackendExceptions(userRepository) {
             basicIndicatorsSource.updateBasicIndicator(
-                basicIndicatorId = updateBasicIndicatorIdEntity.basicIndicatorId,
-                updateBasicIndicatorRequestEntity = UpdateBasicIndicatorRequestEntity(
-                    weight = updateBasicIndicatorIdEntity.weight,
-                    height = updateBasicIndicatorIdEntity.height,
-                    bodyMassIndex = updateBasicIndicatorIdEntity.bodyMassIndex,
-                    waistSize = updateBasicIndicatorIdEntity.waistSize,
-                    gender = updateBasicIndicatorIdEntity.gender,
-                    sbpLevel = updateBasicIndicatorIdEntity.sbpLevel,
-                    smoking = updateBasicIndicatorIdEntity.smoking,
-                    totalCholesterolLevel = updateBasicIndicatorIdEntity.totalCholesterolLevel,
-                    cvEventsRiskValue = updateBasicIndicatorIdEntity.cvEventsRiskValue,
-                    idealCardiovascularAgesRange = updateBasicIndicatorIdEntity.idealCardiovascularAgesRange,
+                basicIndicatorId = updateBasicIndicatorIdDataEntity.basicIndicatorId,
+                updateBasicIndicatorRequestDataEntity = UpdateBasicIndicatorRequestDataEntity(
+                    weight = updateBasicIndicatorIdDataEntity.weight,
+                    height = updateBasicIndicatorIdDataEntity.height,
+                    bodyMassIndex = updateBasicIndicatorIdDataEntity.bodyMassIndex,
+                    waistSize = updateBasicIndicatorIdDataEntity.waistSize,
+                    gender = updateBasicIndicatorIdDataEntity.gender,
+                    sbpLevel = updateBasicIndicatorIdDataEntity.sbpLevel,
+                    smoking = updateBasicIndicatorIdDataEntity.smoking,
+                    totalCholesterolLevel = updateBasicIndicatorIdDataEntity.totalCholesterolLevel,
+                    cvEventsRiskValue = updateBasicIndicatorIdDataEntity.cvEventsRiskValue,
+                    idealCardiovascularAgesRange = updateBasicIndicatorIdDataEntity.idealCardiovascularAgesRange,
                 )
             )
         }
 
-    override fun reloadUpdateBasicIndicator(updateBasicIndicatorIdEntity: UpdateBasicIndicatorIdEntity) {
-        basicIndicatorUpdateLazyFlowSubject.reloadArgument(updateBasicIndicatorIdEntity)
+    override fun reloadUpdateBasicIndicator(updateBasicIndicatorIdDataEntity: UpdateBasicIndicatorIdDataEntity) {
+        basicIndicatorUpdateLazyFlowSubject.reloadArgument(updateBasicIndicatorIdDataEntity)
     }
 
 
-    override fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<ResultState<GetCVERiskResponseEntity>> =
-        cveRiskLazyFlowSubject.listen(getCVERiskRequestEntity)
+    override fun getCVERisk(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): Flow<ResultState<GetCVERiskResponseDataEntity>> =
+        cveRiskLazyFlowSubject.listen(getCVERiskRequestDataEntity)
 
 
-    private suspend fun doGetCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetCVERiskResponseEntity =
+    private suspend fun doGetCVERisk(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetCVERiskResponseDataEntity =
         wrapBackendExceptions(userRepository) {
-            basicIndicatorsSource.getCVERisk(getCVERiskRequestEntity)
+            basicIndicatorsSource.getCVERisk(getCVERiskRequestDataEntity)
         }
 
 
-    override fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): Flow<ResultState<GetIdealAgeResponseEntity>> =
-        idealAgeLazyFlowSubject.listen(getCVERiskRequestEntity)
+    override fun getIdealAge(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): Flow<ResultState<GetIdealAgeResponseDataEntity>> =
+        idealAgeLazyFlowSubject.listen(getCVERiskRequestDataEntity)
 
-    private suspend fun doGetIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetIdealAgeResponseEntity =
+    private suspend fun doGetIdealAge(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetIdealAgeResponseDataEntity =
         wrapBackendExceptions(userRepository) {
-            basicIndicatorsSource.getIdealAge(getCVERiskRequestEntity)
+            basicIndicatorsSource.getIdealAge(getCVERiskRequestDataEntity)
         }
 
 }

@@ -1,6 +1,7 @@
 package `is`.ulstu.cardioanalyst.di
 
 import com.example.authorization.domain.UserSignInRepository
+import com.example.basic_indicators.domain.BasicIndicatorsRepository
 import com.example.diseases.domain.DiseasesRepository
 import com.example.laboratory_research.domain.LaboratoryResearchRepository
 import com.example.profile.domain.UserInfoRepository
@@ -10,8 +11,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import `is`.ulstu.cardioanalyst.glue.basic_indicators.AdapterBasicIndicatorsRepository
 import `is`.ulstu.cardioanalyst.glue.diseases.AdapterDiseasesRepository
-import `is`.ulstu.cardioanalyst.glue.laboratory_research.AdapterLaboratoryResearch
+import `is`.ulstu.cardioanalyst.glue.laboratory_research.AdapterLaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.glue.recommendations.AdapterRecommendationsRepository
 import `is`.ulstu.cardioanalyst.glue.user.AdapterUserInfoRepository
 import `is`.ulstu.cardioanalyst.glue.user.AdapterUserSignInRepository
@@ -47,7 +49,12 @@ abstract class RepositoriesModule {
     ): DiseasesRepository
 
     @Binds
-    abstract fun bindLaboratoryResearch(
-        adapterLaboratoryResearch: AdapterLaboratoryResearch
+    abstract fun bindLaboratoryResearchRepository(
+        adapterLaboratoryResearchRepository: AdapterLaboratoryResearchRepository
     ): LaboratoryResearchRepository
+
+    @Binds
+    abstract fun bindBasicIndicatorsRepository(
+        adapterBasicIndicatorsRepository: AdapterBasicIndicatorsRepository
+    ): BasicIndicatorsRepository
 }

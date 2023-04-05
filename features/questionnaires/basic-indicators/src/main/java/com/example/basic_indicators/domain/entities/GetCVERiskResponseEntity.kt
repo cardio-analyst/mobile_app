@@ -1,4 +1,4 @@
-package com.example.data.repositories.basic_indicators.sources.entities
+package com.example.basic_indicators.domain.entities
 
 data class GetCVERiskResponseEntity(
     val value: Int,

@@ -17,7 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LaboratoryResearchRecordFragment @Inject constructor() : Fragment(R.layout.fragment_laboratory_research_record) {
+class LaboratoryResearchRecordFragment @Inject constructor() :
+    Fragment(R.layout.fragment_laboratory_research_record) {
 
     val laboratoryResearchId by lazy {
         arguments?.getLong(ARG_ID)
@@ -41,7 +42,8 @@ class LaboratoryResearchRecordFragment @Inject constructor() : Fragment(R.layout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currentLaboratoryResearch =
-            viewModel.laboratoryResearchChangedMap[laboratoryResearchId] ?: laboratoryResearch.copy()
+            viewModel.laboratoryResearchChangedMap[laboratoryResearchId]
+                ?: laboratoryResearch.copy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,8 +63,7 @@ class LaboratoryResearchRecordFragment @Inject constructor() : Fragment(R.layout
         if (currentLaboratoryResearch != laboratoryResearch) {
             viewModel.laboratoryResearchChangedMap[laboratoryResearchId] = currentLaboratoryResearch
             viewModel.currentLaboratoryResearchChanged.value = true
-        }
-        else {
+        } else {
             viewModel.laboratoryResearchChangedMap.remove(laboratoryResearchId)
             viewModel.currentLaboratoryResearchChanged.value = false
         }
@@ -232,7 +233,8 @@ class LaboratoryResearchRecordFragment @Inject constructor() : Fragment(R.layout
                 text = resources.getString(R.string.unit_mmol_by_l),
                 positiveRange = 44.0..115.0,
             )
-            uzdmagResultsCheckbox.isChecked = currentLaboratoryResearch.atheroscleroticPlaquesPresence
+            uzdmagResultsCheckbox.isChecked =
+                currentLaboratoryResearch.atheroscleroticPlaquesPresence
         }
     }
 

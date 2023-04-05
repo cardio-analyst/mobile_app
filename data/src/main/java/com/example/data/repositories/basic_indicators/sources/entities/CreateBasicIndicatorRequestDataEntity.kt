@@ -1,6 +1,6 @@
 package com.example.data.repositories.basic_indicators.sources.entities
 
-data class UpdateBasicIndicatorRequestEntity(
+data class CreateBasicIndicatorRequestDataEntity(
     val weight: Double,
     val height: Double,
     val bodyMassIndex: Double,

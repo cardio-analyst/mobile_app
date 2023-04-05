@@ -6,18 +6,18 @@ import retrofit2.http.*
 interface BasicIndicatorsApi {
 
     @GET("basicIndicators")
-    suspend fun getBasicIndicators(): GetBasicIndicatorsArrayResponseEntity
+    suspend fun getBasicIndicators(): GetBasicIndicatorsArrayResponseDataEntity
 
     @POST("basicIndicators")
     suspend fun createBasicIndicator(
-        @Body createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity
-    ): CreateBasicIndicatorResponseEntity
+        @Body createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity
+    ): CreateBasicIndicatorResponseDataEntity
 
     @PUT("basicIndicators/{basicIndicatorId}")
     suspend fun updateBasicIndicator(
         @Path("basicIndicatorId") basicIndicatorId: Long,
-        @Body body: UpdateBasicIndicatorRequestEntity
-    ): UpdateBasicIndicatorResponseEntity
+        @Body body: UpdateBasicIndicatorRequestDataEntity
+    ): UpdateBasicIndicatorResponseDataEntity
 
     @GET("score/cveRisk")
     suspend fun getCVERisk(
@@ -25,7 +25,7 @@ interface BasicIndicatorsApi {
         @Query("smoking") smoking: Boolean,
         @Query("sbpLevel") sbpLevel: Double,
         @Query("totalCholesterolLevel") totalCholesterolLevel: Double
-    ): GetCVERiskResponseEntity
+    ): GetCVERiskResponseDataEntity
 
     @GET("score/idealAge")
     suspend fun getIdealAge(
@@ -33,5 +33,5 @@ interface BasicIndicatorsApi {
         @Query("smoking") smoking: Boolean,
         @Query("sbpLevel") sbpLevel: Double,
         @Query("totalCholesterolLevel") totalCholesterolLevel: Double
-    ): GetIdealAgeResponseEntity
+    ): GetIdealAgeResponseDataEntity
 }

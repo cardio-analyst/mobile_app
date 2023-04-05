@@ -14,46 +14,46 @@ interface BasicIndicatorsSource {
      * @throws ParseBackendResponseException
      * @return [List]
      */
-    suspend fun getBasicIndicators(): List<GetBasicIndicatorResponseEntity>
+    suspend fun getBasicIndicators(): List<GetBasicIndicatorResponseDataEntity>
 
     /**
      * Create the user BasicIndicator
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [CreateBasicIndicatorResponseEntity]
+     * @return [CreateBasicIndicatorResponseDataEntity]
      */
-    suspend fun createBasicIndicator(createBasicIndicatorRequestEntity: CreateBasicIndicatorRequestEntity)
-            : CreateBasicIndicatorResponseEntity
+    suspend fun createBasicIndicator(createBasicIndicatorRequestDataEntity: CreateBasicIndicatorRequestDataEntity)
+            : CreateBasicIndicatorResponseDataEntity
 
     /**
      * Update the user BasicIndicator
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [UpdateBasicIndicatorResponseEntity]
+     * @return [UpdateBasicIndicatorResponseDataEntity]
      */
     suspend fun updateBasicIndicator(
         basicIndicatorId: Long,
-        updateBasicIndicatorRequestEntity: UpdateBasicIndicatorRequestEntity
-    ): UpdateBasicIndicatorResponseEntity
+        updateBasicIndicatorRequestDataEntity: UpdateBasicIndicatorRequestDataEntity
+    ): UpdateBasicIndicatorResponseDataEntity
 
     /**
      * Get the user CVERisk
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [GetCVERiskResponseEntity]
+     * @return [GetCVERiskResponseDataEntity]
      */
-    suspend fun getCVERisk(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetCVERiskResponseEntity
+    suspend fun getCVERisk(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetCVERiskResponseDataEntity
 
     /**
      * Get the user ideal age
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [GetIdealAgeResponseEntity]
+     * @return [GetIdealAgeResponseDataEntity]
      */
-    suspend fun getIdealAge(getCVERiskRequestEntity: GetCVERiskRequestEntity): GetIdealAgeResponseEntity
+    suspend fun getIdealAge(getCVERiskRequestDataEntity: GetCVERiskRequestDataEntity): GetIdealAgeResponseDataEntity
 
 }

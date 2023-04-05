@@ -26,7 +26,6 @@ class LaboratoryResearchFragment @Inject constructor() :
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
     private var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
-    private var viewPagerCurrentPagePosition: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +54,7 @@ class LaboratoryResearchFragment @Inject constructor() :
         observeLaboratoryResearches()
         observeCreateLaboratoryResearch()
         observeUpdateLaboratoryResearch()
-        observeCurrentLaboratoryChanged()
+        observeCurrentLaboratoryResearchChanged()
         viewModel.getOrReloadLaboratoryResearches()
     }
 
@@ -63,9 +62,10 @@ class LaboratoryResearchFragment @Inject constructor() :
         super.onPause()
         viewPagerOnPageChangeCallback?.let { binding.viewPager.unregisterOnPageChangeCallback(it) }
         viewPagerOnPageChangeCallback = null
+        binding.viewPager.adapter = null
     }
 
-    private fun observeCurrentLaboratoryChanged() {
+    private fun observeCurrentLaboratoryResearchChanged() {
         viewModel.currentLaboratoryResearchChanged.observe(viewLifecycleOwner) { changed ->
             if (changed) {
                 buttonVisibility(View.VISIBLE)
@@ -96,7 +96,6 @@ class LaboratoryResearchFragment @Inject constructor() :
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
                     resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
-                    viewPagerCurrentPagePosition = viewPager.currentItem
                 }
                 viewModel.getOrReloadLaboratoryResearches()
                 viewModel.onSuccessCreateToast()
@@ -111,7 +110,6 @@ class LaboratoryResearchFragment @Inject constructor() :
                 with(binding) {
                     resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
                     resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
-                    viewPagerCurrentPagePosition = viewPager.currentItem
                 }
                 viewModel.getOrReloadLaboratoryResearches()
                 viewModel.onSuccessChangeToast()
@@ -210,6 +208,8 @@ class LaboratoryResearchFragment @Inject constructor() :
                 } else {
                     buttonVisibility(View.INVISIBLE)
                 }
+                // new current page
+                viewModel.viewPagerCurrentPagePosition = viewPager.currentItem
             }
         }
         viewPager.registerOnPageChangeCallback(viewPagerOnPageChangeCallback!!)
@@ -221,8 +221,8 @@ class LaboratoryResearchFragment @Inject constructor() :
     }
 
     private fun getActualPagePosition(itemCount: Int): Int {
-        return viewPagerCurrentPagePosition?.let {
-            if (viewPagerCurrentPagePosition == 0 && itemCount >= 2) 1 else it
+        return viewModel.viewPagerCurrentPagePosition?.let {
+            if (viewModel.viewPagerCurrentPagePosition == 0 && itemCount >= 2) 1 else it
         } ?: if (itemCount >= 2) 1 else 0
     }
 

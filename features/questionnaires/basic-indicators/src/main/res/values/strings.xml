@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Toasts -->
+    <string name="user_info_save">Изменения успешно обновлены</string>
+    <string name="user_info_create">Изменения успешно сохранены</string>
+    <string name="out_of_range_toast">Показатель: %s, должен быть в диапазоне от %.1f до %.1f</string>
+
+    <string name="default_option_not_choosing">Не выбрано</string>
+
+    <!-- Basic Indicators -->
+    <string name="basic_indicators_default_tooltip">Заполните и сохраните текущие показатели сердечно-сосудистого здоровья</string>
+    <string name="weight">Вес</string>
+    <string name="height">Рост</string>
+    <string name="body_mass_index_BMI">Вычисленный индекс массы тела (ИМТ)</string>
+    <string name="waist">Объем талии</string>
+    <string name="gender">Пол</string>
+    <string name="systolic_blood_pressure_level">Уровень систолического АД</string>
+    <string name="smoking">Курение</string>
+    <string name="total_cholesterol">Общий холестерин</string>
+    <string name="risk_of_cardiovascular_events">Риск сердечно-сосудистых событий в течение 10 лет по шкале SCORE</string>
+    <string name="risk_of_cardiovascular_description">Хорошее значение для вашего возраста отображаются зеленым цветом\nПриемлемые значения - желтым цветом\nКрасным цветом обозначаются тревожные значения риска, если система расчитала такое значение, рекомендуем изменить ваш образ жизни</string>
+    <string name="ideal_cardiovascular_age">Ваш сердечно-сосудистый возраст</string>
+    <string name="ideal_cardiovascular_age_description">Возраст человека - это возраст его сосудов \nЧем сильнее показатель сердечно-сосудистого возраста старше вашего истинного возраста, тем серъезнее вам нужно задуматься о своем здоровье</string>
+    <string name="choose_gender">Укажите свой пол</string>
+    <string name="genderMan">Мужской</string>
+    <string name="genderWoman">Женский</string>
+    <string name="unit_sm">см</string>
+    <string name="unit_kg">кг</string>
+    <string name="unit_mm_rt_st">мм.рт.ст</string>
+    <string name="unit_mmol_by_l">ммоль/л</string>
+
+    <!-- Button's texts -->
+    <string name="button_text_save">Сохранить</string>
+    <string name="button_text_reset">Сбросить</string>
+    <string name="button_text_add">Добавить</string>
+    <string name="button_text_calculate">Рассчитать</string>
+
+
+    <!-- Flow Pending Descriptions -->
+    <string name="flow_pending_user_basic_indicators_load">Загрузка персональных данных об анализах</string>
+    <string name="flow_pending_user_basic_indicators_save">Сохранение персональных данных об анализах</string>
+
+    <!-- Tooltips -->
+    <string name="basic_indicators_tooltip">Пожалуйста, заполните базовые показатели сердечно-сосудистого здоровья</string>
+
+</resources>
