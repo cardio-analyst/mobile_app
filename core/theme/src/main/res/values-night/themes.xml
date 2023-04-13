@@ -9,8 +9,9 @@
         <item name="colorSecondary">@color/enter_color</item>
         <item name="colorSecondaryVariant">@color/navigation_title_night</item>
         <item name="colorOnSecondary">@color/active_color</item>
+        <item name="colorOnSurface">@color/inactive_color</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background_night</item>
         <item name="android:textColor">@color/text_color_night</item>

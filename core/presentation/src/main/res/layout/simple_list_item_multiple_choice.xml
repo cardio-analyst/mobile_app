@@ -5,7 +5,6 @@
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:gravity="center_vertical"
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-    android:checkMarkTint="@color/background_color"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:textColor="@color/inactive_color"

@@ -9,6 +9,7 @@
     <!-- Margins -->
     <dimen name="titleVerticalMargin">14dp</dimen>
     <dimen name="titleHorizontalMargin">12dp</dimen>
+    <dimen name="logoVerticalMargin">60dp</dimen>
     <!-- Paddings -->
     <dimen name="titleVerticalPadding">4dp</dimen>
     <dimen name="titleHorizontalPadding">20dp</dimen>

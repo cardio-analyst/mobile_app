@@ -218,11 +218,10 @@
                 android:id="@+id/uzdmag_resultsCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/uzdmag_results"
-                app:layout_constraintBottom_toBottomOf="@id/uzdmag_results"
-                android:theme="@style/checkBoxStyle"/>
+                app:layout_constraintBottom_toBottomOf="@id/uzdmag_results"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -196,11 +196,10 @@
                 android:id="@+id/smokingCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/smoking"
-                app:layout_constraintBottom_toBottomOf="@id/smoking"
-                android:theme="@style/checkBoxStyle"/>
+                app:layout_constraintBottom_toBottomOf="@id/smoking"/>
 
             <TextView
                 android:id="@+id/totalCholesterolLevel"
