@@ -4,14 +4,12 @@ import com.example.authorization.presentation.AuthorizationRouter
 import com.example.profile.presentation.ProfileRouter
 import com.example.questionnaires_list.presentation.QuestionnaireRouter
 import com.example.registration.presentation.RegistrationRouter
+import com.example.report.presentation.ReportRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import `is`.ulstu.cardioanalyst.presentation.nav_routers.AuthorizationNavigation
-import `is`.ulstu.cardioanalyst.presentation.nav_routers.ProfileNavigation
-import `is`.ulstu.cardioanalyst.presentation.nav_routers.QuestionnaireNavigation
-import `is`.ulstu.cardioanalyst.presentation.nav_routers.RegistrationNavigation
+import `is`.ulstu.cardioanalyst.presentation.nav_routers.*
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,4 +34,9 @@ abstract class RoutersModule {
     abstract fun bindQuestionnaireRouter(
         questionnaireNavigation: QuestionnaireNavigation
     ): QuestionnaireRouter
+
+    @Binds
+    abstract fun bindReportRouter(
+        reportNavigation: ReportNavigation,
+    ): ReportRouter
 }

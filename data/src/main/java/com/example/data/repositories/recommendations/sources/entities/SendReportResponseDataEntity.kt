@@ -1,5 +1,5 @@
 package com.example.data.repositories.recommendations.sources.entities
 
-data class SendReportResponseEntity(
+data class SendReportResponseDataEntity(
     val result: String,
 )

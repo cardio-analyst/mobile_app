@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui
+package `is`.ulstu.cardioanalyst.presentation.ui.tabs
 
 import android.content.Context
 import android.os.Bundle

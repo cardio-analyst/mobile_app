@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.lifestyle
+package `is`.ulstu.cardioanalyst.presentation.ui.lifestyle
 
 import android.app.AlertDialog
 import android.os.Bundle

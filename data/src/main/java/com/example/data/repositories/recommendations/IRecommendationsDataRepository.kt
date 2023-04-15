@@ -3,8 +3,8 @@ package com.example.data.repositories.recommendations
 import com.example.common.flows.ResultState
 import com.example.data.Repository
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface IRecommendationsDataRepository : Repository {
@@ -23,11 +23,11 @@ interface IRecommendationsDataRepository : Repository {
     /**
      * Send report to email
      */
-    fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<ResultState<SendReportResponseEntity>>
+    fun sendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity): Flow<ResultState<SendReportResponseDataEntity>>
 
     /**
      * Reload sending report
      */
-    fun reloadSendReportToEmail(sendReportRequestEntity: SendReportRequestEntity)
+    fun reloadSendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity)
 
 }

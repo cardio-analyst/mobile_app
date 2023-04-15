@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/navigation_tabs"
-        android:name="is.ulstu.cardioanalyst.ui.TabsFragment"
+        android:name="is.ulstu.cardioanalyst.presentation.ui.tabs.TabsFragment"
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs" >
         <action

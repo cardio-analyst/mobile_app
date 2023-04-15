@@ -7,6 +7,7 @@ import com.example.laboratory_research.domain.LaboratoryResearchRepository
 import com.example.profile.domain.UserInfoRepository
 import com.example.recommendations.domain.RecommendationsRepository
 import com.example.registration.domain.UserSignUpRepository
+import com.example.report.domain.ReportRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import `is`.ulstu.cardioanalyst.glue.basic_indicators.AdapterBasicIndicatorsRepo
 import `is`.ulstu.cardioanalyst.glue.diseases.AdapterDiseasesRepository
 import `is`.ulstu.cardioanalyst.glue.laboratory_research.AdapterLaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.glue.recommendations.AdapterRecommendationsRepository
+import `is`.ulstu.cardioanalyst.glue.report.AdapterReportRepository
 import `is`.ulstu.cardioanalyst.glue.user.AdapterUserInfoRepository
 import `is`.ulstu.cardioanalyst.glue.user.AdapterUserSignInRepository
 import `is`.ulstu.cardioanalyst.glue.user.AdapterUserSignUpRepository
@@ -57,4 +59,9 @@ abstract class RepositoriesModule {
     abstract fun bindBasicIndicatorsRepository(
         adapterBasicIndicatorsRepository: AdapterBasicIndicatorsRepository
     ): BasicIndicatorsRepository
+
+    @Binds
+    abstract fun bindReportRepository(
+        adapterReportRepository: AdapterReportRepository
+    ): ReportRepository
 }

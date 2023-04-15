@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/sendingReportFragment"
-        android:name="is.ulstu.cardioanalyst.ui.report.SendingReportFragment"
+        android:name="com.example.report.presentation.SendingReportFragment"
         android:label="SendingReportFragment" />
 
 </navigation>

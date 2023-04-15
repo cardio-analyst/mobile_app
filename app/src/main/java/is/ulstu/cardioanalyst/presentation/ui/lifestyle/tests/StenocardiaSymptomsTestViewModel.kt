@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
+package `is`.ulstu.cardioanalyst.presentation.ui.lifestyle.tests
 
 import com.example.data.repositories.lifestyle.tests.StenocardiaSymptomsTestRepository
 import com.example.presentation.BaseViewModel

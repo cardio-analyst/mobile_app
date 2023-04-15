@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report_sent_toast">Отчет отправлен на почту</string>
+    <string name="unknown_exception">Неизвестная ошибка</string>
+
+    <string name="send_to_myself_text">Отправить себе на почту</string>
+    <string name="share_text">Поделиться</string>
+    <string name="send_to_email_text">Отправка отчета на почту</string>
+    <string name="email_doctor_text">Почта врача (не обязательно)</string>
+
+    <string name="button_text_send">Отправить</string>
+</resources>

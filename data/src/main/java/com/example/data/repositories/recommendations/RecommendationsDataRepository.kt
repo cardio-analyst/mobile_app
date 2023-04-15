@@ -4,8 +4,8 @@ import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.recommendations.sources.RecommendationsSource
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
 import com.example.data.repositories.users.IUserDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class RecommendationsDataRepository @Inject constructor(
         }
 
     private val sendReportToEmailLazyFlowSubject =
-        LazyFlowSubject<SendReportRequestEntity, SendReportResponseEntity> { sendReportRequestEntity ->
+        LazyFlowSubject<SendReportRequestDataEntity, SendReportResponseDataEntity> { sendReportRequestEntity ->
             doSendReportToEmail(sendReportRequestEntity)
         }
 
@@ -43,16 +43,16 @@ class RecommendationsDataRepository @Inject constructor(
     }
 
 
-    override fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): Flow<ResultState<SendReportResponseEntity>> =
-        sendReportToEmailLazyFlowSubject.listen(sendReportRequestEntity)
+    override fun sendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity): Flow<ResultState<SendReportResponseDataEntity>> =
+        sendReportToEmailLazyFlowSubject.listen(sendReportRequestDataEntity)
 
-    private suspend fun doSendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): SendReportResponseEntity =
+    private suspend fun doSendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity): SendReportResponseDataEntity =
         wrapBackendExceptions(userRepository) {
-            recommendationsSource.sendReportToEmail(sendReportRequestEntity)
+            recommendationsSource.sendReportToEmail(sendReportRequestDataEntity)
         }
 
-    override fun reloadSendReportToEmail(sendReportRequestEntity: SendReportRequestEntity) {
-        sendReportToEmailLazyFlowSubject.reloadArgument(sendReportRequestEntity)
+    override fun reloadSendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity) {
+        sendReportToEmailLazyFlowSubject.reloadArgument(sendReportRequestDataEntity)
     }
 
 }

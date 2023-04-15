@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.report
+package com.example.report.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
@@ -10,24 +10,22 @@ import com.example.common.constants.RegexConstants
 import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
-import com.example.data.repositories.recommendations.IRecommendationsDataRepository
-import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.uiactions.UiAction
+import com.example.report.R
+import com.example.report.domain.ReportRepository
+import com.example.report.domain.entities.SendReportRequestEntity
+import com.example.report.domain.entities.SendReportResponseEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `is`.ulstu.cardioanalyst.R
-import com.example.profile.presentation.ProfileFragment
-import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
 import javax.inject.Inject
 
 @HiltViewModel
 class SendingReportViewModel @Inject constructor(
     private val uiActions: UiAction,
-    private val recommendationsRepository: IRecommendationsDataRepository,
-    private val tabsController: TabsController,
-) : BaseViewModel(uiActions) {
+    private val reportRepository: ReportRepository,
+    private val reportRouter: ReportRouter,
+) : BaseViewModel(uiActions), ReportRouter by reportRouter {
 
     private val _sendReportToEmail = SingleLiveEvent<ResultState<SendReportResponseEntity>>()
 
@@ -43,7 +41,7 @@ class SendingReportViewModel @Inject constructor(
             }
 
 
-            recommendationsRepository.sendReportToEmail(
+            reportRepository.sendReportToEmail(
                 SendReportRequestEntity(receiver, isSendToUserEmail)
             ).collect {
                 if (it is Error && it.error is RefreshTokenExpired)
@@ -68,7 +66,5 @@ class SendingReportViewModel @Inject constructor(
             }
         }
     }
-
-    fun goBack() = tabsController.goBack()
 
 }

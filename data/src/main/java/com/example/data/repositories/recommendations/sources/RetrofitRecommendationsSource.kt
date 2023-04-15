@@ -3,8 +3,8 @@ package com.example.data.repositories.recommendations.sources
 import com.example.data.base.network.BaseRetrofitSource
 import com.example.data.base.network.RetrofitConfig
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,7 +18,7 @@ class RetrofitRecommendationsSource @Inject constructor(
     override suspend fun getRecommendations(): List<GetRecommendationsResponseDataEntity> =
         wrapRetrofitExceptions { recommendationsApi.getRecommendations().recommendations }
 
-    override suspend fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): SendReportResponseEntity =
-        wrapRetrofitExceptions { recommendationsApi.sendReportToEmail(sendReportRequestEntity) }
+    override suspend fun sendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity): SendReportResponseDataEntity =
+        wrapRetrofitExceptions { recommendationsApi.sendReportToEmail(sendReportRequestDataEntity) }
 
 }

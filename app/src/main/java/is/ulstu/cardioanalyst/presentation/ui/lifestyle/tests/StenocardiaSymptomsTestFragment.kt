@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.lifestyle.tests
+package `is`.ulstu.cardioanalyst.presentation.ui.lifestyle.tests
 
 import android.os.Bundle
 import android.view.View

@@ -13,8 +13,3 @@ abstract class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
     abstract val viewModel: BaseViewModel
 
 }
-
-/*
-fun Fragment.findMainNavController(): NavController {
-    return requireActivity().findNavController(R.id.nav_host_activity_main)
-}*/

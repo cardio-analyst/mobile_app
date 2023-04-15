@@ -4,8 +4,8 @@ import com.example.common.BackendExceptions
 import com.example.common.ConnectionException
 import com.example.common.ParseBackendResponseException
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportRequestEntity
-import com.example.data.repositories.recommendations.sources.entities.SendReportResponseEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
+import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
 
 interface RecommendationsSource {
 
@@ -23,8 +23,8 @@ interface RecommendationsSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [SendReportResponseEntity]
+     * @return [SendReportResponseDataEntity]
      */
-    suspend fun sendReportToEmail(sendReportRequestEntity: SendReportRequestEntity): SendReportResponseEntity
+    suspend fun sendReportToEmail(sendReportRequestDataEntity: SendReportRequestDataEntity): SendReportResponseDataEntity
 
 }

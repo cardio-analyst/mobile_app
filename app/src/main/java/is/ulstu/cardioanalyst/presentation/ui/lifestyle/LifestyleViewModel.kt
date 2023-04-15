@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.lifestyle
+package `is`.ulstu.cardioanalyst.presentation.ui.lifestyle
 
 import androidx.lifecycle.viewModelScope
 import com.example.common.RefreshTokenExpired
@@ -82,12 +82,14 @@ class LifestyleViewModel @Inject constructor(
     fun onSuccessSaveToast() = uiActions.toast(R.string.user_info_save)
 
     fun startStenocardiaSymptomsTest() {
-        val direction = LifestyleFragmentDirections.actionLifestyleFragmentToStenocardiaSymptomsTestFragment()
+        val direction =
+            LifestyleFragmentDirections.actionLifestyleFragmentToStenocardiaSymptomsTestFragment()
         tabsController.navigate(direction)
     }
 
     fun startTreatmentAdherenceTest() {
-        val direction = LifestyleFragmentDirections.actionLifestyleFragmentToTreatmentAdherenceTestFragment()
+        val direction =
+            LifestyleFragmentDirections.actionLifestyleFragmentToTreatmentAdherenceTestFragment()
         tabsController.navigate(direction)
     }
 

@@ -1,4 +1,4 @@
-package `is`.ulstu.cardioanalyst.ui.report
+package com.example.report.presentation
 
 import android.graphics.Paint
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
+import com.example.report.R
+import com.example.report.databinding.FragmentSendReportBinding
 import dagger.hilt.android.AndroidEntryPoint
-import `is`.ulstu.cardioanalyst.R
-import `is`.ulstu.cardioanalyst.databinding.FragmentSendReportBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint

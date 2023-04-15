@@ -2,7 +2,7 @@ package `is`.ulstu.cardioanalyst.presentation.nav_routers
 
 import com.example.profile.presentation.ProfileRouter
 import `is`.ulstu.cardioanalyst.presentation.controllers.MainController
-import `is`.ulstu.cardioanalyst.ui.TabsFragmentDirections
+import `is`.ulstu.cardioanalyst.presentation.ui.tabs.TabsFragmentDirections
 import javax.inject.Inject
 import javax.inject.Singleton
 

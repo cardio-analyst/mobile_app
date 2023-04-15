@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/top_round_background"
-    tools:context=".ui.lifestyle.LifestyleFragment">
+    tools:context=".presentation.ui.lifestyle.LifestyleFragment">
 
     <TextView
         android:id="@+id/lifestyleTooltip"

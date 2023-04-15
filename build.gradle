@@ -64,6 +64,7 @@ buildscript {
                         Authorization: ":features:authorization",
                         Registration: ":features:registration",
                         Recommendations: ":features:recommendations",
+                        Report: ":features:report",
                         Questionnaires: [
                                 QuestionnairesList: ":features:questionnaires:questionnaires-list",
                                 Diseases: ":features:questionnaires:diseases",

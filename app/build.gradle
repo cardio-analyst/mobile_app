@@ -81,6 +81,7 @@ dependencies {
     implementation project(Modules.Features.Registration)
     implementation project(Modules.Features.Profile)
     implementation project(Modules.Features.Recommendations)
+    implementation project(Modules.Features.Report)
     implementation project(Modules.Features.Questionnaires.QuestionnairesList)
     implementation project(Modules.Features.Questionnaires.Diseases)
     implementation project(Modules.Features.Questionnaires.LaboratoryResearch)
