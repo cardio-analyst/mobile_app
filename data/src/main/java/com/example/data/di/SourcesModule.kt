@@ -10,6 +10,10 @@ import com.example.data.repositories.lifestyle.sources.LifestyleSource
 import com.example.data.repositories.lifestyle.sources.RetrofitLifestyleSource
 import com.example.data.repositories.recommendations.sources.RecommendationsSource
 import com.example.data.repositories.recommendations.sources.RetrofitRecommendationsSource
+import com.example.data.repositories.stenocardia_symptoms_test.sources.RetrofitStenocardiaSymptomsTestSource
+import com.example.data.repositories.stenocardia_symptoms_test.sources.StenocardiaSymptomsTestSource
+import com.example.data.repositories.treatment_adherence_test.sources.RetrofitTreatmentAdherenceTestSource
+import com.example.data.repositories.treatment_adherence_test.sources.TreatmentAdherenceTestSource
 import com.example.data.repositories.users.sources.RetrofitUsersSource
 import com.example.data.repositories.users.sources.UsersSource
 import dagger.Binds
@@ -50,5 +54,15 @@ abstract class SourcesModule {
     abstract fun bindRetrofitUsersSource(
         retrofitUsersSource: RetrofitUsersSource
     ): UsersSource
+
+    @Binds
+    abstract fun bindRetrofitStenocardiaSymptomsTestSource(
+        retrofitStenocardiaSymptomsTestSource: RetrofitStenocardiaSymptomsTestSource
+    ): StenocardiaSymptomsTestSource
+
+    @Binds
+    abstract fun bindRetrofitTreatmentAdherenceTestSource(
+        retrofitTreatmentAdherenceTestSource: RetrofitTreatmentAdherenceTestSource
+    ): TreatmentAdherenceTestSource
 
 }

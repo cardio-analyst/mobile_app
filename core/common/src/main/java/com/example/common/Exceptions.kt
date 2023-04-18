@@ -23,6 +23,7 @@ class ParseBackendResponseException(
 class ErrorResponseBody(
     val error: String,
     val description: String,
+    val devMessage: String,
 )
 
 class AutoSignInException :

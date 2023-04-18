@@ -11,4 +11,8 @@ interface QuestionnaireRouter {
     fun launchLifestyleScreen()
 
     fun launchReportScreen()
+
+    fun launchStenocardiaSymptomsTest()
+
+    fun launchTreatmentAdherenceTest()
 }

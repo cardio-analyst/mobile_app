@@ -30,10 +30,24 @@
         <action
             android:id="@+id/action_questionnairesFragment_to_sendingReportFragment"
             app:destination="@id/sendingReportFragment" />
+        <action
+            android:id="@+id/action_questionnairesFragment_to_stenocardiaSymptomsTestFragment2"
+            app:destination="@id/stenocardiaSymptomsTestFragment2" />
+        <action
+            android:id="@+id/action_questionnairesFragment_to_treatmentAdherenceTestFragment2"
+            app:destination="@id/treatmentAdherenceTestFragment2" />
     </fragment>
     <fragment
         android:id="@+id/sendingReportFragment"
         android:name="com.example.report.presentation.SendingReportFragment"
         android:label="SendingReportFragment" />
+    <fragment
+        android:id="@+id/stenocardiaSymptomsTestFragment2"
+        android:name="is.ulstu.cardioanalyst.presentation.ui.lifestyle.tests.StenocardiaSymptomsTestFragment"
+        android:label="StenocardiaSymptomsTestFragment" />
+    <fragment
+        android:id="@+id/treatmentAdherenceTestFragment2"
+        android:name="is.ulstu.cardioanalyst.presentation.ui.lifestyle.tests.TreatmentAdherenceTestFragment"
+        android:label="TreatmentAdherenceTestFragment" />
 
 </navigation>

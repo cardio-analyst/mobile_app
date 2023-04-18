@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
+import com.example.presentation.observeResultsComponent
 import com.example.questionnaires_list.R
 import com.example.questionnaires_list.databinding.FragmentQuestionnairesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,19 +19,32 @@ class QuestionnairesFragment @Inject constructor() :
     override val viewModel by viewModels<QuestionnairesViewModel>()
 
     private val binding by viewBinding(FragmentQuestionnairesBinding::bind)
-    private val questionnairesAdapter by lazy {
-        QuestionnairesAdapter().apply {
-            questionnaireList = viewModel.getQuestionnairesList()
-        }
+    private val resultViewTools by lazy {
+        ResultViewTools(this, binding.root, binding.resultView)
     }
+    private val adapter by lazy { QuestionnairesAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            recyclerView.adapter = questionnairesAdapter
+            resultView.setPendingDescription(resources.getString(R.string.pending_load))
+            resultView.setTryAgainAction { viewModel.getOrReloadQuestionnaires() }
             reportButton.setOnClickListener {
                 viewModel.launchReportScreen()
             }
+        }
+
+        observeQuestionnaires()
+        viewModel.getOrReloadQuestionnaires()
+    }
+
+    private fun observeQuestionnaires() {
+        viewModel.questionnairesList.observeResultsComponent(
+            resultViewTools,
+            null,
+        ) { questionnaires ->
+            adapter.questionnaireList = questionnaires
+            binding.recyclerView.adapter = adapter
         }
     }
 

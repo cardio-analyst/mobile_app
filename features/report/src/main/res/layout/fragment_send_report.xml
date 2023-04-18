@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.SendingReportFragment">
 
     <TextView
         android:id="@+id/shareTextView"

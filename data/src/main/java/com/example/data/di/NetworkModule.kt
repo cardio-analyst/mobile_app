@@ -9,6 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -25,9 +26,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideClient(userSettings: UserSettings): OkHttpClient {
+    fun provideClient(userSettings: UserSettings, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(createAuthorizationInterceptor(userSettings))
+            .addInterceptor(loggingInterceptor)
             .build()
     }
 
@@ -40,6 +42,11 @@ class NetworkModule {
             .client(client)
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor() =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     /**
      * Add Authorization header to each request if JWT-token exists.

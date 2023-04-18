@@ -10,6 +10,10 @@ import com.example.data.repositories.lifestyle.ILifestyleDataRepository
 import com.example.data.repositories.lifestyle.LifestyleDataRepository
 import com.example.data.repositories.recommendations.IRecommendationsDataRepository
 import com.example.data.repositories.recommendations.RecommendationsDataRepository
+import com.example.data.repositories.stenocardia_symptoms_test.IStenocardiaSymptomsTestDataRepository
+import com.example.data.repositories.stenocardia_symptoms_test.StenocardiaSymptomsTestDataRepository
+import com.example.data.repositories.treatment_adherence_test.ITreatmentAdherenceTestDataRepository
+import com.example.data.repositories.treatment_adherence_test.TreatmentAdherenceTestDataRepository
 import com.example.data.repositories.users.IUserDataRepository
 import com.example.data.repositories.users.UserDataRepository
 import dagger.Binds
@@ -50,5 +54,15 @@ abstract class RepositoriesModule {
     abstract fun bindUserRepository(
         userDBRepository: UserDataRepository
     ): IUserDataRepository
+
+    @Binds
+    abstract fun bindStenocardiaSymptomsTestDataRepository(
+        stenocardiaSymptomsTestDataRepository: StenocardiaSymptomsTestDataRepository
+    ): IStenocardiaSymptomsTestDataRepository
+
+    @Binds
+    abstract fun bindTreatmentAdherenceTestDataRepository(
+        treatmentAdherenceTestDataRepository: TreatmentAdherenceTestDataRepository
+    ): ITreatmentAdherenceTestDataRepository
 
 }

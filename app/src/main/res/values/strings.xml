@@ -103,7 +103,7 @@
     <string name="treatment_adherence_low">Низкая</string>
     <string name="treatment_adherence_medium">Средняя</string>
     <string name="treatment_adherence_high">Высокая</string>
-    <string name="treatment_adherence_test_result">Приверженность лечению\n%s\n\nПриверженность лекарственной терапии\n%s\n\nПриверженность медицинскому сопровождению\n%s\n\nПриверженность модификации образа жизни\n%s</string>
+    <string name="treatment_adherence_test_result">Приверженность лечению: %s\n\nПриверженность лекарственной терапии: %s\n\nПриверженность медицинскому сопровождению: %s\n\nПриверженность модификации образа жизни: %s</string>
     <!-- Lifestyle life values options -->
     <string name="life_values_active_life">Активная деятельная жизнь</string>
     <string name="life_values_life_wisdom">Жизненная мудрость</string>
