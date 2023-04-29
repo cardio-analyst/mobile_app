@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_results">Результаты тестирования</string>
+
+    <string name="button_text_next">Далее</string>
+    <string name="button_text_finish">Завершить</string>
+
+    <string name="treatment_adherence">Приверженность лечению</string>
+    <string name="treatment_adherence_test_result">Приверженность лечению: %s\n\nПриверженность лекарственной терапии: %s\n\nПриверженность медицинскому сопровождению: %s\n\nПриверженность модификации образа жизни: %s</string>
+
+    <!-- Lifestyle treatment adherence options -->
+    <string name="treatment_adherence_low">Низкая</string>
+    <string name="treatment_adherence_medium">Средняя</string>
+    <string name="treatment_adherence_high">Высокая</string>
+</resources>

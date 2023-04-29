@@ -3,7 +3,7 @@ package com.example.data.repositories.lifestyle.sources
 import com.example.common.BackendExceptions
 import com.example.common.ConnectionException
 import com.example.common.ParseBackendResponseException
-import com.example.data.repositories.lifestyle.sources.entities.LifestyleMainEntity
+import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
 
 interface LifestyleSource {
     /**
@@ -11,17 +11,17 @@ interface LifestyleSource {
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [LifestyleMainEntity]
+     * @return [LifestyleDataEntity]
      */
-    suspend fun getUserLifestyle(): LifestyleMainEntity
+    suspend fun getUserLifestyle(): LifestyleDataEntity
 
     /**
      * Change the user lifestyle data
-     * @param lifestyleMainEntity [DiseasesMainEntity]
+     * @param lifestyleDataEntity [DiseasesMainEntity]
      * @throws ConnectionException
      * @throws BackendExceptions
      * @throws ParseBackendResponseException
-     * @return [LifestyleMainEntity]
+     * @return [LifestyleDataEntity]
      */
-    suspend fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): LifestyleMainEntity
+    suspend fun setUserLifestyle(lifestyleDataEntity: LifestyleDataEntity): LifestyleDataEntity
 }

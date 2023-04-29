@@ -6,6 +6,14 @@ import com.example.data.repositories.treatment_adherence_test.sources.entities.T
 import kotlinx.coroutines.flow.Flow
 
 interface ITreatmentAdherenceTestDataRepository : Repository {
+
+    /**
+     * Treatment Adherence Test questions
+     * Pair<"Question title", "List of available answers">
+     */
+    val questions: List<Question>
+
+
     fun getUserTreatmentAdherence(): Flow<ResultState<TreatmentAdherenceDataEntity>>
 
     fun setUserTreatmentAdherence(treatmentAdherenceDataEntity: TreatmentAdherenceDataEntity): Flow<ResultState<TreatmentAdherenceDataEntity>>
@@ -13,4 +21,10 @@ interface ITreatmentAdherenceTestDataRepository : Repository {
     fun reloadGetUserTreatmentAdherence()
 
     fun reloadSetUserTreatmentAdherence(treatmentAdherenceDataEntity: TreatmentAdherenceDataEntity)
+
+    data class Question(
+        val questionNumber: Int,
+        val questionName: String,
+        val questionsAnswers: List<String>,
+    )
 }

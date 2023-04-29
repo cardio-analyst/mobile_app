@@ -2,7 +2,7 @@ package com.example.data.repositories.lifestyle
 
 import com.example.common.flows.ResultState
 import com.example.data.Repository
-import com.example.data.repositories.lifestyle.sources.entities.LifestyleMainEntity
+import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ILifestyleDataRepository : Repository {
@@ -11,14 +11,14 @@ interface ILifestyleDataRepository : Repository {
      * Get lifestyle data to check
      * @return [Flow]
      */
-    fun getUserLifestyle(): Flow<ResultState<LifestyleMainEntity>>
+    fun getUserLifestyle(): Flow<ResultState<LifestyleDataEntity>>
 
     /**
      * Set user lifestyle data
-     * @param lifestyleMainEntity [LifestyleMainEntity]
+     * @param lifestyleDataEntity [LifestyleDataEntity]
      * @return [Flow]
      */
-    fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<ResultState<LifestyleMainEntity>>
+    fun setUserLifestyle(lifestyleDataEntity: LifestyleDataEntity): Flow<ResultState<LifestyleDataEntity>>
 
     /**
      * Reload get user's lifestyle data request in case error
@@ -27,19 +27,8 @@ interface ILifestyleDataRepository : Repository {
 
     /**
      * Reload set user's lifestyle data request in case error
-     * @param lifestyleMainEntity [LifestyleMainEntity]
+     * @param lifestyleDataEntity [LifestyleDataEntity]
      */
-    fun reloadSetLifestyleUserRequest(lifestyleMainEntity: LifestyleMainEntity)
-
-    /**
-     * Savings temp params
-     * (when user do not save changes but start some tests in different fragment)
-     */
-    fun setCurrentChanges(lifestyleMainEntity: LifestyleMainEntity?)
-
-    /**
-     * Get savings temp params
-     */
-    fun getCurrentChanges(): LifestyleMainEntity?
+    fun reloadSetLifestyleUserRequest(lifestyleDataEntity: LifestyleDataEntity)
 
 }

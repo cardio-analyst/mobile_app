@@ -5,6 +5,8 @@ import com.example.profile.presentation.ProfileRouter
 import com.example.questionnaires_list.presentation.QuestionnaireRouter
 import com.example.registration.presentation.RegistrationRouter
 import com.example.report.presentation.ReportRouter
+import com.example.stenocardia_symptoms.presentation.StenocardiaSymptomsRouter
+import com.example.treatment_adherence.presentation.TreatmentAdherenceRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -39,4 +41,14 @@ abstract class RoutersModule {
     abstract fun bindReportRouter(
         reportNavigation: ReportNavigation,
     ): ReportRouter
+
+    @Binds
+    abstract fun bindStenocardiaSymptomsRouter(
+        stenocardiaSymptomsNavigation: StenocardiaSymptomsNavigation,
+    ): StenocardiaSymptomsRouter
+
+    @Binds
+    abstract fun bindTreatmentAdherenceRouter(
+        treatmentAdherenceNavigation: TreatmentAdherenceNavigation,
+    ): TreatmentAdherenceRouter
 }

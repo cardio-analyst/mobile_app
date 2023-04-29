@@ -3,7 +3,7 @@ package com.example.data.repositories.lifestyle
 import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.lifestyle.sources.LifestyleSource
-import com.example.data.repositories.lifestyle.sources.entities.LifestyleMainEntity
+import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
 import com.example.data.repositories.users.IUserDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,24 +15,22 @@ class LifestyleDataRepository @Inject constructor(
     private val userRepository: IUserDataRepository,
 ) : ILifestyleDataRepository {
 
-    private var tempLifestyleMainEntity: LifestyleMainEntity? = null
-
     // --- Lazy Repository Flows for observers
 
-    private val lifestyleLazyFlowSubject = LazyFlowSubject<Unit, LifestyleMainEntity> {
+    private val lifestyleLazyFlowSubject = LazyFlowSubject<Unit, LifestyleDataEntity> {
         doGetLifestyle()
     }
 
     private val lifestyleSaveLazyFlowSubject =
-        LazyFlowSubject<LifestyleMainEntity, LifestyleMainEntity> { lifestyleMainEntity ->
+        LazyFlowSubject<LifestyleDataEntity, LifestyleDataEntity> { lifestyleMainEntity ->
             doSetUserLifestyle(lifestyleMainEntity)
         }
 
 
-    override fun getUserLifestyle(): Flow<ResultState<LifestyleMainEntity>> =
+    override fun getUserLifestyle(): Flow<ResultState<LifestyleDataEntity>> =
         lifestyleLazyFlowSubject.listen(Unit)
 
-    private suspend fun doGetLifestyle(): LifestyleMainEntity =
+    private suspend fun doGetLifestyle(): LifestyleDataEntity =
         wrapBackendExceptions(userRepository) {
             lifestyleSource.getUserLifestyle()
         }
@@ -42,26 +40,18 @@ class LifestyleDataRepository @Inject constructor(
     }
 
 
-    override fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): Flow<ResultState<LifestyleMainEntity>> =
-        lifestyleSaveLazyFlowSubject.listen(lifestyleMainEntity)
+    override fun setUserLifestyle(lifestyleDataEntity: LifestyleDataEntity): Flow<ResultState<LifestyleDataEntity>> =
+        lifestyleSaveLazyFlowSubject.listen(lifestyleDataEntity)
 
-    private suspend fun doSetUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): LifestyleMainEntity =
+    private suspend fun doSetUserLifestyle(lifestyleDataEntity: LifestyleDataEntity): LifestyleDataEntity =
         wrapBackendExceptions(userRepository) {
             lifestyleSource.setUserLifestyle(
-                lifestyleMainEntity
+                lifestyleDataEntity
             )
         }
 
-    override fun reloadSetLifestyleUserRequest(lifestyleMainEntity: LifestyleMainEntity) {
-        lifestyleSaveLazyFlowSubject.reloadArgument(lifestyleMainEntity)
-    }
-
-    override fun setCurrentChanges(lifestyleMainEntity: LifestyleMainEntity?) {
-        tempLifestyleMainEntity = lifestyleMainEntity?.copy()
-    }
-
-    override fun getCurrentChanges(): LifestyleMainEntity? {
-        return tempLifestyleMainEntity
+    override fun reloadSetLifestyleUserRequest(lifestyleDataEntity: LifestyleDataEntity) {
+        lifestyleSaveLazyFlowSubject.reloadArgument(lifestyleDataEntity)
     }
 
 }

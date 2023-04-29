@@ -17,5 +17,8 @@ class RetrofitDiseasesSource @Inject constructor(
         wrapRetrofitExceptions { diseasesApi.getUserDiseases() }
 
     override suspend fun setUserDiseases(diseasesDataEntity: DiseasesDataEntity): DiseasesDataEntity =
-        wrapRetrofitExceptions { diseasesApi.setUserDiseases(diseasesDataEntity) }
+        wrapRetrofitExceptions {
+            diseasesApi.setUserDiseases(diseasesDataEntity)
+            diseasesDataEntity
+        }
 }

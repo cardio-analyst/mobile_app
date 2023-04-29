@@ -70,6 +70,11 @@ buildscript {
                                 Diseases: ":features:questionnaires:diseases",
                                 LaboratoryResearch: ":features:questionnaires:laboratory-research",
                                 BasicIndicators: ":features:questionnaires:basic-indicators",
+                                Lifestyle: ":features:questionnaires:lifestyle",
+                        ],
+                        Tests: [
+                                StenocardiaSymptoms: ":features:tests:stenocardia-symptoms",
+                                TreatmentAdherence: ":features:tests:treatment-adherence",
                         ],
                 ],
                 Training: ":training",

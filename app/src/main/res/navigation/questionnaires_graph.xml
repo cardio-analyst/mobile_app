@@ -31,23 +31,23 @@
             android:id="@+id/action_questionnairesFragment_to_sendingReportFragment"
             app:destination="@id/sendingReportFragment" />
         <action
-            android:id="@+id/action_questionnairesFragment_to_stenocardiaSymptomsTestFragment2"
-            app:destination="@id/stenocardiaSymptomsTestFragment2" />
+            android:id="@+id/action_questionnairesFragment_to_stenocardiaSymptomsTestFragment"
+            app:destination="@id/stenocardiaSymptomsTestFragment" />
         <action
-            android:id="@+id/action_questionnairesFragment_to_treatmentAdherenceTestFragment2"
-            app:destination="@id/treatmentAdherenceTestFragment2" />
+            android:id="@+id/action_questionnairesFragment_to_treatmentAdherenceTestFragment"
+            app:destination="@id/treatmentAdherenceTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/sendingReportFragment"
         android:name="com.example.report.presentation.SendingReportFragment"
         android:label="SendingReportFragment" />
     <fragment
-        android:id="@+id/stenocardiaSymptomsTestFragment2"
-        android:name="is.ulstu.cardioanalyst.presentation.ui.lifestyle.tests.StenocardiaSymptomsTestFragment"
+        android:id="@+id/stenocardiaSymptomsTestFragment"
+        android:name="com.example.stenocardia_symptoms.presentation.StenocardiaSymptomsTestFragment"
         android:label="StenocardiaSymptomsTestFragment" />
     <fragment
-        android:id="@+id/treatmentAdherenceTestFragment2"
-        android:name="is.ulstu.cardioanalyst.presentation.ui.lifestyle.tests.TreatmentAdherenceTestFragment"
+        android:id="@+id/treatmentAdherenceTestFragment"
+        android:name="com.example.treatment_adherence.presentation.TreatmentAdherenceTestFragment"
         android:label="TreatmentAdherenceTestFragment" />
 
 </navigation>

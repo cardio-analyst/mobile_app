@@ -86,4 +86,7 @@ dependencies {
     implementation project(Modules.Features.Questionnaires.Diseases)
     implementation project(Modules.Features.Questionnaires.LaboratoryResearch)
     implementation project(Modules.Features.Questionnaires.BasicIndicators)
+    implementation project(Modules.Features.Questionnaires.Lifestyle)
+    implementation project(Modules.Features.Tests.StenocardiaSymptoms)
+    implementation project(Modules.Features.Tests.TreatmentAdherence)
 }

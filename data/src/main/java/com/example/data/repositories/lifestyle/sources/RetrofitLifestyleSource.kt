@@ -2,7 +2,7 @@ package com.example.data.repositories.lifestyle.sources
 
 import com.example.data.base.network.BaseRetrofitSource
 import com.example.data.base.network.RetrofitConfig
-import com.example.data.repositories.lifestyle.sources.entities.LifestyleMainEntity
+import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,9 +13,12 @@ class RetrofitLifestyleSource @Inject constructor(
 
     private val lifestyleApi = retrofit.create(LifestyleApi::class.java)
 
-    override suspend fun getUserLifestyle(): LifestyleMainEntity =
+    override suspend fun getUserLifestyle(): LifestyleDataEntity =
         wrapRetrofitExceptions { lifestyleApi.getUserLifestyle() }
 
-    override suspend fun setUserLifestyle(lifestyleMainEntity: LifestyleMainEntity): LifestyleMainEntity =
-        wrapRetrofitExceptions { lifestyleApi.setUserLifestyle(lifestyleMainEntity) }
+    override suspend fun setUserLifestyle(lifestyleDataEntity: LifestyleDataEntity): LifestyleDataEntity =
+        wrapRetrofitExceptions {
+            lifestyleApi.setUserLifestyle(lifestyleDataEntity)
+            lifestyleDataEntity
+        }
 }
