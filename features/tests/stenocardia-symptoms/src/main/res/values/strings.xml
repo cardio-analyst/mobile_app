@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="angina_symptoms">Симптомы стенокардии</string>
+    <string name="test_results">Результаты тестирования</string>
+
+    <string name="button_text_next">Далее</string>
+    <string name="button_text_finish">Завершить</string>
+
+    <!-- Lifestyle angina symptoms options -->
+    <string name="angina_symptoms_no_symptoms">Нет симптомов</string>
+    <string name="angina_symptoms_symptoms">Необходимо записаться к кардиологу</string>
+</resources>

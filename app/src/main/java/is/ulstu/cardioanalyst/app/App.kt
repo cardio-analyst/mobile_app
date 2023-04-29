@@ -1,6 +1,7 @@
 package `is`.ulstu.cardioanalyst.app
 
 import android.app.Application
+import com.example.common.Singletons
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

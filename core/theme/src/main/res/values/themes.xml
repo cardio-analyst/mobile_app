@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CardioAnalyst" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/enter_color</item>
+        <item name="colorPrimaryVariant">@color/background_light</item>
+        <item name="colorOnPrimary">@color/yellow_color</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/enter_color</item>
+        <item name="colorSecondaryVariant">@color/navigation_title_light</item>
+        <item name="colorOnSecondary">@color/active_color</item>
+        <item name="colorOnSurface">@color/inactive_color</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/background_light</item>
+        <item name="android:textColor">@color/text_color_light</item>
+        <item name="colorSurface">@color/navigation_bar_light</item>
+    </style>
+</resources>

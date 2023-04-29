@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_try_again">Попробуйте снова</string>
+    <string name="unknown_exception">Неизвестная ошибка</string>
+    <string name="button_text_cancel">Отмена</string>
+    <string name="button_text_save">Сохранить</string>
+</resources>

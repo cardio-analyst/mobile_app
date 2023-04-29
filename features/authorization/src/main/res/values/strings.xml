@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flow_pending_auth">Авторизация…</string>
+    <string name="welcome_text">Добро пожаловать!</string>
+    <string name="email_or_login_text">Почта или логин</string>
+    <string name="password_text">Пароль</string>
+    <string name="button_text_sign_in">Войти</string>
+    <string name="button_text_sign_up">Зарегистрироваться</string>
+
+</resources>
