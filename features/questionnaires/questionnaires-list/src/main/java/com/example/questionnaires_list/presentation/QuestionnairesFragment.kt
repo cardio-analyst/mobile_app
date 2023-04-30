@@ -38,6 +38,11 @@ class QuestionnairesFragment @Inject constructor() :
         viewModel.getOrReloadQuestionnaires()
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.removeListeners()
+    }
+
     private fun observeQuestionnaires() {
         viewModel.questionnairesList.observeResultsComponent(
             resultViewTools,

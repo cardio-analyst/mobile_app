@@ -19,6 +19,8 @@ interface IStenocardiaSymptomsTestDataRepository : Repository {
 
     fun getUserStenocardiaSymptoms(): Flow<ResultState<StenocardiaSymptomsDataEntity>>
 
+    fun removeAllListenersGet()
+
     fun setUserStenocardiaSymptoms(stenocardiaSymptomsDataEntity: StenocardiaSymptomsDataEntity): Flow<ResultState<StenocardiaSymptomsDataEntity>>
 
     fun reloadGetUserStenocardiaSymptoms()

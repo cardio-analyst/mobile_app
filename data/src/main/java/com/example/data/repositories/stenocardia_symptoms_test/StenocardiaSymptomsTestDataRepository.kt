@@ -157,6 +157,8 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
     override fun getUserStenocardiaSymptoms(): Flow<ResultState<StenocardiaSymptomsDataEntity>> =
         stenocardiaSymptomsLazyFlowSubject.listen(Unit)
 
+    override fun removeAllListenersGet() = stenocardiaSymptomsLazyFlowSubject.removeAllListeners()
+
     private suspend fun doGetUserStenocardiaSymptoms(): StenocardiaSymptomsDataEntity =
         wrapBackendExceptions(userRepository) {
             stenocardiaSymptomsTestSource.getUserStenocardiaSymptoms()

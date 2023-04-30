@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface StenocardiaSymptomsTestInfoRepository {
     fun getUserStenocardiaSymptoms(): Flow<ResultState<StenocardiaSymptoms>>
 
+    fun removeAllListenersGet()
+
     fun reloadGetUserStenocardiaSymptoms()
 }

@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface TreatmentAdherenceTestInfoRepository {
     fun getUserTreatmentAdherence(): Flow<ResultState<TreatmentAdherence>>
 
+    fun removeAllListenersGet()
+
     fun reloadGetUserTreatmentAdherence()
 }

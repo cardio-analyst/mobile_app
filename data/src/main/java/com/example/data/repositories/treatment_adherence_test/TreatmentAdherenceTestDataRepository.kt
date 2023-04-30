@@ -202,6 +202,8 @@ class TreatmentAdherenceTestDataRepository @Inject constructor(
     override fun getUserTreatmentAdherence(): Flow<ResultState<TreatmentAdherenceDataEntity>> =
         treatmentAdherenceLazyFlowSubject.listen(Unit)
 
+    override fun removeAllListenersGet() = treatmentAdherenceLazyFlowSubject.removeAllListeners()
+
     private suspend fun doGetUserTreatmentAdherence(): TreatmentAdherenceDataEntity =
         wrapBackendExceptions(userRepository) {
             treatmentAdherenceTestSource.getUserTreatmentAdherence()
