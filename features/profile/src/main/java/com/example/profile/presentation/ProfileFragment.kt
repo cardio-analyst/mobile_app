@@ -7,8 +7,10 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
 import com.example.presentation.databinding.PairActionButtonsBinding
 import com.example.presentation.observeResults
+import com.example.presentation.observeResultsComponent
 import com.example.profile.R
 import com.example.profile.databinding.FragmentProfileBinding
 import com.example.profile.domain.entities.UserData
@@ -22,6 +24,9 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
 
     private val binding by viewBinding(FragmentProfileBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(this, binding.root, binding.resultView)
+    }
     private var changeModeState = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,7 +88,7 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
         viewModel.getOrReloadGetCurrentUser()
     }
 
-    private fun observeUserDetails() {
+    /*private fun observeUserDetails() {
         viewModel.user.observeResults(this, binding.root, binding.resultView, { currentUserInfo ->
             with(binding) {
                 emailTextEdit.setText(currentUserInfo.email)
@@ -98,6 +103,22 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
                 changeMode()
             }
         })
+    }*/
+    private fun observeUserDetails() {
+        viewModel.user.observeResultsComponent(resultViewTools, null) { currentUserInfo ->
+            with(binding) {
+                emailTextEdit.setText(currentUserInfo.email)
+                loginTextEdit.setText(currentUserInfo.login)
+                nameTextEdit.setText(
+                    "${currentUserInfo.lastName} " +
+                            "${currentUserInfo.firstName} ${currentUserInfo.middleName}"
+                )
+                birthDateTextEdit.setText(currentUserInfo.birthDate)
+                regionTextViewAlert.text = currentUserInfo.region
+                changeMode()
+                changeMode()
+            }
+        }
     }
 
     private fun changeMode() {

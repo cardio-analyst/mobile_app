@@ -90,6 +90,7 @@ fun <T> LiveData<ResultState<T>>.observeResultsComponent(
                 rootView.children
                     .filter { it != resultView }
                     .forEach {
+                        //it.visibility = if (result is Success<*> || (ignoreError && result is Error<*>)) View.VISIBLE else View.GONE
                         it.isVisible = result is Success<*> || (ignoreError && result is Error<*>)
                     }
             }

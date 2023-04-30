@@ -9,6 +9,15 @@
         android:id="@+id/recommendationFragment"
         android:name="com.example.recommendations.presentation.RecommendationsFragment"
         android:label="RecommendationsFragment"
-        tools:layout="@layout/fragment_recommendations"/>
+        tools:layout="@layout/fragment_recommendations">
+        <action
+            android:id="@+id/action_recommendationFragment_to_feedbackFragment"
+            app:destination="@id/feedbackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedbackFragment"
+        android:name="com.example.feedback.presentation.FeedbackFragment"
+        android:label="fragment_feedback"
+        tools:layout="@layout/fragment_feedback" />
 
 </navigation>

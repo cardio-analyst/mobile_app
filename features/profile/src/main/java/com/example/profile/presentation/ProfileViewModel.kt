@@ -53,8 +53,6 @@ class ProfileViewModel @Inject constructor(
     fun onExitClick() = viewModelScope.safeLaunch {
         userRepository.logoutUser()
         launchAuthorizationScreen()
-        /*delay(500)
-        exitProcess(-1)*/
     }
 
     fun regionsAlertDialogShow(context: Context?, action: (region: String) -> Unit) {

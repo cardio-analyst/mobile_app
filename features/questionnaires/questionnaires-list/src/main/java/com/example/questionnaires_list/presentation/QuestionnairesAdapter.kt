@@ -143,14 +143,12 @@ class QuestionnairesAdapter :
     class TreatmentAdherenceViewHolder(
         val binding: ItemTreatmentAdherenceTestBinding,
         val context: Context
-    ) :
-        RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root)
 
     class StenocardiaSymptomsViewHolder(
         val binding: ItemStenocardiaSymptomsTestBinding,
         val context: Context
-    ) :
-        RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root)
 
     class QuestionnairesViewHolder(val binding: ItemQuestionnaireBinding, val context: Context) :
         RecyclerView.ViewHolder(binding.root)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_feedback">Отзыв</string>
+    <string name="feedback_mark">Пожалуйста оцените наше приложение, выбрав оценку от 0 до 5!</string>
+    <string name="feedback_comment">По желанию вы можете оставить комментарий, например написав:\n 1) Что вам понравилось/не понравилось в приложении \n 2) Предложения по улучшению \n 3) Проблемы, с которыми вы столкнулись \n\n Каждый отзыв важен для нас! </string>
+    <string name="button_text_send_feedback">Отправить отзыв</string>
+    <string name="feedback_success_toast_text">Спасибо за отзыв!</string>
+    <string name="pending_action">Отправка отзыва…</string>
+
+</resources>

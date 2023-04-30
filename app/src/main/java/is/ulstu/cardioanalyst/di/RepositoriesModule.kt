@@ -3,6 +3,7 @@ package `is`.ulstu.cardioanalyst.di
 import com.example.authorization.domain.UserSignInRepository
 import com.example.basic_indicators.domain.BasicIndicatorsRepository
 import com.example.diseases.domain.DiseasesRepository
+import com.example.feedback.domain.FeedbackRepository
 import com.example.laboratory_research.domain.LaboratoryResearchRepository
 import com.example.lifestyle.domain.LifestyleRepository
 import com.example.profile.domain.UserInfoRepository
@@ -19,6 +20,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `is`.ulstu.cardioanalyst.glue.basic_indicators.AdapterBasicIndicatorsRepository
 import `is`.ulstu.cardioanalyst.glue.diseases.AdapterDiseasesRepository
+import `is`.ulstu.cardioanalyst.glue.feedback.AdapterFeedbackRepository
 import `is`.ulstu.cardioanalyst.glue.laboratory_research.AdapterLaboratoryResearchRepository
 import `is`.ulstu.cardioanalyst.glue.lifestyle.AdapterLifestyleRepository
 import `is`.ulstu.cardioanalyst.glue.recommendations.AdapterRecommendationsRepository
@@ -74,6 +76,11 @@ abstract class RepositoriesModule {
     abstract fun bindReportRepository(
         adapterReportRepository: AdapterReportRepository
     ): ReportRepository
+
+    @Binds
+    abstract fun bindFeedbackRepository(
+        adapterFeedbackRepository: AdapterFeedbackRepository
+    ): FeedbackRepository
 
     @Binds
     abstract fun bindLifestyleRepository(

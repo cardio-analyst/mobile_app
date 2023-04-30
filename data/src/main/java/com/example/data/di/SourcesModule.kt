@@ -4,6 +4,8 @@ import com.example.data.repositories.basic_indicators.sources.BasicIndicatorsSou
 import com.example.data.repositories.basic_indicators.sources.RetrofitBasicIndicatorsSource
 import com.example.data.repositories.diseases.sources.DiseasesSource
 import com.example.data.repositories.diseases.sources.RetrofitDiseasesSource
+import com.example.data.repositories.feedback.sources.FeedbackSource
+import com.example.data.repositories.feedback.sources.RetrofitFeedbackSource
 import com.example.data.repositories.laboratory_research.sources.LaboratoryResearchSource
 import com.example.data.repositories.laboratory_research.sources.RetrofitLaboratoryResearchSource
 import com.example.data.repositories.lifestyle.sources.LifestyleSource
@@ -64,5 +66,10 @@ abstract class SourcesModule {
     abstract fun bindRetrofitTreatmentAdherenceTestSource(
         retrofitTreatmentAdherenceTestSource: RetrofitTreatmentAdherenceTestSource
     ): TreatmentAdherenceTestSource
+
+    @Binds
+    abstract fun bindRetrofitFeedbackSource(
+        retrofitFeedbackSource: RetrofitFeedbackSource
+    ): FeedbackSource
 
 }

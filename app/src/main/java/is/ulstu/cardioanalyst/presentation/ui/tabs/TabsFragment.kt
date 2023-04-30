@@ -1,6 +1,5 @@
 package `is`.ulstu.cardioanalyst.presentation.ui.tabs
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -22,19 +21,27 @@ class TabsFragment @Inject constructor() : Fragment(R.layout.fragment_tabs) {
     lateinit var tabsController: TabsController
     private val viewModel by viewModels<TabsViewModel>()
     private lateinit var binding: FragmentTabsBinding
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+    private val onBackPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (getTabsStackEntryCount() > 1) {
+                if (getTabsStackEntryCount() > 0) {
                     tabsController.tabsNavController?.popBackStack()
                 } else {
                     this.remove()
                     activity?.onBackPressedDispatcher?.onBackPressed()
                 }
             }
-        })
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.onBackPressedDispatcher?.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        onBackPressedCallback.remove()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
