@@ -16,6 +16,8 @@ interface ITreatmentAdherenceTestDataRepository : Repository {
 
     fun getUserTreatmentAdherence(): Flow<ResultState<TreatmentAdherenceDataEntity>>
 
+    fun removeAllListenersGet()
+
     fun setUserTreatmentAdherence(treatmentAdherenceDataEntity: TreatmentAdherenceDataEntity): Flow<ResultState<TreatmentAdherenceDataEntity>>
 
     fun reloadGetUserTreatmentAdherence()

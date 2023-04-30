@@ -22,6 +22,8 @@ class AdapterStenocardiaSymptomsTestInfoRepository @Inject constructor(
             }
         }
 
+    override fun removeAllListenersGet() = stenocardiaSymptomsRepository.removeAllListenersGet()
+
     override fun reloadGetUserStenocardiaSymptoms() =
         stenocardiaSymptomsRepository.reloadGetUserStenocardiaSymptoms()
 

@@ -22,6 +22,8 @@ class AdapterTreatmentAdherenceTestInfoRepository @Inject constructor(
             }
         }
 
+    override fun removeAllListenersGet() = treatmentAdherenceTestDataRepository.removeAllListenersGet()
+
     override fun reloadGetUserTreatmentAdherence() =
         treatmentAdherenceTestDataRepository.reloadGetUserTreatmentAdherence()
 

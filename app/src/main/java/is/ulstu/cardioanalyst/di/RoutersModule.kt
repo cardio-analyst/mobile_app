@@ -3,6 +3,7 @@ package `is`.ulstu.cardioanalyst.di
 import com.example.authorization.presentation.AuthorizationRouter
 import com.example.profile.presentation.ProfileRouter
 import com.example.questionnaires_list.presentation.QuestionnaireRouter
+import com.example.recommendations.presentation.RecommendationsRouter
 import com.example.registration.presentation.RegistrationRouter
 import com.example.report.presentation.ReportRouter
 import com.example.stenocardia_symptoms.presentation.StenocardiaSymptomsRouter
@@ -51,4 +52,9 @@ abstract class RoutersModule {
     abstract fun bindTreatmentAdherenceRouter(
         treatmentAdherenceNavigation: TreatmentAdherenceNavigation,
     ): TreatmentAdherenceRouter
+
+    @Binds
+    abstract fun bindRecommendationsRouter(
+        recommendationsNavigation: RecommendationsNavigation,
+    ): RecommendationsRouter
 }

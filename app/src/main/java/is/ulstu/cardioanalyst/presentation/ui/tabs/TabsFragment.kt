@@ -42,13 +42,21 @@ class TabsFragment @Inject constructor() : Fragment(R.layout.fragment_tabs) {
         binding = FragmentTabsBinding.bind(view)
 
         val navController = getTabsNavController()
+        val bottomNavigationView = binding.bottomNavigationView
+
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
-        tabsController.tabsNavController = getTabsNavController()
+        tabsController.run {
+            tabsNavController = navController
+            tabsBottomNavigationView = bottomNavigationView
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        tabsController.tabsNavController = null
+        tabsController.run {
+            tabsBottomNavigationView = null
+            tabsNavController = null
+        }
     }
 
     private fun getTabsNavController(): NavController {

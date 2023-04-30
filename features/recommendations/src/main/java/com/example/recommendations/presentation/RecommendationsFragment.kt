@@ -31,6 +31,9 @@ class RecommendationsFragment @Inject constructor() :
         with(binding) {
             resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_recommendations_load))
             resultView.setTryAgainAction { viewModel.getOrReloadRecommendations() }
+            startSurvey.setOnClickListener {
+                viewModel.navigateToQuestionnaires()
+            }
         }
 
         observeRecommendations()
@@ -42,6 +45,9 @@ class RecommendationsFragment @Inject constructor() :
             resultViewTools,
             null
         ) { recommendations ->
+            binding.welcomeWindow.visibility =
+                if (recommendations.isEmpty()) View.VISIBLE else View.GONE
+
             val adapter = context?.let { RecommendationsAdapter(it, recommendations) }
             if (adapter != null) {
                 initViewPager(adapter)

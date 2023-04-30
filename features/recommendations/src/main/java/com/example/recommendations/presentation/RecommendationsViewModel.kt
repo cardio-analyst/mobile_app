@@ -15,7 +15,8 @@ import javax.inject.Inject
 class RecommendationsViewModel @Inject constructor(
     uiAction: UiAction,
     private val recommendationsRepository: RecommendationsRepository,
-) : BaseViewModel(uiAction) {
+    private val recommendationsRouter: RecommendationsRouter,
+) : BaseViewModel(uiAction), RecommendationsRouter by recommendationsRouter {
 
     private val _recommendations =
         SingleLiveEvent<ResultState<List<GetRecommendationsResponseEntity>>>()

@@ -94,13 +94,18 @@ class QuestionnairesViewModel @Inject constructor(
         )
     }
 
-    fun getOrReloadQuestionnaires() =
-        if (firstLoadFlag)
+    fun getOrReloadQuestionnaires() = getQuestionnaires()
+        /*if (firstLoadFlag)
             getQuestionnaires()
         else {
             stenocardiaSymptomsTestInfoRepository.reloadGetUserStenocardiaSymptoms()
-            treatmentAdherenceTestInfoRepository.reloadGetUserTreatmentAdherence()
-        }
+            //treatmentAdherenceTestInfoRepository.reloadGetUserTreatmentAdherence()
+        }*/
+
+    fun removeListeners() {
+        stenocardiaSymptomsTestInfoRepository.removeAllListenersGet()
+        treatmentAdherenceTestInfoRepository.removeAllListenersGet()
+    }
 
     private fun calculateGeneralResult(treatmentAdherence: TreatmentAdherence) =
         (treatmentAdherence.adherenceMedicalSupport + 2 * treatmentAdherence.adherenceLifestyleMod + 3 *
