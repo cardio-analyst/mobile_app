@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface FeedbackApi {
 
-    @POST("feedback")
+    @POST("feedback/send")
     suspend fun sendFeedback(@Body feedbackDataEntity: FeedbackDataEntity): FeedbackResponseDataEntity
 }
