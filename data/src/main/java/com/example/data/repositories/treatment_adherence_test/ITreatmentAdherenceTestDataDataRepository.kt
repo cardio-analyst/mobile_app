@@ -1,11 +1,11 @@
 package com.example.data.repositories.treatment_adherence_test
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.treatment_adherence_test.sources.entities.TreatmentAdherenceDataEntity
 import kotlinx.coroutines.flow.Flow
 
-interface ITreatmentAdherenceTestDataRepository : Repository {
+interface ITreatmentAdherenceTestDataDataRepository : DataRepository {
 
     /**
      * Treatment Adherence Test questions

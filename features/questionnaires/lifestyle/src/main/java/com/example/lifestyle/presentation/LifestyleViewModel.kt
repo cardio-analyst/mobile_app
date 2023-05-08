@@ -1,13 +1,12 @@
 package com.example.lifestyle.presentation
 
 import androidx.lifecycle.viewModelScope
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
 import com.example.lifestyle.R
 import com.example.lifestyle.domain.LifestyleRepository
 import com.example.lifestyle.domain.entities.LifestyleEntity
+import com.example.presentation.BaseRouter
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
@@ -19,7 +18,8 @@ import javax.inject.Inject
 class LifestyleViewModel @Inject constructor(
     private val uiActions: UiAction,
     private val lifestyleRepository: LifestyleRepository,
-) : BaseViewModel(uiActions) {
+    private val baseRouter: BaseRouter,
+) : BaseViewModel(uiActions), BaseRouter by baseRouter {
 
     private val _lifestyle = SingleLiveEvent<ResultState<LifestyleEntity>>()
     val lifestyle = _lifestyle.share()
@@ -30,8 +30,6 @@ class LifestyleViewModel @Inject constructor(
 
     private fun getUserLifestyle() = viewModelScope.safeLaunch {
         lifestyleRepository.getUserLifestyle().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _lifestyle.value = it
         }
     }
@@ -44,8 +42,6 @@ class LifestyleViewModel @Inject constructor(
 
     fun setUserLifestyle(lifestyleMainEntity: LifestyleEntity) = viewModelScope.safeLaunch {
         lifestyleRepository.setUserLifestyle(lifestyleMainEntity).collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _lifestyleSave.value = it
             if (it is Success)
                 _lifestyle.value = Success(lifestyleMainEntity)

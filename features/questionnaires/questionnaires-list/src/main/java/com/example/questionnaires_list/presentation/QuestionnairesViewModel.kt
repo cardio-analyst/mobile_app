@@ -2,8 +2,6 @@ package com.example.questionnaires_list.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
 import com.example.presentation.BaseViewModel
@@ -36,20 +34,12 @@ class QuestionnairesViewModel @Inject constructor(
     private fun getQuestionnaires() = viewModelScope.safeLaunch {
         stenocardiaSymptomsTestInfoRepository.getUserStenocardiaSymptoms()
             .collect { stenocardiaSymptomsResultState ->
-                when {
-                    stenocardiaSymptomsResultState is Error
-                            && stenocardiaSymptomsResultState.error is RefreshTokenExpired -> {
-                        throw stenocardiaSymptomsResultState.error
-                    }
-                    stenocardiaSymptomsResultState is Success -> {
+                when (stenocardiaSymptomsResultState) {
+                    is Success -> {
                         treatmentAdherenceTestInfoRepository.getUserTreatmentAdherence()
                             .collect { treatmentAdherenceResultState ->
-                                _questionnairesList.value = when {
-                                    treatmentAdherenceResultState is Error
-                                            && treatmentAdherenceResultState.error is RefreshTokenExpired -> {
-                                        throw treatmentAdherenceResultState.error
-                                    }
-                                    treatmentAdherenceResultState is Success -> {
+                                _questionnairesList.value = when (treatmentAdherenceResultState) {
+                                    is Success -> {
                                         treatmentAdherenceResultState.map {
                                             buildQuestionnairesList(
                                                 stenocardiaSymptomsResultState.value,

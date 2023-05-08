@@ -20,7 +20,12 @@ class QuestionnairesFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentQuestionnairesBinding::bind)
     private val resultViewTools by lazy {
-        ResultViewTools(this, binding.root, binding.resultView)
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
     }
     private val adapter by lazy { QuestionnairesAdapter() }
 
@@ -44,10 +49,7 @@ class QuestionnairesFragment @Inject constructor() :
     }
 
     private fun observeQuestionnaires() {
-        viewModel.questionnairesList.observeResultsComponent(
-            resultViewTools,
-            null,
-        ) { questionnaires ->
+        viewModel.questionnairesList.observeResultsComponent(resultViewTools) { questionnaires ->
             adapter.questionnaireList = questionnaires
             binding.recyclerView.adapter = adapter
         }

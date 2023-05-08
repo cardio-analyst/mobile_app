@@ -6,17 +6,17 @@ import com.example.data.R
 import com.example.data.base.ContextResources
 import com.example.data.repositories.stenocardia_symptoms_test.sources.StenocardiaSymptomsTestSource
 import com.example.data.repositories.stenocardia_symptoms_test.sources.entities.StenocardiaSymptomsDataEntity
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StenocardiaSymptomsTestDataRepository @Inject constructor(
+class StenocardiaSymptomsTestDataDataRepository @Inject constructor(
     private val stenocardiaSymptomsTestSource: StenocardiaSymptomsTestSource,
-    private val userRepository: IUserDataRepository,
+    private val userRepository: IUserDataDataRepository,
     uiAction: ContextResources,
-) : IStenocardiaSymptomsTestDataRepository {
+) : IStenocardiaSymptomsTestDataDataRepository {
 
     /**
      * Stenocardia Symptoms Test questions
@@ -26,8 +26,8 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
      *      Multiple = 2 or Single Mode = 1 for choosing questions
      * >
      */
-    override val questions: List<IStenocardiaSymptomsTestDataRepository.Question> = listOf(
-        IStenocardiaSymptomsTestDataRepository.Question(
+    override val questions: List<IStenocardiaSymptomsTestDataDataRepository.Question> = listOf(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_1),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_no), false),
@@ -35,7 +35,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_2),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_no), false),
@@ -47,7 +47,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_3),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_no), false),
@@ -55,7 +55,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_4),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_stop_or_go_slower), true),
@@ -67,7 +67,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             2
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_5),
             listOf(
                 Pair(
@@ -81,7 +81,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_6),
             listOf(
                 Pair(
@@ -95,7 +95,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_7),
             listOf(
                 Pair(
@@ -109,7 +109,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             2
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_8),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_no), true),
@@ -117,7 +117,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_9),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_less_4_week), true),
@@ -125,7 +125,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_10),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_less_2_week), false),
@@ -133,7 +133,7 @@ class StenocardiaSymptomsTestDataRepository @Inject constructor(
             ),
             1
         ),
-        IStenocardiaSymptomsTestDataRepository.Question(
+        IStenocardiaSymptomsTestDataDataRepository.Question(
             uiAction.getString(R.string.stenocardia_question_11),
             listOf(
                 Pair(uiAction.getString(R.string.stenocardia_answer_no), false),

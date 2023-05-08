@@ -4,16 +4,16 @@ import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.lifestyle.sources.LifestyleSource
 import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LifestyleDataRepository @Inject constructor(
+class LifestyleDataDataRepository @Inject constructor(
     private val lifestyleSource: LifestyleSource,
-    private val userRepository: IUserDataRepository,
-) : ILifestyleDataRepository {
+    private val userRepository: IUserDataDataRepository,
+) : ILifestyleDataDataRepository {
 
     // --- Lazy Repository Flows for observers
 

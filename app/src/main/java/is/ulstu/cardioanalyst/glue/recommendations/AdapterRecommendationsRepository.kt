@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.recommendations
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.recommendations.IRecommendationsDataRepository
+import com.example.data.repositories.recommendations.IRecommendationsDataDataRepository
 import com.example.recommendations.domain.RecommendationsRepository
 import com.example.recommendations.domain.entities.GetRecommendationsResponseEntity
 import `is`.ulstu.cardioanalyst.glue.recommendations.mappers.toGetRecommendationsResponseEntity
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterRecommendationsRepository @Inject constructor(
-    private val recommendationsRepository: IRecommendationsDataRepository
+    private val recommendationsRepository: IRecommendationsDataDataRepository
 ) : RecommendationsRepository {
 
     override fun getRecommendations(): Flow<ResultState<List<GetRecommendationsResponseEntity>>> =

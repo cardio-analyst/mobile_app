@@ -10,8 +10,9 @@ import com.example.laboratory_research.R
 import com.example.laboratory_research.databinding.FragmentLaboratoryResearchBinding
 import com.example.laboratory_research.domain.entities.GetLaboratoryResearchResponseEntity
 import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
 import com.example.presentation.databinding.PairActionButtonsBinding
-import com.example.presentation.observeResults
+import com.example.presentation.observeResultsComponent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +24,14 @@ class LaboratoryResearchFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentLaboratoryResearchBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
+    }
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
     private var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
@@ -76,44 +85,34 @@ class LaboratoryResearchFragment @Inject constructor() :
     }
 
     private fun observeLaboratoryResearches() {
-        viewModel.laboratoryResearches.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            { laboratoryResearches ->
-                val adapter = LaboratoryResearchAdapter(childFragmentManager, lifecycle)
-                initAdapter(laboratoryResearches, adapter)
-                initViewPager(adapter)
-                initButtonsLogic(adapter)
-            })
+        viewModel.laboratoryResearches.observeResultsComponent(resultViewTools) { laboratoryResearches ->
+            val adapter = LaboratoryResearchAdapter(childFragmentManager, lifecycle)
+            initAdapter(laboratoryResearches, adapter)
+            initViewPager(adapter)
+            initButtonsLogic(adapter)
+        }
     }
 
     private fun observeCreateLaboratoryResearch() {
-        viewModel.createLaboratoryResearch.observeResults(
-            this,
-            binding.root,
-            binding.resultView, {
-                with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
-                }
-                viewModel.getOrReloadLaboratoryResearches()
-                viewModel.onSuccessCreateToast()
-            })
+        viewModel.createLaboratoryResearch.observeResultsComponent(resultViewTools) {
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
+                resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
+            }
+            viewModel.getOrReloadLaboratoryResearches()
+            viewModel.onSuccessCreateToast()
+        }
     }
 
     private fun observeUpdateLaboratoryResearch() {
-        viewModel.updateLaboratoryResearch.observeResults(
-            this,
-            binding.root,
-            binding.resultView, {
-                with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
-                    resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
-                }
-                viewModel.getOrReloadLaboratoryResearches()
-                viewModel.onSuccessChangeToast()
-            })
+        viewModel.updateLaboratoryResearch.observeResultsComponent(resultViewTools) {
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_laboratory_research_load))
+                resultView.setTryAgainAction { viewModel.getOrReloadLaboratoryResearches() }
+            }
+            viewModel.getOrReloadLaboratoryResearches()
+            viewModel.onSuccessChangeToast()
+        }
     }
 
 

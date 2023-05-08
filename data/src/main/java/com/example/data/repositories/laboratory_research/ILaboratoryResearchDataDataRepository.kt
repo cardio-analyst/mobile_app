@@ -1,11 +1,11 @@
 package com.example.data.repositories.laboratory_research
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.laboratory_research.sources.entities.*
 import kotlinx.coroutines.flow.Flow
 
-interface ILaboratoryResearchDataRepository : Repository {
+interface ILaboratoryResearchDataDataRepository : DataRepository {
 
     /**
      * Get all available diseases to laboratoryResearches

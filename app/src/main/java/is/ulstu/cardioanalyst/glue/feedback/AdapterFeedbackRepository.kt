@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.feedback
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.feedback.IFeedbackDataRepository
+import com.example.data.repositories.feedback.IFeedbackDataDataRepository
 import com.example.feedback.domain.FeedbackRepository
 import com.example.feedback.domain.entities.Feedback
 import com.example.feedback.domain.entities.FeedbackResponse
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterFeedbackRepository @Inject constructor(
-    private val feedbackRepository: IFeedbackDataRepository,
+    private val feedbackRepository: IFeedbackDataDataRepository,
 ) : FeedbackRepository {
 
     override fun sendFeedback(feedback: Feedback): Flow<ResultState<FeedbackResponse>> =

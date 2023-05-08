@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.user
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import com.example.profile.domain.UserInfoRepository
 import com.example.profile.domain.entities.UserInfoRequestEntity
 import com.example.profile.domain.entities.UserInfoResponseEntity
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterUserInfoRepository @Inject constructor(
-    private val userRepository: IUserDataRepository,
+    private val userRepository: IUserDataDataRepository,
 ) : UserInfoRepository {
 
     override fun getAllAvailableRegions(): List<String> =

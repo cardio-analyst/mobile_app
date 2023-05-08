@@ -1,13 +1,12 @@
 package com.example.diseases.presentation
 
 import androidx.lifecycle.viewModelScope
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
 import com.example.diseases.R
 import com.example.diseases.domain.DiseasesRepository
 import com.example.diseases.domain.entities.DiseasesEntity
+import com.example.presentation.BaseRouter
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
@@ -19,7 +18,8 @@ import javax.inject.Inject
 class DiseasesViewModel @Inject constructor(
     private val uiActions: UiAction,
     private val diseasesRepository: DiseasesRepository,
-) : BaseViewModel(uiActions) {
+    private val baseRouter: BaseRouter,
+) : BaseViewModel(uiActions), BaseRouter by baseRouter {
 
     private val _diseases = SingleLiveEvent<ResultState<DiseasesEntity>>()
     val diseases = _diseases.share()
@@ -29,8 +29,6 @@ class DiseasesViewModel @Inject constructor(
 
     private fun getUserDiseases() = viewModelScope.safeLaunch {
         diseasesRepository.getUserDiseases().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _diseases.value = it
         }
     }
@@ -45,8 +43,6 @@ class DiseasesViewModel @Inject constructor(
     fun setUserDiseases(diseasesMainEntity: DiseasesEntity) =
         viewModelScope.safeLaunch {
             diseasesRepository.setUserDiseases(diseasesMainEntity).collect {
-                if (it is Error && it.error is RefreshTokenExpired)
-                    throw it.error
                 _diseasesSave.value = it
                 if (it is Success)
                     _diseases.value = Success(diseasesMainEntity)

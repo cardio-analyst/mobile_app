@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.diseases
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.diseases.DiseasesDataRepository
+import com.example.data.repositories.diseases.DiseasesDataDataRepository
 import com.example.diseases.domain.DiseasesRepository
 import com.example.diseases.domain.entities.DiseasesEntity
 import `is`.ulstu.cardioanalyst.glue.diseases.mappers.toDiseasesDataEntity
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterDiseasesRepository @Inject constructor(
-    private val diseasesRepository: DiseasesDataRepository,
+    private val diseasesRepository: DiseasesDataDataRepository,
 ) : DiseasesRepository {
 
     override fun getUserDiseases(): Flow<ResultState<DiseasesEntity>> =

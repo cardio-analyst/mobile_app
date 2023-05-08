@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.user
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import com.example.registration.domain.UserSignUpRepository
 import com.example.registration.domain.entities.UserSignUpResponseEntity
 import com.example.registration.domain.entities.UserSingUpRequestEntity
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterUserSignUpRepository @Inject constructor(
-    private val userRepository: IUserDataRepository,
+    private val userRepository: IUserDataDataRepository,
 ) : UserSignUpRepository {
 
     override fun signInUser(loginOrEmail: String, password: String): Flow<ResultState<Unit>> =

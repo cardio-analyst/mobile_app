@@ -1,6 +1,8 @@
 package com.example.profile.presentation
 
-interface ProfileRouter {
+import com.example.presentation.BaseRouter
+
+interface ProfileRouter : BaseRouter {
 
     fun launchAuthorizationScreen()
 }

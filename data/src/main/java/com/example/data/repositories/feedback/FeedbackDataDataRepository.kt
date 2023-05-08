@@ -5,16 +5,16 @@ import com.example.common.flows.ResultState
 import com.example.data.repositories.feedback.sources.FeedbackSource
 import com.example.data.repositories.feedback.sources.entities.FeedbackDataEntity
 import com.example.data.repositories.feedback.sources.entities.FeedbackResponseDataEntity
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FeedbackDataRepository @Inject constructor(
+class FeedbackDataDataRepository @Inject constructor(
     private val feedbackSource: FeedbackSource,
-    private val userRepository: IUserDataRepository,
-) : IFeedbackDataRepository {
+    private val userRepository: IUserDataDataRepository,
+) : IFeedbackDataDataRepository {
 
     private val sendFeedbackLazyFlowSubject =
         LazyFlowSubject<FeedbackDataEntity, FeedbackResponseDataEntity> { feedbackDataEntity ->

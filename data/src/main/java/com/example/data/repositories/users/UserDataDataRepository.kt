@@ -11,10 +11,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserDataRepository @Inject constructor(
+class UserDataDataRepository @Inject constructor(
     private val usersSource: UsersSource,
     private val userSettings: UserSettings,
-) : IUserDataRepository {
+) : IUserDataDataRepository {
 
     private val regionsList: List<String> = listOf(
         "Москва",
@@ -130,7 +130,7 @@ class UserDataRepository @Inject constructor(
     override fun getCurrentUserInfo() = userLazyFlowSubject.listen(Unit)
 
     private suspend fun doGetCurrentUserInfo(): UserInfoResponseDataEntity =
-        wrapBackendExceptions(this@UserDataRepository) {
+        wrapBackendExceptions(this@UserDataDataRepository) {
             usersSource.getUserInfo()
         }
 
@@ -182,7 +182,7 @@ class UserDataRepository @Inject constructor(
         with(userSettings) { setUserAccountAccessToken(null); setCurrentRefreshToken(null) }
 
     override suspend fun changeUserParams(userInfoRequestDataEntity: UserInfoRequestDataEntity) =
-        wrapBackendExceptions(this@UserDataRepository) {
+        wrapBackendExceptions(this@UserDataDataRepository) {
             usersSource.setUserInfo(userInfoRequestDataEntity)
             reloadCurrentUserInfo()
         }

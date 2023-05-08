@@ -52,10 +52,7 @@ class AuthorizationFragment @Inject constructor() : BaseFragment(R.layout.fragme
     }
 
     private fun observeUserSignIn() {
-        viewModel.userSignIn.observeResultsComponent(
-            resultViewTools = resultViewTools,
-            onSessionExpired = null,
-        ) {
+        viewModel.userSignIn.observeResultsComponent(resultViewTools,) {
             viewModel.launchTabsScreen()
         }
     }

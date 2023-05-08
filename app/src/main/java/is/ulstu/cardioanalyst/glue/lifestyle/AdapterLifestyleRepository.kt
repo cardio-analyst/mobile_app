@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.lifestyle
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.lifestyle.ILifestyleDataRepository
+import com.example.data.repositories.lifestyle.ILifestyleDataDataRepository
 import com.example.lifestyle.domain.LifestyleRepository
 import com.example.lifestyle.domain.entities.LifestyleEntity
 import `is`.ulstu.cardioanalyst.glue.lifestyle.mappers.toLifestyleDataEntity
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterLifestyleRepository @Inject constructor(
-    private val lifestyleDataRepository: ILifestyleDataRepository,
+    private val lifestyleDataRepository: ILifestyleDataDataRepository,
 ) : LifestyleRepository {
     override fun getUserLifestyle(): Flow<ResultState<LifestyleEntity>> =
         lifestyleDataRepository.getUserLifestyle().map { resultState ->

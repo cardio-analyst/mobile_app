@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.stenocardia_symptoms_test
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.stenocardia_symptoms_test.IStenocardiaSymptomsTestDataRepository
+import com.example.data.repositories.stenocardia_symptoms_test.IStenocardiaSymptomsTestDataDataRepository
 import com.example.stenocardia_symptoms.domain.StenocardiaSymptomsTestRepository
 import com.example.stenocardia_symptoms.domain.entities.StenocardiaSymptomsEntity
 import `is`.ulstu.cardioanalyst.glue.stenocardia_symptoms_test.mappers.toStenocardiaSymptomsDataEntity
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterStenocardiaSymptomsTestRepository @Inject constructor(
-    private val stenocardiaSymptomsTestDataRepository: IStenocardiaSymptomsTestDataRepository,
+    private val stenocardiaSymptomsTestDataRepository: IStenocardiaSymptomsTestDataDataRepository,
 ) : StenocardiaSymptomsTestRepository {
 
     override val questions: List<StenocardiaSymptomsTestRepository.Question> =

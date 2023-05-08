@@ -10,8 +10,9 @@ import com.example.basic_indicators.R
 import com.example.basic_indicators.databinding.FragmentBasicIndicatorsBinding
 import com.example.basic_indicators.domain.entities.GetBasicIndicatorResponseEntity
 import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
 import com.example.presentation.databinding.PairActionButtonsBinding
-import com.example.presentation.observeResults
+import com.example.presentation.observeResultsComponent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +24,14 @@ class BasicIndicatorsFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentBasicIndicatorsBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
+    }
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
     private var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback? = null
@@ -76,44 +85,34 @@ class BasicIndicatorsFragment @Inject constructor() :
     }
 
     private fun observeBasicIndicators() {
-        viewModel.basicIndicators.observeResults(
-            this,
-            binding.root,
-            binding.resultView,
-            { basicIndicators ->
-                val adapter = BasicIndicatorsAdapter(childFragmentManager, lifecycle)
-                initAdapter(basicIndicators, adapter)
-                initViewPager(adapter)
-                initButtonsLogic(adapter)
-            })
+        viewModel.basicIndicators.observeResultsComponent(resultViewTools) { basicIndicators ->
+            val adapter = BasicIndicatorsAdapter(childFragmentManager, lifecycle)
+            initAdapter(basicIndicators, adapter)
+            initViewPager(adapter)
+            initButtonsLogic(adapter)
+        }
     }
 
     private fun observeCreateBasicIndicator() {
-        viewModel.createBasicIndicators.observeResults(
-            this,
-            binding.root,
-            binding.resultView, {
-                with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
-                    resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
-                }
-                viewModel.getOrReloadBasicIndicators()
-                viewModel.onSuccessCreateToast()
-            })
+        viewModel.createBasicIndicators.observeResultsComponent(resultViewTools) {
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
+                resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
+            }
+            viewModel.getOrReloadBasicIndicators()
+            viewModel.onSuccessCreateToast()
+        }
     }
 
     private fun observeUpdateBasicIndicator() {
-        viewModel.updateBasicIndicators.observeResults(
-            this,
-            binding.root,
-            binding.resultView, {
-                with(binding) {
-                    resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
-                    resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
-                }
-                viewModel.getOrReloadBasicIndicators()
-                viewModel.onSuccessChangeToast()
-            })
+        viewModel.updateBasicIndicators.observeResultsComponent(resultViewTools) {
+            with(binding) {
+                resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_basic_indicators_load))
+                resultView.setTryAgainAction { viewModel.getOrReloadBasicIndicators() }
+            }
+            viewModel.getOrReloadBasicIndicators()
+            viewModel.onSuccessChangeToast()
+        }
     }
 
 

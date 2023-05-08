@@ -32,8 +32,6 @@ class ProfileViewModel @Inject constructor(
 
     private fun getCurrentUser() = viewModelScope.safeLaunch {
         userRepository.getCurrentUserInfo().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _user.value = it
         }
     }

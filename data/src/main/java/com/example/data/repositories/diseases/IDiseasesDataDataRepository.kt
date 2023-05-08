@@ -1,11 +1,11 @@
 package com.example.data.repositories.diseases
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.diseases.sources.entities.DiseasesDataEntity
 import kotlinx.coroutines.flow.Flow
 
-interface IDiseasesDataRepository : Repository {
+interface IDiseasesDataDataRepository : DataRepository {
     /**
      * Get all available diseases to check
      * @return [Flow]

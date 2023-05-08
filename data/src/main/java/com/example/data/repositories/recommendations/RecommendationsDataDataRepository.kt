@@ -6,16 +6,16 @@ import com.example.data.repositories.recommendations.sources.RecommendationsSour
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RecommendationsDataRepository @Inject constructor(
+class RecommendationsDataDataRepository @Inject constructor(
     private val recommendationsSource: RecommendationsSource,
-    private val userRepository: IUserDataRepository,
-) : IRecommendationsDataRepository {
+    private val userRepository: IUserDataDataRepository,
+) : IRecommendationsDataDataRepository {
 
     // --- Lazy Repository Flows for observers
 

@@ -1,11 +1,11 @@
 package com.example.data.repositories.lifestyle
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.lifestyle.sources.entities.LifestyleDataEntity
 import kotlinx.coroutines.flow.Flow
 
-interface ILifestyleDataRepository : Repository {
+interface ILifestyleDataDataRepository : DataRepository {
 
     /**
      * Get lifestyle data to check
