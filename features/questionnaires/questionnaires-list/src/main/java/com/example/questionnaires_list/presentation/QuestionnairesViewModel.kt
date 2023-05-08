@@ -95,12 +95,6 @@ class QuestionnairesViewModel @Inject constructor(
     }
 
     fun getOrReloadQuestionnaires() = getQuestionnaires()
-        /*if (firstLoadFlag)
-            getQuestionnaires()
-        else {
-            stenocardiaSymptomsTestInfoRepository.reloadGetUserStenocardiaSymptoms()
-            //treatmentAdherenceTestInfoRepository.reloadGetUserTreatmentAdherence()
-        }*/
 
     fun removeListeners() {
         stenocardiaSymptomsTestInfoRepository.removeAllListenersGet()

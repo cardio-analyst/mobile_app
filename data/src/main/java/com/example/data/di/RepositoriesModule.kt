@@ -4,6 +4,8 @@ import com.example.data.repositories.basic_indicators.BasicIndicatorsDataReposit
 import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
 import com.example.data.repositories.diseases.DiseasesDataRepository
 import com.example.data.repositories.diseases.IDiseasesDataRepository
+import com.example.data.repositories.feedback.FeedbackDataRepository
+import com.example.data.repositories.feedback.IFeedbackDataRepository
 import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataRepository
 import com.example.data.repositories.laboratory_research.LaboratoryResearchDataRepository
 import com.example.data.repositories.lifestyle.ILifestyleDataRepository
@@ -54,6 +56,11 @@ abstract class RepositoriesModule {
     abstract fun bindUserRepository(
         userDBRepository: UserDataRepository
     ): IUserDataRepository
+
+    @Binds
+    abstract fun bindFeedbackDataRepository(
+        feedbackDataRepository: FeedbackDataRepository
+    ): IFeedbackDataRepository
 
     @Binds
     abstract fun bindStenocardiaSymptomsTestDataRepository(

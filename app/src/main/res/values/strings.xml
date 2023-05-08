@@ -247,7 +247,7 @@
     <string name="button_text_next">Далее</string>
     <string name="button_text_finish">Завершить</string>
     <string name="button_text_calculate">Рассчитать</string>
-    <string name="button_text_send">Отправить</string>
+    <string name="button_text_send_feedback">Отправить</string>
 
 
     <!-- Toasts -->

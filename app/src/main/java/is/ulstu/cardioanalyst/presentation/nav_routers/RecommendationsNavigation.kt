@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.presentation.nav_routers
 
+import com.example.recommendations.presentation.RecommendationsFragmentDirections
 import com.example.recommendations.presentation.RecommendationsRouter
 import `is`.ulstu.cardioanalyst.R
 import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
@@ -13,4 +14,10 @@ class RecommendationsNavigation @Inject constructor(
 
     override fun navigateToQuestionnaires() =
         tabsController.navigateToTab(R.id.questionnaires_graph)
+
+    override fun launchFeedbackScreen() {
+        val direction =
+            RecommendationsFragmentDirections.actionRecommendationFragmentToFeedbackFragment()
+        tabsController.navigate(direction)
+    }
 }

@@ -21,9 +21,7 @@ class RecommendationsFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentRecommendationsBinding::bind)
     private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
-    private val resultViewTools by lazy {
-        ResultViewTools(this, binding.root, binding.resultView)
-    }
+    private fun resultViewTools() = ResultViewTools(this, binding.root, binding.resultView)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +32,9 @@ class RecommendationsFragment @Inject constructor() :
             startSurvey.setOnClickListener {
                 viewModel.navigateToQuestionnaires()
             }
+            sendFeedbackButton.setOnClickListener {
+                viewModel.launchFeedbackScreen()
+            }
         }
 
         observeRecommendations()
@@ -42,8 +43,8 @@ class RecommendationsFragment @Inject constructor() :
 
     private fun observeRecommendations() {
         viewModel.recommendations.observeResultsComponent(
-            resultViewTools,
-            null
+            resultViewTools(),
+            null,
         ) { recommendations ->
             binding.welcomeWindow.visibility =
                 if (recommendations.isEmpty()) View.VISIBLE else View.GONE
