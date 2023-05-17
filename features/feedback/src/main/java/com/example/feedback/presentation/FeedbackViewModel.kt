@@ -3,6 +3,7 @@ package com.example.feedback.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.common.flows.ResultState
+import com.example.feedback.BuildConfig
 import com.example.feedback.R
 import com.example.feedback.domain.FeedbackRepository
 import com.example.feedback.domain.entities.Feedback

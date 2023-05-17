@@ -64,7 +64,7 @@ class QuestionnairesViewModel @Inject constructor(
         add(
             StenocardiaSymptomsTest(
                 title = uiAction.getString(R.string.angina_symptoms),
-                description = "lsdkfgjnklsdfjmgklsdg",
+                description = uiAction.getString(R.string.angina_symptoms_descriptions),
                 stenocardiaSymptoms = stenocardiaSymptoms,
                 onClick = {
                     questionnaireRouter.launchStenocardiaSymptomsTest()
@@ -74,7 +74,7 @@ class QuestionnairesViewModel @Inject constructor(
         add(
             TreatmentAdherenceTest(
                 title = uiAction.getString(R.string.treatment_adherence),
-                description = "lsdkfgjnklsdfjmgklsdg",
+                description = uiAction.getString(R.string.treatment_adherence_descriptions),
                 generalResult = calculateGeneralResult(treatmentAdherence),
                 treatmentAdherence = treatmentAdherence,
                 onClick = {
