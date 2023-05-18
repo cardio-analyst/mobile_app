@@ -1,12 +1,12 @@
 package com.example.data.repositories.feedback
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.feedback.sources.entities.FeedbackDataEntity
 import com.example.data.repositories.feedback.sources.entities.FeedbackResponseDataEntity
 import kotlinx.coroutines.flow.Flow
 
-interface IFeedbackDataRepository : Repository {
+interface IFeedbackDataDataRepository : DataRepository {
 
     /**
      * Send feedback to moderators

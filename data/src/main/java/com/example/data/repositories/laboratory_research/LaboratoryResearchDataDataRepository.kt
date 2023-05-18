@@ -4,16 +4,16 @@ import com.example.common.flows.LazyFlowSubject
 import com.example.common.flows.ResultState
 import com.example.data.repositories.laboratory_research.sources.LaboratoryResearchSource
 import com.example.data.repositories.laboratory_research.sources.entities.*
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LaboratoryResearchDataRepository @Inject constructor(
+class LaboratoryResearchDataDataRepository @Inject constructor(
     private val laboratoryResearchSource: LaboratoryResearchSource,
-    private val userRepository: IUserDataRepository,
-) : ILaboratoryResearchDataRepository {
+    private val userRepository: IUserDataDataRepository,
+) : ILaboratoryResearchDataDataRepository {
 
     // --- Lazy Repository Flows for observers
 

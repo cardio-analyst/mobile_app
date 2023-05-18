@@ -1,13 +1,13 @@
 package com.example.data.repositories.recommendations
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.recommendations.sources.entities.GetRecommendationsResponseDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportRequestDataEntity
 import com.example.data.repositories.recommendations.sources.entities.SendReportResponseDataEntity
 import kotlinx.coroutines.flow.Flow
 
-interface IRecommendationsDataRepository : Repository {
+interface IRecommendationsDataDataRepository : DataRepository {
 
     /**
      * Get recommendations

@@ -1,11 +1,11 @@
 package com.example.data.repositories.basic_indicators
 
 import com.example.common.flows.ResultState
-import com.example.data.Repository
+import com.example.data.DataRepository
 import com.example.data.repositories.basic_indicators.sources.entities.*
 import kotlinx.coroutines.flow.Flow
 
-interface IBasicIndicatorsDataRepository : Repository {
+interface IBasicIndicatorsDataDataRepository : DataRepository {
     /**
      * Get all available BasicIndicators
      * @return [Flow]

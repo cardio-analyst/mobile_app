@@ -1,15 +1,15 @@
 package com.example.data
 
 import com.example.common.AccessTokenExpired
-import com.example.data.repositories.users.IUserDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
 
 /**
  * Base interface for all repositories
  */
-interface Repository {
+interface DataRepository {
 
     suspend fun <T> wrapBackendExceptions(
-        userRepository: IUserDataRepository,
+        userRepository: IUserDataDataRepository,
         block: suspend () -> T
     ): T {
         return try {

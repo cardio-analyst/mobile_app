@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.presentation.nav_routers
 
+import com.example.presentation.BaseRouter
 import com.example.questionnaires_list.presentation.QuestionnaireRouter
 import com.example.questionnaires_list.presentation.QuestionnairesFragmentDirections
 import `is`.ulstu.cardioanalyst.presentation.controllers.TabsController
@@ -9,7 +10,8 @@ import javax.inject.Singleton
 @Singleton
 class QuestionnaireNavigation @Inject constructor(
     private val tabsController: TabsController,
-) : QuestionnaireRouter {
+    private val baseNavigation: BaseNavigation,
+) : QuestionnaireRouter, BaseRouter by baseNavigation {
 
     override fun launchDiseasesScreen() {
         val direction =

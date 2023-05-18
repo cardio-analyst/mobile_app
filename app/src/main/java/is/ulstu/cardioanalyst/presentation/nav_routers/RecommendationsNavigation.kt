@@ -1,5 +1,6 @@
 package `is`.ulstu.cardioanalyst.presentation.nav_routers
 
+import com.example.presentation.BaseRouter
 import com.example.recommendations.presentation.RecommendationsFragmentDirections
 import com.example.recommendations.presentation.RecommendationsRouter
 import `is`.ulstu.cardioanalyst.R
@@ -10,7 +11,8 @@ import javax.inject.Singleton
 @Singleton
 class RecommendationsNavigation @Inject constructor(
     private val tabsController: TabsController,
-) : RecommendationsRouter {
+    private val baseNavigation: BaseNavigation,
+) : RecommendationsRouter, BaseRouter by baseNavigation {
 
     override fun navigateToQuestionnaires() =
         tabsController.navigateToTab(R.id.questionnaires_graph)

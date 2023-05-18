@@ -1,5 +1,7 @@
 package com.example.feedback.presentation
 
-interface FeedbackRouter {
+import com.example.presentation.BaseRouter
+
+interface FeedbackRouter : BaseRouter {
     fun goBack()
 }

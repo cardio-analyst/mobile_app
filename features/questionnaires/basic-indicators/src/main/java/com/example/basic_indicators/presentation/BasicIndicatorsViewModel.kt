@@ -4,9 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.basic_indicators.R
 import com.example.basic_indicators.domain.BasicIndicatorsRepository
 import com.example.basic_indicators.domain.entities.*
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
+import com.example.presentation.BaseRouter
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
@@ -18,7 +17,8 @@ import javax.inject.Inject
 class BasicIndicatorsViewModel @Inject constructor(
     private val uiActions: UiAction,
     private val basicIndicatorsRepository: BasicIndicatorsRepository,
-) : BaseViewModel(uiActions) {
+    private val baseRouter: BaseRouter,
+) : BaseViewModel(uiActions), BaseRouter by baseRouter {
 
     private val _basicIndicators =
         SingleLiveEvent<ResultState<List<GetBasicIndicatorResponseEntity>>>()
@@ -44,8 +44,6 @@ class BasicIndicatorsViewModel @Inject constructor(
 
     private fun getUserBasicIndicators() = viewModelScope.safeLaunch {
         basicIndicatorsRepository.getBasicIndicators().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _basicIndicators.value = it
         }
     }
@@ -61,8 +59,6 @@ class BasicIndicatorsViewModel @Inject constructor(
             basicIndicatorsRepository.createBasicIndicator(
                 createBasicIndicatorRequestEntity
             ).collect {
-                if (it is Error && it.error is RefreshTokenExpired)
-                    throw it.error
                 _createBasicIndicators.value = it
             }
         }
@@ -90,8 +86,6 @@ class BasicIndicatorsViewModel @Inject constructor(
         viewModelScope.safeLaunch {
             basicIndicatorsRepository.updateBasicIndicator(updateBasicIndicatorIdEntity)
                 .collect {
-                    if (it is Error && it.error is RefreshTokenExpired)
-                        throw it.error
                     _updateBasicIndicators.value = it
                 }
         }

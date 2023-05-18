@@ -23,7 +23,12 @@ class FeedbackFragment @Inject constructor() : BaseFragment(R.layout.fragment_fe
 
     private val binding by viewBinding(FragmentFeedbackBinding::bind)
     private val resultViewTools by lazy {
-        ResultViewTools(this, binding.root, binding.resultView)
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
     }
     private var mark = 0
     private val markedButtons = Array(MARK_COUNT) { false }
@@ -55,10 +60,7 @@ class FeedbackFragment @Inject constructor() : BaseFragment(R.layout.fragment_fe
     }
 
     private fun observeSendingFeedback() {
-        viewModel.sendFeedback.observeResultsComponent(
-            resultViewTools,
-            onSessionExpired = null,
-        ) {
+        viewModel.sendFeedback.observeResultsComponent(resultViewTools) {
             viewModel.showSuccessToast()
             viewModel.goBack()
         }

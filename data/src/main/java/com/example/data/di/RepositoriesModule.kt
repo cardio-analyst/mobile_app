@@ -1,23 +1,23 @@
 package com.example.data.di
 
-import com.example.data.repositories.basic_indicators.BasicIndicatorsDataRepository
-import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
-import com.example.data.repositories.diseases.DiseasesDataRepository
-import com.example.data.repositories.diseases.IDiseasesDataRepository
-import com.example.data.repositories.feedback.FeedbackDataRepository
-import com.example.data.repositories.feedback.IFeedbackDataRepository
-import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataRepository
-import com.example.data.repositories.laboratory_research.LaboratoryResearchDataRepository
-import com.example.data.repositories.lifestyle.ILifestyleDataRepository
-import com.example.data.repositories.lifestyle.LifestyleDataRepository
-import com.example.data.repositories.recommendations.IRecommendationsDataRepository
-import com.example.data.repositories.recommendations.RecommendationsDataRepository
-import com.example.data.repositories.stenocardia_symptoms_test.IStenocardiaSymptomsTestDataRepository
-import com.example.data.repositories.stenocardia_symptoms_test.StenocardiaSymptomsTestDataRepository
-import com.example.data.repositories.treatment_adherence_test.ITreatmentAdherenceTestDataRepository
-import com.example.data.repositories.treatment_adherence_test.TreatmentAdherenceTestDataRepository
-import com.example.data.repositories.users.IUserDataRepository
-import com.example.data.repositories.users.UserDataRepository
+import com.example.data.repositories.basic_indicators.BasicIndicatorsDataDataRepository
+import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataDataRepository
+import com.example.data.repositories.diseases.DiseasesDataDataRepository
+import com.example.data.repositories.diseases.IDiseasesDataDataRepository
+import com.example.data.repositories.feedback.FeedbackDataDataRepository
+import com.example.data.repositories.feedback.IFeedbackDataDataRepository
+import com.example.data.repositories.laboratory_research.ILaboratoryResearchDataDataRepository
+import com.example.data.repositories.laboratory_research.LaboratoryResearchDataDataRepository
+import com.example.data.repositories.lifestyle.ILifestyleDataDataRepository
+import com.example.data.repositories.lifestyle.LifestyleDataDataRepository
+import com.example.data.repositories.recommendations.IRecommendationsDataDataRepository
+import com.example.data.repositories.recommendations.RecommendationsDataDataRepository
+import com.example.data.repositories.stenocardia_symptoms_test.IStenocardiaSymptomsTestDataDataRepository
+import com.example.data.repositories.stenocardia_symptoms_test.StenocardiaSymptomsTestDataDataRepository
+import com.example.data.repositories.treatment_adherence_test.ITreatmentAdherenceTestDataDataRepository
+import com.example.data.repositories.treatment_adherence_test.TreatmentAdherenceTestDataDataRepository
+import com.example.data.repositories.users.IUserDataDataRepository
+import com.example.data.repositories.users.UserDataDataRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,47 +29,47 @@ abstract class RepositoriesModule {
 
     @Binds
     abstract fun bindBasicIndicatorsRepository(
-        basicIndicatorsDBRepository: BasicIndicatorsDataRepository
-    ): IBasicIndicatorsDataRepository
+        basicIndicatorsDBRepository: BasicIndicatorsDataDataRepository
+    ): IBasicIndicatorsDataDataRepository
 
     @Binds
     abstract fun bindDiseasesRepository(
-        diseasesDataRepository: DiseasesDataRepository
-    ): IDiseasesDataRepository
+        diseasesDataRepository: DiseasesDataDataRepository
+    ): IDiseasesDataDataRepository
 
     @Binds
     abstract fun bindLaboratoryResearchRepository(
-        laboratoryResearchDBRepository: LaboratoryResearchDataRepository
-    ): ILaboratoryResearchDataRepository
+        laboratoryResearchDBRepository: LaboratoryResearchDataDataRepository
+    ): ILaboratoryResearchDataDataRepository
 
     @Binds
     abstract fun bindLifestyleRepository(
-        lifestyleDBRepository: LifestyleDataRepository
-    ): ILifestyleDataRepository
+        lifestyleDBRepository: LifestyleDataDataRepository
+    ): ILifestyleDataDataRepository
 
     @Binds
     abstract fun bindRecommendationsRepository(
-        recommendationsDBRepository: RecommendationsDataRepository
-    ): IRecommendationsDataRepository
+        recommendationsDBRepository: RecommendationsDataDataRepository
+    ): IRecommendationsDataDataRepository
 
     @Binds
     abstract fun bindUserRepository(
-        userDBRepository: UserDataRepository
-    ): IUserDataRepository
+        userDBRepository: UserDataDataRepository
+    ): IUserDataDataRepository
 
     @Binds
     abstract fun bindFeedbackDataRepository(
-        feedbackDataRepository: FeedbackDataRepository
-    ): IFeedbackDataRepository
+        feedbackDataRepository: FeedbackDataDataRepository
+    ): IFeedbackDataDataRepository
 
     @Binds
     abstract fun bindStenocardiaSymptomsTestDataRepository(
-        stenocardiaSymptomsTestDataRepository: StenocardiaSymptomsTestDataRepository
-    ): IStenocardiaSymptomsTestDataRepository
+        stenocardiaSymptomsTestDataRepository: StenocardiaSymptomsTestDataDataRepository
+    ): IStenocardiaSymptomsTestDataDataRepository
 
     @Binds
     abstract fun bindTreatmentAdherenceTestDataRepository(
-        treatmentAdherenceTestDataRepository: TreatmentAdherenceTestDataRepository
-    ): ITreatmentAdherenceTestDataRepository
+        treatmentAdherenceTestDataRepository: TreatmentAdherenceTestDataDataRepository
+    ): ITreatmentAdherenceTestDataDataRepository
 
 }

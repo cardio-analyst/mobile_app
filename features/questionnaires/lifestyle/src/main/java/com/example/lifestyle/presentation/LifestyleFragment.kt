@@ -10,8 +10,9 @@ import com.example.lifestyle.R
 import com.example.lifestyle.databinding.FragmentLifestyleBinding
 import com.example.lifestyle.domain.entities.LifestyleEntity
 import com.example.presentation.BaseFragment
+import com.example.presentation.ResultViewTools
 import com.example.presentation.databinding.PairActionButtonsBinding
-import com.example.presentation.observeResults
+import com.example.presentation.observeResultsComponent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,6 +23,14 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
 
     private val binding by viewBinding(FragmentLifestyleBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
+    private val resultViewTools by lazy {
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
+    }
     private lateinit var buttonVisibility: (visibility: Int) -> Unit
 
     private lateinit var currentLifestyleData: LifestyleEntity
@@ -47,7 +56,7 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
     }
 
     private fun observeLifestyle() {
-        viewModel.lifestyle.observeResults(this, binding.root, binding.resultView, { data ->
+        viewModel.lifestyle.observeResultsComponent(resultViewTools) { data ->
             // init views
             currentLifestyleData = data.copy()
             buttonVisibility(if (currentLifestyleData != data) View.VISIBLE else View.INVISIBLE)
@@ -72,17 +81,17 @@ class LifestyleFragment @Inject constructor() : BaseFragment(R.layout.fragment_l
                     buttonVisibility(View.INVISIBLE)
                 }
             }
-        })
+        }
     }
 
     private fun observeLifestyleSave() {
-        viewModel.lifestyleSave.observeResults(this, binding.root, binding.resultView, {
+        viewModel.lifestyleSave.observeResultsComponent(resultViewTools) {
             viewModel.onSuccessSaveToast()
             with(binding) {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_user_lifestyle_load))
                 resultView.setTryAgainAction { viewModel.getOrReloadLifestyle() }
             }
-        })
+        }
     }
 
     private fun resetViews(currentLifestyleData: LifestyleEntity, data: LifestyleEntity) {

@@ -3,7 +3,7 @@ package `is`.ulstu.cardioanalyst.glue.basic_indicators
 import com.example.basic_indicators.domain.BasicIndicatorsRepository
 import com.example.basic_indicators.domain.entities.*
 import com.example.common.flows.ResultState
-import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataRepository
+import com.example.data.repositories.basic_indicators.IBasicIndicatorsDataDataRepository
 import `is`.ulstu.cardioanalyst.glue.basic_indicators.mappers.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterBasicIndicatorsRepository @Inject constructor(
-    private val basicIndicatorsRepository: IBasicIndicatorsDataRepository,
+    private val basicIndicatorsRepository: IBasicIndicatorsDataDataRepository,
 ) : BasicIndicatorsRepository {
 
     override fun getBasicIndicators(): Flow<ResultState<List<GetBasicIndicatorResponseEntity>>> =

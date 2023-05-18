@@ -1,6 +1,8 @@
 package com.example.questionnaires_list.presentation
 
-interface QuestionnaireRouter {
+import com.example.presentation.BaseRouter
+
+interface QuestionnaireRouter : BaseRouter {
 
     fun launchDiseasesScreen()
 

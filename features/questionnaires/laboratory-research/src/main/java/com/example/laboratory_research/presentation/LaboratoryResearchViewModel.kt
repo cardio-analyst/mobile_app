@@ -1,12 +1,11 @@
 package com.example.laboratory_research.presentation
 
 import androidx.lifecycle.viewModelScope
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.laboratory_research.R
 import com.example.laboratory_research.domain.LaboratoryResearchRepository
 import com.example.laboratory_research.domain.entities.*
+import com.example.presentation.BaseRouter
 import com.example.presentation.BaseViewModel
 import com.example.presentation.SingleLiveEvent
 import com.example.presentation.share
@@ -18,7 +17,8 @@ import javax.inject.Inject
 class LaboratoryResearchViewModel @Inject constructor(
     private val uiActions: UiAction,
     private val laboratoryResearchRepository: LaboratoryResearchRepository,
-) : BaseViewModel(uiActions) {
+    private val baseRouter: BaseRouter,
+) : BaseViewModel(uiActions), BaseRouter by baseRouter {
 
     private val _laboratoryResearches =
         SingleLiveEvent<ResultState<List<GetLaboratoryResearchResponseEntity>>>()
@@ -44,8 +44,6 @@ class LaboratoryResearchViewModel @Inject constructor(
 
     private fun getUserLaboratoryResearches() = viewModelScope.safeLaunch {
         laboratoryResearchRepository.getLaboratoryResearches().collect {
-            if (it is Error && it.error is RefreshTokenExpired)
-                throw it.error
             _laboratoryResearches.value = it
         }
     }
@@ -61,8 +59,6 @@ class LaboratoryResearchViewModel @Inject constructor(
             laboratoryResearchRepository.createLaboratoryResearch(
                 createLaboratoryResearchRequestEntity
             ).collect {
-                if (it is Error && it.error is RefreshTokenExpired)
-                    throw it.error
                 _createLaboratoryResearch.value = it
             }
         }
@@ -88,8 +84,6 @@ class LaboratoryResearchViewModel @Inject constructor(
         viewModelScope.safeLaunch {
             laboratoryResearchRepository.updateLaboratoryResearch(updateLaboratoryResearchIdEntity)
                 .collect {
-                    if (it is Error && it.error is RefreshTokenExpired)
-                        throw it.error
                     _updateLaboratoryResearch.value = it
                 }
         }

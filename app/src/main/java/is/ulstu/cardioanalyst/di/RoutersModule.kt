@@ -2,6 +2,7 @@ package `is`.ulstu.cardioanalyst.di
 
 import com.example.authorization.presentation.AuthorizationRouter
 import com.example.feedback.presentation.FeedbackRouter
+import com.example.presentation.BaseRouter
 import com.example.profile.presentation.ProfileRouter
 import com.example.questionnaires_list.presentation.QuestionnaireRouter
 import com.example.recommendations.presentation.RecommendationsRouter
@@ -18,6 +19,11 @@ import `is`.ulstu.cardioanalyst.presentation.nav_routers.*
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RoutersModule {
+
+    @Binds
+    abstract fun bindBaseRouter(
+        baseNavigation: BaseNavigation
+    ): BaseRouter
 
     @Binds
     abstract fun bindAuthorizationRouter(

@@ -21,7 +21,12 @@ class RecommendationsFragment @Inject constructor() :
 
     private val binding by viewBinding(FragmentRecommendationsBinding::bind)
     private lateinit var viewPagerOnPageChangeCallback: ViewPager2.OnPageChangeCallback
-    private fun resultViewTools() = ResultViewTools(this, binding.root, binding.resultView)
+    private fun resultViewTools() = ResultViewTools(
+        fragment = this,
+        root = binding.root,
+        resultView = binding.resultView,
+        onSessionExpired = viewModel.onSessionExpired,
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,10 +47,7 @@ class RecommendationsFragment @Inject constructor() :
     }
 
     private fun observeRecommendations() {
-        viewModel.recommendations.observeResultsComponent(
-            resultViewTools(),
-            null,
-        ) { recommendations ->
+        viewModel.recommendations.observeResultsComponent(resultViewTools()) { recommendations ->
             binding.welcomeWindow.visibility =
                 if (recommendations.isEmpty()) View.VISIBLE else View.GONE
 

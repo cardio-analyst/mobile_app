@@ -2,8 +2,6 @@ package com.example.questionnaires_list.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.common.RefreshTokenExpired
-import com.example.common.flows.Error
 import com.example.common.flows.ResultState
 import com.example.common.flows.Success
 import com.example.presentation.BaseViewModel
@@ -36,20 +34,12 @@ class QuestionnairesViewModel @Inject constructor(
     private fun getQuestionnaires() = viewModelScope.safeLaunch {
         stenocardiaSymptomsTestInfoRepository.getUserStenocardiaSymptoms()
             .collect { stenocardiaSymptomsResultState ->
-                when {
-                    stenocardiaSymptomsResultState is Error
-                            && stenocardiaSymptomsResultState.error is RefreshTokenExpired -> {
-                        throw stenocardiaSymptomsResultState.error
-                    }
-                    stenocardiaSymptomsResultState is Success -> {
+                when (stenocardiaSymptomsResultState) {
+                    is Success -> {
                         treatmentAdherenceTestInfoRepository.getUserTreatmentAdherence()
                             .collect { treatmentAdherenceResultState ->
-                                _questionnairesList.value = when {
-                                    treatmentAdherenceResultState is Error
-                                            && treatmentAdherenceResultState.error is RefreshTokenExpired -> {
-                                        throw treatmentAdherenceResultState.error
-                                    }
-                                    treatmentAdherenceResultState is Success -> {
+                                _questionnairesList.value = when (treatmentAdherenceResultState) {
+                                    is Success -> {
                                         treatmentAdherenceResultState.map {
                                             buildQuestionnairesList(
                                                 stenocardiaSymptomsResultState.value,
@@ -74,7 +64,7 @@ class QuestionnairesViewModel @Inject constructor(
         add(
             StenocardiaSymptomsTest(
                 title = uiAction.getString(R.string.angina_symptoms),
-                description = "lsdkfgjnklsdfjmgklsdg",
+                description = uiAction.getString(R.string.angina_symptoms_descriptions),
                 stenocardiaSymptoms = stenocardiaSymptoms,
                 onClick = {
                     questionnaireRouter.launchStenocardiaSymptomsTest()
@@ -84,7 +74,7 @@ class QuestionnairesViewModel @Inject constructor(
         add(
             TreatmentAdherenceTest(
                 title = uiAction.getString(R.string.treatment_adherence),
-                description = "lsdkfgjnklsdfjmgklsdg",
+                description = uiAction.getString(R.string.treatment_adherence_descriptions),
                 generalResult = calculateGeneralResult(treatmentAdherence),
                 treatmentAdherence = treatmentAdherence,
                 onClick = {

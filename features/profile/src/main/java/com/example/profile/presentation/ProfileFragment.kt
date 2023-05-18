@@ -9,7 +9,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.BaseFragment
 import com.example.presentation.ResultViewTools
 import com.example.presentation.databinding.PairActionButtonsBinding
-import com.example.presentation.observeResults
 import com.example.presentation.observeResultsComponent
 import com.example.profile.R
 import com.example.profile.databinding.FragmentProfileBinding
@@ -25,7 +24,12 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
     private val binding by viewBinding(FragmentProfileBinding::bind)
     private val actionButtonsBinding by viewBinding(PairActionButtonsBinding::bind)
     private val resultViewTools by lazy {
-        ResultViewTools(this, binding.root, binding.resultView)
+        ResultViewTools(
+            fragment = this,
+            root = binding.root,
+            resultView = binding.resultView,
+            onSessionExpired = viewModel.onSessionExpired,
+        )
     }
     private var changeModeState = false
 
@@ -88,24 +92,8 @@ class ProfileFragment @Inject constructor() : BaseFragment(R.layout.fragment_pro
         viewModel.getOrReloadGetCurrentUser()
     }
 
-    /*private fun observeUserDetails() {
-        viewModel.user.observeResults(this, binding.root, binding.resultView, { currentUserInfo ->
-            with(binding) {
-                emailTextEdit.setText(currentUserInfo.email)
-                loginTextEdit.setText(currentUserInfo.login)
-                nameTextEdit.setText(
-                    "${currentUserInfo.lastName} " +
-                            "${currentUserInfo.firstName} ${currentUserInfo.middleName}"
-                )
-                birthDateTextEdit.setText(currentUserInfo.birthDate)
-                regionTextViewAlert.text = currentUserInfo.region
-                changeMode()
-                changeMode()
-            }
-        })
-    }*/
     private fun observeUserDetails() {
-        viewModel.user.observeResultsComponent(resultViewTools, null) { currentUserInfo ->
+        viewModel.user.observeResultsComponent(resultViewTools) { currentUserInfo ->
             with(binding) {
                 emailTextEdit.setText(currentUserInfo.email)
                 loginTextEdit.setText(currentUserInfo.login)

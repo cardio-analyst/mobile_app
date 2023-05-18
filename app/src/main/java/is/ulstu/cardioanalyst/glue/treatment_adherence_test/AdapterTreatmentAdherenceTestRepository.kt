@@ -1,7 +1,7 @@
 package `is`.ulstu.cardioanalyst.glue.treatment_adherence_test
 
 import com.example.common.flows.ResultState
-import com.example.data.repositories.treatment_adherence_test.ITreatmentAdherenceTestDataRepository
+import com.example.data.repositories.treatment_adherence_test.ITreatmentAdherenceTestDataDataRepository
 import com.example.treatment_adherence.domain.TreatmentAdherenceTestRepository
 import com.example.treatment_adherence.domain.entities.TreatmentAdherenceEntity
 import `is`.ulstu.cardioanalyst.glue.treatment_adherence_test.mappers.toTreatmentAdherenceDataEntity
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class AdapterTreatmentAdherenceTestRepository @Inject constructor(
-    private val treatmentAdherenceTestDataRepository: ITreatmentAdherenceTestDataRepository,
+    private val treatmentAdherenceTestDataRepository: ITreatmentAdherenceTestDataDataRepository,
 ) : TreatmentAdherenceTestRepository {
 
     override val questions: List<TreatmentAdherenceTestRepository.Question> =

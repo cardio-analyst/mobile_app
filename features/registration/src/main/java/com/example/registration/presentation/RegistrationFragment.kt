@@ -56,10 +56,7 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
     }
 
     private fun observeUserSignUp() {
-        viewModel.userSignUp.observeResultsComponent(
-            resultViewTools = resultViewTools,
-            onSessionExpired = null,
-        ) {
+        viewModel.userSignUp.observeResultsComponent(resultViewTools) {
             with(binding) {
                 resultView.setPendingDescription(resources.getString(R.string.flow_pending_auth))
                 viewModel.reloadSignInUserRequest(
@@ -75,10 +72,7 @@ class RegistrationFragment @Inject constructor() : BaseFragment(R.layout.fragmen
     }
 
     private fun observeUserSignIn() {
-        viewModel.userSignIn.observeResultsComponent(
-            resultViewTools = resultViewTools,
-            onSessionExpired = null,
-        ) {
+        viewModel.userSignIn.observeResultsComponent(resultViewTools) {
             viewModel.launchTabsScreen()
         }
     }
