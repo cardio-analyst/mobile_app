@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_questionnaires">Мои анкеты</string>
+
+    <!--Questionnaires-->
+    <string name="diseases_title">Заболевания</string>
+    <string name="diseases_description">В этой анкете вам предлагается заполнить данные о заболеваниях, которые тревожили вас на протяжении всей вашей жизни. Данная информация существенно помогает сгенерировать качественные рекомендации для ведения здорового образа жизни</string>
+
+    <string name="basic_indicators_title">Базовые показатели сердечно-сосудистого здоровья </string>
+    <string name="basic_indicators_description">В данной анкете необходимо заполнить базовые данные, связанные с показателями сердечно-сосудистого здоровья (Рост, вес, пол, объем талии и другое)</string>
+
+    <string name="laboratory_research_title">Лабораторные исследования</string>
+    <string name="laboratory_research_description">Заполните результаты лабораторных исследований для более точных рекоммендаций: Холестерин высокой/низкой плотности, липопротеин, креатинин, триглицериды и другое…</string>
+
+    <string name="lifestyle_title">Образ жизни</string>
+    <string name="lifestyle_description">Образ жизни помогает нашей рекомендательной системе более гибко подбирать рекоммендации для вас</string>
+
+    <string name="result">Результат</string>
+    <!-- Lifestyle angina symptoms options -->
+    <string name="angina_symptoms_no_symptoms">Нет симптомов</string>
+    <string name="angina_symptoms_symptoms">Необходимо записаться к кардиологу</string>
+    <!-- Lifestyle treatment adherence options -->
+    <string name="treatment_adherence_low">Низкая</string>
+    <string name="treatment_adherence_medium">Средняя</string>
+    <string name="treatment_adherence_high">Высокая</string>
+    <string name="treatment_adherence_test_result">Приверженность лечению: %s\n\nПриверженность лекарственной терапии: %s\n\nПриверженность медицинскому сопровождению: %s\n\nПриверженность модификации образа жизни: %s</string>
+
+    <string name="angina_symptoms">Симптомы стенокардии</string>
+    <string name="angina_symptoms_descriptions">Тест с использованием модифицированного опросника Роуза для выявления стенокардии</string>
+    <string name="treatment_adherence">Приверженность лечению</string>
+    <string name="treatment_adherence_descriptions">Российский универсальный опросник количественной оценки приверженности лечению (КОП-25)</string>
+    <string name="pending_load">Загрузка анкет</string>
+
+
+</resources>

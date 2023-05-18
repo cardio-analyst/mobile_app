@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flow_pending_user_recommendations_load">Получение рекомендаций</string>
+    <string name="title_recommendation">Рекомендации</string>
+
+
+    <!-- Recommendations -->
+    <string name="recommendation">Рекомендация</string>
+    <string name="what_todo">Что рекомендуется делать?</string>
+    <string name="why_text">почему</string>
+    <string name="recommendation_todo">Рекомендации как поступить</string>
+    <string name="welcome_text">Вас приветствует Кардио Аналитик!</string>
+    <string name="welcome_tooltip">Чтобы получить персонализированные рекомендации, пожалуйста, заполните анкеты и пройдите тестирования</string>
+
+    <string name="button_text_start">Начать!</string>
+</resources>

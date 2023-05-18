@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Diseases -->
+    <string name="cvdPredisposed">Наличие сердечно сосудистых заболеваний у ближайших родственников в возрасте до 70 лет</string>
+    <string name="takesStatins">Прием статинов</string>
+    <string name="hasChronicKidneyDisease">Хроническая болезнь почек</string>
+    <string name="hasArterialHypertension">Артериальная гипертония</string>
+    <string name="hasIschemicHeartDisease">Ишемическая болезнь сердца</string>
+    <string name="hasTypeTwoDiabetes">Сахарный диабет 2 типа</string>
+    <string name="hadInfarctionOrStroke">Инфаркт миокарда</string>
+    <string name="hasAtherosclerosis">Инсульт</string>
+    <string name="hasOtherCVD">Атеросклероз</string>
+
+    <!-- Tooltips -->
+    <string name="diseases_tooltip">Пожалуйста, отметьте поля, актуальные для вас</string>
+
+    <!-- Toasts -->
+    <string name="user_info_save">Изменения успешно обновлены</string>
+
+    <!-- Flow Pending Descriptions -->
+    <string name="flow_pending_user_diseases_load">Загрузка персональных данных о заболеваниях</string>
+    <string name="flow_pending_user_diseases_save">Сохранение данных о заболеваниях</string>
+
+</resources>
